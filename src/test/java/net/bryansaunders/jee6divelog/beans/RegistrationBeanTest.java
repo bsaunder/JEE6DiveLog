@@ -485,6 +485,7 @@ public class RegistrationBeanTest {
     @Test
     @Ignore
     public void ifRegistrationValidThenSuccess() {
+        //TODO Implement this test - Mock the UserService
         assertEquals(RegistrationBean.SUCCESS, this.regBean.submitRegistration());
     }
 
@@ -494,6 +495,8 @@ public class RegistrationBeanTest {
     @Test
     @Ignore
     public void ifRegistrationInvalidThenFailure() {
+        //TODO Implement this test - Mock the UserService
+        
         this.regBean.setPassword(null);
         this.regBean.setEmail(null);
         
