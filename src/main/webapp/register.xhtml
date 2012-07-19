@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:body>
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		template="templates/master.xhtml">
+		<ui:define name="title">
+		Registration
+	</ui:define>
+		<ui:define name="body">
+			<div class="row-fluid">
+				<div class="span9">
+					<h1>Registration</h1>
+					<p>Please complete the following form to register for
+						BSNet-DiveLog.</p>
+
+					<h:form class="well form-horizontal">
+						<fieldset>
+							<legend>Personal Info</legend>
+							<div class="control-group #{!firstName.valid ? 'error' : ''}">
+								<label class="control-label" for="firstName">* First Name</label>
+								<div class="controls">
+									<h:inputText class="input-xlarge" id="firstName" value="#{regBean.firstName}" binding="#{firstName}"></h:inputText>
+									<span class="help-inline"><h:message for="firstName"></h:message></span>
+								</div>
+							</div>
+
+							<div class="control-group #{!lastName.valid ? 'error' : ''}">
+								<label class="control-label" for="lastName">* Last Name</label>
+								<div class="controls">
+									<h:inputText class="input-xlarge" id="lastName" value="#{regBean.lastName}" binding="#{lastName}"></h:inputText>
+									<span class="help-inline"><h:message for="lastName"></h:message></span>
+								</div>
+							</div>
+
+							<div class="control-group #{!country.valid ? 'error' : ''}">
+								<label class="control-label" for="country">Country</label>
+								<div class="controls">
+									<h:inputText class="input-xlarge" id="country" value="#{regBean.country}" binding="#{country}"></h:inputText>
+									<span class="help-inline"><h:message for="country"></h:message></span>
+								</div>
+							</div>
+
+							<div class="control-group #{!state.valid ? 'error' : ''}">
+								<label class="control-label" for="state">State</label>
+								<div class="controls">
+									<h:inputText class="input-xlarge" id="state" value="#{regBean.state}" binding="#{state}"></h:inputText>
+									<span class="help-inline"><h:message for="state"></h:message></span>
+								</div>
+							</div>
+
+							<div class="control-group #{!city.valid ? 'error' : ''}">
+								<label class="control-label" for="city">City</label>
+								<div class="controls">
+									<h:inputText class="input-xlarge" id="city" value="#{regBean.city}" binding="#{city}"></h:inputText>
+									<span class="help-inline"><h:message for="city"></h:message></span>
+								</div>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend>Account Info</legend>
+							<div class="control-group #{!email.valid ? 'error' : ''}">
+								<label class="control-label" for="email">* User Email</label>
+								<div class="controls">
+									<h:inputText class="input-xlarge" id="email" value="#{regBean.email}" binding="#{email}"></h:inputText>
+									<span class="help-inline"><h:message for="email"></h:message></span>
+								</div>
+							</div>
+
+							<div class="control-group #{!password.valid ? 'error' : ''}">
+								<label class="control-label" for="password">* Password</label>
+								<div class="controls">
+									<h:inputSecret class="input-xlarge" id="password" value="#{regBean.password}" binding="#{password}"></h:inputSecret>
+									<span class="help-inline"><h:message for="password"></h:message></span>
+								</div>
+
+								<label class="control-label" for="confirmationPassword">* Confirm
+									Password</label>
+								<div class="controls">
+									<h:inputSecret class="input-xlarge" id="confirmationPassword" value="#{regBean.confirmationPassword}"></h:inputSecret>
+								</div>
+							</div>
+						</fieldset>
+
+						<div class="form-actions">
+							<h:commandButton type="submit" class="btn btn-primary" value="Register" action="#{regBean.submitRegistration}"></h:commandButton>&#160;&#160;&#160;
+							<h:commandButton type="reset" class="btn btn-info" value="Reset"></h:commandButton>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta charset="utf-8"></meta>
+	<title>BSNet DiveLog - <ui:insert name="title">Internet DiveLog</ui:insert></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+	<meta name="description"
+		content="Internet based DiveLog for use with Scuba Diving"></meta>
+	<meta name="author" content="Bryan Saunders"></meta>
+
+	<!-- Stylesheets -->
+	<link href="css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="css/custom.css" rel="stylesheet"></link>
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+	<!-- Favicon -->
+	<!-- <link rel="shortcut icon" href="/ico/favicon.ico"></link> -->
+</h:head>
+
+<h:body>
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="/">BSNet-DiveLog</a>
+
+
+				<div class="btn-group pull-right">
+					<a class="btn btn-primary" href="/register.xhtml"><i
+						class="icon-pencil icon-white"></i> Register</a>
+					<button class="btn btn-primary dropdown-toggle"
+						data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#login"><i class="icon-lock"></i> Sign In</a></li>
+					</ul>
+				</div>
+
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li><a href="/index.xhtml">Home</a></li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span3">
+				<div class="well tabbable">
+					<!-- Only required for left/right tabs -->
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#publicTab" data-toggle="tab">Public</a></li>
+						<li><a href="#privateTab" data-toggle="tab">Private</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="publicTab">
+							<ul class="nav nav-list">
+								<li class="nav-header">Log Book</li>
+								<li><a href="#">Dives</a></li>
+								<li><a href="#">Dive Sites</a></li>
+								<li class="nav-header">Directory</li>
+								<li><a href="#">Shops</a></li>
+								<li><a href="#">Insurance Providers</a></li>
+								<li><a href="#">Charter Services</a></li>
+								<li><a href="#">Resorts</a></li>
+							</ul>
+						</div>
+						<div class="tab-pane" id="privateTab">
+							<ul class="nav nav-list">
+								<li class="nav-header">Log Book</li>
+								<li class="dropdown" id="divesMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown"
+									href="#divesMenu"> Dives <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Manage
+												Dives</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Dive</a></li>
+									</ul></li>
+								<li class="dropdown" id="certsMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown"
+									href="#certsMenu"> Certifications <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Manage
+												Certifications</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Certification</a></li>
+									</ul></li>
+								<li class="dropdown" id="sitesMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown"
+									href="#sitesMenu"> Dive Sites <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Manage Dive
+												Sites</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Dive Site</a></li>
+									</ul></li>
+								<li class="nav-header">Gear Locker</li>
+								<li class="dropdown" id="equipMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown"
+									href="#equipMenu"> Equipment <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Manage
+												Equipment</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Equipment</a></li>
+									</ul></li>
+								<li class="dropdown" id="serviceMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown"
+									href="#serviuceMenu"> Service Log <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Manage
+												Service Records</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Service Record</a></li>
+									</ul></li>
+								<li class="dropdown" id="policyMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown"
+									href="#policyMenu"> Insurance Policies <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Manage
+												Insurance Policies</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Insurance Policy</a></li>
+									</ul></li>
+								<li class="nav-header">Directory</li>
+								<li class="dropdown" id="buddyMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown"
+									href="#buddyMenu"> Buddies <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Browse
+												Buddies</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Buddy</a></li>
+									</ul></li>
+								<li class="dropdown" id="shopMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown" href="#shopMenu">
+										Shops <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Browse
+												Shops</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Shop</a></li>
+									</ul></li>
+								<li class="dropdown" id="insMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown" href="#insMenu">
+										Insurance Providers <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Browse
+												Insurance Providers</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Insurance Provider</a></li>
+									</ul></li>
+								<li class="dropdown" id="charterMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown"
+									href="#charterMenu"> Charter Services <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Browse
+												Charter Services</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Charter Service</a></li>
+									</ul></li>
+								<li class="dropdown" id="resortsMenu"><a
+									class="dropdown-toggle" data-toggle="dropdown"
+									href="#resortsMenu"> Resorts <b class="caret"></b>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-book"></i> Browse
+												Resorts</a></li>
+										<li><a href="#"><i class="icon-plus"></i> Add New
+												Resort</a></li>
+									</ul></li>
+								<!-- Spacing for Resort Dropdown -->
+								<li>&#160;</li>
+								<li>&#160;</li>
+								<li>&#160;</li>
+								<li>&#160;</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="span9">
+				<ui:insert name="body">Default Body</ui:insert>
+			</div>
+			<!--/span-->
+		</div>
+		<!--/row-->
+
+		<hr />
+
+		<footer>
+			<p class="center">&#169; Bryan Saunders 2012. All Rights
+				Reserved.</p>
+		</footer>
+
+	</div>
+	<!--/.fluid-container-->
+
+	<!-- JavaScript - Loads Faster at Bottom of Page -->
+	<script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript"></script>
+</h:body>
+</html>
