@@ -36,7 +36,7 @@
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-6.0</artifactId>
-			<version>3.0.1.Final</version>
+			<version>1.0.0.Final</version>
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
@@ -79,7 +79,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
+			<version>5.1.21</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -218,7 +218,7 @@
 							<check>
 								<lineRate>65</lineRate>
 								<totalLineRate>75</totalLineRate>
-								<haltOnFailure>true</haltOnFailure>
+								<haltOnFailure>false</haltOnFailure>
 							</check>
 						</configuration>
 						<executions>
