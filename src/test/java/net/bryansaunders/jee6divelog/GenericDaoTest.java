@@ -17,6 +17,7 @@ import net.bryansaunders.jee6divelog.model.User;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -58,7 +59,8 @@ public class GenericDaoTest {
         return ShrinkWrap
                 .create(JavaArchive.class)
                 .addPackages(true, "net.bryansaunders.jee6divelog")
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
+                .addAsManifestResource("META-INF/persistence.xml", ArchivePaths.create("persistence.xml"));
     }
 
     /**

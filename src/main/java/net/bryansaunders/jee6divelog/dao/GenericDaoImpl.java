@@ -4,10 +4,10 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import net.bryansaunders.jee6divelog.model.DiveLogEntity;
@@ -33,7 +33,7 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
     /**
      * Entity Manager.
      */
-    @Inject
+    @PersistenceContext
     private EntityManager entityManager;
 
     /**

@@ -4,10 +4,10 @@
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-	<persistence-unit name="DiveLog">
+	<persistence-unit name="DiveLog" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
-		<jta-data-source>java:jboss/datasources/MysqlDS</jta-data-source>
+		<non-jta-data-source>java:jboss/datasources/MysqlDS</non-jta-data-source>
 
 		<!-- <jar-file>jee6divelog-model-1.0.jar</jar-file> -->
 		<class>net.bryansaunders.jee6divelog.model.User</class>

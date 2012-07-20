@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns="http://jboss.com/arquillian"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:glassfish="urn:arq:org.jboss.arquillian.container.glassfish.embedded_3">
+  
+  
+  <defaultProtocol type="Servlet 3.0" />
+    <container qualifier="jboss" default="true">
+        <protocol type="Servlet 3.0">
+            <property name="executionType">MANAGED</property>
+        </protocol>
+        <configuration>
+            <property name="jbossHome">C:\EAP-6.0.0.GA\jboss-eap-6.0</property>
+        </configuration>
+    </container>
+  
+</arquillian>
