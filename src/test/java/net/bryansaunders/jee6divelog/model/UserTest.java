@@ -96,15 +96,5 @@ public class UserTest {
         this.user.setPassword(value);
         assertEquals(value, this.user.getPassword());
     }
-    
-    /**
-     * Test method for Salt.
-     */
-    @Test
-    public void testGetSalt() {
-        final String value = "salt456";
-        this.user.setSalt(value);
-        assertEquals(value, this.user.getSalt());
-    }
 
 }

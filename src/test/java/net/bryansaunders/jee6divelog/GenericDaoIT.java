@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
@@ -40,7 +40,7 @@ public class GenericDaoIT {
      */
     @Inject
     private UserDao userDao;
-    
+
     /**
      * Entity Manager for Testing.
      */
@@ -148,7 +148,7 @@ public class GenericDaoIT {
     /**
      * Test method for get(java.lang.Integer)}.
      */
-    @Test(expected = EntityNotFoundException.class)
+    @Test(expected = NoResultException.class)
     public void ifNotFoundThenException() {
         this.userDao.get(999);
     }
@@ -335,7 +335,7 @@ public class GenericDaoIT {
     /**
      * Test method for delete(java.lang.Integer).
      */
-    @Test(expected = EntityNotFoundException.class)
+    @Test(expected = NoResultException.class)
     public void ifFoundThenDelete() {
         // given
         final User validUser = new User();
@@ -357,7 +357,7 @@ public class GenericDaoIT {
     /**
      * Test method for delete(java.lang.Integer).
      */
-    @Test(expected = EntityNotFoundException.class)
+    @Test(expected = NoResultException.class)
     public void ifNotFoundForDeleteThenException() {
         this.userDao.delete(999);
     }
@@ -365,7 +365,7 @@ public class GenericDaoIT {
     /**
      * Test method for delete(java.lang.Integer[]).
      */
-    @Test(expected = EntityNotFoundException.class)
+    @Test(expected = NoResultException.class)
     public void testDeleteIntegerArray() {
         // given
         final User validUser = new User();
@@ -412,7 +412,7 @@ public class GenericDaoIT {
     /**
      * Test method for delete(DiveLogEntity).
      */
-    @Test(expected = EntityNotFoundException.class)
+    @Test(expected = NoResultException.class)
     public void testDeleteT() {
         // given
         final User validUser = new User();
@@ -434,7 +434,7 @@ public class GenericDaoIT {
     /**
      * Test method for delete(T[]).
      */
-    @Test(expected = EntityNotFoundException.class)
+    @Test(expected = NoResultException.class)
     public void testDeleteTArray() {
         // given
         final User validUser = new User();

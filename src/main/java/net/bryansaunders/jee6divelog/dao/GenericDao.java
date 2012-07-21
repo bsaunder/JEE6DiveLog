@@ -45,7 +45,7 @@ public interface GenericDao<T extends DiveLogEntity> {
     /**
      * Retrieve an persisted objects using the given ids as primary keys.
      * 
-     * EntityNotFoundException thrown if the entity is not found, IllegalArgumentException thrown when the ID list is
+     * NoResultException thrown if the entity is not found, IllegalArgumentException thrown when the ID list is
      * invalid
      * 
      * @param ids

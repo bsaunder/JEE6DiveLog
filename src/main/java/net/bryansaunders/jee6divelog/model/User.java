@@ -54,12 +54,6 @@ public class User extends DiveLogEntity {
     private String password;
 
     /**
-     * Salt for password Hash.
-     */
-    @NotNull
-    private String salt;
-
-    /**
      * Get the firstName.
      * 
      * @return the firstName
@@ -190,25 +184,6 @@ public class User extends DiveLogEntity {
      */
     public void setPassword(final String newPassword) {
         this.password = newPassword;
-    }
-
-    /**
-     * Get the salt.
-     * 
-     * @return the salt
-     */
-    public String getSalt() {
-        return this.salt;
-    }
-
-    /**
-     * Set the salt.
-     * 
-     * @param newSalt
-     *            the salt to set
-     */
-    public void setSalt(final String newSalt) {
-        this.salt = newSalt;
     }
 
 }

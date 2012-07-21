@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -78,7 +78,7 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
     public T get(final Integer id) {
         final T entity = this.entityManager.find(this.entityClass, id);
         if (entity == null) {
-            throw new EntityNotFoundException("Entity Type: " + this.entityClass.getName() + " with ID: " + id
+            throw new NoResultException("Entity Type: " + this.entityClass.getName() + " with ID: " + id
                     + " Not Found.");
         }
 
@@ -108,11 +108,11 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
     @Override
     public List<T> getAll() {
         CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
-        
+
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(this.entityClass);
         Root<T> root = criteriaQuery.from(this.entityClass);
         criteriaQuery.select(root);
-        
+
         final TypedQuery<T> query = this.entityManager.createQuery(criteriaQuery);
 
         return query.getResultList();
