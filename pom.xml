@@ -19,7 +19,7 @@
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -76,11 +76,6 @@
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
 			<version>1.0.1.Final</version>
 		</dependency>
-<!-- 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.21</version>
-		</dependency> -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -93,16 +88,27 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-arquillian-container-managed</artifactId>
-            <version>7.1.1.Final</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency> 
-            <groupId>org.jboss.arquillian.protocol</groupId> 
-            <artifactId>arquillian-protocol-servlet</artifactId> 
-            <scope>test</scope> 
-        </dependency> 
+			<groupId>org.jboss.as</groupId>
+			<artifactId>jboss-as-arquillian-container-managed</artifactId>
+			<version>7.1.1.Final</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian.protocol</groupId>
+			<artifactId>arquillian-protocol-servlet</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian.extension</groupId>
+			<artifactId>arquillian-jacoco</artifactId>
+			<version>1.0.0.Alpha3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>org.jacoco.core</artifactId>
+			<version>0.5.8.201207111220</version>
+		</dependency>
 	</dependencies>
 
 	<profiles>
@@ -134,6 +140,18 @@
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<version>2.12</version>
+					</plugin>
+
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.6</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 
 					<!-- CheckStyle -->
@@ -202,37 +220,23 @@
 						</executions>
 					</plugin>
 
-					<!-- Cobertura -->
+					<!-- JaCoCo Code Coverage -->
 					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>cobertura-maven-plugin</artifactId>
-						<version>2.5.1</version>
-						<configuration>
-							<instrumentation>
-								<includes></includes>
-								<excludes>
-									<exclude>net/bryansaunders/**/*Test.class</exclude>
-								</excludes>
-							</instrumentation>
-							<check>
-								<lineRate>65</lineRate>
-								<totalLineRate>75</totalLineRate>
-								<haltOnFailure>false</haltOnFailure>
-							</check>
-						</configuration>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.5.8.201207111220</version>
 						<executions>
 							<execution>
-								<id>clean</id>
-								<phase>clean</phase>
 								<goals>
-									<goal>clean</goal>
+									<goal>prepare-agent</goal>
 								</goals>
+								<phase>initialize</phase>
 							</execution>
 							<execution>
-								<id>package</id>
+								<id>jacoco-site</id>
 								<phase>package</phase>
 								<goals>
-									<goal>check</goal>
+									<goal>report</goal>
 								</goals>
 							</execution>
 						</executions>
@@ -288,17 +292,9 @@
 								</plugin>
 
 								<!-- Cobertura -->
-								<plugin>
-									<groupId>org.codehaus.mojo</groupId>
-									<artifactId>cobertura-maven-plugin</artifactId>
-									<version>2.5.1</version>
-									<configuration>
-										<formats>
-											<format>html</format>
-											<format>xml</format>
-										</formats>
-									</configuration>
-								</plugin>
+								<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>cobertura-maven-plugin</artifactId> 
+									<version>2.5.1</version> <configuration> <formats> <format>html</format> 
+									<format>xml</format> </formats> </configuration> </plugin> -->
 
 								<!-- CheckStyle -->
 								<plugin>

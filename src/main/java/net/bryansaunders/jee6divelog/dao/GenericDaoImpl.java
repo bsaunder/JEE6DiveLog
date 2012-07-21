@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
@@ -25,6 +26,7 @@ import org.slf4j.LoggerFactory;
  * @param <T>
  *            Entity type for DOA, Must exted DiveLogEntity
  */
+@Stateless
 public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
 
     /**

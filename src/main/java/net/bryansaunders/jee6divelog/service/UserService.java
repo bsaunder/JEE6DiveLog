@@ -3,6 +3,8 @@
  */
 package net.bryansaunders.jee6divelog.service;
 
+import javax.annotation.Resource;
+import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
@@ -24,6 +26,12 @@ public class UserService {
      */
     @Inject
     private UserDao userDao;
+    
+    /**
+     * EJB Context for TRansaction Rollback.
+     */
+    @Resource
+    private EJBContext context;
 
     /**
      * Creates a new User.
@@ -38,7 +46,7 @@ public class UserService {
         try {
             savedUser = this.userDao.save(user);
         } catch (ConstraintViolationException e) {
-            //TODO Roll Back Transaction
+            this.context.setRollbackOnly();
         }
 
         return savedUser;
