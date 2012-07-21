@@ -2,7 +2,6 @@ package net.bryansaunders.jee6divelog.model;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
@@ -20,7 +19,7 @@ public class DiveLogEntity {
      * Id.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 

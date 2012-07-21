@@ -3,6 +3,7 @@
  */
 package net.bryansaunders.jee6divelog.service;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
 
@@ -15,6 +16,7 @@ import net.bryansaunders.jee6divelog.model.User;
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
+@Stateless
 public class UserService {
 
     /**
@@ -34,11 +36,9 @@ public class UserService {
         User savedUser = null;
 
         try {
-            this.userDao.beginTransaction();
             savedUser = this.userDao.save(user);
-            this.userDao.commitTransaction();
         } catch (ConstraintViolationException e) {
-            this.userDao.rollbackTransaction();
+            //TODO Roll Back Transaction
         }
 
         return savedUser;
