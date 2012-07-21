@@ -13,8 +13,10 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
 import net.bryansaunders.jee6divelog.DefaultDeployment;
-import net.bryansaunders.jee6divelog.model.User;
+import net.bryansaunders.jee6divelog.model.UserAccount;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -28,13 +30,13 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class UserDaoIT {
+public class UserAccountDaoIT {
 
     /**
      * Generic DAO for Testing.
      */
     @Inject
-    private UserDao userDao;
+    private UserAccountDao userDao;
 
     /**
      * Entity Manager for Testing.
@@ -90,14 +92,14 @@ public class UserDaoIT {
         final String email = "test@test.com";
         final String pass = "pass12314";
 
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan");
         validUser.setLastName("Saunders");
         validUser.setEmail(email);
         validUser.setPassword(pass);
 
         // when
-        final User savedUser = this.userDao.save(validUser);
+        final UserAccount savedUser = this.userDao.save(validUser);
 
         // then
         assertTrue(this.entityManager.contains(validUser));
@@ -109,7 +111,8 @@ public class UserDaoIT {
         assertTrue(savedUser.getId() > 0);
 
         // check the password
-        // TODO Check Password in Test
+        final String hashedEncodedPass = Base64.encodeBase64String(DigestUtils.sha256Hex(pass).getBytes());
+        assertEquals(hashedEncodedPass, savedUser.getPassword());
     }
 
 }

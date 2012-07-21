@@ -15,8 +15,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
-import net.bryansaunders.jee6divelog.dao.user.UserDao;
-import net.bryansaunders.jee6divelog.model.User;
+import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
+import net.bryansaunders.jee6divelog.model.UserAccount;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -39,7 +39,7 @@ public class GenericDaoIT {
      * Generic DAO for Testing.
      */
     @Inject
-    private UserDao userDao;
+    private UserAccountDao userDao;
 
     /**
      * Entity Manager for Testing.
@@ -101,14 +101,14 @@ public class GenericDaoIT {
     @Test
     public void ifNotNullThenSave() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan");
         validUser.setLastName("Saunders");
         validUser.setEmail("sdfsd@gmail.com");
         validUser.setPassword("pass234");
 
         // when
-        final User savedUser = this.userDao.save(validUser);
+        final UserAccount savedUser = this.userDao.save(validUser);
 
         // then
         assertTrue(this.entityManager.contains(validUser));
@@ -126,17 +126,17 @@ public class GenericDaoIT {
     @Test
     public void ifFoundThenGet() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan1");
         validUser.setLastName("Saunders1");
         validUser.setEmail("werwe@gmail.com");
         validUser.setPassword("pass12343");
 
-        final User savedUser = this.userDao.save(validUser);
+        final UserAccount savedUser = this.userDao.save(validUser);
 
         // when
         final Integer savedId = savedUser.getId();
-        final User retrievedUser = this.userDao.get(savedId);
+        final UserAccount retrievedUser = this.userDao.get(savedId);
 
         // then
         assertNotNull(retrievedUser);
@@ -161,19 +161,19 @@ public class GenericDaoIT {
         // given
         final String city = "Charleston";
 
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan2");
         validUser.setLastName("Saunders2");
         validUser.setEmail("sdfsdf@gmail.com");
         validUser.setPassword("psdf123");
 
-        final User savedUser = this.userDao.save(validUser);
+        final UserAccount savedUser = this.userDao.save(validUser);
         final Integer savedId = savedUser.getId();
 
         // when
         savedUser.setCity(city);
-        final User newSavedUser = this.userDao.save(savedUser);
-        final User retrievedUser = this.userDao.get(savedId);
+        final UserAccount newSavedUser = this.userDao.save(savedUser);
+        final UserAccount retrievedUser = this.userDao.get(savedId);
 
         // then
         assertNotNull(newSavedUser);
@@ -192,22 +192,22 @@ public class GenericDaoIT {
     @Test
     public void ifArrayFullThenSave() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan3");
         validUser.setLastName("Saunders3");
         validUser.setEmail("yrw@gmail.com");
         validUser.setPassword("patwt123");
 
-        final User validUser2 = new User();
+        final UserAccount validUser2 = new UserAccount();
         validUser2.setFirstName("Bryan4");
         validUser2.setLastName("Saunders4");
         validUser2.setEmail("tretue@gmail.com");
         validUser2.setPassword("dfghs123");
 
-        final User[] users = { validUser, validUser2 };
+        final UserAccount[] users = { validUser, validUser2 };
 
         // when
-        final List<User> savedUsers = this.userDao.save(users);
+        final List<UserAccount> savedUsers = this.userDao.save(users);
 
         // then
         assertEquals(2, savedUsers.size());
@@ -216,7 +216,7 @@ public class GenericDaoIT {
         assertTrue(this.entityManager.contains(validUser));
         assertTrue(this.entityManager.contains(validUser2));
 
-        for (final User user : savedUsers) {
+        for (final UserAccount user : savedUsers) {
             final Integer savedId = user.getId();
             assertNotNull(savedId);
             assertTrue(savedId > 0);
@@ -228,7 +228,7 @@ public class GenericDaoIT {
      */
     @Test(expected = IllegalArgumentException.class)
     public void ifArrayEmptyThenFailOnSave() {
-        final User[] users = {};
+        final UserAccount[] users = {};
         this.userDao.save(users);
     }
 
@@ -237,7 +237,7 @@ public class GenericDaoIT {
      */
     @Test(expected = IllegalArgumentException.class)
     public void ifArrayNullThenFailOnSave() {
-        final User[] users = null;
+        final UserAccount[] users = null;
         this.userDao.save(users);
     }
 
@@ -247,24 +247,24 @@ public class GenericDaoIT {
     @Test
     public void ifArrayFullThenGet() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan5");
         validUser.setLastName("Saunders5");
         validUser.setEmail("btsaunde@gmail.com");
         validUser.setPassword("pass123");
 
-        final User validUser2 = new User();
+        final UserAccount validUser2 = new UserAccount();
         validUser2.setFirstName("Bryan6");
         validUser2.setLastName("Saunders6");
         validUser2.setEmail("btsaunde@gmail.com");
         validUser2.setPassword("pass123");
 
-        final User[] users = { validUser, validUser2 };
-        final List<User> savedUsers = this.userDao.save(users);
+        final UserAccount[] users = { validUser, validUser2 };
+        final List<UserAccount> savedUsers = this.userDao.save(users);
         final Integer[] integerList = { savedUsers.get(0).getId(), savedUsers.get(1).getId() };
 
         // when
-        final List<User> retrievedUsers = this.userDao.get(integerList);
+        final List<UserAccount> retrievedUsers = this.userDao.get(integerList);
 
         // then
         assertEquals(2, retrievedUsers.size());
@@ -296,25 +296,25 @@ public class GenericDaoIT {
     @Test
     public void ifTableNotEmptyThenGetAll() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan5");
         validUser.setLastName("Saunders5");
         validUser.setEmail("sdhers@gmail.com");
         validUser.setPassword("sdge4");
 
-        final User validUser2 = new User();
+        final UserAccount validUser2 = new UserAccount();
         validUser2.setFirstName("Bryan6");
         validUser2.setLastName("Saunders6");
         validUser2.setEmail("sdfg@gmail.com");
         validUser2.setPassword("segsd");
 
-        final User[] users = { validUser, validUser2 };
+        final UserAccount[] users = { validUser, validUser2 };
         this.userDao.save(users);
         assertTrue(this.entityManager.contains(validUser));
         assertTrue(this.entityManager.contains(validUser2));
 
         // when
-        final List<User> retrievedUsers = this.userDao.getAll();
+        final List<UserAccount> retrievedUsers = this.userDao.getAll();
 
         // then
         assertEquals(2, retrievedUsers.size());
@@ -327,7 +327,7 @@ public class GenericDaoIT {
      */
     @Test
     public void ifTableEmptyThenGetNothing() {
-        final List<User> retrievedUsers = this.userDao.getAll();
+        final List<UserAccount> retrievedUsers = this.userDao.getAll();
         assertNotNull(retrievedUsers);
         assertEquals(0, retrievedUsers.size());
     }
@@ -338,13 +338,13 @@ public class GenericDaoIT {
     @Test(expected = NoResultException.class)
     public void ifFoundThenDelete() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan7");
         validUser.setLastName("Saunders7");
         validUser.setEmail("sdf@gmail.com");
         validUser.setPassword("pas3g4g");
 
-        final User savedUser = this.userDao.save(validUser);
+        final UserAccount savedUser = this.userDao.save(validUser);
         final Integer savedId = savedUser.getId();
 
         // when
@@ -368,20 +368,20 @@ public class GenericDaoIT {
     @Test(expected = NoResultException.class)
     public void testDeleteIntegerArray() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan8");
         validUser.setLastName("Saunders8");
         validUser.setEmail("sfghf@gmail.com");
         validUser.setPassword("pasfghfh4");
 
-        final User validUser2 = new User();
+        final UserAccount validUser2 = new UserAccount();
         validUser2.setFirstName("Bryan9");
         validUser2.setLastName("Saunders9");
         validUser2.setEmail("ghjkg@gmail.com");
         validUser2.setPassword("pdfght44g");
 
-        User[] users = { validUser, validUser2 };
-        final List<User> savedUsers = this.userDao.save(users);
+        UserAccount[] users = { validUser, validUser2 };
+        final List<UserAccount> savedUsers = this.userDao.save(users);
         final Integer[] integerList = { savedUsers.get(0).getId(), savedUsers.get(1).getId() };
 
         // when
@@ -415,13 +415,13 @@ public class GenericDaoIT {
     @Test(expected = NoResultException.class)
     public void testDeleteT() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan14");
         validUser.setLastName("Saunders14");
         validUser.setEmail("sgkkkf@gmail.com");
         validUser.setPassword("pahhhfh4");
 
-        final User savedUser = this.userDao.save(validUser);
+        final UserAccount savedUser = this.userDao.save(validUser);
         final Integer savedId = savedUser.getId();
 
         // when
@@ -437,20 +437,20 @@ public class GenericDaoIT {
     @Test(expected = NoResultException.class)
     public void testDeleteTArray() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan10");
         validUser.setLastName("Saunders10");
         validUser.setEmail("sghdf@gmail.com");
         validUser.setPassword("pas678fh4");
 
-        final User validUser2 = new User();
+        final UserAccount validUser2 = new UserAccount();
         validUser2.setFirstName("Bryan11");
         validUser2.setLastName("Saunders11");
         validUser2.setEmail("gfdghfgkg@gmail.com");
         validUser2.setPassword("p345ht44g");
 
-        User[] users = { validUser, validUser2 };
-        final List<User> savedUsers = this.userDao.save(users);
+        UserAccount[] users = { validUser, validUser2 };
+        final List<UserAccount> savedUsers = this.userDao.save(users);
         final Integer[] integerList = { savedUsers.get(0).getId(), savedUsers.get(1).getId() };
 
         // when
@@ -465,7 +465,7 @@ public class GenericDaoIT {
      */
     @Test(expected = IllegalArgumentException.class)
     public void ifEntityArrayEmptyThenFailOnDelete() {
-        final User[] integerList = {};
+        final UserAccount[] integerList = {};
         this.userDao.delete(integerList);
     }
 
@@ -474,7 +474,7 @@ public class GenericDaoIT {
      */
     @Test(expected = IllegalArgumentException.class)
     public void ifEntityArrayNullThenFailOnDelete() {
-        final User[] integerList = null;
+        final UserAccount[] integerList = null;
         this.userDao.delete(integerList);
     }
 
@@ -484,26 +484,26 @@ public class GenericDaoIT {
     @Test
     public void ifTableNotEmptyThenDeleteAll() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan12");
         validUser.setLastName("Saunders12");
         validUser.setEmail("sfghf@gmail.com");
         validUser.setPassword("pasfghfh4");
 
-        final User validUser2 = new User();
+        final UserAccount validUser2 = new UserAccount();
         validUser2.setFirstName("Bryan13");
         validUser2.setLastName("Saunders13");
         validUser2.setEmail("g567gffg@gmail.com");
         validUser2.setPassword("pd956t44g");
 
-        User[] users = { validUser, validUser2 };
+        UserAccount[] users = { validUser, validUser2 };
         this.userDao.save(users);
 
         // when
         this.userDao.deleteAll();
 
         // then
-        final List<User> retrievedUsers = this.userDao.getAll();
+        final List<UserAccount> retrievedUsers = this.userDao.getAll();
         assertNotNull(retrievedUsers);
         assertEquals(0, retrievedUsers.size());
     }

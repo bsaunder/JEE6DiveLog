@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "user")
-public class User extends DiveLogEntity {
+public class UserAccount extends DiveLogEntity {
 
     /**
      * User First Name.

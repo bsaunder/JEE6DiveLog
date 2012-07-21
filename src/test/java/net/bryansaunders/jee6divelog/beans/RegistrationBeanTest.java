@@ -15,7 +15,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import net.bryansaunders.jee6divelog.model.User;
+import net.bryansaunders.jee6divelog.model.UserAccount;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -508,7 +508,7 @@ public class RegistrationBeanTest {
      */
     @Test
     public void createUser(){
-        User user = this.regBean.createUser();
+        UserAccount user = this.regBean.createUser();
         
         assertEquals(user.getCity(), this.city);
         assertEquals(user.getCountry(), this.country);

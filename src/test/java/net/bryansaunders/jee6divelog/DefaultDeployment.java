@@ -32,6 +32,7 @@ public final class DefaultDeployment {
     public static WebArchive getDefaultDeployment() {
         return ShrinkWrap.create(WebArchive.class, "jee6divelog_test.war")
                 .addPackages(true, "net.bryansaunders.jee6divelog")
+                .addPackages(true, "org.apache.commons.codec")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml");
     }

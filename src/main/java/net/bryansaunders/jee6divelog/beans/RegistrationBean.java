@@ -11,8 +11,8 @@ import javax.inject.Named;
 
 import net.bryansaunders.jee6divelog.annotations.FieldMatch;
 import net.bryansaunders.jee6divelog.annotations.Password;
-import net.bryansaunders.jee6divelog.model.User;
-import net.bryansaunders.jee6divelog.service.UserService;
+import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.service.UserAccountService;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.validator.constraints.Email;
@@ -54,7 +54,7 @@ public class RegistrationBean {
      * User Service.
      */
     @Inject
-    private UserService userService;
+    private UserAccountService userService;
 
     /**
      * First Name.
@@ -118,8 +118,8 @@ public class RegistrationBean {
     public String submitRegistration() {
         String registrationResult = RegistrationBean.SUCCESS;
 
-        final User user = this.createUser();
-        final User savedUser = this.userService.createUser(user);
+        final UserAccount user = this.createUser();
+        final UserAccount savedUser = this.userService.createUser(user);
 
         if (savedUser == null) {
             registrationResult = RegistrationBean.FAILURE;
@@ -133,8 +133,8 @@ public class RegistrationBean {
      * 
      * @return new user object
      */
-    protected User createUser() {
-        final User user = new User();
+    protected UserAccount createUser() {
+        final UserAccount user = new UserAccount();
         
         try {
             BeanUtils.copyProperties(user, this);

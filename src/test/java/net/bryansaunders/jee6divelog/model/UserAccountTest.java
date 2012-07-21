@@ -12,19 +12,19 @@ import org.junit.Test;
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
-public class UserTest {
+public class UserAccountTest {
 
     /**
      * Internal User.
      */
-    private User user;
+    private UserAccount user;
 
     /**
      * Sets up the user for each test.
      */
     @Before
     public void setUpTest() {
-        this.user = new User();
+        this.user = new UserAccount();
     }
 
     /**

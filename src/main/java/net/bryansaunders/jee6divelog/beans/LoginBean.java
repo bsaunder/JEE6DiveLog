@@ -31,7 +31,7 @@ public class LoginBean {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationBean.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginBean.class);
 
     /**
      * Email.

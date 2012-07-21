@@ -16,8 +16,8 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 
-import net.bryansaunders.jee6divelog.dao.user.UserDao;
-import net.bryansaunders.jee6divelog.model.User;
+import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
+import net.bryansaunders.jee6divelog.model.UserAccount;
 
 /**
  * User Service for Working with User.
@@ -26,13 +26,13 @@ import net.bryansaunders.jee6divelog.model.User;
  * 
  */
 @Stateless
-public class UserService {
+public class UserAccountService {
 
     /**
      * User DAO.
      */
     @Inject
-    private UserDao userDao;
+    private UserAccountDao userDao;
     
     /**
      * EJB Context for TRansaction Rollback.
@@ -47,8 +47,8 @@ public class UserService {
      *            User to Create.
      * @return Saved user object, or null if an error occured.
      */
-    public User createUser(final User user) {
-        User savedUser = null;
+    public UserAccount createUser(final UserAccount user) {
+        UserAccount savedUser = null;
 
         try {
             savedUser = this.userDao.save(user);
@@ -68,18 +68,18 @@ public class UserService {
      * @throws NoResultException
      *             Thrown if the entity is not found
      */
-    public User findByUsername(final String username) throws NoResultException {
+    public UserAccount findByUsername(final String username) throws NoResultException {
         final EntityManager entityManager = this.userDao.getEntityManager();
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
-        final CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-        final Root<User> root = criteriaQuery.from(User.class);
+        final CriteriaQuery<UserAccount> criteriaQuery = criteriaBuilder.createQuery(UserAccount.class);
+        final Root<UserAccount> root = criteriaQuery.from(UserAccount.class);
         criteriaQuery.select(root);
 
         final ParameterExpression<String> usernameParam = criteriaBuilder.parameter(String.class);
         criteriaQuery.where(criteriaBuilder.equal(root.get("email"), usernameParam));
 
-        final TypedQuery<User> query = entityManager.createQuery(criteriaQuery);
+        final TypedQuery<UserAccount> query = entityManager.createQuery(criteriaQuery);
         query.setParameter(usernameParam, username);
 
         return query.getSingleResult();

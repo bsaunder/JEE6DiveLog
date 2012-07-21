@@ -8,10 +8,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import net.bryansaunders.jee6divelog.DefaultDeployment;
-import net.bryansaunders.jee6divelog.model.User;
+import net.bryansaunders.jee6divelog.model.UserAccount;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -24,13 +23,13 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(Arquillian.class)
-public class UserServiceIT {
+public class UserAccountServiceIT {
     
     /**
      * User Service.
      */
     @Inject
-    private UserService userService;
+    private UserAccountService userService;
     
     /**
      * Creates Arquillian Deployment Container.
@@ -56,14 +55,14 @@ public class UserServiceIT {
     @Test
     public void testCreateUser() {
         // given
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan");
         validUser.setLastName("Saunders");
         validUser.setEmail("btsaunde@gmail.com");
         validUser.setPassword("pass123");
         
         // when
-        User savedUser = this.userService.createUser(validUser);
+        UserAccount savedUser = this.userService.createUser(validUser);
         
         // then
         assertNotNull(savedUser);
@@ -78,26 +77,26 @@ public class UserServiceIT {
     public void ifFoundByUsernameThenRetrieve() {
         // given
         final String email = "test@test.com";
-        final User validUser = new User();
+        final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan");
         validUser.setLastName("Saunders");
         validUser.setEmail(email);
         validUser.setPassword("pass123");
-        this.userService.createUser(validUser);
+        final UserAccount savedUser = this.userService.createUser(validUser);
 
         // when
-        final User retrievedUser = this.userService.findByUsername(email);
+        final UserAccount retrievedUser = this.userService.findByUsername(email);
 
         // then
         assertNotNull(retrievedUser);
         assertEquals(email, retrievedUser.getEmail());
-        assertEquals(validUser, retrievedUser);
+        assertEquals(savedUser.getId(), retrievedUser.getId());
     }
 
     /**
      * Test for findByUsername().
      */
-    @Test(expected = NoResultException.class)
+    @Test(expected = Exception.class)
     public void ifNotFoundByUsernameThenError() {
         // given
 
