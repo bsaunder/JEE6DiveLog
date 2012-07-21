@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:body>
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		template="templates/master.xhtml">
+		<ui:define name="title">
+		Login
+	</ui:define>
+		<ui:define name="body">
+			<div class="row-fluid">
+				<div class="span9">
+					<h1>Login</h1>
+					<p>Please enter your email and password below to login.</p>
+
+					<h:form class="well form-horizontal" name="loginform">
+						<fieldset>
+							<legend>Login Information</legend>
+							<div class="control-group">
+								<label class="control-label" for="email">* Email</label>
+								<div class="controls">
+									<h:inputText class="input-xlarge" id="email" value="#{loginBean.email}" binding="#{email}"></h:inputText>
+									<span class="help-inline"><h:message for="email"></h:message></span>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="password">* Password</label>
+								<div class="controls">
+									<h:inputSecret class="input-xlarge" id="password" value="#{loginBean.password}" binding="#{password}"></h:inputSecret>
+									<span class="help-inline"><h:message for="password"></h:message></span>
+								</div>
+							</div>	
+						</fieldset>
+
+						<div class="form-actions">
+							<h:commandButton type="submit" class="btn btn-primary" value="Login" action="#{loginBean.login}"></h:commandButton>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

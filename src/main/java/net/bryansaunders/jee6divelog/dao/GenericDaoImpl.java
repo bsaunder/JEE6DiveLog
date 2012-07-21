@@ -107,9 +107,6 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
      */
     @Override
     public List<T> getAll() {
-        //final TypedQuery<T> query = this.entityManager.createQuery(
-        //        "SELECT t FROM " + this.entityClass.getName() + " t", this.entityClass);
-        
         CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
         
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(this.entityClass);

@@ -8,12 +8,11 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
 
+import net.bryansaunders.jee6divelog.DefaultDeployment;
 import net.bryansaunders.jee6divelog.model.User;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,10 +37,7 @@ public class UserServiceIT {
      */
     @Deployment
     public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "jee6divelog_test.war")
-                .addPackages(true, "net.bryansaunders.jee6divelog")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml");
+        return DefaultDeployment.getDefaultDeployment();
     }
     
     /**
@@ -63,6 +59,7 @@ public class UserServiceIT {
         validUser.setLastName("Saunders");
         validUser.setEmail("btsaunde@gmail.com");
         validUser.setPassword("pass123");
+        validUser.setSalt("sfsdf");
         
         // when
         User savedUser = this.userService.createUser(validUser);

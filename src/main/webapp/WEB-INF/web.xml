@@ -68,7 +68,7 @@
 		<servlet-name>jvm_status</servlet-name>
 		<url-pattern>/jvm_status</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>snoop</servlet-name>
 		<jsp-file>/admin/snoop.jsp</jsp-file>
@@ -88,6 +88,21 @@
 		<servlet-name>ViewStatusMessages</servlet-name>
 		<url-pattern>/lbClassicStatus</url-pattern>
 	</servlet-mapping>
+
+	<!-- Shiro Config -->
+	<filter>
+		<filter-name>ShiroFilter</filter-name>
+		<filter-class>org.apache.shiro.web.servlet.IniShiroFilter</filter-class>
+		<init-param>
+			<param-name>configPath</param-name>
+			<param-value>classpath:Shiro.ini</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>ShiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 </web-app>
 

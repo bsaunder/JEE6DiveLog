@@ -20,8 +20,6 @@ import net.bryansaunders.jee6divelog.model.User;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
@@ -29,6 +27,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
+ * Integration Tests for GenericDaoImpl.
+ * 
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
@@ -40,7 +40,7 @@ public class GenericDaoIT {
      */
     @Inject
     private UserDao userDao;
-
+    
     /**
      * Entity Manager for Testing.
      */
@@ -60,10 +60,7 @@ public class GenericDaoIT {
      */
     @Deployment
     public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "jee6divelog_test.war")
-                .addPackages(true, "net.bryansaunders.jee6divelog")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml");
+        return DefaultDeployment.getDefaultDeployment();
     }
 
     /**
@@ -302,14 +299,14 @@ public class GenericDaoIT {
         final User validUser = new User();
         validUser.setFirstName("Bryan5");
         validUser.setLastName("Saunders5");
-        validUser.setEmail("btsaunde@gmail.com");
-        validUser.setPassword("pass123");
+        validUser.setEmail("sdhers@gmail.com");
+        validUser.setPassword("sdge4");
 
         final User validUser2 = new User();
         validUser2.setFirstName("Bryan6");
         validUser2.setLastName("Saunders6");
-        validUser2.setEmail("btsaunde@gmail.com");
-        validUser2.setPassword("pass123");
+        validUser2.setEmail("sdfg@gmail.com");
+        validUser2.setPassword("segsd");
 
         final User[] users = { validUser, validUser2 };
         this.userDao.save(users);
@@ -346,15 +343,15 @@ public class GenericDaoIT {
         validUser.setLastName("Saunders7");
         validUser.setEmail("sdf@gmail.com");
         validUser.setPassword("pas3g4g");
-        
+
         final User savedUser = this.userDao.save(validUser);
         final Integer savedId = savedUser.getId();
 
         // when
         this.userDao.delete(savedId);
-        
+
         // then
-        this.userDao.get(savedId); 
+        this.userDao.get(savedId);
     }
 
     /**
@@ -376,14 +373,14 @@ public class GenericDaoIT {
         validUser.setLastName("Saunders8");
         validUser.setEmail("sfghf@gmail.com");
         validUser.setPassword("pasfghfh4");
-        
+
         final User validUser2 = new User();
         validUser2.setFirstName("Bryan9");
         validUser2.setLastName("Saunders9");
         validUser2.setEmail("ghjkg@gmail.com");
         validUser2.setPassword("pdfght44g");
-        
-        User[] users = {validUser, validUser2 };
+
+        User[] users = { validUser, validUser2 };
         final List<User> savedUsers = this.userDao.save(users);
         final Integer[] integerList = { savedUsers.get(0).getId(), savedUsers.get(1).getId() };
 
@@ -423,7 +420,7 @@ public class GenericDaoIT {
         validUser.setLastName("Saunders14");
         validUser.setEmail("sgkkkf@gmail.com");
         validUser.setPassword("pahhhfh4");
-        
+
         final User savedUser = this.userDao.save(validUser);
         final Integer savedId = savedUser.getId();
 
@@ -445,14 +442,14 @@ public class GenericDaoIT {
         validUser.setLastName("Saunders10");
         validUser.setEmail("sghdf@gmail.com");
         validUser.setPassword("pas678fh4");
-        
+
         final User validUser2 = new User();
         validUser2.setFirstName("Bryan11");
         validUser2.setLastName("Saunders11");
         validUser2.setEmail("gfdghfgkg@gmail.com");
         validUser2.setPassword("p345ht44g");
-        
-        User[] users = {validUser, validUser2 };
+
+        User[] users = { validUser, validUser2 };
         final List<User> savedUsers = this.userDao.save(users);
         final Integer[] integerList = { savedUsers.get(0).getId(), savedUsers.get(1).getId() };
 
@@ -492,14 +489,14 @@ public class GenericDaoIT {
         validUser.setLastName("Saunders12");
         validUser.setEmail("sfghf@gmail.com");
         validUser.setPassword("pasfghfh4");
-        
+
         final User validUser2 = new User();
         validUser2.setFirstName("Bryan13");
         validUser2.setLastName("Saunders13");
         validUser2.setEmail("g567gffg@gmail.com");
         validUser2.setPassword("pd956t44g");
-        
-        User[] users = {validUser, validUser2 };
+
+        User[] users = { validUser, validUser2 };
         this.userDao.save(users);
 
         // when
