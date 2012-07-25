@@ -68,7 +68,7 @@ public class UserAccountService {
      * @throws NoResultException
      *             Thrown if the entity is not found
      */
-    public UserAccount findByUsername(final String username) throws NoResultException {
+    public UserAccount findByUserEmail(final String username) throws NoResultException {
         final EntityManager entityManager = this.userDao.getEntityManager();
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 

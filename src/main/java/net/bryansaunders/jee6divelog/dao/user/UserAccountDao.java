@@ -2,7 +2,7 @@ package net.bryansaunders.jee6divelog.dao.user;
 
 import net.bryansaunders.jee6divelog.dao.GenericDaoImpl;
 import net.bryansaunders.jee6divelog.model.UserAccount;
-import net.bryansaunders.jee6divelog.utils.HashUtils;
+import net.bryansaunders.jee6divelog.utils.SecurityUtils;
 
 /**
  * User DAO.
@@ -25,10 +25,7 @@ public class UserAccountDao extends GenericDaoImpl<UserAccount> {
 
         // Encrypt Password
         final String password = user.getPassword();
-        
-        final String hashedPass = HashUtils.toSha256(password);
-        final String hashedEncodedPass = HashUtils.base64Encode(hashedPass);
-        
+        final String hashedEncodedPass = SecurityUtils.generatePasswordHash(password);
         user.setPassword(hashedEncodedPass);
 
         // Save

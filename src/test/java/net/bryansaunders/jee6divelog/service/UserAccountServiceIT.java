@@ -85,7 +85,7 @@ public class UserAccountServiceIT {
         final UserAccount savedUser = this.userService.createUser(validUser);
 
         // when
-        final UserAccount retrievedUser = this.userService.findByUsername(email);
+        final UserAccount retrievedUser = this.userService.findByUserEmail(email);
 
         // then
         assertNotNull(retrievedUser);
@@ -101,7 +101,7 @@ public class UserAccountServiceIT {
         // given
 
         // when
-        this.userService.findByUsername("RandomUser");
+        this.userService.findByUserEmail("RandomUser");
 
         // then
         fail("Should have thrown EntityNotFoundException");

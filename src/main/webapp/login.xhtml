@@ -22,7 +22,7 @@
 							<div class="control-group">
 								<label class="control-label" for="email">* Email</label>
 								<div class="controls">
-									<h:inputText class="input-xlarge" id="email" binding="#{email}"></h:inputText>
+									<h:inputText class="input-xlarge" id="email" binding="#{credentials.username}"></h:inputText>
 									<span class="help-inline"><h:message for="email"></h:message></span>
 								</div>
 							</div>
@@ -30,22 +30,14 @@
 							<div class="control-group">
 								<label class="control-label" for="password">* Password</label>
 								<div class="controls">
-									<h:inputSecret class="input-xlarge" id="password" binding="#{password}"></h:inputSecret>
+									<h:inputSecret class="input-xlarge" id="password" binding="#{credentials.password}"></h:inputSecret>
 									<span class="help-inline"><h:message for="password"></h:message></span>
-								</div>
-							</div>	
-							
-							<div class="control-group">
-								<label class="control-label" for="rememberMe">Remember Me:</label>
-								<div class="controls">
-									<h:selectBooleanCheckbox class="input-xlarge" id="rememberMe" value="#{loginBean.rememberMe}" binding="#{rememberMe}"></h:selectBooleanCheckbox>
-									<span class="help-inline"><h:message for="rememberMe"></h:message></span>
 								</div>
 							</div>	
 						</fieldset>
 
 						<div class="form-actions">
-							<h:commandButton type="submit" class="btn btn-primary" value="Login" action="#{loginBean.login}"></h:commandButton>
+							<h:commandButton type="submit" class="btn btn-primary" value="Login" action="#{identity.login}"></h:commandButton>
 						</div>
 					</h:form>
 				</div>
