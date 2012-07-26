@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+      	xmlns:f="http://java.sun.com/jsf/core"
+      	xmlns:h="http://java.sun.com/jsf/html"
+      	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
 	<meta charset="utf-8"></meta>
 	<title>BSNet DiveLog - <ui:insert name="title">Internet DiveLog</ui:insert></title>
@@ -34,17 +36,33 @@
 				</a> <a class="brand" href="/">BSNet-DiveLog</a>
 
 
-				<div class="btn-group pull-right">
-					<a class="btn btn-primary" href="/register.xhtml"><i
-						class="icon-pencil icon-white"></i> Register</a>
-					<button class="btn btn-primary dropdown-toggle"
-						data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li><a href="/login.xhtml"><i class="icon-lock"></i> Sign In</a></li>
-					</ul>
-				</div>
+				<c:if test="#{!identity.loggedIn}">
+					<div class="btn-group pull-right">
+						<a class="btn btn-primary" href="/register.xhtml"><i
+							class="icon-pencil icon-white"></i> Register</a>
+						<button class="btn btn-primary dropdown-toggle"
+							data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="/login.xhtml"><i class="icon-lock"></i> Sign In</a></li>
+						</ul>
+					</div>
+				</c:if>
+				<c:if test="#{identity.loggedIn}">
+					<div class="btn-group pull-right">
+						<a class="btn btn-info" href="/user/account.xhtml"><i
+							class="icon-cog icon-white"></i> Account</a>
+						<button class="btn btn-info dropdown-toggle"
+							data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="/logout.xhtml"><i class="icon-lock"></i> Sign Out</a></li>
+						</ul>
+					</div>
+				</c:if>
+				
 
 				<div class="nav-collapse">
 					<ul class="nav">
@@ -61,12 +79,14 @@
 			<div class="span3">
 				<div class="well tabbable">
 					<!-- Only required for left/right tabs -->
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="#publicTab" data-toggle="tab">Public</a></li>
-						<li><a href="#privateTab" data-toggle="tab">Private</a></li>
-					</ul>
+					<c:if test="#{identity.loggedIn}">
+						<ul class="nav nav-tabs">
+							<li><a href="#publicTab" data-toggle="tab">Public</a></li>
+							<li class="active"><a href="#privateTab" data-toggle="tab">Private</a></li>
+						</ul>
+					</c:if>
 					<div class="tab-content">
-						<div class="tab-pane active" id="publicTab">
+						<div class="tab-pane" id="publicTab">
 							<ul class="nav nav-list">
 								<li class="nav-header">Log Book</li>
 								<li><a href="#">Dives</a></li>
@@ -78,128 +98,130 @@
 								<li><a href="#">Resorts</a></li>
 							</ul>
 						</div>
-						<div class="tab-pane" id="privateTab">
-							<ul class="nav nav-list">
-								<li class="nav-header">Log Book</li>
-								<li class="dropdown" id="divesMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown"
-									href="#divesMenu"> Dives <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Manage
-												Dives</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Dive</a></li>
-									</ul></li>
-								<li class="dropdown" id="certsMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown"
-									href="#certsMenu"> Certifications <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Manage
-												Certifications</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Certification</a></li>
-									</ul></li>
-								<li class="dropdown" id="sitesMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown"
-									href="#sitesMenu"> Dive Sites <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Manage Dive
-												Sites</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Dive Site</a></li>
-									</ul></li>
-								<li class="nav-header">Gear Locker</li>
-								<li class="dropdown" id="equipMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown"
-									href="#equipMenu"> Equipment <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Manage
-												Equipment</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Equipment</a></li>
-									</ul></li>
-								<li class="dropdown" id="serviceMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown"
-									href="#serviuceMenu"> Service Log <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Manage
-												Service Records</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Service Record</a></li>
-									</ul></li>
-								<li class="dropdown" id="policyMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown"
-									href="#policyMenu"> Insurance Policies <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Manage
-												Insurance Policies</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Insurance Policy</a></li>
-									</ul></li>
-								<li class="nav-header">Directory</li>
-								<li class="dropdown" id="buddyMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown"
-									href="#buddyMenu"> Buddies <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Browse
-												Buddies</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Buddy</a></li>
-									</ul></li>
-								<li class="dropdown" id="shopMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown" href="#shopMenu">
-										Shops <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Browse
-												Shops</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Shop</a></li>
-									</ul></li>
-								<li class="dropdown" id="insMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown" href="#insMenu">
-										Insurance Providers <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Browse
-												Insurance Providers</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Insurance Provider</a></li>
-									</ul></li>
-								<li class="dropdown" id="charterMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown"
-									href="#charterMenu"> Charter Services <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Browse
-												Charter Services</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Charter Service</a></li>
-									</ul></li>
-								<li class="dropdown" id="resortsMenu"><a
-									class="dropdown-toggle" data-toggle="dropdown"
-									href="#resortsMenu"> Resorts <b class="caret"></b>
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-book"></i> Browse
-												Resorts</a></li>
-										<li><a href="#"><i class="icon-plus"></i> Add New
-												Resort</a></li>
-									</ul></li>
-								<!-- Spacing for Resort Dropdown -->
-								<li>&#160;</li>
-								<li>&#160;</li>
-								<li>&#160;</li>
-								<li>&#160;</li>
-							</ul>
-						</div>
+						<c:if test="#{identity.loggedIn}">
+							<div class="tab-pane active" id="privateTab">
+								<ul class="nav nav-list">
+									<li class="nav-header">Log Book</li>
+									<li class="dropdown" id="divesMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown"
+										href="#divesMenu"> Dives <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Manage
+													Dives</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Dive</a></li>
+										</ul></li>
+									<li class="dropdown" id="certsMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown"
+										href="#certsMenu"> Certifications <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Manage
+													Certifications</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Certification</a></li>
+										</ul></li>
+									<li class="dropdown" id="sitesMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown"
+										href="#sitesMenu"> Dive Sites <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Manage Dive
+													Sites</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Dive Site</a></li>
+										</ul></li>
+									<li class="nav-header">Gear Locker</li>
+									<li class="dropdown" id="equipMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown"
+										href="#equipMenu"> Equipment <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Manage
+													Equipment</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Equipment</a></li>
+										</ul></li>
+									<li class="dropdown" id="serviceMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown"
+										href="#serviuceMenu"> Service Log <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Manage
+													Service Records</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Service Record</a></li>
+										</ul></li>
+									<li class="dropdown" id="policyMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown"
+										href="#policyMenu"> Insurance Policies <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Manage
+													Insurance Policies</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Insurance Policy</a></li>
+										</ul></li>
+									<li class="nav-header">Directory</li>
+									<li class="dropdown" id="buddyMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown"
+										href="#buddyMenu"> Buddies <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Browse
+													Buddies</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Buddy</a></li>
+										</ul></li>
+									<li class="dropdown" id="shopMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown" href="#shopMenu">
+											Shops <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Browse
+													Shops</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Shop</a></li>
+										</ul></li>
+									<li class="dropdown" id="insMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown" href="#insMenu">
+											Insurance Providers <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Browse
+													Insurance Providers</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Insurance Provider</a></li>
+										</ul></li>
+									<li class="dropdown" id="charterMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown"
+										href="#charterMenu"> Charter Services <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Browse
+													Charter Services</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Charter Service</a></li>
+										</ul></li>
+									<li class="dropdown" id="resortsMenu"><a
+										class="dropdown-toggle" data-toggle="dropdown"
+										href="#resortsMenu"> Resorts <b class="caret"></b>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><i class="icon-book"></i> Browse
+													Resorts</a></li>
+											<li><a href="#"><i class="icon-plus"></i> Add New
+													Resort</a></li>
+										</ul></li>
+									<!-- Spacing for Resort Dropdown -->
+									<li>&#160;</li>
+									<li>&#160;</li>
+									<li>&#160;</li>
+									<li>&#160;</li>
+								</ul>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</div>

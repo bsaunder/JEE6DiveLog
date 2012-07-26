@@ -92,7 +92,7 @@ public class UserAccountService {
         try {
             foundAccount = query.getSingleResult();
         } catch (NoResultException e) {
-            this.logger.info("Could not Find UserAccount for Username: " + username, e);
+            this.logger.info("Could not Find UserAccount for Username: " + username);
         }
         
         return foundAccount;
