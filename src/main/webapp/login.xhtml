@@ -6,7 +6,7 @@
 <h:body>
 	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:ui="http://java.sun.com/jsf/facelets"
-		template="templates/master.xhtml">
+		template="/templates/master.xhtml">
 		<ui:define name="title">
 		Login
 	</ui:define>
@@ -16,24 +16,32 @@
 					<h1>Login</h1>
 					<p>Please enter your email and password below to login.</p>
 
-					<h:form class="well form-horizontal" name="loginform">
+					<h:form class="well form-horizontal" id="loginform" name="loginform">
 						<fieldset>
 							<legend>Login Information</legend>
-							<div class="control-group">
+																					
+							<div class="control-group #{!identity.loggedIn ? 'error' : ''}">
 								<label class="control-label" for="email">* Email</label>
 								<div class="controls">
-									<h:inputText class="input-xlarge" id="email" binding="#{credentials.username}"></h:inputText>
+									<h:inputText class="input-xlarge" id="email" value="#{credentials.username}"></h:inputText>
 									<span class="help-inline"><h:message for="email"></h:message></span>
 								</div>
 							</div>
 
-							<div class="control-group">
+							<div class="control-group #{!identity.loggedIn ? 'error' : ''}">
 								<label class="control-label" for="password">* Password</label>
 								<div class="controls">
-									<h:inputSecret class="input-xlarge" id="password" binding="#{credentials.password}"></h:inputSecret>
+									<h:inputSecret class="input-xlarge" id="password" value="#{credentials.password}"></h:inputSecret>
 									<span class="help-inline"><h:message for="password"></h:message></span>
 								</div>
 							</div>	
+							
+							<div class="control-group">
+								<label class="control-label" for="rememberMe">Remember Me</label>
+								<div class="controls">
+									<h:selectBooleanCheckbox class="input-xlarge" id="rememberMe" value="#{identity.rememberMe}" />
+								</div>
+							</div>
 						</fieldset>
 
 						<div class="form-actions">

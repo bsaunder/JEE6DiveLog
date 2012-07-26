@@ -18,10 +18,11 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Object> {
+    
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(PasswordValidator.class);
+    private Logger logger = LoggerFactory.getLogger(FieldMatchValidator.class);
 
     /**
      * First Field Name.
@@ -54,14 +55,14 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
             final Object secondObj = BeanUtils.getProperty(value, this.secondFieldName);
 
             valid = (firstObj == null && secondObj == null) || (firstObj != null && firstObj.equals(secondObj));
-            FieldMatchValidator.LOGGER.debug("Checking Fields for Match: " + this.firstFieldName + "(" + firstObj
+            this.logger.debug("Checking Fields for Match: " + this.firstFieldName + "(" + firstObj
                     + ") <> " + this.secondFieldName + "(" + secondObj + ") = " + valid);
         } catch (final NoSuchMethodException e) {
-            FieldMatchValidator.LOGGER.error("Error Validating Fields Match", e);
+            this.logger.error("Error Validating Fields Match", e);
         } catch (final IllegalAccessException e) {
-            FieldMatchValidator.LOGGER.error("Error Validating Fields Match", e);
+            this.logger.error("Error Validating Fields Match", e);
         } catch (final InvocationTargetException e) {
-            FieldMatchValidator.LOGGER.error("Error Validating Fields Match", e);
+            this.logger.error("Error Validating Fields Match", e);
         }
 
         return valid;

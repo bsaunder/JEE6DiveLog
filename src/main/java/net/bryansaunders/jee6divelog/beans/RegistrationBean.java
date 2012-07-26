@@ -38,17 +38,17 @@ public class RegistrationBean {
     /**
      * Success String.
      */
-    public static final String SUCCESS = "register_success";
+    public static final String SUCCESS = "/register_success";
 
     /**
      * Failure String.
      */
-    public static final String FAILURE = "register";
+    public static final String FAILURE = "/register";
 
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationBean.class);
+    private Logger logger = LoggerFactory.getLogger(RegistrationBean.class);
     
     /**
      * User Service.
@@ -107,7 +107,7 @@ public class RegistrationBean {
      * Default Constructor.
      */
     public RegistrationBean() {
-        RegistrationBean.LOGGER.debug("RegistrationBean Created");
+        this.logger.debug("RegistrationBean Created");
     }
 
     /**
@@ -139,9 +139,9 @@ public class RegistrationBean {
         try {
             BeanUtils.copyProperties(user, this);
         } catch (IllegalAccessException e) {
-            RegistrationBean.LOGGER.error("Could Not AccessProperty while Converting RegistrationBean to User.", e);
+            this.logger.error("Could Not AccessProperty while Converting RegistrationBean to User.", e);
         } catch (InvocationTargetException e) {
-            RegistrationBean.LOGGER.error("Error Invoking Method while Converting RegistrationBean to User.", e);
+            this.logger.error("Error Invoking Method while Converting RegistrationBean to User.", e);
         }
 
         return user;

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -32,12 +32,12 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(GenericDaoImpl.class);
+    private Logger logger = LoggerFactory.getLogger(GenericDaoImpl.class);
 
     /**
      * Entity Manager.
      */
-    @PersistenceContext
+    @Inject
     private EntityManager entityManager;
 
     /**
@@ -52,7 +52,6 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
     public GenericDaoImpl() {
         final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
         this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
-
     }
 
     /**
@@ -123,13 +122,13 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
         T savedObject = null;
 
         if (object.getId() != null) {
-            GenericDaoImpl.LOGGER.debug("Merging Object " + this.entityClass.getName() + " with ID " + object.getId());
+            this.logger.debug("Merging Object " + this.entityClass.getName() + " with ID " + object.getId());
             savedObject = this.entityManager.merge(object);
         } else {
-            GenericDaoImpl.LOGGER.debug("Persisting Object " + this.entityClass.getName());
+            this.logger.debug("Persisting Object " + this.entityClass.getName());
             this.entityManager.persist(object);
             savedObject = object;
-            GenericDaoImpl.LOGGER.debug("Persisted with ID " + savedObject.getId());
+            this.logger.debug("Persisted with ID " + savedObject.getId());
         }
 
         return savedObject;
@@ -181,7 +180,7 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
     @Override
     public void delete(final T object) {
         this.entityManager.remove(object);
-        GenericDaoImpl.LOGGER.debug("Deleting Object " + this.entityClass.getName() + " with ID " + object.getId());
+        this.logger.debug("Deleting Object " + this.entityClass.getName() + " with ID " + object.getId());
     }
 
     /**

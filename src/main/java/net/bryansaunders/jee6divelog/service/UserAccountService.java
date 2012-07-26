@@ -19,6 +19,9 @@ import javax.validation.ConstraintViolationException;
 import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
 import net.bryansaunders.jee6divelog.model.UserAccount;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * User Service for Working with User.
  * 
@@ -27,15 +30,20 @@ import net.bryansaunders.jee6divelog.model.UserAccount;
  */
 @Stateless
 public class UserAccountService {
+    
+    /**
+     * Logger.
+     */
+    private Logger logger = LoggerFactory.getLogger(UserAccountService.class);
 
     /**
      * User DAO.
      */
     @Inject
     private UserAccountDao userDao;
-    
+
     /**
-     * EJB Context for TRansaction Rollback.
+     * EJB Context for Transaction Rollback.
      */
     @Resource
     private EJBContext context;
@@ -64,11 +72,9 @@ public class UserAccountService {
      * 
      * @param username
      *            Username to search for
-     * @return User if found
-     * @throws NoResultException
-     *             Thrown if the entity is not found
+     * @return User if found, null if not
      */
-    public UserAccount findByUserEmail(final String username) throws NoResultException {
+    public UserAccount findByUserEmail(final String username) {
         final EntityManager entityManager = this.userDao.getEntityManager();
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
@@ -82,7 +88,14 @@ public class UserAccountService {
         final TypedQuery<UserAccount> query = entityManager.createQuery(criteriaQuery);
         query.setParameter(usernameParam, username);
 
-        return query.getSingleResult();
+        UserAccount foundAccount = null;
+        try {
+            foundAccount = query.getSingleResult();
+        } catch (NoResultException e) {
+            this.logger.info("Could not Find UserAccount for Username: " + username, e);
+        }
+        
+        return foundAccount;
     }
 
 }

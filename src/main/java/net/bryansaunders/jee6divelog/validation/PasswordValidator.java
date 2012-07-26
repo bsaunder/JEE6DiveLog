@@ -25,7 +25,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(PasswordValidator.class);
+    private Logger logger = LoggerFactory.getLogger(PasswordValidator.class);
 
     /**
      * RegEx Pattern for password matching.
@@ -45,7 +45,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
      */
     @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {
-        PasswordValidator.LOGGER.debug("Validating Password: " + value);
+        this.logger.debug("Validating Password: " + value);
 
         boolean valid = true;
         if (value == null) {
