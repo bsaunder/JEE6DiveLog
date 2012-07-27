@@ -4,7 +4,7 @@
 	<groupId>net.bryansaunders</groupId>
 	<artifactId>jee6divelog</artifactId>
 	<packaging>war</packaging>
-	<version>1.0</version>
+	<version>0.1-PoC</version>
 	<name>jee6divelog</name>
 
 	<repositories>
@@ -15,6 +15,7 @@
 	</repositories>
 
 	<properties>
+		<github.global.server>github</github.global.server>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
@@ -283,6 +284,24 @@
 						<version>2.0-beta-9</version>
 					</plugin>
 
+					<!-- GitHub Site Plugin -->
+					<plugin>
+						<groupId>com.github.github</groupId>
+						<artifactId>site-maven-plugin</artifactId>
+						<version>0.6</version>
+						<configuration>
+							<message>Creating site for ${project.version}</message>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>site</goal>
+								</goals>
+								<phase>site</phase>
+							</execution>
+						</executions>
+					</plugin>
+
 					<!-- Site Plugin -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -400,19 +419,19 @@
 		<developerConnection>scm:git:git@github.com:bsaunder/JEE6DiveLog.git</developerConnection>
 	</scm>
 	<developers>
-    <developer>
-      <id>bsaunder</id>
-      <name>Bryan Saunders</name>
-      <email>btsaunde@gmail.com</email>
-      <url>http://www.bryansaunders.net</url>
-      <roles>
-        <role>architect</role>
-        <role>developer</role>
-      </roles>
-    </developer>
-  </developers>
-  <issueManagement>
-    <system>GitHub</system>
-    <url>https://github.com/bsaunder/JEE6DiveLog/issues</url>
-  </issueManagement>
+		<developer>
+			<id>bsaunder</id>
+			<name>Bryan Saunders</name>
+			<email>btsaunde@gmail.com</email>
+			<url>http://www.bryansaunders.net</url>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/bsaunder/JEE6DiveLog/issues</url>
+	</issueManagement>
 </project>
