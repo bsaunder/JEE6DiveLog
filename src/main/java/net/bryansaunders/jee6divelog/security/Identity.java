@@ -8,8 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -35,12 +33,12 @@ public class Identity implements Serializable {
     /**
      * Login Failure.
      */
-    public static final String LOGIN_FAILURE = "/login";
+    public static final boolean LOGIN_FAILURE = false;
 
     /**
      * Login Success.
      */
-    public static final String LOGIN_SUCCESS = "/user/account";
+    public static final boolean LOGIN_SUCCESS = true;
 
     /**
      * Logout Failure.
@@ -118,9 +116,9 @@ public class Identity implements Serializable {
      * 
      * @return Login Result
      */
-    public String login() {
+    public boolean login() {
         this.logger.info("Logging In User with Credentials: " + this.credentials);
-        String returnValue = Identity.LOGIN_FAILURE;
+        boolean returnValue = Identity.LOGIN_FAILURE;
 
         final String username = this.getUsername();
         final String password = this.getPassword();
@@ -142,10 +140,6 @@ public class Identity implements Serializable {
         if (this.isLoggedIn()) {
             returnValue = Identity.LOGIN_SUCCESS;
         } else {
-            final FacesContext facesContext = FacesContext.getCurrentInstance();
-            final FacesMessage facesMessage = new FacesMessage("Invalid login information.");
-            facesContext.addMessage("loginform:email", facesMessage);
-
             this.logger.warn("Invalid Credentials: " + this.credentials);
         }
 

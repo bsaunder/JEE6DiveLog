@@ -20,6 +20,23 @@
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>client</param-value>
 	</context-param>
+	
+	<!-- Filters -->
+	<filter>
+		<filter-name>authentication</filter-name>
+		<filter-class>net.bryansaunders.jee6divelog.security.filters.AuthenticationFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>authentication</filter-name>
+		<url-pattern>/user/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- Error Pages -->
+	<error-page>
+		<error-code>401</error-code>
+		<location>/login.xhtml?errCode=401</location>
+	</error-page>
 
 	<!-- JSF mapping -->
 	<servlet>

@@ -13,8 +13,6 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.enums.Permission;
 import net.bryansaunders.jee6divelog.security.enums.Role;
@@ -23,17 +21,11 @@ import net.bryansaunders.jee6divelog.utils.SecurityUtils;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(FacesContext.class)
 public class IdentityTest {
 
     /**
@@ -96,7 +88,7 @@ public class IdentityTest {
         when(this.mockAccountService.findByUserEmail(username)).thenReturn(userAccount);
 
         // when
-        final String result = this.identity.login();
+        final boolean result = this.identity.login();
 
         // then
         assertEquals(Identity.LOGIN_SUCCESS, result);
@@ -121,12 +113,9 @@ public class IdentityTest {
         this.identity.setCredentials(credentials);
         
         when(this.mockAccountService.findByUserEmail(username)).thenReturn(userAccount);
-        
-        PowerMockito.mockStatic(FacesContext.class);
-        when(FacesContext.getCurrentInstance()).thenReturn(mock(FacesContext.class));
 
         // when
-        final String result = this.identity.login();
+        final boolean result = this.identity.login();
 
         // then
         assertEquals(Identity.LOGIN_FAILURE, result);

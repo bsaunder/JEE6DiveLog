@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:body>
 	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -19,19 +20,27 @@
 					<h:form class="well form-horizontal" id="loginform" name="loginform">
 						<fieldset>
 							<legend>Login Information</legend>
+							
+							<c:if test="#{param.errCode == 401}">
+								<div class="alert alert-error">
+									<a class="close" data-dismiss="alert" href="#">×</a>
+									<h4>401 Error</h4>
+									<p>You are not currently authorized. Please Login.</p>
+								</div>
+							</c:if>
 																					
-							<div class="control-group #{!identity.loggedIn ? 'error' : ''}">
+							<div class="control-group #{loginBean.loginError ? 'error' : ''}">
 								<label class="control-label" for="email">* Email</label>
 								<div class="controls">
-									<h:inputText class="input-xlarge" id="email" value="#{credentials.username}"></h:inputText>
+									<h:inputText class="input-xlarge" id="email" binding="#{email}" value="#{loginBean.email}"></h:inputText>
 									<span class="help-inline"><h:message for="email"></h:message></span>
 								</div>
 							</div>
 
-							<div class="control-group #{!identity.loggedIn ? 'error' : ''}">
+							<div class="control-group #{loginBean.loginError  ? 'error' : ''}">
 								<label class="control-label" for="password">* Password</label>
 								<div class="controls">
-									<h:inputSecret class="input-xlarge" id="password" value="#{credentials.password}"></h:inputSecret>
+									<h:inputSecret class="input-xlarge" id="password" binding="#{password}" value="#{loginBean.password}"></h:inputSecret>
 									<span class="help-inline"><h:message for="password"></h:message></span>
 								</div>
 							</div>	
@@ -39,13 +48,13 @@
 							<div class="control-group">
 								<label class="control-label" for="rememberMe">Remember Me</label>
 								<div class="controls">
-									<h:selectBooleanCheckbox class="input-xlarge" id="rememberMe" value="#{identity.rememberMe}" />
+									<h:selectBooleanCheckbox class="input-xlarge" id="rememberMe" binding="#{rememberMe}" value="#{loginBean.rememberMe}" />
 								</div>
 							</div>
 						</fieldset>
 
 						<div class="form-actions">
-							<h:commandButton type="submit" class="btn btn-primary" value="Login" action="#{identity.login}"></h:commandButton>
+							<h:commandButton type="submit" class="btn btn-primary" value="Login" action="#{loginBean.login}"></h:commandButton>
 						</div>
 					</h:form>
 				</div>
