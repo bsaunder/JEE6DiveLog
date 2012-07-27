@@ -4,10 +4,10 @@ package net.bryansaunders.jee6divelog.utils;
  * Security Utilities.
  * 
  * @author Bryan Saunders <btsaunde@gmail.com>
- *
+ * 
  */
 public final class SecurityUtils {
-    
+
     /**
      * Default Private Constructor.
      */
@@ -18,13 +18,14 @@ public final class SecurityUtils {
     /**
      * Generate Password Hash for Application. Uses SHA-256 & Base64 Encoding.
      * 
-     * @param passwordToHash String to hash for password
+     * @param passwordToHash
+     *            String to hash for password
      * @return Hashed password.
      */
-    public static String generatePasswordHash(String passwordToHash){       
+    public static String generatePasswordHash(final String passwordToHash) {
         final String hashedPass = HashUtils.toSha256(passwordToHash);
         final String hashedEncodedPass = HashUtils.base64Encode(hashedPass);
-        
+
         return hashedEncodedPass;
     }
 }

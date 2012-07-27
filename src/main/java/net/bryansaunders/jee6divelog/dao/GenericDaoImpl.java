@@ -32,7 +32,7 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
     /**
      * Logger.
      */
-    private Logger logger = LoggerFactory.getLogger(GenericDaoImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(GenericDaoImpl.class);
 
     /**
      * Entity Manager.
@@ -106,10 +106,10 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
      */
     @Override
     public List<T> getAll() {
-        CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
+        final CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
 
-        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(this.entityClass);
-        Root<T> root = criteriaQuery.from(this.entityClass);
+        final CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(this.entityClass);
+        final Root<T> root = criteriaQuery.from(this.entityClass);
         criteriaQuery.select(root);
 
         final TypedQuery<T> query = this.entityManager.createQuery(criteriaQuery);

@@ -23,14 +23,14 @@ import org.slf4j.LoggerFactory;
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
     /**
-     * Logger.
-     */
-    private Logger logger = LoggerFactory.getLogger(PasswordValidator.class);
-
-    /**
      * RegEx Pattern for password matching.
      */
     private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
+    
+    /**
+     * Logger.
+     */
+    private Logger logger = LoggerFactory.getLogger(PasswordValidator.class);
 
     /**
      * {@inheritDoc}

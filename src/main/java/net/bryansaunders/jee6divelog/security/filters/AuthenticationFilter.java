@@ -32,7 +32,7 @@ public class AuthenticationFilter implements Filter {
      */
     @Inject
     private Identity identity;
-    
+
     /**
      * Logger.
      */
@@ -56,7 +56,7 @@ public class AuthenticationFilter implements Filter {
      */
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain)
-            throws IOException, ServletException {
+        throws IOException, ServletException {
 
         if (this.identity == null) {
             throw new ServletException("Identity is null");

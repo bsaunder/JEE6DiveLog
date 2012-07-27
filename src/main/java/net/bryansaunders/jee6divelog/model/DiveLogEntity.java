@@ -63,7 +63,7 @@ public class DiveLogEntity {
      * @param newVersion
      *            the version to set
      */
-    public void setVersion(Integer newVersion) {
+    public void setVersion(final Integer newVersion) {
         this.version = newVersion;
     }
 

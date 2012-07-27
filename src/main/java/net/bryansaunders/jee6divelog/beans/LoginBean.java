@@ -170,7 +170,7 @@ public class LoginBean {
      * @param newIdentity
      *            the identity to set
      */
-    public void setIdentity(Identity newIdentity) {
+    public void setIdentity(final Identity newIdentity) {
         this.identity = newIdentity;
     }
 
@@ -179,7 +179,7 @@ public class LoginBean {
      * 
      * @param newCredentials the credentials to set
      */
-    public void setCredentials(Credentials newCredentials) {
+    public void setCredentials(final Credentials newCredentials) {
         this.credentials = newCredentials;
     }
     

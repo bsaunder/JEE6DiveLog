@@ -170,7 +170,7 @@ public class Identity implements Serializable {
      * @return true if logged in
      */
     public boolean isLoggedIn() {
-        return this.status == Identity.LOGGED_IN;
+        return this.status.equals(Identity.LOGGED_IN);
     }
 
     /**
