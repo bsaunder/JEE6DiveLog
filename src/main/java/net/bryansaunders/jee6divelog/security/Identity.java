@@ -4,6 +4,7 @@
 package net.bryansaunders.jee6divelog.security;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -96,7 +97,16 @@ public class Identity implements Serializable {
     /**
      * Identity Status.
      */
-    private Integer status = Identity.LOGGED_OUT;
+    private Integer status;
+
+    /**
+     * Default Constructor.
+     */
+    public Identity() {
+        this.roles = new LinkedList<Role>();
+        this.permissions = new LinkedList<Permission>();
+        this.status = Identity.LOGGED_OUT;
+    }
 
     /**
      * Login Identity.
@@ -191,6 +201,16 @@ public class Identity implements Serializable {
      */
     public void setCredentials(final Credentials newCredentials) {
         this.credentials = newCredentials;
+    }
+
+    /**
+     * Set the userAccountService.
+     * 
+     * @param newUserAccountService
+     *            the userAccountService to set
+     */
+    public void setUserAccountService(final UserAccountService newUserAccountService) {
+        this.userAccountService = newUserAccountService;
     }
 
     /**

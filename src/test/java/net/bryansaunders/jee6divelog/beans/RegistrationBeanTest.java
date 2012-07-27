@@ -6,6 +6,9 @@ package net.bryansaunders.jee6divelog.beans;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -16,10 +19,10 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.service.UserAccountService;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -94,6 +97,11 @@ public class RegistrationBeanTest {
      * Alternate Valid Password.
      */
     private final String validPassword2 = "abcdef2A@";
+    
+    /**
+     * User Account Service.
+     */
+    private UserAccountService accountService;
 
     /**
      * Sets up the test class.
@@ -119,6 +127,9 @@ public class RegistrationBeanTest {
         this.regBean.setEmail(this.email);
         this.regBean.setPassword(this.validPassword);
         this.regBean.setConfirmationPassword(this.validPassword);
+        
+        this.accountService = mock(UserAccountService.class);
+        this.regBean.setUserService(this.accountService);
     }
 
     /**
@@ -319,10 +330,10 @@ public class RegistrationBeanTest {
         boolean passwordNotBlank = false;
         boolean confPasswordNotBlank = false;
         boolean password = false;
-        Iterator<ConstraintViolation<RegistrationBean>> iterator = constraintViolations.iterator();
+        final Iterator<ConstraintViolation<RegistrationBean>> iterator = constraintViolations.iterator();
         while (iterator.hasNext()) {
-            ConstraintViolation<RegistrationBean> violation = iterator.next();
-            String msgTemplate = violation.getMessageTemplate();
+            final ConstraintViolation<RegistrationBean> violation = iterator.next();
+            final String msgTemplate = violation.getMessageTemplate();
             if (msgTemplate.equals(CONF_PASSWORD_NOT_BLANK_TEMPLATE)) {
                 confPasswordNotBlank = true;
             } else if (msgTemplate.equals(PASSWORD_NOT_BLANK_TEMPLATE)) {
@@ -350,10 +361,10 @@ public class RegistrationBeanTest {
         boolean passwordNotBlank = false;
         boolean confPasswordNotBlank = false;
         boolean password = false;
-        Iterator<ConstraintViolation<RegistrationBean>> iterator = constraintViolations.iterator();
+        final Iterator<ConstraintViolation<RegistrationBean>> iterator = constraintViolations.iterator();
         while (iterator.hasNext()) {
-            ConstraintViolation<RegistrationBean> violation = iterator.next();
-            String msgTemplate = violation.getMessageTemplate();
+            final ConstraintViolation<RegistrationBean> violation = iterator.next();
+            final String msgTemplate = violation.getMessageTemplate();
             if (msgTemplate.equals(CONF_PASSWORD_NOT_BLANK_TEMPLATE)) {
                 confPasswordNotBlank = true;
             } else if (msgTemplate.equals(PASSWORD_NOT_BLANK_TEMPLATE)) {
@@ -407,10 +418,10 @@ public class RegistrationBeanTest {
         boolean passwordNotBlank = false;
         boolean confPasswordNotBlank = false;
         boolean password = false;
-        Iterator<ConstraintViolation<RegistrationBean>> iterator = constraintViolations.iterator();
+        final Iterator<ConstraintViolation<RegistrationBean>> iterator = constraintViolations.iterator();
         while (iterator.hasNext()) {
-            ConstraintViolation<RegistrationBean> violation = iterator.next();
-            String msgTemplate = violation.getMessageTemplate();
+            final ConstraintViolation<RegistrationBean> violation = iterator.next();
+            final String msgTemplate = violation.getMessageTemplate();
             if (msgTemplate.equals(CONF_PASSWORD_NOT_BLANK_TEMPLATE)) {
                 confPasswordNotBlank = true;
             } else if (msgTemplate.equals(PASSWORD_NOT_BLANK_TEMPLATE)) {
@@ -438,10 +449,10 @@ public class RegistrationBeanTest {
         boolean passwordNotBlank = false;
         boolean confPasswordNotBlank = false;
         boolean password = false;
-        Iterator<ConstraintViolation<RegistrationBean>> iterator = constraintViolations.iterator();
+        final Iterator<ConstraintViolation<RegistrationBean>> iterator = constraintViolations.iterator();
         while (iterator.hasNext()) {
-            ConstraintViolation<RegistrationBean> violation = iterator.next();
-            String msgTemplate = violation.getMessageTemplate();
+            final ConstraintViolation<RegistrationBean> violation = iterator.next();
+            final String msgTemplate = violation.getMessageTemplate();
             if (msgTemplate.equals(CONF_PASSWORD_NOT_BLANK_TEMPLATE)) {
                 confPasswordNotBlank = true;
             } else if (msgTemplate.equals(PASSWORD_NOT_BLANK_TEMPLATE)) {
@@ -483,24 +494,33 @@ public class RegistrationBeanTest {
      * Tests Valid Form Submission.
      */
     @Test
-    @Ignore
     public void ifRegistrationValidThenSuccess() {
-        //TODO Implement this test - Mock the UserService
-        assertEquals(RegistrationBean.SUCCESS, this.regBean.submitRegistration());
+        // given
+        final UserAccount userAccount = this.regBean.createUser();
+        userAccount.setId(1);
+        userAccount.setVersion(0);
+        
+        // when
+        when(this.accountService.createUser(any(UserAccount.class))).thenReturn(userAccount);
+        final String result = this.regBean.submitRegistration();
+        
+        // then
+        assertEquals(RegistrationBean.SUCCESS, result);
     }
 
     /**
      * Tests Invalid Form Submission.
      */
     @Test
-    @Ignore
     public void ifRegistrationInvalidThenFailure() {
-        //TODO Implement this test - Mock the UserService
+        // given
         
-        this.regBean.setPassword(null);
-        this.regBean.setEmail(null);
+        // when
+        when(this.accountService.createUser(any(UserAccount.class))).thenReturn(null);
+        final String result = this.regBean.submitRegistration();
         
-        assertEquals(RegistrationBean.FAILURE, this.regBean.submitRegistration());
+        // then
+        assertEquals(RegistrationBean.FAILURE, result);
     }
     
     /**
@@ -508,7 +528,7 @@ public class RegistrationBeanTest {
      */
     @Test
     public void createUser(){
-        UserAccount user = this.regBean.createUser();
+        final UserAccount user = this.regBean.createUser();
         
         assertEquals(user.getCity(), this.city);
         assertEquals(user.getCountry(), this.country);

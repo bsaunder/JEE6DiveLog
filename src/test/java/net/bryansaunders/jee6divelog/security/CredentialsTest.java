@@ -14,43 +14,44 @@ import org.junit.Test;
 public class CredentialsTest {
 
     /**
-     * Test method for {@link net.bryansaunders.jee6divelog.security.Credentials#getUsername()}.
+     * Test method for Username.
      */
     @Test
-    public void testGetUsername() {
-        fail("Not yet implemented");
+    public void testUsername() {
+        final Credentials credentials = new Credentials();
+        assertNotNull(credentials.getUsername());
+        assertEquals("", credentials.getUsername());
+        
+        final String username = "Username";
+        credentials.setUsername(username);
+        assertEquals(username, credentials.getUsername());
     }
 
     /**
-     * Test method for {@link net.bryansaunders.jee6divelog.security.Credentials#setUsername(java.lang.String)}.
+     * Test method for Password.
      */
     @Test
-    public void testSetUsername() {
-        fail("Not yet implemented");
+    public void testPassword() {
+        final Credentials credentials = new Credentials();
+        assertNotNull(credentials.getPassword());
+        assertEquals("", credentials.getPassword());
+        
+        final String password = "Password";
+        credentials.setPassword(password);
+        assertEquals(password, credentials.getPassword());
     }
 
     /**
-     * Test method for {@link net.bryansaunders.jee6divelog.security.Credentials#getPassword()}.
-     */
-    @Test
-    public void testGetPassword() {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link net.bryansaunders.jee6divelog.security.Credentials#setPassword(java.lang.String)}.
-     */
-    @Test
-    public void testSetPassword() {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link net.bryansaunders.jee6divelog.security.Credentials#toString()}.
+     * Test method for toString().
      */
     @Test
     public void testToString() {
-        fail("Not yet implemented");
+        final Credentials credentials = new Credentials();
+        credentials.setPassword("Pass");
+        credentials.setUsername("User");
+        
+        final String expected = "Credentials[username: User, password: Pass]";
+        assertEquals(expected, credentials.toString());
     }
 
 }

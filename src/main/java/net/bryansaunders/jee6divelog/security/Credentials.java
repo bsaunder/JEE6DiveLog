@@ -25,7 +25,7 @@ public class Credentials implements Serializable {
      * Serial Version ID.
      */
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Logger.
      */
@@ -40,6 +40,14 @@ public class Credentials implements Serializable {
      * Password.
      */
     private String password;
+
+    /**
+     * Default Constructor.
+     */
+    public Credentials() {
+        this.username = "";
+        this.password = "";
+    }
 
     /**
      * Get the username.

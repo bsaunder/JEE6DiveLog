@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  */
 @Named("regBean")
 @RequestScoped
-@FieldMatch.List({ 
+@FieldMatch.List({
     @FieldMatch(first = "password", second = "confirmationPassword", message = "{regBean.fieldMatch.password}")
 })
 public class RegistrationBean {
@@ -48,8 +48,8 @@ public class RegistrationBean {
     /**
      * Logger.
      */
-    private Logger logger = LoggerFactory.getLogger(RegistrationBean.class);
-    
+    private final Logger logger = LoggerFactory.getLogger(RegistrationBean.class);
+
     /**
      * User Service.
      */
@@ -135,12 +135,12 @@ public class RegistrationBean {
      */
     protected UserAccount createUser() {
         final UserAccount user = new UserAccount();
-        
+
         try {
             BeanUtils.copyProperties(user, this);
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
             this.logger.error("Could Not AccessProperty while Converting RegistrationBean to User.", e);
-        } catch (InvocationTargetException e) {
+        } catch (final InvocationTargetException e) {
             this.logger.error("Error Invoking Method while Converting RegistrationBean to User.", e);
         }
 
@@ -297,6 +297,16 @@ public class RegistrationBean {
      */
     public void setConfirmationPassword(final String newConfirmationPassword) {
         this.confirmationPassword = newConfirmationPassword;
+    }
+
+    /**
+     * Set the userService.
+     * 
+     * @param newUserService
+     *            the userService to set
+     */
+    public void setUserService(final UserAccountService newUserService) {
+        this.userService = newUserService;
     }
 
 }
