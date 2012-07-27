@@ -1,0 +1,9 @@
+net.bryansaunders.jee6divelog.beans
+net.bryansaunders.jee6divelog.dao
+net.bryansaunders.jee6divelog.dao.user
+net.bryansaunders.jee6divelog
+net.bryansaunders.jee6divelog.model
+net.bryansaunders.jee6divelog.security
+net.bryansaunders.jee6divelog.service
+net.bryansaunders.jee6divelog.utils
+net.bryansaunders.jee6divelog.validation

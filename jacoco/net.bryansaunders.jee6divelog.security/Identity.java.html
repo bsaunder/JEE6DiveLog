@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Identity.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.security</a> &gt; <span class="el_source">Identity.java</span></div><h1>Identity.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package net.bryansaunders.jee6divelog.security;
+
+import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.security.enums.Permission;
+import net.bryansaunders.jee6divelog.security.enums.Role;
+import net.bryansaunders.jee6divelog.service.UserAccountService;
+import net.bryansaunders.jee6divelog.utils.SecurityUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * User Identity implements Serializable.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+@SessionScoped
+@Named(&quot;identity&quot;)
+public class Identity implements Serializable {
+
+    /**
+     * Login Failure.
+     */
+    public static final boolean LOGIN_FAILURE = false;
+
+    /**
+     * Login Success.
+     */
+    public static final boolean LOGIN_SUCCESS = true;
+
+    /**
+     * Logout Failure.
+     */
+    public static final String LOGOUT_FAILURE = &quot;/logout_error&quot;;
+
+    /**
+     * Logout Success.
+     */
+    public static final String LOGOUT_SUCCESS = &quot;/logout_success&quot;;
+
+    /**
+     * Identity Logged Out.
+     */
+<span class="fc" id="L56">    public static final Integer LOGGED_OUT = 1;</span>
+
+    /**
+     * Identity Logged In.
+     */
+<span class="fc" id="L61">    public static final Integer LOGGED_IN = 0;</span>
+
+    /**
+     * Default Serial ID.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L71">    private final Logger logger = LoggerFactory.getLogger(Identity.class);</span>
+
+    /**
+     * User Entered Credentials.
+     */
+    @Inject
+    private Credentials credentials;
+
+    /**
+     * User Account Service.
+     */
+    @Inject
+    private UserAccountService userAccountService;
+
+    /**
+     * Should the user be Remembered.
+     */
+    private boolean rememberMe;
+
+    /**
+     * Identity Roles.
+     */
+    private List&lt;Role&gt; roles;
+
+    /**
+     * Identity Permissions.
+     */
+    private List&lt;Permission&gt; permissions;
+
+    /**
+     * Identity Status.
+     */
+    private Integer status;
+
+    /**
+     * Default Constructor.
+     */
+<span class="fc" id="L108">    public Identity() {</span>
+<span class="fc" id="L109">        this.roles = new LinkedList&lt;Role&gt;();</span>
+<span class="fc" id="L110">        this.permissions = new LinkedList&lt;Permission&gt;();</span>
+<span class="fc" id="L111">        this.status = Identity.LOGGED_OUT;</span>
+<span class="fc" id="L112">    }</span>
+
+    /**
+     * Login Identity.
+     * 
+     * @return Login Result
+     */
+    public boolean login() {
+<span class="fc" id="L120">        this.logger.info(&quot;Logging In User with Credentials: &quot; + this.credentials);</span>
+<span class="fc" id="L121">        boolean returnValue = Identity.LOGIN_FAILURE;</span>
+
+<span class="fc" id="L123">        final String username = this.getUsername();</span>
+<span class="fc" id="L124">        final String password = this.getPassword();</span>
+<span class="fc" id="L125">        final String expectedPassword = SecurityUtils.generatePasswordHash(password);</span>
+
+<span class="fc" id="L127">        final UserAccount userAccount = this.userAccountService.findByUserEmail(username);</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if (userAccount != null) {</span>
+<span class="fc" id="L129">            final String hashedPassword = userAccount.getPassword();</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">            if (hashedPassword.equals(expectedPassword)) {</span>
+<span class="fc" id="L131">                this.setStatus(Identity.LOGGED_IN);</span>
+
+                // Set Roles
+                // Set Permissions
+
+<span class="fc" id="L136">                this.logger.info(&quot;Logged in User: &quot; + this.credentials);</span>
+            }
+        }
+
+<span class="fc bfc" id="L140" title="All 2 branches covered.">        if (this.isLoggedIn()) {</span>
+<span class="fc" id="L141">            returnValue = Identity.LOGIN_SUCCESS;</span>
+        } else {
+<span class="fc" id="L143">            this.logger.warn(&quot;Invalid Credentials: &quot; + this.credentials);</span>
+        }
+
+<span class="fc" id="L146">        return returnValue;</span>
+    }
+
+    /**
+     * Logout the current User.
+     * 
+     * @return Logout Result
+     */
+    public String logout() {
+<span class="fc" id="L155">        this.logger.info(&quot;Logging Out User with Credentials: &quot; + this.credentials);</span>
+<span class="fc" id="L156">        String returnValue = Identity.LOGOUT_FAILURE;</span>
+
+<span class="fc" id="L158">        this.setStatus(Identity.LOGGED_OUT);</span>
+
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        if (!this.isLoggedIn()) {</span>
+<span class="fc" id="L161">            returnValue = Identity.LOGOUT_SUCCESS;</span>
+        }
+
+<span class="fc" id="L164">        return returnValue;</span>
+    }
+
+    /**
+     * Is the Identity Logged in?
+     * 
+     * @return true if logged in
+     */
+    public boolean isLoggedIn() {
+<span class="fc" id="L173">        return this.status.equals(Identity.LOGGED_IN);</span>
+    }
+
+    /**
+     * Get the status.
+     * 
+     * @return the status
+     */
+    public Integer getStatus() {
+<span class="nc" id="L182">        return this.status;</span>
+    }
+
+    /**
+     * Set the status.
+     * 
+     * @param newStatus
+     *            the status to set
+     */
+    public void setStatus(final Integer newStatus) {
+<span class="fc" id="L192">        this.status = newStatus;</span>
+<span class="fc" id="L193">    }</span>
+
+    /**
+     * Get Username.
+     * 
+     * @return username
+     */
+    public String getUsername() {
+<span class="fc" id="L201">        return this.credentials.getUsername();</span>
+    }
+
+    /**
+     * Get Password.
+     * 
+     * @return password
+     */
+    public String getPassword() {
+<span class="fc" id="L210">        return this.credentials.getPassword();</span>
+    }
+
+    /**
+     * Set the credentials.
+     * 
+     * @param newCredentials
+     *            the credentials to set
+     */
+    public void setCredentials(final Credentials newCredentials) {
+<span class="fc" id="L220">        this.credentials = newCredentials;</span>
+<span class="fc" id="L221">    }</span>
+
+    /**
+     * Set the userAccountService.
+     * 
+     * @param newUserAccountService
+     *            the userAccountService to set
+     */
+    public void setUserAccountService(final UserAccountService newUserAccountService) {
+<span class="fc" id="L230">        this.userAccountService = newUserAccountService;</span>
+<span class="fc" id="L231">    }</span>
+
+    /**
+     * Get the roles.
+     * 
+     * @return the roles
+     */
+    public List&lt;Role&gt; getRoles() {
+<span class="fc" id="L239">        return this.roles;</span>
+    }
+
+    /**
+     * Set the roles.
+     * 
+     * @param newRoles
+     *            the roles to set
+     */
+    public void setRoles(final List&lt;Role&gt; newRoles) {
+<span class="fc" id="L249">        this.roles = newRoles;</span>
+<span class="fc" id="L250">    }</span>
+
+    /**
+     * Get the permissions.
+     * 
+     * @return the permissions
+     */
+    public List&lt;Permission&gt; getPermissions() {
+<span class="fc" id="L258">        return this.permissions;</span>
+    }
+
+    /**
+     * Set the permissions.
+     * 
+     * @param newPermissions
+     *            the permissions to set
+     */
+    public void setPermissions(final List&lt;Permission&gt; newPermissions) {
+<span class="fc" id="L268">        this.permissions = newPermissions;</span>
+<span class="fc" id="L269">    }</span>
+
+    /**
+     * Get the rememberMe.
+     * 
+     * @return the rememberMe
+     */
+    public boolean isRememberMe() {
+<span class="fc" id="L277">        return this.rememberMe;</span>
+    }
+
+    /**
+     * Set the rememberMe.
+     * 
+     * @param newRememberMe
+     *            the rememberMe to set
+     */
+    public void setRememberMe(final boolean newRememberMe) {
+<span class="fc" id="L287">        this.rememberMe = newRememberMe;</span>
+<span class="fc" id="L288">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

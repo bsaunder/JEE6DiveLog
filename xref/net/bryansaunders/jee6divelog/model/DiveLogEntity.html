@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+<title>DiveLogEntity xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../apidocs/net/bryansaunders/jee6divelog/model/DiveLogEntity.html">View Javadoc</a></div><pre>
+
+<a name="1" href="#1">1</a>   <strong class="jxr_keyword">package</strong> net.bryansaunders.jee6divelog.model;
+<a name="2" href="#2">2</a>   
+<a name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> javax.persistence.Column;
+<a name="4" href="#4">4</a>   <strong class="jxr_keyword">import</strong> javax.persistence.GeneratedValue;
+<a name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> javax.persistence.Id;
+<a name="6" href="#6">6</a>   <strong class="jxr_keyword">import</strong> javax.persistence.MappedSuperclass;
+<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> javax.persistence.Version;
+<a name="8" href="#8">8</a>   
+<a name="9" href="#9">9</a>   <em class="jxr_javadoccomment">/**</em>
+<a name="10" href="#10">10</a>  <em class="jxr_javadoccomment"> * Base Entity Element for all DiveLog Entities.</em>
+<a name="11" href="#11">11</a>  <em class="jxr_javadoccomment"> * </em>
+<a name="12" href="#12">12</a>  <em class="jxr_javadoccomment"> * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;</em>
+<a name="13" href="#13">13</a>  <em class="jxr_javadoccomment"> * </em>
+<a name="14" href="#14">14</a>  <em class="jxr_javadoccomment"> */</em>
+<a name="15" href="#15">15</a>  @MappedSuperclass
+<a name="16" href="#16">16</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../net/bryansaunders/jee6divelog/model/DiveLogEntity.html">DiveLogEntity</a> {
+<a name="17" href="#17">17</a>  
+<a name="18" href="#18">18</a>      <em class="jxr_javadoccomment">/**</em>
+<a name="19" href="#19">19</a>  <em class="jxr_javadoccomment">     * Id.</em>
+<a name="20" href="#20">20</a>  <em class="jxr_javadoccomment">     */</em>
+<a name="21" href="#21">21</a>      @Id
+<a name="22" href="#22">22</a>      @GeneratedValue
+<a name="23" href="#23">23</a>      @Column(name = <span class="jxr_string">"id"</span>, unique = <strong class="jxr_keyword">true</strong>, nullable = false)
+<a name="24" href="#24">24</a>      <strong class="jxr_keyword">private</strong> Integer id;
+<a name="25" href="#25">25</a>  
+<a name="26" href="#26">26</a>      <em class="jxr_javadoccomment">/**</em>
+<a name="27" href="#27">27</a>  <em class="jxr_javadoccomment">     * Version.</em>
+<a name="28" href="#28">28</a>  <em class="jxr_javadoccomment">     */</em>
+<a name="29" href="#29">29</a>      @Version
+<a name="30" href="#30">30</a>      <strong class="jxr_keyword">private</strong> Integer version;
+<a name="31" href="#31">31</a>  
+<a name="32" href="#32">32</a>      <em class="jxr_javadoccomment">/**</em>
+<a name="33" href="#33">33</a>  <em class="jxr_javadoccomment">     * Get the id.</em>
+<a name="34" href="#34">34</a>  <em class="jxr_javadoccomment">     * </em>
+<a name="35" href="#35">35</a>  <em class="jxr_javadoccomment">     * @return the id</em>
+<a name="36" href="#36">36</a>  <em class="jxr_javadoccomment">     */</em>
+<a name="37" href="#37">37</a>      <strong class="jxr_keyword">public</strong> Integer getId() {
+<a name="38" href="#38">38</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.id;
+<a name="39" href="#39">39</a>      }
+<a name="40" href="#40">40</a>  
+<a name="41" href="#41">41</a>      <em class="jxr_javadoccomment">/**</em>
+<a name="42" href="#42">42</a>  <em class="jxr_javadoccomment">     * Set the id.</em>
+<a name="43" href="#43">43</a>  <em class="jxr_javadoccomment">     * </em>
+<a name="44" href="#44">44</a>  <em class="jxr_javadoccomment">     * @param newId</em>
+<a name="45" href="#45">45</a>  <em class="jxr_javadoccomment">     *            the id to set</em>
+<a name="46" href="#46">46</a>  <em class="jxr_javadoccomment">     */</em>
+<a name="47" href="#47">47</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setId(<strong class="jxr_keyword">final</strong> Integer newId) {
+<a name="48" href="#48">48</a>          <strong class="jxr_keyword">this</strong>.id = newId;
+<a name="49" href="#49">49</a>      }
+<a name="50" href="#50">50</a>  
+<a name="51" href="#51">51</a>      <em class="jxr_javadoccomment">/**</em>
+<a name="52" href="#52">52</a>  <em class="jxr_javadoccomment">     * Get the version.</em>
+<a name="53" href="#53">53</a>  <em class="jxr_javadoccomment">     * </em>
+<a name="54" href="#54">54</a>  <em class="jxr_javadoccomment">     * @return the version</em>
+<a name="55" href="#55">55</a>  <em class="jxr_javadoccomment">     */</em>
+<a name="56" href="#56">56</a>      <strong class="jxr_keyword">public</strong> Integer getVersion() {
+<a name="57" href="#57">57</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.version;
+<a name="58" href="#58">58</a>      }
+<a name="59" href="#59">59</a>  
+<a name="60" href="#60">60</a>      <em class="jxr_javadoccomment">/**</em>
+<a name="61" href="#61">61</a>  <em class="jxr_javadoccomment">     * Set the version.</em>
+<a name="62" href="#62">62</a>  <em class="jxr_javadoccomment">     * </em>
+<a name="63" href="#63">63</a>  <em class="jxr_javadoccomment">     * @param newVersion</em>
+<a name="64" href="#64">64</a>  <em class="jxr_javadoccomment">     *            the version to set</em>
+<a name="65" href="#65">65</a>  <em class="jxr_javadoccomment">     */</em>
+<a name="66" href="#66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setVersion(<strong class="jxr_keyword">final</strong> Integer newVersion) {
+<a name="67" href="#67">67</a>          <strong class="jxr_keyword">this</strong>.version = newVersion;
+<a name="68" href="#68">68</a>      }
+<a name="69" href="#69">69</a>  
+<a name="70" href="#70">70</a>  }
+</pre>
+<hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
+</html>
+

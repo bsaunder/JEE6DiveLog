@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserAccount.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.model</a> &gt; <span class="el_source">UserAccount.java</span></div><h1>UserAccount.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+/**
+ * User Model.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+@Entity
+@Table(name = &quot;user&quot;)
+<span class="fc" id="L15">public class UserAccount extends DiveLogEntity {</span>
+
+    /**
+     * User First Name.
+     */
+    @NotNull
+    private String firstName;
+
+    /**
+     * User Last Name.
+     */
+    @NotNull
+    private String lastName;
+
+    /**
+     * Country.
+     */
+    private String country;
+
+    /**
+     * State.
+     */
+    private String state;
+
+    /**
+     * City.
+     */
+    private String city;
+
+    /**
+     * User Email.
+     */
+    @NotNull
+    private String email;
+
+    /**
+     * User Password, Hashed.
+     */
+    @NotNull
+    private String password;
+
+    /**
+     * Get the firstName.
+     * 
+     * @return the firstName
+     */
+    public String getFirstName() {
+<span class="fc" id="L62">        return this.firstName;</span>
+    }
+
+    /**
+     * Set the firstName.
+     * 
+     * @param newFirstName
+     *            the firstName to set
+     */
+    public void setFirstName(final String newFirstName) {
+<span class="fc" id="L72">        this.firstName = newFirstName;</span>
+<span class="fc" id="L73">    }</span>
+
+    /**
+     * Get the lastName.
+     * 
+     * @return the lastName
+     */
+    public String getLastName() {
+<span class="fc" id="L81">        return this.lastName;</span>
+    }
+
+    /**
+     * Set the lastName.
+     * 
+     * @param newLastName
+     *            the lastName to set
+     */
+    public void setLastName(final String newLastName) {
+<span class="fc" id="L91">        this.lastName = newLastName;</span>
+<span class="fc" id="L92">    }</span>
+
+    /**
+     * Get the country.
+     * 
+     * @return the country
+     */
+    public String getCountry() {
+<span class="fc" id="L100">        return this.country;</span>
+    }
+
+    /**
+     * Set the country.
+     * 
+     * @param newCountry
+     *            the country to set
+     */
+    public void setCountry(final String newCountry) {
+<span class="fc" id="L110">        this.country = newCountry;</span>
+<span class="fc" id="L111">    }</span>
+
+    /**
+     * Get the state.
+     * 
+     * @return the state
+     */
+    public String getState() {
+<span class="fc" id="L119">        return this.state;</span>
+    }
+
+    /**
+     * Set the state.
+     * 
+     * @param newState
+     *            the state to set
+     */
+    public void setState(final String newState) {
+<span class="fc" id="L129">        this.state = newState;</span>
+<span class="fc" id="L130">    }</span>
+
+    /**
+     * Get the city.
+     * 
+     * @return the city
+     */
+    public String getCity() {
+<span class="fc" id="L138">        return this.city;</span>
+    }
+
+    /**
+     * Set the city.
+     * 
+     * @param newCity
+     *            the city to set
+     */
+    public void setCity(final String newCity) {
+<span class="fc" id="L148">        this.city = newCity;</span>
+<span class="fc" id="L149">    }</span>
+
+    /**
+     * Get the email.
+     * 
+     * @return the email
+     */
+    public String getEmail() {
+<span class="fc" id="L157">        return this.email;</span>
+    }
+
+    /**
+     * Set the email.
+     * 
+     * @param newEmail
+     *            the email to set
+     */
+    public void setEmail(final String newEmail) {
+<span class="fc" id="L167">        this.email = newEmail;</span>
+<span class="fc" id="L168">    }</span>
+
+    /**
+     * Get the password.
+     * 
+     * @return the password
+     */
+    public String getPassword() {
+<span class="fc" id="L176">        return this.password;</span>
+    }
+
+    /**
+     * Set the password.
+     * 
+     * @param newPassword
+     *            the password to set
+     */
+    public void setPassword(final String newPassword) {
+<span class="fc" id="L186">        this.password = newPassword;</span>
+<span class="fc" id="L187">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>
