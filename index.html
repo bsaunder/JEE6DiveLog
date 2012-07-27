@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Jee6divelog by bsaunder</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Jee6divelog</h1>
+        <h2>DiveLog application based on JEE6 running on OpenShift</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/bsaunder/JEE6DiveLog/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/bsaunder/JEE6DiveLog/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/bsaunder/JEE6DiveLog" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h2>JEE6 Dive Log</h2>
+
+<p>Environment Setup:
+1) Install MySQL
+2) Create Database &amp; User
+3) Install JBoss AS7 or Red Hat EAP6
+4) Configure Datasource in standalone.xml
+        jdbc:mysql://127.10.101.1:3306/jee6divelogmysqljee6divelogjee6divelog1com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</p>
+
+<p>Build &amp; Test:
+1) mvn clean install</p>
+
+<p>Deploy:
+1) place .war file in deployments directory</p>
+
+<p>Technology Used:
+Unit tests are written using JUnit 4, Mockito 1.9, and PowerMock 1.4.
+Integration tests are written using Arquillian 1.2.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
