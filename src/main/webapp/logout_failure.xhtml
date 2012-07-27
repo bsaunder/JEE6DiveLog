@@ -8,13 +8,13 @@
 		xmlns:ui="http://java.sun.com/jsf/facelets"
 		template="/templates/master.xhtml">
 		<ui:define name="title">
-		Registration
+		Logout
 	</ui:define>
 		<ui:define name="body">
 			<div class="row-fluid">
 				<div class="span9">
-					<h1>Registration</h1>
-					<p>Thank you for registering. Your account is now ready. Please <a href="#{root}login.xhtml">login to continue</a>.</p>
+					<h1>Logout Error</h1>
+					<p>Your account could not be logged out. Please <h:commandLink action="#{identity.logout}">Try Again</h:commandLink> in a few moments.</p>
 				</div>
 			</div>
 		</ui:define>

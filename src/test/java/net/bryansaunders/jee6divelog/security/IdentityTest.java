@@ -108,7 +108,7 @@ public class IdentityTest {
      */
     @Test
     public void ifInvalidUserThenFail() {
-     // given
+        // given
         final String username = "admin@test.com";
         final String password = "abcdef1A@";
         
@@ -130,6 +130,35 @@ public class IdentityTest {
 
         // then
         assertEquals(Identity.LOGIN_FAILURE, result);
+        assertFalse(this.identity.isLoggedIn());
+    }
+    
+    /**
+     * Tests logout().
+     */
+    @Test
+    public void ifLoggedInThenLogout(){
+        // given
+        final String username = "admin@test.com";
+        final String password = "abcdef1A@";
+        final String expectedPassword = SecurityUtils.generatePasswordHash(password);
+        
+        final UserAccount userAccount = new UserAccount();
+        userAccount.setPassword(expectedPassword);
+
+        final Credentials credentials = new Credentials();
+        credentials.setUsername(username);
+        credentials.setPassword(password);
+        this.identity.setCredentials(credentials);
+        
+        when(this.mockAccountService.findByUserEmail(username)).thenReturn(userAccount);
+        this.identity.login();
+
+        // when
+        final String result = this.identity.logout();
+
+        // then
+        assertEquals(Identity.LOGOUT_SUCCESS, result);
         assertFalse(this.identity.isLoggedIn());
     }
 

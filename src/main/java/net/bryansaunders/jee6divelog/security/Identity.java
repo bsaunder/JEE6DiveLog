@@ -43,14 +43,19 @@ public class Identity implements Serializable {
     public static final String LOGIN_SUCCESS = "/user/account";
 
     /**
+     * Logout Failure.
+     */
+    public static final String LOGOUT_FAILURE = "/logout_error";
+
+    /**
+     * Logout Success.
+     */
+    public static final String LOGOUT_SUCCESS = "/logout_success";
+
+    /**
      * Identity Logged Out.
      */
     public static final Integer LOGGED_OUT = 1;
-
-    /**
-     * Identity Locked Out.
-     */
-    public static final Integer LOCKED_OUT = 2;
 
     /**
      * Identity Logged In.
@@ -142,6 +147,24 @@ public class Identity implements Serializable {
             facesContext.addMessage("loginform:email", facesMessage);
 
             this.logger.warn("Invalid Credentials: " + this.credentials);
+        }
+
+        return returnValue;
+    }
+
+    /**
+     * Logout the current User.
+     * 
+     * @return Logout Result
+     */
+    public String logout() {
+        this.logger.info("Logging Out User with Credentials: " + this.credentials);
+        String returnValue = Identity.LOGOUT_FAILURE;
+
+        this.setStatus(Identity.LOGGED_OUT);
+
+        if (!this.isLoggedIn()) {
+            returnValue = Identity.LOGOUT_SUCCESS;
         }
 
         return returnValue;
