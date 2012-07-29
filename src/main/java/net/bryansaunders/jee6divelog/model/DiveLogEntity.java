@@ -1,9 +1,15 @@
 package net.bryansaunders.jee6divelog.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 /**
@@ -28,6 +34,37 @@ public class DiveLogEntity {
      */
     @Version
     private Integer version;
+
+    /**
+     * Creation Date.
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created", nullable = false)
+    private Date created;
+
+    /**
+     * Updated Date.
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated", nullable = false)
+    private Date updated;
+
+    /**
+     * Pre-Persist Logic.
+     */
+    @PrePersist
+    protected void onCreate() {
+        this.created = new Date();
+        this.updated = this.created;
+    }
+
+    /**
+     * Pre-Update Logic.
+     */
+    @PreUpdate
+    protected void onUpdate() {
+        this.updated = new Date();
+    }
 
     /**
      * Get the id.
@@ -65,6 +102,44 @@ public class DiveLogEntity {
      */
     public void setVersion(final Integer newVersion) {
         this.version = newVersion;
+    }
+
+    /**
+     * Get the created.
+     * 
+     * @return the created
+     */
+    public Date getCreated() {
+        return this.created;
+    }
+
+    /**
+     * Set the created.
+     * 
+     * @param newCreated
+     *            the newCreated to set
+     */
+    public void setCreated(final Date newCreated) {
+        this.created = newCreated;
+    }
+
+    /**
+     * Get the updated.
+     * 
+     * @return the updated
+     */
+    public Date getUpdated() {
+        return this.updated;
+    }
+
+    /**
+     * Set the updated.
+     * 
+     * @param newUpdated
+     *            the updated to set
+     */
+    public void setUpdated(final Date newUpdated) {
+        this.updated = newUpdated;
     }
 
 }

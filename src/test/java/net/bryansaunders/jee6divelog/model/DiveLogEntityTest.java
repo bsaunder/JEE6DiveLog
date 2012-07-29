@@ -2,6 +2,8 @@ package net.bryansaunders.jee6divelog.model;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,6 +46,54 @@ public class DiveLogEntityTest {
         final Integer value = 1;
         this.entity.setVersion(value);
         assertEquals(value, this.entity.getVersion());
+    }
+
+    /**
+     * Tests the Created.
+     */
+    @Test
+    public void testCreated() {
+        final Date date = new Date();
+        this.entity.setCreated(date);
+        assertEquals(date, this.entity.getCreated());
+    }
+
+    /**
+     * Tests the Updated.
+     */
+    @Test
+    public void testUpdated() {
+        final Date date = new Date();
+        this.entity.setUpdated(date);
+        assertEquals(date, this.entity.getUpdated());
+    }
+
+    /**
+     * Test OnCreate.
+     */
+    @Test
+    public void testOnCreated() {
+        final Date date = new Date();
+
+        this.entity.onCreate();
+        final Date createdDate = this.entity.getCreated();
+        final Date updatedDate = this.entity.getUpdated();
+
+        assertEquals(createdDate, updatedDate);
+        assertEquals(date.getTime(), createdDate.getTime());
+    }
+
+    /**
+     * Test onUpdate.
+     */
+    @Test
+    public void testOnUpdate() {
+        final Date date = new Date();
+
+        this.entity.onUpdate();
+        final Date updatedDate = this.entity.getUpdated();
+
+        assertEquals(date.getTime(), updatedDate.getTime());
     }
 
 }
