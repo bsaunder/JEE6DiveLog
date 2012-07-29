@@ -3,6 +3,9 @@
  */
 package net.bryansaunders.jee6divelog.service;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
@@ -18,6 +21,8 @@ import javax.validation.ConstraintViolationException;
 
 import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
 import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.security.enums.Permission;
+import net.bryansaunders.jee6divelog.security.enums.Role;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +35,11 @@ import org.slf4j.LoggerFactory;
  */
 @Stateless
 public class UserAccountService {
-    
+
     /**
      * Logger.
      */
-    private Logger logger = LoggerFactory.getLogger(UserAccountService.class);
+    private final Logger logger = LoggerFactory.getLogger(UserAccountService.class);
 
     /**
      * User DAO.
@@ -59,8 +64,17 @@ public class UserAccountService {
         UserAccount savedUser = null;
 
         try {
+            // Set Default Roles
+            final List<Role> defaultRoles = new LinkedList<Role>();
+            defaultRoles.add(Role.USER);
+            user.setRoles(defaultRoles);
+
+            // Set Default Permissions
+            final List<Permission> defaultPermissions = Permission.getDefaults(Role.USER);
+            user.setPermissions(defaultPermissions);
+
             savedUser = this.userDao.save(user);
-        } catch (ConstraintViolationException e) {
+        } catch (final ConstraintViolationException e) {
             this.context.setRollbackOnly();
         }
 
@@ -91,10 +105,10 @@ public class UserAccountService {
         UserAccount foundAccount = null;
         try {
             foundAccount = query.getSingleResult();
-        } catch (NoResultException e) {
+        } catch (final NoResultException e) {
             this.logger.info("Could not Find UserAccount for Username: " + username);
         }
-        
+
         return foundAccount;
     }
 

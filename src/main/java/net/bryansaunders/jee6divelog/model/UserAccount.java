@@ -1,8 +1,19 @@
 package net.bryansaunders.jee6divelog.model;
 
+import java.util.List;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import net.bryansaunders.jee6divelog.security.enums.Permission;
+import net.bryansaunders.jee6divelog.security.enums.Role;
 
 /**
  * User Model.
@@ -52,6 +63,24 @@ public class UserAccount extends DiveLogEntity {
      */
     @NotNull
     private String password;
+
+    /**
+     * User Roles.
+     */
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    @Column(name = "role")
+    private List<Role> roles;
+
+    /**
+     * User Permissions.
+     */
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_permission", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    @Column(name = "permission")
+    private List<Permission> permissions;
 
     /**
      * Get the firstName.
@@ -184,6 +213,44 @@ public class UserAccount extends DiveLogEntity {
      */
     public void setPassword(final String newPassword) {
         this.password = newPassword;
+    }
+
+    /**
+     * Get the roles.
+     * 
+     * @return the roles
+     */
+    public List<Role> getRoles() {
+        return this.roles;
+    }
+
+    /**
+     * Set the roles.
+     * 
+     * @param newRoles
+     *            the roles to set
+     */
+    public void setRoles(List<Role> newRoles) {
+        this.roles = newRoles;
+    }
+
+    /**
+     * Get the permissions.
+     * 
+     * @return the permissions
+     */
+    public List<Permission> getPermissions() {
+        return this.permissions;
+    }
+
+    /**
+     * Set the permissions.
+     * 
+     * @param newPermissions
+     *            the permissions to set
+     */
+    public void setPermissions(List<Permission> newPermissions) {
+        this.permissions = newPermissions;
     }
 
 }

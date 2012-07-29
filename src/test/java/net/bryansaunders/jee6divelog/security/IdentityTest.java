@@ -190,7 +190,7 @@ public class IdentityTest {
     @Test
     public void testPermissions() {
         final List<Permission> permissionSet = new LinkedList<Permission>();
-        permissionSet.add(Permission.CREATE_USER);
+        permissionSet.add(Permission.EDIT_SELF);
 
         this.identity.setPermissions(permissionSet);
         final List<Permission> permissions = this.identity.getPermissions();

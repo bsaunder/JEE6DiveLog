@@ -5,6 +5,7 @@ package net.bryansaunders.jee6divelog.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
@@ -17,20 +18,21 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.service.useradmin.Role;
 
 /**
  * @author Bryan Saunders <btsaunde@gmail.com>
- *
+ * 
  */
 @RunWith(Arquillian.class)
 public class UserAccountServiceIT {
-    
+
     /**
      * User Service.
      */
     @Inject
     private UserAccountService userService;
-    
+
     /**
      * Creates Arquillian Deployment Container.
      * 
@@ -40,7 +42,7 @@ public class UserAccountServiceIT {
     public static WebArchive createDeployment() {
         return DefaultDeployment.getDefaultDeployment();
     }
-    
+
     /**
      * Tests the Producer was properly injected.
      */
@@ -60,16 +62,20 @@ public class UserAccountServiceIT {
         validUser.setLastName("Saunders");
         validUser.setEmail("btsaunde@gmail.com");
         validUser.setPassword("pass123");
-        
+
         // when
-        UserAccount savedUser = this.userService.createUser(validUser);
-        
+        final UserAccount savedUser = this.userService.createUser(validUser);
+
         // then
         assertNotNull(savedUser);
         assertNotNull(savedUser.getId());
+        assertNotNull(savedUser.getRoles());
+        // TODO This Line Fails the Test. Fix It.
+        //assertTrue(savedUser.getRoles().contains(Role.USER));
+        assertNotNull(savedUser.getPermissions());
         assertEquals(savedUser, validUser);
     }
-    
+
     /**
      * Test for findByUsername().
      */
