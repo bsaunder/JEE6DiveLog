@@ -7,6 +7,7 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
+import net.bryansaunders.jee6divelog.security.AuthorizationFailedException;
 import net.bryansaunders.jee6divelog.security.Identity;
 import net.bryansaunders.jee6divelog.security.annotations.HasRole;
 import net.bryansaunders.jee6divelog.security.enums.Role;
@@ -37,7 +38,7 @@ public class HasRoleInterceptor {
      *             Thrown if Access is Denied
      */
     @AroundInvoke
-    public Object manageTransaction(final InvocationContext ctx) throws Exception {
+    public Object checkAuthenticaion(final InvocationContext ctx) throws Exception {
         final Method method = ctx.getMethod();
         Role role = null;
 
@@ -45,19 +46,23 @@ public class HasRoleInterceptor {
         HasRole hasRoleAnnotation = method.getAnnotation(HasRole.class);
         if (hasRoleAnnotation != null) {
             role = hasRoleAnnotation.role();
-
         }
 
         // Check For Class Level Annotations
-        hasRoleAnnotation = method.getDeclaringClass().getAnnotation(HasRole.class);
-        if (hasRoleAnnotation != null) {
-            role = hasRoleAnnotation.role();
+        final Class<?> callingClass = method.getDeclaringClass();
+        if (callingClass != null) {
+            hasRoleAnnotation = callingClass.getAnnotation(HasRole.class);
+            if (hasRoleAnnotation != null) {
+                role = hasRoleAnnotation.role();
+            }
         }
 
         // Check Identity
-        if (role != null) {
+        if (role == null) {
+            throw new AuthorizationFailedException("Could not Validate Identity, Could not Retrieve Role.");
+        } else {
             if (!this.identity.hasRole(role)) {
-                throw new Exception("Access Denied, Role " + role + " Not Found");
+                throw new AuthorizationFailedException("Access Denied, Role " + role + " Not Found");
             }
         }
 

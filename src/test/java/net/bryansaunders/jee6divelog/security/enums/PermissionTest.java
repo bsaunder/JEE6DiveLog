@@ -18,11 +18,21 @@ public class PermissionTest {
      * Test for Default Permissions.
      */
     @Test
-    public void testGetDefaults() {
+    public void testGetUserDefaults() {
         final List<Permission> defaultPermissions = Permission.getDefaults(Role.USER);
 
         assertTrue(defaultPermissions.contains(Permission.EDIT_SELF));
         assertTrue(defaultPermissions.contains(Permission.DELETE_SELF));
+    }
+    
+    /**
+     * Test for Default Permissions.
+     */
+    @Test
+    public void testGetAdminDefaults() {
+        final List<Permission> defaultPermissions = Permission.getDefaults(Role.ADMIN);
+
+        assertTrue(defaultPermissions.contains(Permission.EDIT_SELF));
     }
 
 }

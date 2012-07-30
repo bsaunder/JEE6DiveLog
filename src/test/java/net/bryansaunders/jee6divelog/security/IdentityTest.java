@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -217,15 +216,21 @@ public class IdentityTest {
      */
     @Test
     public void ifHasRoleThenTrue() {
-        fail("Not Yet Implemented.");
+        final List<Role> roleSet = new LinkedList<Role>();
+        roleSet.add(Role.ADMIN);
+        this.identity.setRoles(roleSet);
+
+        assertTrue(this.identity.hasRole(Role.ADMIN));
     }
-    
+
     /**
      * Test for HasRole Method.
      */
     @Test
     public void ifRoleMissingThenFalse() {
-        fail("Not Yet Implemented.");
+        this.identity.setRoles(new LinkedList<Role>());
+
+        assertFalse(this.identity.hasRole(Role.ADMIN));
     }
 
 }
