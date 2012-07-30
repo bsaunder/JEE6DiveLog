@@ -230,7 +230,7 @@ public class UserAccount extends DiveLogEntity {
      * @param newRoles
      *            the roles to set
      */
-    public void setRoles(List<Role> newRoles) {
+    public void setRoles(final List<Role> newRoles) {
         this.roles = newRoles;
     }
 
@@ -249,7 +249,7 @@ public class UserAccount extends DiveLogEntity {
      * @param newPermissions
      *            the permissions to set
      */
-    public void setPermissions(List<Permission> newPermissions) {
+    public void setPermissions(final List<Permission> newPermissions) {
         this.permissions = newPermissions;
     }
 

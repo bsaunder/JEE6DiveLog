@@ -21,8 +21,8 @@ public enum Permission {
      */
     EDIT_SELF(new HashMap<Role, Boolean>() {
         {
-            put(Role.USER, true);
-            put(Role.ADMIN, true);
+            this.put(Role.USER, true);
+            this.put(Role.ADMIN, true);
         }
     }),
 
@@ -31,8 +31,8 @@ public enum Permission {
      */
     DELETE_SELF(new HashMap<Role, Boolean>() {
         {
-            put(Role.USER, true);
-            put(Role.ADMIN, false);
+            this.put(Role.USER, true);
+            this.put(Role.ADMIN, false);
         }
     });
 
