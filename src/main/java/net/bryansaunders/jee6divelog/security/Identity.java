@@ -298,4 +298,15 @@ public class Identity implements Serializable {
         return this.roles.contains(role);
     }
 
+    /**
+     * Has the specified Permission.
+     * 
+     * @param permission
+     *            Permission to check for
+     * @return true if permission is found
+     */
+    public boolean hasPermission(final Permission permission) {
+        return this.permissions.contains(permission);
+    }
+
 }

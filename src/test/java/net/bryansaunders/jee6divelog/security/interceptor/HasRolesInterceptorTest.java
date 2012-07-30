@@ -31,7 +31,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Method.class)
-public class HasRoleInterceptorTest {
+public class HasRolesInterceptorTest {
 
     /**
      * Mock Identity.
@@ -43,7 +43,7 @@ public class HasRoleInterceptorTest {
      * Interceptor with Injected Mocks.
      */
     @InjectMocks
-    private HasRoleInterceptor interceptor;
+    private HasRolesInterceptor interceptor;
 
     /**
      * Test Setup.
@@ -60,11 +60,12 @@ public class HasRoleInterceptorTest {
      *             Thrown on error
      */
     @Test
-    public void ifMethodHasRoleThenProceed() throws Exception {
+    public void ifMethodHasRolesThenProceed() throws Exception {
         // given
         when(this.mockIdentity.hasRole(Role.USER)).thenReturn(true);
+        when(this.mockIdentity.hasRole(Role.ADMIN)).thenReturn(true);
 
-        final Method method = RoleInterceptorSandbox.class.getMethod("hasRoleUserMethod");
+        final Method method = RoleInterceptorSandbox.class.getMethod("hasRolesUserAdminMethod");
 
         final InvocationContext ic = mock(InvocationContext.class);
         final Object expectedObject = new Object();
@@ -86,9 +87,10 @@ public class HasRoleInterceptorTest {
      *             Thrown on error
      */
     @Test
-    public void ifClassHasRoleThenProceed() throws Exception {
+    public void ifClassHasRolesThenProceed() throws Exception {
         // given
         when(this.mockIdentity.hasRole(Role.USER)).thenReturn(true);
+        when(this.mockIdentity.hasRole(Role.ADMIN)).thenReturn(true);
 
         final Method method = RoleInterceptorSandbox.class.getMethod("blankMethod");
 
@@ -135,8 +137,9 @@ public class HasRoleInterceptorTest {
     public void ifRoleMissingThenException() throws Exception {
         // given
         when(this.mockIdentity.hasRole(Role.USER)).thenReturn(false);
+        when(this.mockIdentity.hasRole(Role.ADMIN)).thenReturn(false);
 
-        final Method method = RoleInterceptorSandbox.class.getMethod("hasRoleUserMethod");
+        final Method method = RoleInterceptorSandbox.class.getMethod("hasRolesUserAdminMethod");
 
         final InvocationContext ic = mock(InvocationContext.class);
         when(ic.getMethod()).thenReturn(method);

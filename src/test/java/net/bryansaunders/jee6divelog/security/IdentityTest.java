@@ -232,5 +232,27 @@ public class IdentityTest {
 
         assertFalse(this.identity.hasRole(Role.ADMIN));
     }
+    
+    /**
+     * Test for HasPermission Method.
+     */
+    @Test
+    public void ifHasPermissionThenTrue() {
+        final List<Permission> permissionSet = new LinkedList<Permission>();
+        permissionSet.add(Permission.EDIT_SELF);
+        this.identity.setPermissions(permissionSet);
+
+        assertTrue(this.identity.hasPermission(Permission.EDIT_SELF));
+    }
+
+    /**
+     * Test for HasPermission Method.
+     */
+    @Test
+    public void ifPermissionMissingThenFalse() {
+        this.identity.setPermissions(new LinkedList<Permission>());
+
+        assertFalse(this.identity.hasPermission(Permission.EDIT_SELF));
+    }
 
 }

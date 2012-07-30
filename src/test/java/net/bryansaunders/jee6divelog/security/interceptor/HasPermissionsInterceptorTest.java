@@ -14,7 +14,7 @@ import javax.interceptor.InvocationContext;
 
 import net.bryansaunders.jee6divelog.security.AuthorizationFailedException;
 import net.bryansaunders.jee6divelog.security.Identity;
-import net.bryansaunders.jee6divelog.security.enumerator.Role;
+import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +31,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Method.class)
-public class HasRoleInterceptorTest {
+public class HasPermissionsInterceptorTest {
 
     /**
      * Mock Identity.
@@ -43,7 +43,7 @@ public class HasRoleInterceptorTest {
      * Interceptor with Injected Mocks.
      */
     @InjectMocks
-    private HasRoleInterceptor interceptor;
+    private HasPermissionsInterceptor interceptor;
 
     /**
      * Test Setup.
@@ -60,11 +60,12 @@ public class HasRoleInterceptorTest {
      *             Thrown on error
      */
     @Test
-    public void ifMethodHasRoleThenProceed() throws Exception {
+    public void ifMethodHasPermissionsThenProceed() throws Exception {
         // given
-        when(this.mockIdentity.hasRole(Role.USER)).thenReturn(true);
+        when(this.mockIdentity.hasPermission(Permission.EDIT_SELF)).thenReturn(true);
+        when(this.mockIdentity.hasPermission(Permission.DELETE_SELF)).thenReturn(true);
 
-        final Method method = RoleInterceptorSandbox.class.getMethod("hasRoleUserMethod");
+        final Method method = PermissionInterceptorSandbox.class.getMethod("hasPermissionsEditSelfDeleteSelfMethod");
 
         final InvocationContext ic = mock(InvocationContext.class);
         final Object expectedObject = new Object();
@@ -86,11 +87,12 @@ public class HasRoleInterceptorTest {
      *             Thrown on error
      */
     @Test
-    public void ifClassHasRoleThenProceed() throws Exception {
+    public void ifClassHasPermissionsThenProceed() throws Exception {
         // given
-        when(this.mockIdentity.hasRole(Role.USER)).thenReturn(true);
+        when(this.mockIdentity.hasPermission(Permission.EDIT_SELF)).thenReturn(true);
+        when(this.mockIdentity.hasPermission(Permission.DELETE_SELF)).thenReturn(true);
 
-        final Method method = RoleInterceptorSandbox.class.getMethod("blankMethod");
+        final Method method = PermissionInterceptorSandbox.class.getMethod("blankMethod");
 
         final InvocationContext ic = mock(InvocationContext.class);
         final Object expectedObject = new Object();
@@ -132,11 +134,12 @@ public class HasRoleInterceptorTest {
      *             Thrown on error
      */
     @Test(expected = AuthorizationFailedException.class)
-    public void ifRoleMissingThenException() throws Exception {
+    public void ifPermissionsMissingThenException() throws Exception {
         // given
-        when(this.mockIdentity.hasRole(Role.USER)).thenReturn(false);
+        when(this.mockIdentity.hasPermission(Permission.EDIT_SELF)).thenReturn(false);
+        when(this.mockIdentity.hasPermission(Permission.DELETE_SELF)).thenReturn(false);
 
-        final Method method = RoleInterceptorSandbox.class.getMethod("hasRoleUserMethod");
+        final Method method = PermissionInterceptorSandbox.class.getMethod("hasPermissionsEditSelfDeleteSelfMethod");
 
         final InvocationContext ic = mock(InvocationContext.class);
         when(ic.getMethod()).thenReturn(method);

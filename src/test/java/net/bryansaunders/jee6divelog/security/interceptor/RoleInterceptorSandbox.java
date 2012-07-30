@@ -1,6 +1,7 @@
 package net.bryansaunders.jee6divelog.security.interceptor;
 
 import net.bryansaunders.jee6divelog.security.annotation.HasRole;
+import net.bryansaunders.jee6divelog.security.annotation.HasRoles;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 import org.junit.Ignore;
@@ -13,13 +14,22 @@ import org.junit.Ignore;
  */
 @Ignore
 @HasRole(role = Role.USER)
-public class HasRoleInterceptorSandbox {
+@HasRoles(roles = {Role.USER, Role.ADMIN})
+public class RoleInterceptorSandbox {
 
     /**
      * Method with HasRole Annotation.
      */
     @HasRole(role = Role.USER)
     public void hasRoleUserMethod() {
+
+    }
+    
+    /**
+     * Method with HasRoles Annotation.
+     */
+    @HasRoles(roles = {Role.USER, Role.ADMIN})
+    public void hasRolesUserAdminMethod() {
 
     }
 
