@@ -287,4 +287,15 @@ public class Identity implements Serializable {
         this.rememberMe = newRememberMe;
     }
 
+    /**
+     * Has the specified Role.
+     * 
+     * @param role
+     *            Role to check for
+     * @return true if role is found
+     */
+    public boolean hasRole(final Role role) {
+        return this.roles.contains(role);
+    }
+
 }

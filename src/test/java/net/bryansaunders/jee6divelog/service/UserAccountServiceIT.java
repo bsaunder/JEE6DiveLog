@@ -8,17 +8,19 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import net.bryansaunders.jee6divelog.DefaultDeployment;
 import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.security.enums.Role;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osgi.service.useradmin.Role;
 
 /**
  * @author Bryan Saunders <btsaunde@gmail.com>
@@ -69,9 +71,11 @@ public class UserAccountServiceIT {
         // then
         assertNotNull(savedUser);
         assertNotNull(savedUser.getId());
-        assertNotNull(savedUser.getRoles());
-        // TODO This Line Fails the Test. Fix It.
-        //assertTrue(savedUser.getRoles().contains(Role.USER));
+        
+        final List<Role> roles = savedUser.getRoles();
+        assertNotNull(roles);        
+        assertTrue(roles.contains(Role.USER));
+        
         assertNotNull(savedUser.getPermissions());
         assertEquals(savedUser, validUser);
     }

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -32,12 +33,12 @@ public class IdentityTest {
      * Identity.
      */
     private Identity identity;
-    
+
     /**
      * Mock Credentials.
      */
     private Credentials mockCredentials;
-    
+
     /**
      * Mock User Account Service.
      */
@@ -49,10 +50,10 @@ public class IdentityTest {
     @Before
     public void setupTest() {
         this.identity = new Identity();
-        
+
         this.mockCredentials = new Credentials();
         this.mockAccountService = mock(UserAccountService.class);
-        
+
         this.identity.setCredentials(this.mockCredentials);
         this.identity.setUserAccountService(this.mockAccountService);
     }
@@ -76,7 +77,7 @@ public class IdentityTest {
         final String username = "admin@test.com";
         final String password = "abcdef1A@";
         final String expectedPassword = SecurityUtils.generatePasswordHash(password);
-        
+
         final UserAccount userAccount = new UserAccount();
         userAccount.setPassword(expectedPassword);
 
@@ -84,7 +85,7 @@ public class IdentityTest {
         credentials.setUsername(username);
         credentials.setPassword(password);
         this.identity.setCredentials(credentials);
-        
+
         when(this.mockAccountService.findByUserEmail(username)).thenReturn(userAccount);
 
         // when
@@ -103,7 +104,7 @@ public class IdentityTest {
         // given
         final String username = "admin@test.com";
         final String password = "abcdef1A@";
-        
+
         final UserAccount userAccount = new UserAccount();
         userAccount.setPassword("1232532");
 
@@ -111,7 +112,7 @@ public class IdentityTest {
         credentials.setUsername(username);
         credentials.setPassword(password);
         this.identity.setCredentials(credentials);
-        
+
         when(this.mockAccountService.findByUserEmail(username)).thenReturn(userAccount);
 
         // when
@@ -121,17 +122,17 @@ public class IdentityTest {
         assertEquals(Identity.LOGIN_FAILURE, result);
         assertFalse(this.identity.isLoggedIn());
     }
-    
+
     /**
      * Tests logout().
      */
     @Test
-    public void ifLoggedInThenLogout(){
+    public void ifLoggedInThenLogout() {
         // given
         final String username = "admin@test.com";
         final String password = "abcdef1A@";
         final String expectedPassword = SecurityUtils.generatePasswordHash(password);
-        
+
         final UserAccount userAccount = new UserAccount();
         userAccount.setPassword(expectedPassword);
 
@@ -139,7 +140,7 @@ public class IdentityTest {
         credentials.setUsername(username);
         credentials.setPassword(password);
         this.identity.setCredentials(credentials);
-        
+
         when(this.mockAccountService.findByUserEmail(username)).thenReturn(userAccount);
         this.identity.login();
 
@@ -209,6 +210,22 @@ public class IdentityTest {
 
         this.identity.setRememberMe(true);
         assertTrue(this.identity.isRememberMe());
+    }
+
+    /**
+     * Test for HasRole Method.
+     */
+    @Test
+    public void ifHasRoleThenTrue() {
+        fail("Not Yet Implemented.");
+    }
+    
+    /**
+     * Test for HasRole Method.
+     */
+    @Test
+    public void ifRoleMissingThenFalse() {
+        fail("Not Yet Implemented.");
     }
 
 }
