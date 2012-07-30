@@ -12,8 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import net.bryansaunders.jee6divelog.security.enums.Permission;
-import net.bryansaunders.jee6divelog.security.enums.Role;
+import net.bryansaunders.jee6divelog.security.enumerator.Permission;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 /**
  * User Model.

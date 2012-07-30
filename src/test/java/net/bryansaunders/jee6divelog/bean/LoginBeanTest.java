@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.beans;
+package net.bryansaunders.jee6divelog.bean;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 
 import javax.faces.context.FacesContext;
 
+import net.bryansaunders.jee6divelog.bean.LoginBean;
 import net.bryansaunders.jee6divelog.security.Credentials;
 import net.bryansaunders.jee6divelog.security.Identity;
 

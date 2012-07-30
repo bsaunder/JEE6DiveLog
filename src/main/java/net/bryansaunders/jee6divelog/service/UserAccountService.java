@@ -21,8 +21,8 @@ import javax.validation.ConstraintViolationException;
 
 import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
 import net.bryansaunders.jee6divelog.model.UserAccount;
-import net.bryansaunders.jee6divelog.security.enums.Permission;
-import net.bryansaunders.jee6divelog.security.enums.Role;
+import net.bryansaunders.jee6divelog.security.enumerator.Permission;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -9,8 +9,8 @@ import javax.interceptor.InvocationContext;
 
 import net.bryansaunders.jee6divelog.security.AuthorizationFailedException;
 import net.bryansaunders.jee6divelog.security.Identity;
-import net.bryansaunders.jee6divelog.security.annotations.HasRole;
-import net.bryansaunders.jee6divelog.security.enums.Role;
+import net.bryansaunders.jee6divelog.security.annotation.HasRole;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 /**
  * HasRole Interceptor.

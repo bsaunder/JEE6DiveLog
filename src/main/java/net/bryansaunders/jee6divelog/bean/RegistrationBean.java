@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.beans;
+package net.bryansaunders.jee6divelog.bean;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -9,10 +9,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.bryansaunders.jee6divelog.annotations.FieldMatch;
-import net.bryansaunders.jee6divelog.annotations.Password;
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
+import net.bryansaunders.jee6divelog.validation.annotation.FieldMatch;
+import net.bryansaunders.jee6divelog.validation.annotation.Password;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.validator.constraints.Email;

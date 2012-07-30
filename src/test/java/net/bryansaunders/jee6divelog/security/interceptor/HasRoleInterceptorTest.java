@@ -14,7 +14,7 @@ import javax.interceptor.InvocationContext;
 
 import net.bryansaunders.jee6divelog.security.AuthorizationFailedException;
 import net.bryansaunders.jee6divelog.security.Identity;
-import net.bryansaunders.jee6divelog.security.enums.Role;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,8 +1,11 @@
-package net.bryansaunders.jee6divelog.security.enums;
+package net.bryansaunders.jee6divelog.security.enumerator;
 
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+
+import net.bryansaunders.jee6divelog.security.enumerator.Permission;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 import org.junit.Test;
 

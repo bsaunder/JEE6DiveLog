@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 import net.bryansaunders.jee6divelog.DefaultDeployment;
 import net.bryansaunders.jee6divelog.model.UserAccount;
-import net.bryansaunders.jee6divelog.security.enums.Role;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;

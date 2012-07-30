@@ -1,4 +1,4 @@
-package net.bryansaunders.jee6divelog.security.filters;
+package net.bryansaunders.jee6divelog.security.filter;
 
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
@@ -14,6 +14,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import net.bryansaunders.jee6divelog.security.Identity;
+import net.bryansaunders.jee6divelog.security.filter.AuthenticationFilter;
 
 import org.junit.Before;
 import org.junit.Test;

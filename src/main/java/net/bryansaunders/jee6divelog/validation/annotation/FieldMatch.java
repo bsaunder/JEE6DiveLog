@@ -1,4 +1,4 @@
-package net.bryansaunders.jee6divelog.annotations;
+package net.bryansaunders.jee6divelog.validation.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

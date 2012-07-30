@@ -1,9 +1,11 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.utils;
+package net.bryansaunders.jee6divelog.util;
 
 import static org.junit.Assert.assertEquals;
+
+import net.bryansaunders.jee6divelog.util.HashUtils;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;

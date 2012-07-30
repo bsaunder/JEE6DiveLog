@@ -14,10 +14,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.bryansaunders.jee6divelog.model.UserAccount;
-import net.bryansaunders.jee6divelog.security.enums.Permission;
-import net.bryansaunders.jee6divelog.security.enums.Role;
+import net.bryansaunders.jee6divelog.security.enumerator.Permission;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
-import net.bryansaunders.jee6divelog.utils.SecurityUtils;
+import net.bryansaunders.jee6divelog.util.SecurityUtils;
 
 import org.junit.Before;
 import org.junit.Test;

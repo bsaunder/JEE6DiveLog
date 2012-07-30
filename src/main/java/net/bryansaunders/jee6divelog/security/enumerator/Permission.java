@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.security.enums;
+package net.bryansaunders.jee6divelog.security.enumerator;
 
 import java.util.HashMap;
 import java.util.LinkedList;

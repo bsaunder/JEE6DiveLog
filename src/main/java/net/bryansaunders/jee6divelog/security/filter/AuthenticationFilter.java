@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.security.filters;
+package net.bryansaunders.jee6divelog.security.filter;
 
 import java.io.IOException;
 

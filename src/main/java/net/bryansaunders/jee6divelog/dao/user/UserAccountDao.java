@@ -2,7 +2,7 @@ package net.bryansaunders.jee6divelog.dao.user;
 
 import net.bryansaunders.jee6divelog.dao.GenericDaoImpl;
 import net.bryansaunders.jee6divelog.model.UserAccount;
-import net.bryansaunders.jee6divelog.utils.SecurityUtils;
+import net.bryansaunders.jee6divelog.util.SecurityUtils;
 
 /**
  * User DAO.

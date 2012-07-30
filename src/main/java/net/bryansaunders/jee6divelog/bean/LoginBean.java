@@ -1,4 +1,4 @@
-package net.bryansaunders.jee6divelog.beans;
+package net.bryansaunders.jee6divelog.bean;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;

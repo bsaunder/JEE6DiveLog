@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import net.bryansaunders.jee6divelog.annotations.Password;
+import net.bryansaunders.jee6divelog.validation.annotation.Password;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

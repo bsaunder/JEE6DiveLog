@@ -1,4 +1,4 @@
-package net.bryansaunders.jee6divelog.security.enums;
+package net.bryansaunders.jee6divelog.security.enumerator;
 
 /**
  * Account Roles.

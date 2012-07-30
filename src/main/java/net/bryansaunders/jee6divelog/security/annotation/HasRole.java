@@ -1,4 +1,4 @@
-package net.bryansaunders.jee6divelog.security.annotations;
+package net.bryansaunders.jee6divelog.security.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 import javax.interceptor.InterceptorBinding;
 
-import net.bryansaunders.jee6divelog.security.enums.Role;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 /**
  * Makes sure the Active User as the Specified Role.

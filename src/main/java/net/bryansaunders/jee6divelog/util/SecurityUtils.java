@@ -1,4 +1,4 @@
-package net.bryansaunders.jee6divelog.utils;
+package net.bryansaunders.jee6divelog.util;
 
 /**
  * Security Utilities.

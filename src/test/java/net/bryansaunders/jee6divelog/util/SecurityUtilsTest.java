@@ -1,9 +1,11 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.utils;
+package net.bryansaunders.jee6divelog.util;
 
 import static org.junit.Assert.*;
+
+import net.bryansaunders.jee6divelog.util.SecurityUtils;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -16,7 +18,7 @@ import org.junit.Test;
 public class SecurityUtilsTest {
 
     /**
-     * Test method for {@link net.bryansaunders.jee6divelog.utils.SecurityUtils#generatePasswordHash(java.lang.String)}.
+     * Test method for {@link net.bryansaunders.jee6divelog.util.SecurityUtils#generatePasswordHash(java.lang.String)}.
      */
     @Test
     public void testGeneratePasswordHash() {

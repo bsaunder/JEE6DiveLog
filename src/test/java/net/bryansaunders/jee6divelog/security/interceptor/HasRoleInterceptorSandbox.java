@@ -1,7 +1,7 @@
 package net.bryansaunders.jee6divelog.security.interceptor;
 
-import net.bryansaunders.jee6divelog.security.annotations.HasRole;
-import net.bryansaunders.jee6divelog.security.enums.Role;
+import net.bryansaunders.jee6divelog.security.annotation.HasRole;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 import org.junit.Ignore;
 

@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import net.bryansaunders.jee6divelog.annotations.FieldMatch;
+import net.bryansaunders.jee6divelog.validation.annotation.FieldMatch;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
