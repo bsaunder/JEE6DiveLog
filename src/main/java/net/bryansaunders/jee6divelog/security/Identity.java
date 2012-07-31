@@ -130,8 +130,8 @@ public class Identity implements Serializable {
             if (hashedPassword.equals(expectedPassword)) {
                 this.setStatus(Identity.LOGGED_IN);
 
-                // Set Roles
-                // Set Permissions
+                this.setRoles(userAccount.getRoles());
+                this.setPermissions(userAccount.getPermissions());
 
                 this.logger.info("Logged in User: " + this.credentials);
             }

@@ -20,18 +20,18 @@
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>client</param-value>
 	</context-param>
-	
+
 	<!-- Filters -->
 	<filter>
 		<filter-name>authentication</filter-name>
-		<filter-class>net.bryansaunders.jee6divelog.security.filters.AuthenticationFilter</filter-class>
+		<filter-class>net.bryansaunders.jee6divelog.security.filter.AuthenticationFilter</filter-class>
 	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>authentication</filter-name>
 		<url-pattern>/user/*</url-pattern>
 	</filter-mapping>
-	
+
 	<!-- Error Pages -->
 	<error-page>
 		<error-code>401</error-code>
@@ -100,7 +100,6 @@
 		<servlet-name>ViewStatusMessages</servlet-name>
 		<servlet-class>ch.qos.logback.classic.ViewStatusMessagesServlet</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>ViewStatusMessages</servlet-name>
 		<url-pattern>/lbClassicStatus</url-pattern>

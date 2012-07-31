@@ -15,6 +15,9 @@ import javax.validation.constraints.NotNull;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 /**
  * User Model.
  * 
@@ -68,6 +71,7 @@ public class UserAccount extends DiveLogEntity {
      * User Roles.
      */
     @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     @Column(name = "role")
@@ -77,6 +81,7 @@ public class UserAccount extends DiveLogEntity {
      * User Permissions.
      */
     @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_permission", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     @Column(name = "permission")

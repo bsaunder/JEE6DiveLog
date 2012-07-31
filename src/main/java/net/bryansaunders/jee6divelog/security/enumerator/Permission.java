@@ -14,11 +14,13 @@ import java.util.Map;
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
+@SuppressWarnings("serial")
 public enum Permission {
 
     /**
      * Edit Self.
      */
+    
     EDIT_SELF(new HashMap<Role, Boolean>() {
         {
             this.put(Role.USER, true);

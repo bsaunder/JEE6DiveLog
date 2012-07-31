@@ -120,7 +120,11 @@ public class DiveLogEntity {
      *            the newCreated to set
      */
     public void setCreated(final Date newCreated) {
-        this.created = new Date(newCreated.getTime());
+        if (newCreated == null) {
+            this.created = null;
+        } else {
+            this.created = new Date(newCreated.getTime());
+        }
     }
 
     /**
@@ -139,7 +143,11 @@ public class DiveLogEntity {
      *            the updated to set
      */
     public void setUpdated(final Date newUpdated) {
-        this.updated = new Date(newUpdated.getTime());
+        if (newUpdated == null) {
+            this.updated = null;
+        } else {
+            this.updated = new Date(newUpdated.getTime());
+        }
     }
 
 }

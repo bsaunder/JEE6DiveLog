@@ -64,6 +64,12 @@ public class UserAccountService {
         UserAccount savedUser = null;
 
         try {
+            // Clear out Base Fields to ensure we save a new entity.
+            user.setId(null);
+            user.setVersion(null);
+            user.setCreated(null);
+            user.setUpdated(null);
+
             // Set Default Roles
             final List<Role> defaultRoles = new LinkedList<Role>();
             defaultRoles.add(Role.USER);
