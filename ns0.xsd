@@ -1,0 +1,138 @@
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="userAccount" type="userAccount"/>
+  <xs:complexType name="diveLogEntity">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[Base Entity Element for all DiveLog Entities.]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the id.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the version.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="created" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the created.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="updated" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the updated.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="userAccount">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[User Model.]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="diveLogEntity">
+        <xs:sequence>
+          <xs:element name="firstName" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the firstName.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="lastName" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the lastName.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="country" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the country.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="state" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the state.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="city" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the city.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="email" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the email.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="password" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the password.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="roles" type="role" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the roles.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="permissions" type="permission" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the permissions.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="permission">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[Account Permissions.]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EDIT_SELF"/>
+      <xs:enumeration value="DELETE_SELF"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="role">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[Account Roles.]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="USER"/>
+      <xs:enumeration value="ADMIN"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
