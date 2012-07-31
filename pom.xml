@@ -145,10 +145,9 @@
 			<version>0.5.8.201207111220</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
-			<version>2.3.4.Final</version>
-			<scope>provided</scope>
+			<groupId>org.codehaus.enunciate</groupId>
+			<artifactId>enunciate-core-annotations</artifactId>
+			<version>1.25</version>
 		</dependency>
 	</dependencies>
 
@@ -197,21 +196,22 @@
 
 					<!-- Enunciate -->
 					<plugin>
-					<groupId>org.codehaus.enunciate</groupId>
-					<artifactId>maven-enunciate-plugin</artifactId>
-					<version>1.25</version>
-					<executions>
-					  <execution>
-					    <goals>
-					      <goal>docs</goal>
-					    </goals>
-					    <configuration>
-					      <docsDir>${project.build.directory}/enunciate</docsDir>
-						<configFile>enunciate.xml</configFile>
-					    </configuration>
-					  </execution>
-					</executions>
-				      </plugin>
+						<groupId>org.codehaus.enunciate</groupId>
+						<artifactId>maven-enunciate-plugin</artifactId>
+						<version>1.25</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>docs</goal>
+								</goals>
+								<configuration>
+									<docsDir>${project.build.directory}/enunciate</docsDir>
+									<configFile>enunciate.xml</configFile>
+									<indexPageName>enunciate.html</indexPageName>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 
 					<!-- CheckStyle -->
 					<plugin>
@@ -347,6 +347,15 @@
 										<report>scm</report>
 										<report>summary</report>
 									</reports>
+								</plugin>
+								<plugin>
+									<groupId>org.codehaus.enunciate</groupId>
+									<artifactId>maven-enunciate-plugin</artifactId>
+									<version>1.25</version>
+									<configuration>
+										<docsDir>enunciate</docsDir>
+										<indexPageName>enunciate.html</indexPageName>
+									</configuration>
 								</plugin>
 								<plugin>
 									<groupId>org.apache.maven.plugins</groupId>
@@ -495,4 +504,4 @@
 		</pluginManagement>
 	</build>
 </project>
-
+>>>>>>> #24: Added Enunciate to Site Generation.

@@ -13,6 +13,8 @@ import javax.ws.rs.core.Response;
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
 
+import org.codehaus.enunciate.jaxrs.TypeHint;
+
 /**
  * User Rest API.
  * 
@@ -39,8 +41,9 @@ public class UserResource {
      */
     @POST
     @Path("/register")
+    @TypeHint(UserAccount.class)
     public Response registerUser(final UserAccount user) {
-        Response response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        Response response;
 
         if (user == null) {
             response = Response.status(Response.Status.BAD_REQUEST).entity("User Object must not be null").build();
@@ -62,8 +65,9 @@ public class UserResource {
      */
     @GET
     @Path("/find/{userName}")
+    @TypeHint(UserAccount.class)
     public Response findUser(@PathParam("userName") final String userName) {
-        Response response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        Response response;
 
         final UserAccount foundUser = this.userAccountService.findByUserEmail(userName);
         if (foundUser != null) {

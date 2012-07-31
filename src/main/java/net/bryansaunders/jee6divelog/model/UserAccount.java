@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
@@ -26,6 +27,7 @@ import org.hibernate.annotations.LazyCollectionOption;
  */
 @Entity
 @Table(name = "user")
+@XmlRootElement
 public class UserAccount extends DiveLogEntity {
 
     /**
