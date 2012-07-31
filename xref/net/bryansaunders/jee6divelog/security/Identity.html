@@ -22,10 +22,10 @@
 <a name="12" href="#12">12</a>  <strong class="jxr_keyword">import</strong> javax.inject.Named;
 <a name="13" href="#13">13</a>  
 <a name="14" href="#14">14</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.model.UserAccount;
-<a name="15" href="#15">15</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.security.enums.Permission;
-<a name="16" href="#16">16</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.security.enums.Role;
+<a name="15" href="#15">15</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.security.enumerator.Permission;
+<a name="16" href="#16">16</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.security.enumerator.Role;
 <a name="17" href="#17">17</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.service.UserAccountService;
-<a name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.utils.SecurityUtils;
+<a name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.util.SecurityUtils;
 <a name="19" href="#19">19</a>  
 <a name="20" href="#20">20</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
 <a name="21" href="#21">21</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
@@ -140,8 +140,8 @@
 <a name="130" href="#130">130</a>             <strong class="jxr_keyword">if</strong> (hashedPassword.equals(expectedPassword)) {
 <a name="131" href="#131">131</a>                 <strong class="jxr_keyword">this</strong>.setStatus(Identity.LOGGED_IN);
 <a name="132" href="#132">132</a> 
-<a name="133" href="#133">133</a>                 <em class="jxr_comment">// Set Roles</em>
-<a name="134" href="#134">134</a>                 <em class="jxr_comment">// Set Permissions</em>
+<a name="133" href="#133">133</a>                 <strong class="jxr_keyword">this</strong>.setRoles(userAccount.getRoles());
+<a name="134" href="#134">134</a>                 <strong class="jxr_keyword">this</strong>.setPermissions(userAccount.getPermissions());
 <a name="135" href="#135">135</a> 
 <a name="136" href="#136">136</a>                 <strong class="jxr_keyword">this</strong>.logger.info(<span class="jxr_string">"Logged in User: "</span> + <strong class="jxr_keyword">this</strong>.credentials);
 <a name="137" href="#137">137</a>             }
@@ -297,7 +297,29 @@
 <a name="287" href="#287">287</a>         <strong class="jxr_keyword">this</strong>.rememberMe = newRememberMe;
 <a name="288" href="#288">288</a>     }
 <a name="289" href="#289">289</a> 
-<a name="290" href="#290">290</a> }
+<a name="290" href="#290">290</a>     <em class="jxr_javadoccomment">/**</em>
+<a name="291" href="#291">291</a> <em class="jxr_javadoccomment">     * Has the specified Role.</em>
+<a name="292" href="#292">292</a> <em class="jxr_javadoccomment">     * </em>
+<a name="293" href="#293">293</a> <em class="jxr_javadoccomment">     * @param role</em>
+<a name="294" href="#294">294</a> <em class="jxr_javadoccomment">     *            Role to check for</em>
+<a name="295" href="#295">295</a> <em class="jxr_javadoccomment">     * @return true if role is found</em>
+<a name="296" href="#296">296</a> <em class="jxr_javadoccomment">     */</em>
+<a name="297" href="#297">297</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> hasRole(<strong class="jxr_keyword">final</strong> <a href="../../../../net/bryansaunders/jee6divelog/security/enumerator/Role.html">Role</a> role) {
+<a name="298" href="#298">298</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.roles.contains(role);
+<a name="299" href="#299">299</a>     }
+<a name="300" href="#300">300</a> 
+<a name="301" href="#301">301</a>     <em class="jxr_javadoccomment">/**</em>
+<a name="302" href="#302">302</a> <em class="jxr_javadoccomment">     * Has the specified Permission.</em>
+<a name="303" href="#303">303</a> <em class="jxr_javadoccomment">     * </em>
+<a name="304" href="#304">304</a> <em class="jxr_javadoccomment">     * @param permission</em>
+<a name="305" href="#305">305</a> <em class="jxr_javadoccomment">     *            Permission to check for</em>
+<a name="306" href="#306">306</a> <em class="jxr_javadoccomment">     * @return true if permission is found</em>
+<a name="307" href="#307">307</a> <em class="jxr_javadoccomment">     */</em>
+<a name="308" href="#308">308</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> hasPermission(<strong class="jxr_keyword">final</strong> <a href="../../../../net/bryansaunders/jee6divelog/security/enumerator/Permission.html">Permission</a> permission) {
+<a name="309" href="#309">309</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.permissions.contains(permission);
+<a name="310" href="#310">310</a>     }
+<a name="311" href="#311">311</a> 
+<a name="312" href="#312">312</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

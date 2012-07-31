@@ -8,10 +8,10 @@
     <language>en-us</language>
     <copyright>&#169;2012 Bryan Saunders</copyright>
     <item>
-      <title>File: 20,
+      <title>File: 31,
              Errors: 0,
              Warnings: 0,
-             Infos: 0
+             Infos: 2
       </title>
             <link>https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html</link>
       <description>
@@ -29,7 +29,7 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.filters.AuthenticationFilter.java">net/bryansaunders/jee6divelog/security/filters/AuthenticationFilter.java</a>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasRoles.java">net/bryansaunders/jee6divelog/security/annotation/HasRoles.java</a>
                 </td>
                 <td>
                   0
@@ -43,7 +43,161 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.utils.HashUtils.java">net/bryansaunders/jee6divelog/utils/HashUtils.java</a>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.util.HashUtils.java">net/bryansaunders/jee6divelog/util/HashUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.validation.annotation.Password.java">net/bryansaunders/jee6divelog/validation/annotation/Password.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.filter.AuthenticationFilter.java">net/bryansaunders/jee6divelog/security/filter/AuthenticationFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasRoleInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasRoleInterceptor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.service.rest.RestApiRoot.java">net/bryansaunders/jee6divelog/service/rest/RestApiRoot.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.enumerator.Role.java">net/bryansaunders/jee6divelog/security/enumerator/Role.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.validation.FieldMatchValidator.java">net/bryansaunders/jee6divelog/validation/FieldMatchValidator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.dao.GenericDaoImpl.java">net/bryansaunders/jee6divelog/dao/GenericDaoImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasPermissionInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasPermissionInterceptor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasPermissionsInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasPermissionsInterceptor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.bean.LoginBean.java">net/bryansaunders/jee6divelog/bean/LoginBean.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.validation.annotation.FieldMatch.java">net/bryansaunders/jee6divelog/validation/annotation/FieldMatch.java</a>
                 </td>
                 <td>
                   0
@@ -85,7 +239,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.annotations.Password.java">net/bryansaunders/jee6divelog/annotations/Password.java</a>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.enumerator.Permission.java">net/bryansaunders/jee6divelog/security/enumerator/Permission.java</a>
                 </td>
                 <td>
                   0
@@ -99,7 +253,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.beans.LoginBean.java">net/bryansaunders/jee6divelog/beans/LoginBean.java</a>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.util.Resources.java">net/bryansaunders/jee6divelog/util/Resources.java</a>
                 </td>
                 <td>
                   0
@@ -113,35 +267,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.validation.FieldMatchValidator.java">net/bryansaunders/jee6divelog/validation/FieldMatchValidator.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.enums.Permission.java">net/bryansaunders/jee6divelog/security/enums/Permission.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.enums.Role.java">net/bryansaunders/jee6divelog/security/enums/Role.java</a>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasRole.java">net/bryansaunders/jee6divelog/security/annotation/HasRole.java</a>
                 </td>
                 <td>
                   0
@@ -169,21 +295,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.dao.GenericDaoImpl.java">net/bryansaunders/jee6divelog/dao/GenericDaoImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.utils.SecurityUtils.java">net/bryansaunders/jee6divelog/utils/SecurityUtils.java</a>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasRolesInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasRolesInterceptor.java</a>
                 </td>
                 <td>
                   0
@@ -211,7 +323,21 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.utils.Resources.java">net/bryansaunders/jee6divelog/utils/Resources.java</a>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.util.SecurityUtils.java">net/bryansaunders/jee6divelog/util/SecurityUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.AuthorizationFailedException.java">net/bryansaunders/jee6divelog/security/AuthorizationFailedException.java</a>
                 </td>
                 <td>
                   0
@@ -239,6 +365,48 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.bean.RegistrationBean.java">net/bryansaunders/jee6divelog/bean/RegistrationBean.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasPermission.java">net/bryansaunders/jee6divelog/security/annotation/HasPermission.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasPermissions.java">net/bryansaunders/jee6divelog/security/annotation/HasPermissions.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.Identity.java">net/bryansaunders/jee6divelog/security/Identity.java</a>
                 </td>
                 <td>
@@ -253,21 +421,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.annotations.FieldMatch.java">net/bryansaunders/jee6divelog/annotations/FieldMatch.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.beans.RegistrationBean.java">net/bryansaunders/jee6divelog/beans/RegistrationBean.java</a>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.dao.GenericDao.java">net/bryansaunders/jee6divelog/dao/GenericDao.java</a>
                 </td>
                 <td>
                   0
@@ -295,10 +449,10 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.dao.GenericDao.java">net/bryansaunders/jee6divelog/dao/GenericDao.java</a>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.service.rest.UserResource.java">net/bryansaunders/jee6divelog/service/rest/UserResource.java</a>
                 </td>
                 <td>
-                  0
+                  2
                 </td>
                 <td>
                   0

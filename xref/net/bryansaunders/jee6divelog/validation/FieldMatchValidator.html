@@ -15,7 +15,7 @@
 <a name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> javax.validation.ConstraintValidator;
 <a name="6" href="#6">6</a>   <strong class="jxr_keyword">import</strong> javax.validation.ConstraintValidatorContext;
 <a name="7" href="#7">7</a>   
-<a name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.annotations.FieldMatch;
+<a name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.validation.annotation.FieldMatch;
 <a name="9" href="#9">9</a>   
 <a name="10" href="#10">10</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.beanutils.BeanUtils;
 <a name="11" href="#11">11</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
@@ -48,7 +48,7 @@
 <a name="38" href="#38">38</a>  <em class="jxr_javadoccomment">     * {@inheritDoc}</em>
 <a name="39" href="#39">39</a>  <em class="jxr_javadoccomment">     */</em>
 <a name="40" href="#40">40</a>      @Override
-<a name="41" href="#41">41</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initialize(<strong class="jxr_keyword">final</strong> <a href="../../../../net/bryansaunders/jee6divelog/annotations/FieldMatch.html">FieldMatch</a> constraintAnnotation) {
+<a name="41" href="#41">41</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initialize(<strong class="jxr_keyword">final</strong> <a href="../../../../net/bryansaunders/jee6divelog/validation/annotation/FieldMatch.html">FieldMatch</a> constraintAnnotation) {
 <a name="42" href="#42">42</a>          <strong class="jxr_keyword">this</strong>.firstFieldName = constraintAnnotation.first();
 <a name="43" href="#43">43</a>          <strong class="jxr_keyword">this</strong>.secondFieldName = constraintAnnotation.second();
 <a name="44" href="#44">44</a>      }

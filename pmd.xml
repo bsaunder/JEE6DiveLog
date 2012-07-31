@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2012-07-27T17:36:21.337">
-<suppressedviolation filename="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\utils\Resources.java" suppressiontype="annotation" msg="Avoid unused private fields such as 'em'." usermsg=""/>
+<pmd version="4.3" timestamp="2012-07-31T18:46:18.870">
+<suppressedviolation filename="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\util\Resources.java" suppressiontype="annotation" msg="Avoid unused private fields such as 'em'." usermsg=""/>
 </pmd>
