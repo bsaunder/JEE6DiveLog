@@ -82,6 +82,7 @@ public class UserAccountService {
             savedUser = this.userDao.save(user);
         } catch (final ConstraintViolationException e) {
             this.context.setRollbackOnly();
+            throw e;
         }
 
         return savedUser;

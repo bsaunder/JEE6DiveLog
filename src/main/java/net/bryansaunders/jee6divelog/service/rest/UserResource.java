@@ -1,5 +1,6 @@
 package net.bryansaunders.jee6divelog.service.rest;
 
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -35,6 +36,11 @@ public class UserResource {
     /**
      * Registers a User.
      * 
+     * <ul>
+     * <li>Status 200: Successful Registration.</li>
+     * <li>Status 401: Error with the Request. Most likely caused by an invalid UserAccount.</li>
+     * </ul>
+     * 
      * @param user
      *            User to Register
      * @return Registered User
@@ -48,9 +54,14 @@ public class UserResource {
         if (user == null) {
             response = Response.status(Response.Status.BAD_REQUEST).entity("User Object must not be null").build();
         } else {
-            UserAccount savedUser = this.userAccountService.createUser(user);
-            savedUser.setPassword("***"); // Clear out the Password
-            response = Response.ok(savedUser).status(Response.Status.CREATED).build();
+            try {
+                final UserAccount savedUser = this.userAccountService.createUser(user);
+                savedUser.setPassword("***"); // Clear out the Password
+                response = Response.ok(savedUser).status(Response.Status.CREATED).build();
+            } catch (final EJBException e) {
+                response = Response.status(Response.Status.BAD_REQUEST).entity("JSON Invalid: " + e.getMessage())
+                        .build();
+            }
         }
 
         return response;
@@ -58,6 +69,12 @@ public class UserResource {
 
     /**
      * Gets the User Specified by the Given Username.
+     * 
+     * <ul>
+     * <li>Status 200: User Found.</li>
+     * <li>Status 404: User was not found.</li>
+     * <li>Status 401: Error with the Request.</li>
+     * </ul>
      * 
      * @param userName
      *            Username to serach for
