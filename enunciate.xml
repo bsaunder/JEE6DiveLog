@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 <enunciate label="novaglobalapi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://enunciate.codehaus.org/schemas/enunciate-1.25.xsd">
+	xsi:noNamespaceSchemaLocation="http://enunciate.codehaus.org/schemas/enunciate-1.25.xsd">
 
+	
+
+	<modules>
+		<docs forceExampleJson="true" copyright="Copyright 2012 Bryan Saunders."></docs>
+	</modules>
 </enunciate>
