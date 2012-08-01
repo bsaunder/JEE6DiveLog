@@ -7,7 +7,12 @@
     <wadl:resource path="/rest/user/register">
       <wadl:method name="POST">
         <wadl:doc>
-          <![CDATA[Registers a User.]]>
+          <![CDATA[Registers a User.
+
+<ul>
+<li>Status 200: Successful Registration.</li>
+<li>Status 401: Error with the Request. Most likely caused by an invalid UserAccount.</li>
+</ul>]]>
         </wadl:doc>
         <wadl:request>
           <wadl:doc>
@@ -31,7 +36,13 @@
       </wadl:param>
       <wadl:method name="GET">
         <wadl:doc>
-          <![CDATA[Gets the User Specified by the Given Username.]]>
+          <![CDATA[Gets the User Specified by the Given Username.
+
+<ul>
+<li>Status 200: User Found.</li>
+<li>Status 404: User was not found.</li>
+<li>Status 401: Error with the Request.</li>
+</ul>]]>
         </wadl:doc>
         <wadl:request/>
         <wadl:response>
