@@ -90,4 +90,20 @@ public class UserAccountApiIT extends RestApiTest {
         expect().statusCode(RestApiTest.NOT_FOUND).when().get(RestApiTest.URL_ROOL + "/user/get/");
     }
 
+    /**
+     * Test Identify.
+     */
+    @Test
+    public void testIdentify() {
+        fail("Not Yet Implemented");
+    }
+
+    /**
+     * Test Logout.
+     */
+    @Test
+    public void testLogout() {
+        fail("Not Yet Implemented");
+    }
+
 }

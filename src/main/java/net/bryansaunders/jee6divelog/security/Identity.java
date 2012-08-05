@@ -209,6 +209,21 @@ public class Identity implements Serializable {
     }
 
     /**
+     * Generates a UserAccount Object for the Current Identity.
+     * 
+     * @return UserAccount
+     */
+    public UserAccount createUserAccount() {
+        UserAccount userAccount = new UserAccount();
+        userAccount.setEmail(this.getUsername());
+        userAccount.setApiKey(this.getApiKey());
+        userAccount.setApiKeyExpiration(this.getApiKeyExpiration());
+        userAccount.setRoles(this.getRoles());
+        userAccount.setPermissions(this.getPermissions());
+        return userAccount;
+    }
+
+    /**
      * Is the Identity Logged in?
      * 
      * @return true if logged in

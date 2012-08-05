@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 @SessionScoped
 @Named("credentials")
+@XmlRootElement
 public class Credentials implements Serializable {
 
     /**

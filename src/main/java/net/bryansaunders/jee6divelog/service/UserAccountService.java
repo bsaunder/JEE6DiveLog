@@ -3,6 +3,7 @@
  */
 package net.bryansaunders.jee6divelog.service;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -124,9 +125,31 @@ public class UserAccountService {
      * 
      * @param userAccount
      *            User to save.
+     * @return Saved User
      */
-    public void saveUser(final UserAccount userAccount) {
-        this.userDao.save(userAccount);
+    public UserAccount saveUser(final UserAccount userAccount) {
+        return this.userDao.save(userAccount);
+    }
+
+    /**
+     * Reset the API Key for the specified user.
+     * 
+     * @param username
+     *            User to reset API Key for
+     * @return true if the ApiKey was Reset, false otherwise
+     */
+    public boolean clearApiKey(final String username) {
+        boolean result = false;
+        final UserAccount user = this.findByUserEmail(username);
+        if (user != null) {
+            user.setApiKey(null);
+            user.setApiKeyExpiration(new Date(System.currentTimeMillis() - 5));
+            this.saveUser(user);
+
+            result = true;
+        }
+
+        return result;
     }
 
 }

@@ -1,6 +1,7 @@
 package net.bryansaunders.jee6divelog.service.rest;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
@@ -74,50 +75,32 @@ public class RestSecurityInterceptor implements PreProcessInterceptor {
 
         this.logger.info("REST API Called: " + httpRequest.getUri().getAbsolutePath());
 
-        boolean isSecured = false;
-        Annotation[] declaredAnnotations = resourceMethod.getMethod().getDeclaredAnnotations();
-        for (Annotation annotation : declaredAnnotations) {
-            if (annotation instanceof HasPermission) {
-                isSecured = true;
-            } else if (annotation instanceof HasPermissions) {
-                isSecured = true;
-            } else if (annotation instanceof HasRole) {
-                isSecured = true;
-            } else if (annotation instanceof HasRoles) {
-                isSecured = true;
-            }
-        }
+        final boolean isSecured = isMethodSecure(resourceMethod);
 
         if (isSecured) {
             this.logger.info("Checking Security for REST API Call");
-            final HttpHeaders headers = httpRequest.getHttpHeaders();
 
-            final List<String> userNameList = headers.getRequestHeader("dl-username");
-            if (userNameList != null && userNameList.size() > 0) {
-                userName = userNameList.get(0);
-            }
-
-            final List<String> userTokenList = headers.getRequestHeader("dl-token");
-            if (userTokenList != null && userTokenList.size() > 0) {
-                userToken = userTokenList.get(0);
-            }
+            userName = this.getUserDefinedHeader(httpRequest, "dl-username");
+            userToken = this.getUserDefinedHeader(httpRequest, "dl-token");
 
             this.logger.info("Using Headers: userName:" + userName + " | token:" + userToken);
 
             // Get UserAccount by Username
             if (userName != null && userToken != null) {
                 final UserAccount userAccount = this.userAccountService.findByUserEmail(userName);
+                
                 if (userAccount != null) {
                     // Check Expiration Date
                     final Date expirationDate = userAccount.getApiKeyExpiration();
+                    
                     if (System.currentTimeMillis() < expirationDate.getTime()) {
                         // Generate Token
                         final String apiKey = userAccount.getApiKey();
                         final String expectedToken = SecurityUtils.generateRestApiToken(userName, apiKey);
+                        
                         // Check Tokens
                         if (expectedToken.equals(userToken)) {
                             // Set Identity
-                            // TODO Refactor This Section
                             this.identity.setApiKey(apiKey);
                             this.identity.setApiKeyExpiration(expirationDate);
                             this.identity.setPermissions(userAccount.getPermissions());
@@ -127,29 +110,101 @@ public class RestSecurityInterceptor implements PreProcessInterceptor {
                             credentials.setUsername(userName);
                             credentials.setPassword(userAccount.getPassword());
                             this.identity.setCredentials(credentials);
+
                         } else {
-                            response = new ServerResponse();
-                            response.setStatus(HttpResponseCodes.SC_UNAUTHORIZED);
-                            response.setEntity("Invalid Token.");
+                            response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, "Invalid Token");
                         }
                     } else {
-                        response = new ServerResponse();
-                        response.setStatus(HttpResponseCodes.SC_UNAUTHORIZED);
-                        response.setEntity("Token Expired.");
+                        response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, "Token Expired");
                     }
                 } else {
-                    response = new ServerResponse();
-                    response.setStatus(HttpResponseCodes.SC_UNAUTHORIZED);
-                    response.setEntity("Invalid User.");
+                    response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, "Invalid User");
                 }
             } else {
-                response = new ServerResponse();
-                response.setStatus(HttpResponseCodes.SC_BAD_REQUEST);
-                response.setEntity("Missing Headers.");
+                response = this.buildResponse(HttpResponseCodes.SC_BAD_REQUEST, "Missing Headers");
             }
         }
 
         return response;
+    }
+
+    /**
+     * Determines if the Method is Secure or Not based on its Declared Annotations.
+     * 
+     * @param resourceMethod
+     *            Called Method
+     * @return true if the Method is Secured
+     */
+    private boolean isMethodSecure(final ResourceMethod resourceMethod) {
+        boolean isSecured = false;
+        final Method method = resourceMethod.getMethod();
+        final Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
+        for (final Annotation annotation : declaredAnnotations) {
+            if (this.isAnnotationSecure(annotation)) {
+                isSecured = true;
+                break;
+            }
+
+        }
+        return isSecured;
+    }
+
+    /**
+     * Determines is the given Annotation is Secured.
+     * 
+     * @param annotation
+     *            Annotation to check
+     * @return true if the annotation is secured, false if it is not
+     */
+    private boolean isAnnotationSecure(final Annotation annotation) {
+        boolean isSecured = false;
+        if (annotation instanceof HasPermission) {
+            isSecured = true;
+        } else if (annotation instanceof HasPermissions) {
+            isSecured = true;
+        } else if (annotation instanceof HasRole) {
+            isSecured = true;
+        } else if (annotation instanceof HasRoles) {
+            isSecured = true;
+        }
+        return isSecured;
+    }
+
+    /**
+     * Build a ServerResponse Message.
+     * 
+     * @param statusCode
+     *            Response Status
+     * @param message
+     *            Response Message
+     * @return ServerResponse
+     */
+    private ServerResponse buildResponse(final int statusCode, final String message) {
+        final ServerResponse response = new ServerResponse();
+        response.setStatus(HttpResponseCodes.SC_BAD_REQUEST);
+        response.setEntity("Missing Headers.");
+        return response;
+    }
+
+    /**
+     * Gets a User Defined Header.
+     * 
+     * @param httpRequest
+     *            HTTP Request with Headers
+     * @param headerName
+     *            Name of User Defined Header
+     * @return Header Value if Found, null if not found
+     */
+    private String getUserDefinedHeader(final HttpRequest httpRequest, final String headerName) {
+        String headerValue = null;
+        final HttpHeaders headers = httpRequest.getHttpHeaders();
+
+        final List<String> headerList = headers.getRequestHeader(headerName);
+        if (headerList != null && headerList.size() > 0) {
+            headerValue = headerList.get(0);
+        }
+
+        return headerValue;
     }
 
 }

@@ -124,5 +124,13 @@ public class UserAccountServiceIT {
     public void testSaveUser() {
         fail("Not Yet Implemented");
     }
+    
+    /**
+     * Test for Clear API Key.
+     */
+    @Test
+    public void testClearApiKey() {
+        fail("Not Yet Implemented");
+    }
 
 }

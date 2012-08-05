@@ -40,9 +40,15 @@ public class UserAccountApi {
     @Inject
     private UserAccountService userAccountService;
 
+    /**
+     * User Identity.
+     */
     @Inject
     private Identity identity;
 
+    /**
+     * User Credentials.
+     */
     @Inject
     private Credentials credentials;
 
@@ -51,7 +57,7 @@ public class UserAccountApi {
      * 
      * <ul>
      * <li>Status 200: Successful Registration.</li>
-     * <li>Status 401: Error with the Request. Most likely caused by an invalid UserAccount.</li>
+     * <li>Status 409: Error with the Request. Most likely caused by an invalid UserAccount.</li>
      * </ul>
      * 
      * @param user
@@ -69,15 +75,27 @@ public class UserAccountApi {
             savedUser.setPassword("***"); // Clear out the Password
             response = Response.ok(savedUser).status(Response.Status.CREATED).build();
         } catch (final EJBException e) {
-            response = Response.status(Response.Status.BAD_REQUEST).entity("JSON Invalid: " + e.getMessage()).build();
+            response = Response.status(Response.Status.CONFLICT).entity("JSON Invalid: " + e.getMessage()).build();
         }
 
         return response;
     }
 
+    /**
+     * Identifies the currently logged in REST user.
+     * 
+     * <ul>
+     * <li>Status 202: Login Successful.</li>
+     * <li>Status 401: Login Failed.</li>
+     * </ul>
+     * 
+     * @param incomingCredentials
+     *            Users Login Credentials
+     * @return User API Token
+     */
     @POST
     @Path("/login")
-    @TypeHint(Identity.class)
+    @TypeHint(String.class)
     public Response login(final Credentials incomingCredentials) {
         Response response;
 
@@ -88,8 +106,7 @@ public class UserAccountApi {
             final String userName = this.identity.getUsername();
             final String apiKey = this.identity.getApiKey();
             final String token = SecurityUtils.generateRestApiToken(userName, apiKey);
-            response = Response.ok(token + " = " + this.identity.getApiKeyExpiration())
-                    .status(Response.Status.ACCEPTED).build();
+            response = Response.ok(token).status(Response.Status.ACCEPTED).build();
         } else {
             response = Response.status(Response.Status.UNAUTHORIZED).build();
         }
@@ -97,17 +114,42 @@ public class UserAccountApi {
         return response;
     }
 
+    /**
+     * Identifies the currently logged in REST user.
+     * 
+     * <ul>
+     * <li>Status 200: Request Successful.</li>
+     * </ul>
+     * 
+     * @return User Account
+     */
     @GET
     @Path("/identify")
-    @TypeHint(Identity.class)
+    @TypeHint(UserAccount.class)
+    @HasRole(role = Role.USER)
     public Response identify() {
-        if (this.identity.isLoggedIn()) {
-            return Response.ok(
-                    this.identity.getUsername() + " (Expires On: " + this.identity.getApiKeyExpiration() + ")").build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).entity(this.identity.isLoggedIn()).build();
-        }
+        final UserAccount userAccount = this.identity.createUserAccount();
+        return Response.ok(userAccount).build();
+    }
 
+    /**
+     * Logout the Current REST User.
+     * 
+     * <ul>
+     * <li>Status 200: Logout Successful.</li>
+     * </ul>
+     * 
+     * @return User API Token
+     */
+    @POST
+    @Path("/logout")
+    @TypeHint(Boolean.class)
+    @HasRole(role = Role.USER)
+    public Response logout() {
+        final String username = this.identity.getUsername();
+        this.identity.logout();
+        this.userAccountService.clearApiKey(username);
+        return Response.ok(true).build();
     }
 
     /**
@@ -125,6 +167,7 @@ public class UserAccountApi {
     @GET
     @Path("/get/{userName}")
     @TypeHint(UserAccount.class)
+    @HasRole(role = Role.USER)
     public Response getUser(@PathParam("userName") final String userName) {
         Response response;
 

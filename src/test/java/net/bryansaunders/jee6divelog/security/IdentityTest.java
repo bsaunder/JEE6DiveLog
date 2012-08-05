@@ -264,4 +264,12 @@ public class IdentityTest {
         fail("Not Yet Implemented");
     }
 
+    /**
+     * Test for createUserAccount().
+     */
+    @Test
+    public void testCreateUserAccount() {
+        fail("Not Yet Implemented");
+    }
+
 }
