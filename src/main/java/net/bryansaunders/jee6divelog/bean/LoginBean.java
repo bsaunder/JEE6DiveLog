@@ -8,8 +8,6 @@ import javax.inject.Named;
 
 import net.bryansaunders.jee6divelog.security.Credentials;
 import net.bryansaunders.jee6divelog.security.Identity;
-import net.bryansaunders.jee6divelog.security.annotation.HasRole;
-import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 /**
  * Backing Bean for Login Page.

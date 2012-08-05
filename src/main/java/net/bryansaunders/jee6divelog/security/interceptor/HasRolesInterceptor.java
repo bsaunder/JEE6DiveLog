@@ -18,7 +18,7 @@ import net.bryansaunders.jee6divelog.security.enumerator.Role;
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
-@HasRoles
+@HasRoles(roles = { })
 @Interceptor
 public class HasRolesInterceptor {
 

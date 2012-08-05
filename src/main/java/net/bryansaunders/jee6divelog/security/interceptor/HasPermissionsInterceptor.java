@@ -18,7 +18,7 @@ import net.bryansaunders.jee6divelog.security.enumerator.Permission;
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
-@HasPermissions
+@HasPermissions(permissions = { })
 @Interceptor
 public class HasPermissionsInterceptor {
 

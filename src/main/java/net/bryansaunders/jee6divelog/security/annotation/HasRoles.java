@@ -27,5 +27,5 @@ public @interface HasRoles {
      * @return Role to Enforce.
      */
     @Nonbinding
-    Role[] roles() default { };
+    Role[] roles();
 }

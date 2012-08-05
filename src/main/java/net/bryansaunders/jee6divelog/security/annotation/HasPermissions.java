@@ -27,5 +27,5 @@ public @interface HasPermissions {
      * @return Permissions to Enforce.
      */
     @Nonbinding
-    Permission[] permissions() default { };
+    Permission[] permissions();
 }

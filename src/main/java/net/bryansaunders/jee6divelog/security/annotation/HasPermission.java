@@ -5,6 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import javax.enterprise.util.Nonbinding;
 import javax.interceptor.InterceptorBinding;
 
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
@@ -25,5 +26,6 @@ public @interface HasPermission {
      * 
      * @return Permission to Enforce.
      */
-    Permission permission() default Permission.EDIT_SELF;
+    @Nonbinding
+    Permission permission();
 }
