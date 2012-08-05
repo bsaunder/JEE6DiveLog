@@ -6,13 +6,14 @@ package net.bryansaunders.jee6divelog.dao.user;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
-import net.bryansaunders.jee6divelog.DefaultDeployment;
+import net.bryansaunders.jee6divelog.DeploymentFactory;
 import net.bryansaunders.jee6divelog.model.UserAccount;
 
 import org.apache.commons.codec.binary.Base64;
@@ -57,7 +58,7 @@ public class UserAccountDaoIT {
      */
     @Deployment
     public static WebArchive createDeployment() {
-        return DefaultDeployment.getDefaultDeployment();
+        return DeploymentFactory.getDefaultDeployment();
     }
 
     /**
@@ -113,6 +114,16 @@ public class UserAccountDaoIT {
         // check the password
         final String hashedEncodedPass = Base64.encodeBase64String(DigestUtils.sha256Hex(pass).getBytes());
         assertEquals(hashedEncodedPass, savedUser.getPassword());
+    }
+
+    /**
+     * Tests method for save(). Already existing Users should be updated.
+     */
+    @Test
+    public void ifExistsThenUpdate() {
+        // If the user already exists (Has an ID), Then the password should not be re-encrytped.
+
+        fail("Not Yet Implemented");
     }
 
 }

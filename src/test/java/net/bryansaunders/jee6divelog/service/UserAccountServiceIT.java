@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import net.bryansaunders.jee6divelog.DefaultDeployment;
+import net.bryansaunders.jee6divelog.DeploymentFactory;
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
@@ -42,7 +42,7 @@ public class UserAccountServiceIT {
      */
     @Deployment
     public static WebArchive createDeployment() {
-        return DefaultDeployment.getDefaultDeployment();
+        return DeploymentFactory.getDefaultDeployment();
     }
 
     /**
@@ -71,11 +71,11 @@ public class UserAccountServiceIT {
         // then
         assertNotNull(savedUser);
         assertNotNull(savedUser.getId());
-        
+
         final List<Role> roles = savedUser.getRoles();
-        assertNotNull(roles);        
+        assertNotNull(roles);
         assertTrue(roles.contains(Role.USER));
-        
+
         assertNotNull(savedUser.getPermissions());
         assertEquals(savedUser, validUser);
     }
@@ -115,6 +115,14 @@ public class UserAccountServiceIT {
 
         // then
         fail("Should have thrown EntityNotFoundException");
+    }
+
+    /**
+     * Test for Save User.
+     */
+    @Test
+    public void testSaveUser() {
+        fail("Not Yet Implemented");
     }
 
 }

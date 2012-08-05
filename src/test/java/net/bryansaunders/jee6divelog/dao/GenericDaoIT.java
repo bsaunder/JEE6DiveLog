@@ -15,7 +15,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
-import net.bryansaunders.jee6divelog.DefaultDeployment;
+import net.bryansaunders.jee6divelog.DeploymentFactory;
 import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
 import net.bryansaunders.jee6divelog.model.UserAccount;
 
@@ -61,7 +61,7 @@ public class GenericDaoIT {
      */
     @Deployment
     public static WebArchive createDeployment() {
-        return DefaultDeployment.getDefaultDeployment();
+        return DeploymentFactory.getDefaultDeployment();
     }
 
     /**

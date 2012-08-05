@@ -22,11 +22,13 @@ public class UserAccountDao extends GenericDaoImpl<UserAccount> {
      */
     @Override
     public UserAccount save(final UserAccount user) {
-
         // Encrypt Password
-        final String password = user.getPassword();
-        final String hashedEncodedPass = SecurityUtils.generatePasswordHash(password);
-        user.setPassword(hashedEncodedPass);
+        final Integer id = user.getId();
+        if (id == null) {
+            final String password = user.getPassword();
+            final String hashedEncodedPass = SecurityUtils.generatePasswordHash(password);
+            user.setPassword(hashedEncodedPass);
+        }
 
         // Save
         return super.save(user);

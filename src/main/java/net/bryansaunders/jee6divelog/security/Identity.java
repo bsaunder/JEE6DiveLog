@@ -4,6 +4,8 @@
 package net.bryansaunders.jee6divelog.security;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -98,6 +100,16 @@ public class Identity implements Serializable {
     private List<Permission> permissions;
 
     /**
+     * User REST API Key.
+     */
+    private String apiKey;
+
+    /**
+     * User REST API Key Expiration Date.
+     */
+    private Date apiKeyExpiration;
+
+    /**
      * Identity Status.
      */
     private Integer status;
@@ -117,6 +129,26 @@ public class Identity implements Serializable {
      * @return Login Result
      */
     public boolean login() {
+        return this.login(false);
+    }
+
+    /**
+     * Login Identity for REST Service.
+     * 
+     * @return Login Result
+     */
+    public boolean restLogin() {
+        return this.login(true);
+    }
+
+    /**
+     * Login Identity.
+     * 
+     * @param restLogin
+     *            Is it a REST Login
+     * @return Login Result
+     */
+    public boolean login(final boolean restLogin) {
         this.logger.info("Logging In User with Credentials: " + this.credentials);
         boolean returnValue = Identity.LOGIN_FAILURE;
 
@@ -132,6 +164,18 @@ public class Identity implements Serializable {
 
                 this.setRoles(userAccount.getRoles());
                 this.setPermissions(userAccount.getPermissions());
+
+                if (restLogin) {
+                    this.apiKey = SecurityUtils.generateRestApiKey();
+
+                    final Calendar expiration = Calendar.getInstance();
+                    expiration.add(Calendar.HOUR, 5);
+                    this.apiKeyExpiration = expiration.getTime();
+
+                    userAccount.setApiKey(this.apiKey);
+                    userAccount.setApiKeyExpiration(this.apiKeyExpiration);
+                    this.userAccountService.saveUser(userAccount);
+                }
 
                 this.logger.info("Logged in User: " + this.credentials);
             }
@@ -307,6 +351,44 @@ public class Identity implements Serializable {
      */
     public boolean hasPermission(final Permission permission) {
         return this.permissions.contains(permission);
+    }
+
+    /**
+     * Get the apiKey.
+     * 
+     * @return the apiKey
+     */
+    public String getApiKey() {
+        return this.apiKey;
+    }
+
+    /**
+     * Set the apiKey.
+     * 
+     * @param newApiKey
+     *            the apiKey to set
+     */
+    public void setApiKey(final String newApiKey) {
+        this.apiKey = newApiKey;
+    }
+
+    /**
+     * Get the apiKeyExpiration.
+     * 
+     * @return the apiKeyExpiration
+     */
+    public Date getApiKeyExpiration() {
+        return this.apiKeyExpiration;
+    }
+
+    /**
+     * Set the apiKeyExpiration.
+     * 
+     * @param newApiKeyExpiration
+     *            the apiKeyExpiration to set
+     */
+    public void setApiKeyExpiration(final Date newApiKeyExpiration) {
+        this.apiKeyExpiration = newApiKeyExpiration;
     }
 
 }

@@ -12,6 +12,9 @@ import net.bryansaunders.jee6divelog.security.Identity;
 import net.bryansaunders.jee6divelog.security.annotation.HasRole;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * HasRole Interceptor.
  * 
@@ -21,6 +24,11 @@ import net.bryansaunders.jee6divelog.security.enumerator.Role;
 @HasRole
 @Interceptor
 public class HasRoleInterceptor {
+    
+    /**
+     * Logger.
+     */
+    private Logger logger = LoggerFactory.getLogger(HasRoleInterceptor.class);
 
     /**
      * Active Identity.
@@ -66,6 +74,7 @@ public class HasRoleInterceptor {
             }
         }
 
+        this.logger.debug("Role Verified.");
         return ctx.proceed();
     }
 }

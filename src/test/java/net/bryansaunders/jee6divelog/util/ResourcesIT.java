@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNotNull;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import net.bryansaunders.jee6divelog.DefaultDeployment;
+import net.bryansaunders.jee6divelog.DeploymentFactory;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -36,7 +36,7 @@ public class ResourcesIT {
      */
     @Deployment
     public static WebArchive createDeployment() {
-        return DefaultDeployment.getDefaultDeployment();
+        return DeploymentFactory.getDefaultDeployment();
     }
 
     /**

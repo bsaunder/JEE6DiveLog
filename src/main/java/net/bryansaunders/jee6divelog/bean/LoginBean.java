@@ -177,12 +177,11 @@ public class LoginBean {
     /**
      * Set the credentials.
      * 
-     * @param newCredentials the credentials to set
+     * @param newCredentials
+     *            the credentials to set
      */
     public void setCredentials(final Credentials newCredentials) {
         this.credentials = newCredentials;
     }
-    
-    
 
 }

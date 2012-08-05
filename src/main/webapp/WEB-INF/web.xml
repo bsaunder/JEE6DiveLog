@@ -105,5 +105,11 @@
 		<url-pattern>/lbClassicStatus</url-pattern>
 	</servlet-mapping>
 
+	<!-- RESTEasy -->
+	<context-param>
+		<param-name>resteasy.providers</param-name>
+		<param-value>net.bryansaunders.jee6divelog.service.rest.RestSecurityInterceptor</param-value>
+	</context-param>
+
 </web-app>
 

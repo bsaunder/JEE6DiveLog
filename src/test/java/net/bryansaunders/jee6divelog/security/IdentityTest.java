@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -232,7 +233,7 @@ public class IdentityTest {
 
         assertFalse(this.identity.hasRole(Role.ADMIN));
     }
-    
+
     /**
      * Test for HasPermission Method.
      */
@@ -253,6 +254,14 @@ public class IdentityTest {
         this.identity.setPermissions(new LinkedList<Permission>());
 
         assertFalse(this.identity.hasPermission(Permission.EDIT_SELF));
+    }
+
+    /**
+     * Test for RestLogin().
+     */
+    @Test
+    public void testRestLogin() {
+        fail("Not Yet Implemented");
     }
 
 }

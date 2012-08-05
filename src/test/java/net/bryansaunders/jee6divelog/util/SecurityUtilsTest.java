@@ -3,9 +3,8 @@
  */
 package net.bryansaunders.jee6divelog.util;
 
-import static org.junit.Assert.*;
-
-import net.bryansaunders.jee6divelog.util.SecurityUtils;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -18,7 +17,7 @@ import org.junit.Test;
 public class SecurityUtilsTest {
 
     /**
-     * Test method for {@link net.bryansaunders.jee6divelog.util.SecurityUtils#generatePasswordHash(java.lang.String)}.
+     * Test method for generatePasswordHash.
      */
     @Test
     public void testGeneratePasswordHash() {
@@ -31,6 +30,22 @@ public class SecurityUtilsTest {
         // then
         final String expectedPass = Base64.encodeBase64String(DigestUtils.sha256Hex(password).getBytes());
         assertEquals(expectedPass, hashedPass);
+    }
+    
+    /**
+     * Test Method for Generate REST API Key.
+     */
+    @Test
+    public void testGenerateApiKey(){
+        fail("Not Yet Implemented");
+    }
+    
+    /**
+     * Test Method for Generate REST API Token.
+     */
+    @Test
+    public void testGenerateToken(){
+        fail("Not Yet Implemented");
     }
 
 }

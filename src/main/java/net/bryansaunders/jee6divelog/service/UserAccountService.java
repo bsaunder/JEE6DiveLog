@@ -21,6 +21,7 @@ import javax.validation.ConstraintViolationException;
 
 import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
 import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.security.annotation.HasRole;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
@@ -117,6 +118,16 @@ public class UserAccountService {
         }
 
         return foundAccount;
+    }
+
+    /**
+     * Saves the Given User.
+     * 
+     * @param userAccount
+     *            User to save.
+     */
+    public void saveUser(final UserAccount userAccount) {
+        this.userDao.save(userAccount);
     }
 
 }

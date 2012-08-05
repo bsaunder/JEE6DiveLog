@@ -1,5 +1,6 @@
 package net.bryansaunders.jee6divelog.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -68,6 +69,16 @@ public class UserAccount extends DiveLogEntity {
      */
     @NotNull
     private String password;
+
+    /**
+     * User REST API Key.
+     */
+    private String apiKey;
+
+    /**
+     * User REST API Key Expiration Date.
+     */
+    private Date apiKeyExpiration;
 
     /**
      * User Roles.
@@ -258,6 +269,44 @@ public class UserAccount extends DiveLogEntity {
      */
     public void setPermissions(final List<Permission> newPermissions) {
         this.permissions = newPermissions;
+    }
+
+    /**
+     * Get the apiKey.
+     * 
+     * @return the apiKey
+     */
+    public String getApiKey() {
+        return this.apiKey;
+    }
+
+    /**
+     * Set the apiKey.
+     * 
+     * @param newApiKey
+     *            the apiKey to set
+     */
+    public void setApiKey(final String newApiKey) {
+        this.apiKey = newApiKey;
+    }
+
+    /**
+     * Get the apiKeyExpiration.
+     * 
+     * @return the apiKeyExpiration
+     */
+    public Date getApiKeyExpiration() {
+        return this.apiKeyExpiration;
+    }
+
+    /**
+     * Set the apiKeyExpiration.
+     * 
+     * @param newApiKeyExpiration
+     *            the apiKeyExpiration to set
+     */
+    public void setApiKeyExpiration(final Date newApiKeyExpiration) {
+        this.apiKeyExpiration = newApiKeyExpiration;
     }
 
 }
