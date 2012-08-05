@@ -136,10 +136,10 @@ public class UserAccountApi {
      * Logout the Current REST User.
      * 
      * <ul>
-     * <li>Status 200: Logout Successful.</li>
+     * <li>Status 200: Logout Request Successful.</li>
      * </ul>
      * 
-     * @return User API Token
+     * @return Logout Result
      */
     @POST
     @Path("/logout")
@@ -148,8 +148,8 @@ public class UserAccountApi {
     public Response logout() {
         final String username = this.identity.getUsername();
         this.identity.logout();
-        this.userAccountService.clearApiKey(username);
-        return Response.ok(true).build();
+        final boolean result = this.userAccountService.clearApiKey(username);
+        return Response.ok(result).build();
     }
 
     /**
