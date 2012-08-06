@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -72,7 +72,7 @@ public class UserAccountServiceIT {
         assertNotNull(savedUser);
         assertNotNull(savedUser.getId());
 
-        final List<Role> roles = savedUser.getRoles();
+        final Set<Role> roles = savedUser.getRoles();
         assertNotNull(roles);
         assertTrue(roles.contains(Role.USER));
 

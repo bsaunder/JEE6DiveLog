@@ -8,7 +8,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -16,6 +15,7 @@ import static org.mockito.Mockito.when;
 import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -144,8 +144,8 @@ public class RestSecurityInterceptorTest {
         assertNull(response);
         verify(this.mockIdentity).setApiKey(any(String.class));
         verify(this.mockIdentity).setApiKeyExpiration(any(Date.class));
-        verify(this.mockIdentity).setPermissions(anyList());
-        verify(this.mockIdentity).setRoles(anyList());
+        verify(this.mockIdentity).setPermissions(any(Set.class));
+        verify(this.mockIdentity).setRoles(any(Set.class));
         verify(this.mockIdentity).setStatus(anyInt());
         verify(this.mockIdentity).setCredentials(any(Credentials.class));
     }

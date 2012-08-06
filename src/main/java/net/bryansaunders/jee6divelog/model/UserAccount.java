@@ -1,7 +1,7 @@
 package net.bryansaunders.jee6divelog.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -88,7 +88,7 @@ public class UserAccount extends DiveLogEntity {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     @Column(name = "role")
-    private List<Role> roles;
+    private Set<Role> roles;
 
     /**
      * User Permissions.
@@ -98,7 +98,7 @@ public class UserAccount extends DiveLogEntity {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_permission", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     @Column(name = "permission")
-    private List<Permission> permissions;
+    private Set<Permission> permissions;
 
     /**
      * Get the firstName.
@@ -238,7 +238,7 @@ public class UserAccount extends DiveLogEntity {
      * 
      * @return the roles
      */
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return this.roles;
     }
 
@@ -248,7 +248,7 @@ public class UserAccount extends DiveLogEntity {
      * @param newRoles
      *            the roles to set
      */
-    public void setRoles(final List<Role> newRoles) {
+    public void setRoles(final Set<Role> newRoles) {
         this.roles = newRoles;
     }
 
@@ -257,7 +257,7 @@ public class UserAccount extends DiveLogEntity {
      * 
      * @return the permissions
      */
-    public List<Permission> getPermissions() {
+    public Set<Permission> getPermissions() {
         return this.permissions;
     }
 
@@ -267,7 +267,7 @@ public class UserAccount extends DiveLogEntity {
      * @param newPermissions
      *            the permissions to set
      */
-    public void setPermissions(final List<Permission> newPermissions) {
+    public void setPermissions(final Set<Permission> newPermissions) {
         this.permissions = newPermissions;
     }
 

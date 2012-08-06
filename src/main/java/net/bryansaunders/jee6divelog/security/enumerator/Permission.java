@@ -4,9 +4,9 @@
 package net.bryansaunders.jee6divelog.security.enumerator;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Account Permissions.
@@ -69,8 +69,8 @@ public enum Permission {
      *            Role to check Permissions for
      * @return List of Permission Objects
      */
-    public static List<Permission> getDefaults(final Role role) {
-        final List<Permission> defaultPermissions = new LinkedList<Permission>();
+    public static Set<Permission> getDefaults(final Role role) {
+        final Set<Permission> defaultPermissions = new LinkedHashSet<Permission>();
 
         for (final Permission permission : Permission.values()) {
             final Map<Role, Boolean> permissionMap = permission.getDefaultPermission();

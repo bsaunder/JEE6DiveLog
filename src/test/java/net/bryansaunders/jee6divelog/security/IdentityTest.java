@@ -12,8 +12,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
@@ -178,11 +178,11 @@ public class IdentityTest {
      */
     @Test
     public void testRoles() {
-        final List<Role> roleSet = new LinkedList<Role>();
+        final Set<Role> roleSet = new LinkedHashSet<Role>();
         roleSet.add(Role.ADMIN);
 
         this.identity.setRoles(roleSet);
-        final List<Role> roles = this.identity.getRoles();
+        final Set<Role> roles = this.identity.getRoles();
 
         assertNotNull(roles);
         assertEquals(roleSet, roles);
@@ -193,11 +193,11 @@ public class IdentityTest {
      */
     @Test
     public void testPermissions() {
-        final List<Permission> permissionSet = new LinkedList<Permission>();
+        final Set<Permission> permissionSet = new LinkedHashSet<Permission>();
         permissionSet.add(Permission.EDIT_SELF);
 
         this.identity.setPermissions(permissionSet);
-        final List<Permission> permissions = this.identity.getPermissions();
+        final Set<Permission> permissions = this.identity.getPermissions();
 
         assertNotNull(permissions);
         assertEquals(permissionSet, permissions);
@@ -220,7 +220,7 @@ public class IdentityTest {
      */
     @Test
     public void ifHasRoleThenTrue() {
-        final List<Role> roleSet = new LinkedList<Role>();
+        final Set<Role> roleSet = new LinkedHashSet<Role>();
         roleSet.add(Role.ADMIN);
         this.identity.setRoles(roleSet);
 
@@ -232,7 +232,7 @@ public class IdentityTest {
      */
     @Test
     public void ifRoleMissingThenFalse() {
-        this.identity.setRoles(new LinkedList<Role>());
+        this.identity.setRoles(new LinkedHashSet<Role>());
 
         assertFalse(this.identity.hasRole(Role.ADMIN));
     }
@@ -242,7 +242,7 @@ public class IdentityTest {
      */
     @Test
     public void ifHasPermissionThenTrue() {
-        final List<Permission> permissionSet = new LinkedList<Permission>();
+        final Set<Permission> permissionSet = new LinkedHashSet<Permission>();
         permissionSet.add(Permission.EDIT_SELF);
         this.identity.setPermissions(permissionSet);
 
@@ -254,7 +254,7 @@ public class IdentityTest {
      */
     @Test
     public void ifPermissionMissingThenFalse() {
-        this.identity.setPermissions(new LinkedList<Permission>());
+        this.identity.setPermissions(new LinkedHashSet<Permission>());
 
         assertFalse(this.identity.hasPermission(Permission.EDIT_SELF));
     }
@@ -298,8 +298,8 @@ public class IdentityTest {
         final String apiKey = "apiKey123445345";
         final Date expirationDate = new Date();
         final String email = "email";
-        final List<Role> roles = new LinkedList<Role>();
-        final List<Permission> permission = new LinkedList<Permission>();
+        final Set<Role> roles = new LinkedHashSet<Role>();
+        final Set<Permission> permission = new LinkedHashSet<Permission>();
 
         this.identity.setApiKey(apiKey);
         this.identity.setApiKeyExpiration(expirationDate);

@@ -2,10 +2,7 @@ package net.bryansaunders.jee6divelog.security.enumerator;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
-import net.bryansaunders.jee6divelog.security.enumerator.Permission;
-import net.bryansaunders.jee6divelog.security.enumerator.Role;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -22,7 +19,7 @@ public class PermissionTest {
      */
     @Test
     public void testGetUserDefaults() {
-        final List<Permission> defaultPermissions = Permission.getDefaults(Role.USER);
+        final Set<Permission> defaultPermissions = Permission.getDefaults(Role.USER);
 
         assertTrue(defaultPermissions.contains(Permission.EDIT_SELF));
         assertTrue(defaultPermissions.contains(Permission.DELETE_SELF));
@@ -33,7 +30,7 @@ public class PermissionTest {
      */
     @Test
     public void testGetAdminDefaults() {
-        final List<Permission> defaultPermissions = Permission.getDefaults(Role.ADMIN);
+        final Set<Permission> defaultPermissions = Permission.getDefaults(Role.ADMIN);
 
         assertTrue(defaultPermissions.contains(Permission.EDIT_SELF));
     }

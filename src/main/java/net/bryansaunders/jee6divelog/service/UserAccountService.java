@@ -4,8 +4,8 @@
 package net.bryansaunders.jee6divelog.service;
 
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.ejb.EJBContext;
@@ -72,12 +72,12 @@ public class UserAccountService {
             user.setUpdated(null);
 
             // Set Default Roles
-            final List<Role> defaultRoles = new LinkedList<Role>();
+            final Set<Role> defaultRoles = new LinkedHashSet<Role>();
             defaultRoles.add(Role.USER);
             user.setRoles(defaultRoles);
 
             // Set Default Permissions
-            final List<Permission> defaultPermissions = Permission.getDefaults(Role.USER);
+            final Set<Permission> defaultPermissions = Permission.getDefaults(Role.USER);
             user.setPermissions(defaultPermissions);
 
             savedUser = this.userDao.save(user);

@@ -8,7 +8,7 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
 
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
@@ -40,8 +40,8 @@ public class UserAccountApiIT extends RestApiTest {
         newUser.setLastName("Testerson");
         newUser.setEmail("ifUserValidThenRegister@test.com");
         newUser.setPassword("abcdef1A@");
-        newUser.setRoles(new LinkedList<Role>());
-        newUser.setPermissions(new LinkedList<Permission>());
+        newUser.setRoles(new LinkedHashSet<Role>());
+        newUser.setPermissions(new LinkedHashSet<Permission>());
         newUser.setCreated(new Date());
         newUser.setUpdated(new Date());
 
@@ -56,8 +56,8 @@ public class UserAccountApiIT extends RestApiTest {
     public void ifUserInvalidThenFailRegistration() {
         final UserAccount newUser = new UserAccount();
         newUser.setFirstName("Test");
-        newUser.setRoles(new LinkedList<Role>());
-        newUser.setPermissions(new LinkedList<Permission>());
+        newUser.setRoles(new LinkedHashSet<Role>());
+        newUser.setPermissions(new LinkedHashSet<Permission>());
         newUser.setCreated(new Date());
         newUser.setUpdated(new Date());
 

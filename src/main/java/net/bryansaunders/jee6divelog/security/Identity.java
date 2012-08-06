@@ -6,8 +6,8 @@ package net.bryansaunders.jee6divelog.security;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -92,12 +92,12 @@ public class Identity implements Serializable {
     /**
      * Identity Roles.
      */
-    private List<Role> roles;
+    private Set<Role> roles;
 
     /**
      * Identity Permissions.
      */
-    private List<Permission> permissions;
+    private Set<Permission> permissions;
 
     /**
      * User REST API Key.
@@ -118,8 +118,8 @@ public class Identity implements Serializable {
      * Default Constructor.
      */
     public Identity() {
-        this.roles = new LinkedList<Role>();
-        this.permissions = new LinkedList<Permission>();
+        this.roles = new LinkedHashSet<Role>();
+        this.permissions = new LinkedHashSet<Permission>();
         this.status = Identity.LOGGED_OUT;
     }
 
@@ -294,7 +294,7 @@ public class Identity implements Serializable {
      * 
      * @return the roles
      */
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return this.roles;
     }
 
@@ -304,7 +304,7 @@ public class Identity implements Serializable {
      * @param newRoles
      *            the roles to set
      */
-    public void setRoles(final List<Role> newRoles) {
+    public void setRoles(final Set<Role> newRoles) {
         this.roles = newRoles;
     }
 
@@ -313,7 +313,7 @@ public class Identity implements Serializable {
      * 
      * @return the permissions
      */
-    public List<Permission> getPermissions() {
+    public Set<Permission> getPermissions() {
         return this.permissions;
     }
 
@@ -323,7 +323,7 @@ public class Identity implements Serializable {
      * @param newPermissions
      *            the permissions to set
      */
-    public void setPermissions(final List<Permission> newPermissions) {
+    public void setPermissions(final Set<Permission> newPermissions) {
         this.permissions = newPermissions;
     }
 
