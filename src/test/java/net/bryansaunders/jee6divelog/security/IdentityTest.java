@@ -6,11 +6,12 @@ package net.bryansaunders.jee6divelog.security;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -94,6 +95,8 @@ public class IdentityTest {
         // then
         assertEquals(Identity.LOGIN_SUCCESS, result);
         assertTrue(this.identity.isLoggedIn());
+        assertNull(this.identity.getApiKey());
+        assertNull(this.identity.getApiKeyExpiration());
     }
 
     /**
@@ -261,7 +264,29 @@ public class IdentityTest {
      */
     @Test
     public void testRestLogin() {
-        fail("Not Yet Implemented");
+        // given
+        final String username = "admin@test.com";
+        final String password = "abcdef1A@";
+        final String expectedPassword = SecurityUtils.generatePasswordHash(password);
+
+        final UserAccount userAccount = new UserAccount();
+        userAccount.setPassword(expectedPassword);
+
+        final Credentials credentials = new Credentials();
+        credentials.setUsername(username);
+        credentials.setPassword(password);
+        this.identity.setCredentials(credentials);
+
+        when(this.mockAccountService.findByUserEmail(username)).thenReturn(userAccount);
+
+        // when
+        final boolean result = this.identity.restLogin();
+
+        // then
+        assertEquals(Identity.LOGIN_SUCCESS, result);
+        assertTrue(this.identity.isLoggedIn());
+        assertNotNull(this.identity.getApiKey());
+        assertNotNull(this.identity.getApiKeyExpiration());
     }
 
     /**
@@ -269,7 +294,30 @@ public class IdentityTest {
      */
     @Test
     public void testCreateUserAccount() {
-        fail("Not Yet Implemented");
+        // given
+        final String apiKey = "apiKey123445345";
+        final Date expirationDate = new Date();
+        final String email = "email";
+        final List<Role> roles = new LinkedList<Role>();
+        final List<Permission> permission = new LinkedList<Permission>();
+
+        this.identity.setApiKey(apiKey);
+        this.identity.setApiKeyExpiration(expirationDate);
+        final Credentials credentials = new Credentials();
+        credentials.setUsername(email);
+        this.identity.setCredentials(credentials);
+        this.identity.setRoles(roles);
+        this.identity.setPermissions(permission);
+
+        // when
+        final UserAccount userAccount = this.identity.createUserAccount();
+
+        // then
+        assertEquals(apiKey, userAccount.getApiKey());
+        assertEquals(expirationDate, userAccount.getApiKeyExpiration());
+        assertEquals(email, userAccount.getEmail());
+        assertEquals(roles, userAccount.getRoles());
+        assertEquals(permission, userAccount.getPermissions());
     }
 
 }

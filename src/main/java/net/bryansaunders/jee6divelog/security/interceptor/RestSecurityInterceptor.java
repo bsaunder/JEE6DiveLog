@@ -1,7 +1,5 @@
-package net.bryansaunders.jee6divelog.service.rest;
+package net.bryansaunders.jee6divelog.security.interceptor;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
@@ -12,10 +10,6 @@ import javax.ws.rs.core.HttpHeaders;
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.Credentials;
 import net.bryansaunders.jee6divelog.security.Identity;
-import net.bryansaunders.jee6divelog.security.annotation.HasPermission;
-import net.bryansaunders.jee6divelog.security.annotation.HasPermissions;
-import net.bryansaunders.jee6divelog.security.annotation.HasRole;
-import net.bryansaunders.jee6divelog.security.annotation.HasRoles;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
 import net.bryansaunders.jee6divelog.util.SecurityUtils;
 
@@ -75,31 +69,36 @@ public class RestSecurityInterceptor implements PreProcessInterceptor {
 
         this.logger.info("REST API Called: " + httpRequest.getUri().getAbsolutePath());
 
-        final boolean isSecured = isMethodSecure(resourceMethod);
+        final boolean isSecured = SecurityUtils.isMethodSecure(resourceMethod);
 
         if (isSecured) {
-            this.logger.info("Checking Security for REST API Call");
+            this.logger.debug("Secure API Call: " + httpRequest.getUri().getAbsolutePath());
 
             userName = this.getUserDefinedHeader(httpRequest, "dl-username");
             userToken = this.getUserDefinedHeader(httpRequest, "dl-token");
 
-            this.logger.info("Using Headers: userName:" + userName + " | token:" + userToken);
+            this.logger.debug("Using Headers: userName:" + userName + " | token:" + userToken);
 
             // Get UserAccount by Username
             if (userName != null && userToken != null) {
+                this.logger.debug("REST API Call Headers Valid");
                 final UserAccount userAccount = this.userAccountService.findByUserEmail(userName);
-                
+
                 if (userAccount != null) {
+                    this.logger.debug("REST API User Found");
                     // Check Expiration Date
                     final Date expirationDate = userAccount.getApiKeyExpiration();
-                    
+
                     if (System.currentTimeMillis() < expirationDate.getTime()) {
+                        this.logger.debug("API Token Not Expired");
                         // Generate Token
                         final String apiKey = userAccount.getApiKey();
                         final String expectedToken = SecurityUtils.generateRestApiToken(userName, apiKey);
-                        
+
                         // Check Tokens
                         if (expectedToken.equals(userToken)) {
+                            this.logger.debug("API Token Valid");
+
                             // Set Identity
                             this.identity.setApiKey(apiKey);
                             this.identity.setApiKeyExpiration(expirationDate);
@@ -129,48 +128,6 @@ public class RestSecurityInterceptor implements PreProcessInterceptor {
     }
 
     /**
-     * Determines if the Method is Secure or Not based on its Declared Annotations.
-     * 
-     * @param resourceMethod
-     *            Called Method
-     * @return true if the Method is Secured
-     */
-    private boolean isMethodSecure(final ResourceMethod resourceMethod) {
-        boolean isSecured = false;
-        final Method method = resourceMethod.getMethod();
-        final Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
-        for (final Annotation annotation : declaredAnnotations) {
-            if (this.isAnnotationSecure(annotation)) {
-                isSecured = true;
-                break;
-            }
-
-        }
-        return isSecured;
-    }
-
-    /**
-     * Determines is the given Annotation is Secured.
-     * 
-     * @param annotation
-     *            Annotation to check
-     * @return true if the annotation is secured, false if it is not
-     */
-    private boolean isAnnotationSecure(final Annotation annotation) {
-        boolean isSecured = false;
-        if (annotation instanceof HasPermission) {
-            isSecured = true;
-        } else if (annotation instanceof HasPermissions) {
-            isSecured = true;
-        } else if (annotation instanceof HasRole) {
-            isSecured = true;
-        } else if (annotation instanceof HasRoles) {
-            isSecured = true;
-        }
-        return isSecured;
-    }
-
-    /**
      * Build a ServerResponse Message.
      * 
      * @param statusCode
@@ -180,9 +137,10 @@ public class RestSecurityInterceptor implements PreProcessInterceptor {
      * @return ServerResponse
      */
     private ServerResponse buildResponse(final int statusCode, final String message) {
+        this.logger.debug("Creating REST Response: " + statusCode + " - " + message);
         final ServerResponse response = new ServerResponse();
-        response.setStatus(HttpResponseCodes.SC_BAD_REQUEST);
-        response.setEntity("Missing Headers.");
+        response.setStatus(statusCode);
+        response.setEntity(message);
         return response;
     }
 
