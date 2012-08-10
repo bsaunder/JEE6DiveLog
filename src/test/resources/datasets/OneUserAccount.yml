@@ -1,0 +1,10 @@
+user:
+  - id: 1
+    version: 1
+    firstName: Bryan
+    lastName: Saunders
+    city: Charleston
+    state: SC
+    country: USA
+    email: bryan@test.com
+    password: YWNjMTIwZGE1ZjEzOGNiMDc4M2E5MmFjZmY5YTllNjE0YzBlYmYzMzdmMzUyZTM1YjA2MzJkZjA0MjExNGUyNg==

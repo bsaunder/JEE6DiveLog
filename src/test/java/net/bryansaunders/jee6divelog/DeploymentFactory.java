@@ -32,7 +32,7 @@ public final class DeploymentFactory {
      * @return Default Arquillian Deployment
      */
     public static WebArchive getDefaultDeployment() {        
-        return ShrinkWrap.create(WebArchive.class, "jee6divelog_test.war")
+        return ShrinkWrap.create(WebArchive.class, "jee6divelog_test_default.war")
                 .addPackages(true, "net.bryansaunders.jee6divelog")
                 .addPackages(true, "org.apache.commons.codec")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
@@ -49,7 +49,7 @@ public final class DeploymentFactory {
                 .use(MavenDependencyResolver.class)
                 .loadMetadataFromPom("pom.xml");
         
-        return ShrinkWrap.create(WebArchive.class, "jee6divelog_test.war")
+        return ShrinkWrap.create(WebArchive.class, "jee6divelog_test_restapi.war")
                 .addPackages(true, "net.bryansaunders.jee6divelog")
                 .addPackages(true, "org.apache.commons.codec")
                 .addAsLibraries(resolver.artifact("com.jayway.restassured:rest-assured:1.6.2").resolveAsFiles())

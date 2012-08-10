@@ -1,5 +1,6 @@
 package net.bryansaunders.jee6divelog.dao;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
@@ -207,5 +208,55 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
         for (final T entity : entities) {
             this.delete(entity);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<T> findByExample(final T example) {
+        final CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
+
+        // Build the Query
+        final CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(this.entityClass);
+        final Root<T> root = criteriaQuery.from(this.entityClass);
+
+        // Select all Columns
+        criteriaQuery.select(root);
+
+        // Build Where Clause
+        final Field[] fields = this.entityClass.getDeclaredFields();
+        for (final Field field : fields) {
+            final String fieldName = field.getName();
+
+            // So that we ignore fields like jacocoData that get added by jacoco
+            if (fieldName.startsWith("$")) {
+                continue;
+            }
+
+            Object fieldValue = null;
+
+            try {
+                field.setAccessible(true);
+                fieldValue = field.get(example);
+            } catch (final IllegalArgumentException e) {
+                this.logger.warn(
+                        "findByExample Skipping Field " + fieldName + " on Object Type " + this.entityClass.getName()
+                                + ".", e);
+                continue;
+            } catch (final IllegalAccessException e) {
+                this.logger.warn(
+                        "findByExample Skipping Field " + fieldName + " on Object Type " + this.entityClass.getName()
+                                + ".", e);
+                continue;
+            }
+
+            if (fieldValue != null) {
+                criteriaQuery.where(criteriaBuilder.equal(root.get(fieldName), fieldValue));
+            }
+        }
+
+        final TypedQuery<T> query = this.entityManager.createQuery(criteriaQuery);
+        return query.getResultList();
     }
 }

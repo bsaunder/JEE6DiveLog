@@ -45,8 +45,7 @@ public interface GenericDao<T extends DiveLogEntity> {
     /**
      * Retrieve an persisted objects using the given ids as primary keys.
      * 
-     * NoResultException thrown if the entity is not found, IllegalArgumentException thrown when the ID list is
-     * invalid
+     * NoResultException thrown if the entity is not found, IllegalArgumentException thrown when the ID list is invalid
      * 
      * @param ids
      *            objects's ids
@@ -71,8 +70,7 @@ public interface GenericDao<T extends DiveLogEntity> {
     T save(T object);
 
     /**
-     * Save all changes made to objects. IllegalArgumentException thrown when the ID list is
-     * invalid
+     * Save all changes made to objects. IllegalArgumentException thrown when the ID list is invalid
      * 
      * @param objects
      *            objects
@@ -89,8 +87,7 @@ public interface GenericDao<T extends DiveLogEntity> {
     void delete(Integer id);
 
     /**
-     * Remove objects by given ids. IllegalArgumentException thrown when the ID list is
-     * invalid
+     * Remove objects by given ids. IllegalArgumentException thrown when the ID list is invalid
      * 
      * @param ids
      *            objects's pk
@@ -106,8 +103,7 @@ public interface GenericDao<T extends DiveLogEntity> {
     void delete(T object);
 
     /**
-     * Remove objects. IllegalArgumentException thrown when the ID list is
-     * invalid
+     * Remove objects. IllegalArgumentException thrown when the ID list is invalid
      * 
      * @param objects
      *            objects to delete
@@ -118,4 +114,13 @@ public interface GenericDao<T extends DiveLogEntity> {
      * Delete all objects.
      */
     void deleteAll();
+
+    /**
+     * Finds all rows that have the same fields as the given object.
+     * 
+     * @param object
+     *            Example Object
+     * @return List of matching objects
+     */
+    List<T> findByExample(T object);
 }

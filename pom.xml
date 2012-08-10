@@ -205,8 +205,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.arquillian.extension</groupId>
-			<artifactId>arquillian-jacoco</artifactId>
-			<version>1.0.0.Alpha3</version>
+			<artifactId>arquillian-persistence-impl</artifactId>
+			<version>1.0.0.Alpha4</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

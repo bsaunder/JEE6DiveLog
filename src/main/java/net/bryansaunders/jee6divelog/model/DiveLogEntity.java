@@ -39,14 +39,14 @@ public class DiveLogEntity {
      * Creation Date.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created", nullable = false)
+    @Column(name = "created")
     private Date created;
 
     /**
      * Updated Date.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated", nullable = false)
+    @Column(name = "updated")
     private Date updated;
 
     /**

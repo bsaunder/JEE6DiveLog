@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.transaction.UserTransaction;
 
 import net.bryansaunders.jee6divelog.DeploymentFactory;
 import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
@@ -21,9 +20,10 @@ import net.bryansaunders.jee6divelog.model.UserAccount;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.persistence.DataSource;
+import org.jboss.arquillian.persistence.ShouldMatchDataSet;
+import org.jboss.arquillian.persistence.UsingDataSet;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -34,6 +34,8 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
+@DataSource("java:jboss/datasources/ExampleDS")
+// TODO Refactor to use Arquillian Persistence on Test Setup
 public class GenericDaoIT {
 
     /**
@@ -49,12 +51,6 @@ public class GenericDaoIT {
     private EntityManager entityManager;
 
     /**
-     * User Transaction.
-     */
-    @Inject
-    private UserTransaction userTransation;
-
-    /**
      * Creates Arquillian Deployment Container.
      * 
      * @return deployment container
@@ -62,29 +58,6 @@ public class GenericDaoIT {
     @Deployment
     public static WebArchive createDeployment() {
         return DeploymentFactory.getDefaultDeployment();
-    }
-
-    /**
-     * Setup test.
-     * 
-     * @throws Exception
-     *             thrown on error
-     */
-    @Before
-    public void setup() throws Exception {
-        this.userTransation.begin();
-        this.entityManager.joinTransaction();
-    }
-
-    /**
-     * Tear down test.
-     * 
-     * @throws Exception
-     *             thrown on error
-     */
-    @After
-    public void teardown() throws Exception {
-        this.userTransation.rollback();
     }
 
     /**
@@ -100,13 +73,19 @@ public class GenericDaoIT {
      * Test method for save(DiveLogEntity).
      */
     @Test
+    @UsingDataSet("Empty.yml")
+    @ShouldMatchDataSet(value = "expected/GenericDaoIT-ifNotNullThenSave.yml", excludeColumns = { "creation",
+            "updated", "version" })
     public void ifNotNullThenSave() {
         // given
         final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan");
         validUser.setLastName("Saunders");
-        validUser.setEmail("sdfsd@gmail.com");
-        validUser.setPassword("pass234");
+        validUser.setEmail("bryan@test.com");
+        validUser.setPassword("abcdef1A@");
+        validUser.setCity("Charleston");
+        validUser.setState("SC");
+        validUser.setCountry("USA");
 
         // when
         final UserAccount savedUser = this.userDao.save(validUser);
@@ -125,31 +104,25 @@ public class GenericDaoIT {
      * Test method for get(java.lang.Integer)}.
      */
     @Test
+    @UsingDataSet("TwoUserAccounts.yml")
     public void ifFoundThenGet() {
         // given
-        final UserAccount validUser = new UserAccount();
-        validUser.setFirstName("Bryan1");
-        validUser.setLastName("Saunders1");
-        validUser.setEmail("werwe@gmail.com");
-        validUser.setPassword("pass12343");
-
-        final UserAccount savedUser = this.userDao.save(validUser);
 
         // when
-        final Integer savedId = savedUser.getId();
-        final UserAccount retrievedUser = this.userDao.get(savedId);
+        final UserAccount retrievedUser = this.userDao.get(1);
 
         // then
         assertNotNull(retrievedUser);
-        assertTrue(this.entityManager.contains(retrievedUser));
-        assertEquals(savedId, retrievedUser.getId());
-        assertEquals(savedUser, retrievedUser);
+        assertEquals(new Integer(1), retrievedUser.getId());
+        assertEquals("Bryan", retrievedUser.getFirstName());
+        assertEquals("Saunders", retrievedUser.getLastName());
     }
 
     /**
      * Test method for get(java.lang.Integer)}.
      */
     @Test(expected = NoResultException.class)
+    @UsingDataSet("Empty.yml")
     public void ifNotFoundThenException() {
         this.userDao.get(999);
     }
@@ -158,52 +131,55 @@ public class GenericDaoIT {
      * Test method for updates.
      */
     @Test
+    @UsingDataSet("TwoUserAccounts.yml")
+    @ShouldMatchDataSet(value = "expected/GenericDaoIT-ifFoundThenUpdate.yml", excludeColumns = { "creation",
+            "updated", "version" })
     public void ifFoundThenUpdate() {
         // given
-        final String city = "Charleston";
-
-        final UserAccount validUser = new UserAccount();
-        validUser.setFirstName("Bryan2");
-        validUser.setLastName("Saunders2");
-        validUser.setEmail("sdfsdf@gmail.com");
-        validUser.setPassword("psdf123");
-
-        final UserAccount savedUser = this.userDao.save(validUser);
-        final Integer savedId = savedUser.getId();
+        final String newCity = "Myrtle Beach";
+        final String newState = "South Carolina";
 
         // when
-        savedUser.setCity(city);
-        final UserAccount newSavedUser = this.userDao.save(savedUser);
-        final UserAccount retrievedUser = this.userDao.get(savedId);
+        final UserAccount retrievedUser = this.userDao.get(1);
+        retrievedUser.setCity(newCity);
+        retrievedUser.setState(newState);
+
+        final UserAccount savedUser = this.userDao.save(retrievedUser);
 
         // then
-        assertNotNull(newSavedUser);
-        assertEquals(savedId, newSavedUser.getId());
-        assertEquals(city, newSavedUser.getCity());
-        assertEquals(savedUser, newSavedUser);
-
-        assertEquals(savedId, retrievedUser.getId());
-        assertEquals(city, retrievedUser.getCity());
-        assertEquals(newSavedUser, retrievedUser);
+        assertNotNull(savedUser);
+        assertEquals(new Integer(1), savedUser.getId());
+        assertEquals(newCity, savedUser.getCity());
+        assertEquals(newState, savedUser.getState());
+        assertEquals(savedUser, retrievedUser);
     }
 
     /**
      * Test method for save(T[]).
      */
     @Test
+    @UsingDataSet("Empty.yml")
+    @ShouldMatchDataSet(value = "expected/GenericDaoIT-ifArrayFullThenSave.yml", excludeColumns = { "id", "creation",
+            "updated", "version" })
     public void ifArrayFullThenSave() {
         // given
         final UserAccount validUser = new UserAccount();
-        validUser.setFirstName("Bryan3");
-        validUser.setLastName("Saunders3");
-        validUser.setEmail("yrw@gmail.com");
-        validUser.setPassword("patwt123");
+        validUser.setFirstName("Bryan");
+        validUser.setLastName("Saunders");
+        validUser.setEmail("bryan@test.com");
+        validUser.setCity("Charleston");
+        validUser.setState("SC");
+        validUser.setCountry("USA");
+        validUser.setPassword("abcdef1A@");
 
         final UserAccount validUser2 = new UserAccount();
-        validUser2.setFirstName("Bryan4");
-        validUser2.setLastName("Saunders4");
-        validUser2.setEmail("tretue@gmail.com");
-        validUser2.setPassword("dfghs123");
+        validUser2.setFirstName("Crystal");
+        validUser2.setLastName("Crystalson");
+        validUser2.setEmail("crystal@test.com");
+        validUser2.setCity("Charleston");
+        validUser2.setState("SC");
+        validUser2.setCountry("USA");
+        validUser2.setPassword("abcdef1A@");
 
         final UserAccount[] users = { validUser, validUser2 };
 
@@ -214,8 +190,6 @@ public class GenericDaoIT {
         assertEquals(2, savedUsers.size());
         assertTrue(savedUsers.contains(validUser));
         assertTrue(savedUsers.contains(validUser2));
-        assertTrue(this.entityManager.contains(validUser));
-        assertTrue(this.entityManager.contains(validUser2));
 
         for (final UserAccount user : savedUsers) {
             final Integer savedId = user.getId();
@@ -246,31 +220,16 @@ public class GenericDaoIT {
      * Test method for get(java.lang.Integer[])}.
      */
     @Test
+    @UsingDataSet("TwoUserAccounts.yml")
     public void ifArrayFullThenGet() {
         // given
-        final UserAccount validUser = new UserAccount();
-        validUser.setFirstName("Bryan5");
-        validUser.setLastName("Saunders5");
-        validUser.setEmail("btsaunde@gmail.com");
-        validUser.setPassword("pass123");
-
-        final UserAccount validUser2 = new UserAccount();
-        validUser2.setFirstName("Bryan6");
-        validUser2.setLastName("Saunders6");
-        validUser2.setEmail("btsaunde@gmail.com");
-        validUser2.setPassword("pass123");
-
-        final UserAccount[] users = { validUser, validUser2 };
-        final List<UserAccount> savedUsers = this.userDao.save(users);
-        final Integer[] integerList = { savedUsers.get(0).getId(), savedUsers.get(1).getId() };
+        final Integer[] integerList = { 1, 2 };
 
         // when
         final List<UserAccount> retrievedUsers = this.userDao.get(integerList);
 
         // then
         assertEquals(2, retrievedUsers.size());
-        assertTrue(retrievedUsers.contains(validUser));
-        assertTrue(retrievedUsers.contains(validUser2));
     }
 
     /**
@@ -295,38 +254,22 @@ public class GenericDaoIT {
      * Test method for getAll().
      */
     @Test
+    @UsingDataSet("TwoUserAccounts.yml")
     public void ifTableNotEmptyThenGetAll() {
         // given
-        final UserAccount validUser = new UserAccount();
-        validUser.setFirstName("Bryan5");
-        validUser.setLastName("Saunders5");
-        validUser.setEmail("sdhers@gmail.com");
-        validUser.setPassword("sdge4");
-
-        final UserAccount validUser2 = new UserAccount();
-        validUser2.setFirstName("Bryan6");
-        validUser2.setLastName("Saunders6");
-        validUser2.setEmail("sdfg@gmail.com");
-        validUser2.setPassword("segsd");
-
-        final UserAccount[] users = { validUser, validUser2 };
-        this.userDao.save(users);
-        assertTrue(this.entityManager.contains(validUser));
-        assertTrue(this.entityManager.contains(validUser2));
 
         // when
         final List<UserAccount> retrievedUsers = this.userDao.getAll();
 
         // then
         assertEquals(2, retrievedUsers.size());
-        assertTrue(retrievedUsers.contains(validUser));
-        assertTrue(retrievedUsers.contains(validUser2));
     }
 
     /**
      * Test method for getAll().
      */
     @Test
+    @UsingDataSet("Empty.yml")
     public void ifTableEmptyThenGetNothing() {
         final List<UserAccount> retrievedUsers = this.userDao.getAll();
         assertNotNull(retrievedUsers);
@@ -336,23 +279,16 @@ public class GenericDaoIT {
     /**
      * Test method for delete(java.lang.Integer).
      */
-    @Test(expected = NoResultException.class)
+    @Test
+    @UsingDataSet("OneUserAccount.yml")
+    @ShouldMatchDataSet("Empty.yml")
     public void ifFoundThenDelete() {
         // given
-        final UserAccount validUser = new UserAccount();
-        validUser.setFirstName("Bryan7");
-        validUser.setLastName("Saunders7");
-        validUser.setEmail("sdf@gmail.com");
-        validUser.setPassword("pas3g4g");
-
-        final UserAccount savedUser = this.userDao.save(validUser);
-        final Integer savedId = savedUser.getId();
 
         // when
-        this.userDao.delete(savedId);
+        this.userDao.delete(1);
 
         // then
-        this.userDao.get(savedId);
     }
 
     /**
@@ -366,30 +302,17 @@ public class GenericDaoIT {
     /**
      * Test method for delete(java.lang.Integer[]).
      */
-    @Test(expected = NoResultException.class)
-    public void testDeleteIntegerArray() {
+    @Test
+    @UsingDataSet("TwoUserAccounts.yml")
+    @ShouldMatchDataSet("Empty.yml")
+    public void ifAllFoundThenDeleteAll() {
         // given
-        final UserAccount validUser = new UserAccount();
-        validUser.setFirstName("Bryan8");
-        validUser.setLastName("Saunders8");
-        validUser.setEmail("sfghf@gmail.com");
-        validUser.setPassword("pasfghfh4");
-
-        final UserAccount validUser2 = new UserAccount();
-        validUser2.setFirstName("Bryan9");
-        validUser2.setLastName("Saunders9");
-        validUser2.setEmail("ghjkg@gmail.com");
-        validUser2.setPassword("pdfght44g");
-
-        UserAccount[] users = { validUser, validUser2 };
-        final List<UserAccount> savedUsers = this.userDao.save(users);
-        final Integer[] integerList = { savedUsers.get(0).getId(), savedUsers.get(1).getId() };
+        final Integer[] integerList = { 1, 2 };
 
         // when
         this.userDao.delete(integerList);
 
         // then
-        this.userDao.get(integerList);
     }
 
     /**
@@ -413,52 +336,36 @@ public class GenericDaoIT {
     /**
      * Test method for delete(DiveLogEntity).
      */
-    @Test(expected = NoResultException.class)
+    @Test
+    @UsingDataSet("OneUserAccount.yml")
+    @ShouldMatchDataSet("Empty.yml")
     public void testDeleteT() {
         // given
-        final UserAccount validUser = new UserAccount();
-        validUser.setFirstName("Bryan14");
-        validUser.setLastName("Saunders14");
-        validUser.setEmail("sgkkkf@gmail.com");
-        validUser.setPassword("pahhhfh4");
-
-        final UserAccount savedUser = this.userDao.save(validUser);
-        final Integer savedId = savedUser.getId();
+        final UserAccount userAccount = this.userDao.get(1);
 
         // when
-        this.userDao.delete(savedUser);
+        this.userDao.delete(userAccount);
 
         // then
-        this.userDao.get(savedId);
     }
 
     /**
      * Test method for delete(T[]).
      */
-    @Test(expected = NoResultException.class)
+    @Test
+    @UsingDataSet("TwoUserAccounts.yml")
+    @ShouldMatchDataSet("Empty.yml")
     public void testDeleteTArray() {
         // given
-        final UserAccount validUser = new UserAccount();
-        validUser.setFirstName("Bryan10");
-        validUser.setLastName("Saunders10");
-        validUser.setEmail("sghdf@gmail.com");
-        validUser.setPassword("pas678fh4");
+        final UserAccount validUser = this.userDao.get(1);
+        final UserAccount validUser2 = this.userDao.get(2);
 
-        final UserAccount validUser2 = new UserAccount();
-        validUser2.setFirstName("Bryan11");
-        validUser2.setLastName("Saunders11");
-        validUser2.setEmail("gfdghfgkg@gmail.com");
-        validUser2.setPassword("p345ht44g");
-
-        UserAccount[] users = { validUser, validUser2 };
-        final List<UserAccount> savedUsers = this.userDao.save(users);
-        final Integer[] integerList = { savedUsers.get(0).getId(), savedUsers.get(1).getId() };
+        final UserAccount[] users = { validUser, validUser2 };
 
         // when
-        this.userDao.delete(savedUsers.get(0), savedUsers.get(1));
+        this.userDao.delete(users);
 
         // then
-        this.userDao.get(integerList);
     }
 
     /**
@@ -483,30 +390,77 @@ public class GenericDaoIT {
      * Test method for deleteAll().
      */
     @Test
+    @UsingDataSet("TwoUserAccounts.yml")
+    @ShouldMatchDataSet("Empty.yml")
     public void ifTableNotEmptyThenDeleteAll() {
         // given
-        final UserAccount validUser = new UserAccount();
-        validUser.setFirstName("Bryan12");
-        validUser.setLastName("Saunders12");
-        validUser.setEmail("sfghf@gmail.com");
-        validUser.setPassword("pasfghfh4");
-
-        final UserAccount validUser2 = new UserAccount();
-        validUser2.setFirstName("Bryan13");
-        validUser2.setLastName("Saunders13");
-        validUser2.setEmail("g567gffg@gmail.com");
-        validUser2.setPassword("pd956t44g");
-
-        UserAccount[] users = { validUser, validUser2 };
-        this.userDao.save(users);
 
         // when
         this.userDao.deleteAll();
 
         // then
-        final List<UserAccount> retrievedUsers = this.userDao.getAll();
-        assertNotNull(retrievedUsers);
-        assertEquals(0, retrievedUsers.size());
+    }
+
+    /**
+     * Test method for findByExample().
+     */
+    @Test
+    @UsingDataSet("TwoUserAccounts.yml")
+    public void ifExampleMatchThenFindExampleMatch() {
+        // given
+        final UserAccount example = new UserAccount();
+        example.setFirstName("Bryan");
+        example.setLastName("Saunders");
+
+        // when
+        final List<UserAccount> foundAccounts = this.userDao.findByExample(example);
+
+        // then
+        assertNotNull(foundAccounts);
+        assertEquals(1, foundAccounts.size());
+
+        final UserAccount foundAccount = foundAccounts.get(0);
+        assertNotNull(foundAccount);
+        assertEquals("Bryan", foundAccount.getFirstName());
+        assertEquals("Saunders", foundAccount.getLastName());
+    }
+
+    /**
+     * Test method for findByExample().
+     */
+    @Test
+    @UsingDataSet("Empty.yml")
+    public void ifEmptyTableThenNoExampleMatch() {
+        // given
+        final UserAccount example = new UserAccount();
+        example.setFirstName("Mike");
+        example.setLastName("Johnson");
+
+        // when
+        final List<UserAccount> foundAccounts = this.userDao.findByExample(example);
+
+        // then
+        assertNotNull(foundAccounts);
+        assertEquals(0, foundAccounts.size());
+    }
+
+    /**
+     * Test method for findByExample().
+     */
+    @Test
+    @UsingDataSet("TwoUserAccounts.yml")
+    public void ifNoExampleMatchThenNoExampleMatch() {
+        // given
+        final UserAccount example = new UserAccount();
+        example.setFirstName("John");
+        example.setLastName("Doe");
+
+        // when
+        final List<UserAccount> foundAccounts = this.userDao.findByExample(example);
+
+        // then
+        assertNotNull(foundAccounts);
+        assertEquals(0, foundAccounts.size());
     }
 
 }
