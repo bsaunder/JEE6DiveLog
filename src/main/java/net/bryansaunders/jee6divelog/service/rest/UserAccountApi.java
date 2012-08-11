@@ -64,7 +64,7 @@ public class UserAccountApi {
      * 
      * <ul>
      * <li>Status 200: Successful Registration.</li>
-     * <li>Status 409: Error with the Request. Most likely caused by an invalid UserAccount.</li>
+     * <li>Status 400: Error with the Request. Most likely caused by an invalid UserAccount.</li>
      * </ul>
      * 
      * @param user
@@ -166,7 +166,7 @@ public class UserAccountApi {
      * 
      * <ul>
      * <li>Status 200: User Found.</li>
-     * <li>Status 404: User was not found.</li>
+     * <li>Status 400: User was not found.</li>
      * </ul>
      * 
      * @param userName
