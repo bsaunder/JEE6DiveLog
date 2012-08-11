@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AuthenticationFilter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.security.filter</a> &gt; <span class="el_source">AuthenticationFilter.java</span></div><h1>AuthenticationFilter.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package net.bryansaunders.jee6divelog.security.filter;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+
+import net.bryansaunders.jee6divelog.security.Identity;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Authentication filter that redirects non-logged in users.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+<span class="fc" id="L28">public class AuthenticationFilter implements Filter {</span>
+
+    /**
+     * Identity.
+     */
+    @Inject
+    private Identity identity;
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L39">    private Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);</span>
+
+    /**
+     * Redirect non-logged in users to the Login page.
+     * 
+     * @param request
+     *            Servlet Request
+     * @param response
+     *            Servlet Response
+     * @param filterChain
+     *            Filter Chain
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
+     *      javax.servlet.FilterChain)
+     * @throws IOException
+     *             Thrown on IO Error
+     * @throws ServletException
+     *             Thrown on Servlet Error
+     */
+    @Override
+    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain)
+        throws IOException, ServletException {
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (this.identity == null) {</span>
+<span class="fc" id="L62">            throw new ServletException(&quot;Identity is null&quot;);</span>
+        } else {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">            if (this.identity.isLoggedIn()) {</span>
+<span class="fc" id="L65">                filterChain.doFilter(request, response);</span>
+            } else {
+<span class="fc" id="L67">                this.logger.info(&quot;Unathorized Access Attempt.&quot;);</span>
+<span class="fc" id="L68">                final HttpServletResponse httpResponse = (HttpServletResponse) response;</span>
+<span class="fc" id="L69">                httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+            }
+        }
+
+<span class="fc" id="L73">    }</span>
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.servlet.Filter#destroy()
+     */
+    @Override
+    public void destroy() {
+
+<span class="nc" id="L83">    }</span>
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
+    @Override
+    public void init(final FilterConfig filterConfig) throws ServletException {
+
+<span class="fc" id="L93">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HasRoleInterceptor.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.security.interceptor</a> &gt; <span class="el_source">HasRoleInterceptor.java</span></div><h1>HasRoleInterceptor.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.security.interceptor;
+
+import java.lang.reflect.Method;
+
+import javax.inject.Inject;
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.Interceptor;
+import javax.interceptor.InvocationContext;
+
+import net.bryansaunders.jee6divelog.security.AuthorizationFailedException;
+import net.bryansaunders.jee6divelog.security.Identity;
+import net.bryansaunders.jee6divelog.security.annotation.HasRole;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
+
+/**
+ * HasRole Interceptor.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+@HasRole(role = Role.USER)
+@Interceptor
+<span class="fc" id="L23">public class HasRoleInterceptor {</span>
+
+    /**
+     * Active Identity.
+     */
+    @Inject
+    private Identity identity;
+
+    /**
+     * Intercepts the Method Call and Throws an Exception if Access is Not Allowed.
+     * 
+     * @param ctx
+     *            Invocation Context
+     * @return Result
+     * @throws Exception
+     *             Thrown if Access is Denied
+     */
+    @AroundInvoke
+    public Object checkAuthenticaion(final InvocationContext ctx) throws Exception {
+<span class="fc" id="L42">        final Method method = ctx.getMethod();</span>
+<span class="fc" id="L43">        Role role = null;</span>
+
+        // Check For Method Level Annotations
+<span class="fc" id="L46">        HasRole hasRoleAnnotation = method.getAnnotation(HasRole.class);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (hasRoleAnnotation != null) {</span>
+<span class="fc" id="L48">            role = hasRoleAnnotation.role();</span>
+        }
+
+        // Check For Class Level Annotations
+<span class="fc" id="L52">        final Class&lt;?&gt; callingClass = method.getDeclaringClass();</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (callingClass != null) {</span>
+<span class="fc" id="L54">            hasRoleAnnotation = callingClass.getAnnotation(HasRole.class);</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            if (hasRoleAnnotation != null) {</span>
+<span class="fc" id="L56">                role = hasRoleAnnotation.role();</span>
+            }
+        }
+
+        // Check Identity
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (role == null) {</span>
+<span class="fc" id="L62">            throw new AuthorizationFailedException(&quot;Could not Validate Identity, Could not Retrieve Role.&quot;);</span>
+        } else {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">            if (!this.identity.hasRole(role)) {</span>
+<span class="fc" id="L65">                throw new AuthorizationFailedException(&quot;Access Denied, Role &quot; + role + &quot; Not Found&quot;);</span>
+            }
+        }
+
+<span class="fc" id="L69">        return ctx.proceed();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

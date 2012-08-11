@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RegistrationBean.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.bean</a> &gt; <span class="el_source">RegistrationBean.java</span></div><h1>RegistrationBean.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package net.bryansaunders.jee6divelog.bean;
+
+import java.lang.reflect.InvocationTargetException;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.service.UserAccountService;
+import net.bryansaunders.jee6divelog.validation.annotation.FieldMatch;
+import net.bryansaunders.jee6divelog.validation.annotation.Password;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Backing Bean for Registration Page.
+ * 
+ * Name: regBean, Scope: Request
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+@Named(&quot;regBean&quot;)
+@RequestScoped
+@FieldMatch.List({
+    @FieldMatch(first = &quot;password&quot;, second = &quot;confirmationPassword&quot;, message = &quot;{regBean.fieldMatch.password}&quot;)
+})
+public class RegistrationBean {
+
+    /**
+     * Success String.
+     */
+    public static final String SUCCESS = &quot;/register_success&quot;;
+
+    /**
+     * Failure String.
+     */
+    public static final String FAILURE = &quot;/register&quot;;
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L51">    private final Logger logger = LoggerFactory.getLogger(RegistrationBean.class);</span>
+
+    /**
+     * User Service.
+     */
+    @Inject
+    private UserAccountService userService;
+
+    /**
+     * First Name.
+     */
+    @NotBlank(message = &quot;{regBean.firstName.notBlank}&quot;)
+    private String firstName;
+
+    /**
+     * Last Name.
+     */
+    @NotBlank(message = &quot;{regBean.lastName.notBlank}&quot;)
+    private String lastName;
+
+    /**
+     * Country.
+     */
+    private String country;
+
+    /**
+     * City.
+     */
+    private String city;
+
+    /**
+     * State.
+     */
+    private String state;
+
+    /**
+     * Email.
+     */
+    @NotBlank(message = &quot;{regBean.email.notBlank}&quot;)
+    @Email(message = &quot;{regBean.email.email}&quot;)
+    private String email;
+
+    /**
+     * Password.
+     */
+    @NotBlank(message = &quot;{regBean.password.notBlank}&quot;)
+    @Password(message = &quot;{regBean.password.password}&quot;)
+    private String password;
+
+    /**
+     * Password Confirmation.
+     */
+    @NotBlank(message = &quot;{regBean.confirmationPassword.notBlank}&quot;)
+    private String confirmationPassword;
+
+    /**
+     * Default Constructor.
+     */
+<span class="fc" id="L109">    public RegistrationBean() {</span>
+<span class="fc" id="L110">        this.logger.debug(&quot;RegistrationBean Created&quot;);</span>
+<span class="fc" id="L111">    }</span>
+
+    /**
+     * Submits the Registration.
+     * 
+     * @return Registration Status
+     */
+    public String submitRegistration() {
+<span class="fc" id="L119">        String registrationResult = RegistrationBean.SUCCESS;</span>
+
+<span class="fc" id="L121">        final UserAccount user = this.createUser();</span>
+<span class="fc" id="L122">        final UserAccount savedUser = this.userService.createUser(user);</span>
+
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (savedUser == null) {</span>
+<span class="fc" id="L125">            registrationResult = RegistrationBean.FAILURE;</span>
+        }
+
+<span class="fc" id="L128">        return registrationResult;</span>
+    }
+
+    /**
+     * Creates a User Object from this RegistrationBean.
+     * 
+     * @return new user object
+     */
+    protected UserAccount createUser() {
+<span class="fc" id="L137">        final UserAccount user = new UserAccount();</span>
+
+        try {
+<span class="fc" id="L140">            BeanUtils.copyProperties(user, this);</span>
+<span class="nc" id="L141">        } catch (final IllegalAccessException e) {</span>
+<span class="nc" id="L142">            this.logger.error(&quot;Could Not AccessProperty while Converting RegistrationBean to User.&quot;, e);</span>
+<span class="nc" id="L143">        } catch (final InvocationTargetException e) {</span>
+<span class="nc" id="L144">            this.logger.error(&quot;Error Invoking Method while Converting RegistrationBean to User.&quot;, e);</span>
+<span class="pc" id="L145">        }</span>
+
+<span class="fc" id="L147">        return user;</span>
+    }
+
+    /**
+     * Gets the First Name.
+     * 
+     * @return the firstName
+     */
+    public String getFirstName() {
+<span class="fc" id="L156">        return this.firstName;</span>
+    }
+
+    /**
+     * Sets the First Name.
+     * 
+     * @param newFirstName
+     *            the firstName to set
+     */
+    public void setFirstName(final String newFirstName) {
+<span class="fc" id="L166">        this.firstName = newFirstName;</span>
+<span class="fc" id="L167">    }</span>
+
+    /**
+     * Gets the Last Name.
+     * 
+     * @return the lastName
+     */
+    public String getLastName() {
+<span class="fc" id="L175">        return this.lastName;</span>
+    }
+
+    /**
+     * Sets the Last Name.
+     * 
+     * @param newLastName
+     *            the lastName to set
+     */
+    public void setLastName(final String newLastName) {
+<span class="fc" id="L185">        this.lastName = newLastName;</span>
+<span class="fc" id="L186">    }</span>
+
+    /**
+     * Gets the Country.
+     * 
+     * @return the country
+     */
+    public String getCountry() {
+<span class="fc" id="L194">        return this.country;</span>
+    }
+
+    /**
+     * Sets the Country.
+     * 
+     * @param newCountry
+     *            the country to set
+     */
+    public void setCountry(final String newCountry) {
+<span class="fc" id="L204">        this.country = newCountry;</span>
+<span class="fc" id="L205">    }</span>
+
+    /**
+     * Gets the City.
+     * 
+     * @return the city
+     */
+    public String getCity() {
+<span class="fc" id="L213">        return this.city;</span>
+    }
+
+    /**
+     * Sets the City.
+     * 
+     * @param newCity
+     *            the city to set
+     */
+    public void setCity(final String newCity) {
+<span class="fc" id="L223">        this.city = newCity;</span>
+<span class="fc" id="L224">    }</span>
+
+    /**
+     * Gets the State.
+     * 
+     * @return the state
+     */
+    public String getState() {
+<span class="fc" id="L232">        return this.state;</span>
+    }
+
+    /**
+     * Sets the State.
+     * 
+     * @param newState
+     *            the state to set
+     */
+    public void setState(final String newState) {
+<span class="fc" id="L242">        this.state = newState;</span>
+<span class="fc" id="L243">    }</span>
+
+    /**
+     * Gets the Email.
+     * 
+     * @return the email
+     */
+    public String getEmail() {
+<span class="fc" id="L251">        return this.email;</span>
+    }
+
+    /**
+     * Sets the Email.
+     * 
+     * @param newEmail
+     *            the email to set
+     */
+    public void setEmail(final String newEmail) {
+<span class="fc" id="L261">        this.email = newEmail;</span>
+<span class="fc" id="L262">    }</span>
+
+    /**
+     * Gets the Password.
+     * 
+     * @return the password
+     */
+    public String getPassword() {
+<span class="fc" id="L270">        return this.password;</span>
+    }
+
+    /**
+     * Sets the Password.
+     * 
+     * @param newPassword
+     *            the password to set
+     */
+    public void setPassword(final String newPassword) {
+<span class="fc" id="L280">        this.password = newPassword;</span>
+<span class="fc" id="L281">    }</span>
+
+    /**
+     * Gets the Confirmation Password.
+     * 
+     * @return the confirmationPassword
+     */
+    public String getConfirmationPassword() {
+<span class="fc" id="L289">        return this.confirmationPassword;</span>
+    }
+
+    /**
+     * Sets the Password.
+     * 
+     * @param newConfirmationPassword
+     *            the confirmationPassword to set
+     */
+    public void setConfirmationPassword(final String newConfirmationPassword) {
+<span class="fc" id="L299">        this.confirmationPassword = newConfirmationPassword;</span>
+<span class="fc" id="L300">    }</span>
+
+    /**
+     * Set the userService.
+     * 
+     * @param newUserService
+     *            the userService to set
+     */
+    public void setUserService(final UserAccountService newUserService) {
+<span class="fc" id="L309">        this.userService = newUserService;</span>
+<span class="fc" id="L310">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

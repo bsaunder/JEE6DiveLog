@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HasPermissionInterceptor.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.security.interceptor</a> &gt; <span class="el_source">HasPermissionInterceptor.java</span></div><h1>HasPermissionInterceptor.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.security.interceptor;
+
+import java.lang.reflect.Method;
+
+import javax.inject.Inject;
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.Interceptor;
+import javax.interceptor.InvocationContext;
+
+import net.bryansaunders.jee6divelog.security.AuthorizationFailedException;
+import net.bryansaunders.jee6divelog.security.Identity;
+import net.bryansaunders.jee6divelog.security.annotation.HasPermission;
+import net.bryansaunders.jee6divelog.security.enumerator.Permission;
+
+/**
+ * HasRole Interceptor.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+@HasPermission(permission = Permission.EDIT_SELF)
+@Interceptor
+<span class="fc" id="L23">public class HasPermissionInterceptor {</span>
+
+    /**
+     * Active Identity.
+     */
+    @Inject
+    private Identity identity;
+
+    /**
+     * Intercepts the Method Call and Throws an Exception if Access is Not Allowed.
+     * 
+     * @param ctx
+     *            Invocation Context
+     * @return Result
+     * @throws Exception
+     *             Thrown if Access is Denied
+     */
+    @AroundInvoke
+    public Object checkAuthenticaion(final InvocationContext ctx) throws Exception {
+<span class="fc" id="L42">        final Method method = ctx.getMethod();</span>
+<span class="fc" id="L43">        Permission permission = null;</span>
+
+        // Check For Method Level Annotations
+<span class="fc" id="L46">        HasPermission hasPermissionAnnotation = method.getAnnotation(HasPermission.class);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (hasPermissionAnnotation != null) {</span>
+<span class="fc" id="L48">            permission = hasPermissionAnnotation.permission();</span>
+        }
+
+        // Check For Class Level Annotations
+<span class="fc" id="L52">        final Class&lt;?&gt; callingClass = method.getDeclaringClass();</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (callingClass != null) {</span>
+<span class="fc" id="L54">            hasPermissionAnnotation = callingClass.getAnnotation(HasPermission.class);</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            if (hasPermissionAnnotation != null) {</span>
+<span class="fc" id="L56">                permission = hasPermissionAnnotation.permission();</span>
+            }
+        }
+
+        // Check Identity
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (permission == null) {</span>
+<span class="fc" id="L62">            throw new AuthorizationFailedException(&quot;Could not Validate Identity, Could not Retrieve Permission.&quot;);</span>
+        } else {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">            if (!this.identity.hasPermission(permission)) {</span>
+<span class="fc" id="L65">                throw new AuthorizationFailedException(&quot;Access Denied, Permission &quot; + permission + &quot; Not Found&quot;);</span>
+            }
+        }
+
+<span class="fc" id="L69">        return ctx.proceed();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

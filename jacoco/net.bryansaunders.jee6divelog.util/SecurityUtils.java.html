@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SecurityUtils.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.util</a> &gt; <span class="el_source">SecurityUtils.java</span></div><h1>SecurityUtils.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.util;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.Date;
+
+import net.bryansaunders.jee6divelog.model.DiveLogEntity;
+import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.security.annotation.HasPermission;
+import net.bryansaunders.jee6divelog.security.annotation.HasPermissions;
+import net.bryansaunders.jee6divelog.security.annotation.HasRole;
+import net.bryansaunders.jee6divelog.security.annotation.HasRoles;
+
+import org.jboss.resteasy.core.ResourceMethod;
+
+/**
+ * Security Utilities.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+public final class SecurityUtils {
+
+    /**
+     * Random Generator.
+     */
+<span class="fc" id="L29">    private static SecureRandom random = new SecureRandom();</span>
+
+    /**
+     * Default Private Constructor.
+     */
+<span class="nc" id="L34">    private SecurityUtils() {</span>
+        // Do Nothing
+<span class="nc" id="L36">    }</span>
+
+    /**
+     * Generate Password Hash for Application. Uses SHA-256 &amp; Base64 Encoding.
+     * 
+     * @param passwordToHash
+     *            String to hash for password
+     * @return Hashed password.
+     */
+    public static String generatePasswordHash(final String passwordToHash) {
+<span class="fc" id="L46">        final String hashedPass = HashUtils.toSha256(passwordToHash);</span>
+<span class="fc" id="L47">        final String hashedEncodedPass = HashUtils.base64Encode(hashedPass);</span>
+
+<span class="fc" id="L49">        return hashedEncodedPass;</span>
+    }
+
+    /**
+     * Generates a Random REST API Key.
+     * 
+     * @return Random API Key
+     */
+    public static String generateRestApiKey() {
+<span class="fc" id="L58">        final String apiKey = new BigInteger(130, SecurityUtils.random).toString(32);</span>
+<span class="fc" id="L59">        final String hashedApiKey = HashUtils.toSha256(apiKey);</span>
+<span class="fc" id="L60">        final String hashedEncodedApiKey = HashUtils.base64Encode(hashedApiKey);</span>
+
+<span class="fc" id="L62">        return hashedEncodedApiKey;</span>
+    }
+
+    /**
+     * Generate REST API Token.
+     * 
+     * @param username
+     *            Username for Token
+     * @param apiKey
+     *            API Key for Token
+     * @return Token
+     */
+    public static String generateRestApiToken(final String username, final String apiKey) {
+<span class="fc" id="L75">        final String combinedString = username + apiKey;</span>
+<span class="fc" id="L76">        final String token = HashUtils.toSha256(combinedString);</span>
+
+<span class="fc" id="L78">        return token;</span>
+    }
+
+    /**
+     * Determines if the Method is Secure or Not based on its Declared Annotations.
+     * 
+     * @param resourceMethod
+     *            Called Method
+     * @return true if the Method is Secured
+     */
+    public static boolean isMethodSecure(final ResourceMethod resourceMethod) {
+<span class="fc" id="L89">        boolean isSecured = false;</span>
+<span class="fc" id="L90">        final Method method = resourceMethod.getMethod();</span>
+<span class="fc" id="L91">        final Annotation[] declaredAnnotations = method.getDeclaredAnnotations();</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        for (final Annotation annotation : declaredAnnotations) {</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">            if (SecurityUtils.isAnnotationSecure(annotation)) {</span>
+<span class="fc" id="L94">                isSecured = true;</span>
+<span class="fc" id="L95">                break;</span>
+            }
+
+        }
+<span class="fc" id="L99">        return isSecured;</span>
+    }
+
+    /**
+     * Determines is the given Annotation is Secured.
+     * 
+     * @param annotation
+     *            Annotation to check
+     * @return true if the annotation is secured, false if it is not
+     */
+    public static boolean isAnnotationSecure(final Annotation annotation) {
+<span class="fc" id="L110">        boolean isSecured = false;</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        if (annotation instanceof HasPermission) {</span>
+<span class="fc" id="L112">            isSecured = true;</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        } else if (annotation instanceof HasPermissions) {</span>
+<span class="fc" id="L114">            isSecured = true;</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        } else if (annotation instanceof HasRole) {</span>
+<span class="fc" id="L116">            isSecured = true;</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        } else if (annotation instanceof HasRoles) {</span>
+<span class="fc" id="L118">            isSecured = true;</span>
+        }
+<span class="fc" id="L120">        return isSecured;</span>
+    }
+
+    /**
+     * Clears the Dates on any DiveLogEntity.
+     * 
+     * @param &lt;T&gt;
+     *            Generic Type
+     * @param entity
+     *            Entity to Clear Dates on
+     * @return Clean DiveLogEntity
+     */
+    public static &lt;T extends DiveLogEntity&gt; T getCleanEntity(final T entity) {
+<span class="fc" id="L133">        entity.setCreated(new Date());</span>
+<span class="fc" id="L134">        entity.setUpdated(new Date());</span>
+<span class="fc" id="L135">        return entity;</span>
+    }
+
+    /**
+     * Clears the Dates &amp; Password on any UserAccount.
+     * 
+     * @param userAccount
+     *            UserAccount to Clear
+     * @return Clean UserAccount
+     */
+    public static UserAccount getCleanUserAccount(final UserAccount userAccount) {
+<span class="fc" id="L146">        userAccount.setPassword(&quot;***&quot;);</span>
+<span class="fc" id="L147">        return SecurityUtils.getCleanEntity(userAccount);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

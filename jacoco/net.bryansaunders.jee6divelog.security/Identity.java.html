@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Identity.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.security</a> &gt; <span class="el_source">Identity.java</span></div><h1>Identity.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package net.bryansaunders.jee6divelog.security;
+
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.security.enumerator.Permission;
+import net.bryansaunders.jee6divelog.security.enumerator.Role;
+import net.bryansaunders.jee6divelog.service.UserAccountService;
+import net.bryansaunders.jee6divelog.util.SecurityUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * User Identity implements Serializable.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+@SessionScoped
+@Named(&quot;identity&quot;)
+public class Identity implements Serializable {
+
+    /**
+     * Login Failure.
+     */
+    public static final boolean LOGIN_FAILURE = false;
+
+    /**
+     * Login Success.
+     */
+    public static final boolean LOGIN_SUCCESS = true;
+
+    /**
+     * Logout Failure.
+     */
+    public static final String LOGOUT_FAILURE = &quot;/logout_error&quot;;
+
+    /**
+     * Logout Success.
+     */
+    public static final String LOGOUT_SUCCESS = &quot;/logout_success&quot;;
+
+    /**
+     * Identity Logged Out.
+     */
+<span class="fc" id="L58">    public static final Integer LOGGED_OUT = 1;</span>
+
+    /**
+     * Identity Logged In.
+     */
+<span class="fc" id="L63">    public static final Integer LOGGED_IN = 0;</span>
+
+    /**
+     * Default Serial ID.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L73">    private final Logger logger = LoggerFactory.getLogger(Identity.class);</span>
+
+    /**
+     * User Entered Credentials.
+     */
+    @Inject
+    private Credentials credentials;
+
+    /**
+     * User Account Service.
+     */
+    @Inject
+    private UserAccountService userAccountService;
+
+    /**
+     * Should the user be Remembered.
+     */
+    private boolean rememberMe;
+
+    /**
+     * Identity Roles.
+     */
+    private Set&lt;Role&gt; roles;
+
+    /**
+     * Identity Permissions.
+     */
+    private Set&lt;Permission&gt; permissions;
+
+    /**
+     * User REST API Key.
+     */
+    private String apiKey;
+
+    /**
+     * User REST API Key Expiration Date.
+     */
+    private Date apiKeyExpiration;
+
+    /**
+     * Identity Status.
+     */
+    private Integer status;
+
+    /**
+     * Default Constructor.
+     */
+<span class="fc" id="L120">    public Identity() {</span>
+<span class="fc" id="L121">        this.roles = new LinkedHashSet&lt;Role&gt;();</span>
+<span class="fc" id="L122">        this.permissions = new LinkedHashSet&lt;Permission&gt;();</span>
+<span class="fc" id="L123">        this.status = Identity.LOGGED_OUT;</span>
+<span class="fc" id="L124">    }</span>
+
+    /**
+     * Login Identity.
+     * 
+     * @return Login Result
+     */
+    public boolean login() {
+<span class="fc" id="L132">        return this.login(false);</span>
+    }
+
+    /**
+     * Login Identity for REST Service.
+     * 
+     * @return Login Result
+     */
+    public boolean restLogin() {
+<span class="fc" id="L141">        return this.login(true);</span>
+    }
+
+    /**
+     * Login Identity.
+     * 
+     * @param restLogin
+     *            Is it a REST Login
+     * @return Login Result
+     */
+    public boolean login(final boolean restLogin) {
+<span class="fc" id="L152">        this.logger.debug(&quot;Logging In User with Credentials: &quot; + this.credentials);</span>
+<span class="fc" id="L153">        boolean returnValue = Identity.LOGIN_FAILURE;</span>
+
+<span class="fc" id="L155">        final String username = this.getUsername();</span>
+<span class="fc" id="L156">        final String password = this.getPassword();</span>
+<span class="fc" id="L157">        final String expectedPassword = SecurityUtils.generatePasswordHash(password);</span>
+
+<span class="fc" id="L159">        final UserAccount userAccount = this.userAccountService.findByUserEmail(username);</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">        if (userAccount != null) {</span>
+<span class="fc" id="L161">            final String hashedPassword = userAccount.getPassword();</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">            if (hashedPassword.equals(expectedPassword)) {</span>
+<span class="fc" id="L163">                this.setStatus(Identity.LOGGED_IN);</span>
+
+<span class="fc" id="L165">                this.setRoles(userAccount.getRoles());</span>
+<span class="fc" id="L166">                this.setPermissions(userAccount.getPermissions());</span>
+
+<span class="fc bfc" id="L168" title="All 2 branches covered.">                if (restLogin) {</span>
+<span class="fc" id="L169">                    this.apiKey = SecurityUtils.generateRestApiKey();</span>
+
+<span class="fc" id="L171">                    final Calendar expiration = Calendar.getInstance();</span>
+<span class="fc" id="L172">                    expiration.add(Calendar.HOUR, 5);</span>
+<span class="fc" id="L173">                    this.apiKeyExpiration = expiration.getTime();</span>
+
+<span class="fc" id="L175">                    userAccount.setApiKey(this.apiKey);</span>
+<span class="fc" id="L176">                    userAccount.setApiKeyExpiration(this.apiKeyExpiration);</span>
+<span class="fc" id="L177">                    this.userAccountService.saveUser(userAccount);</span>
+                }
+
+<span class="fc" id="L180">                this.logger.debug(&quot;Logged in User: &quot; + this.credentials);</span>
+            }
+        }
+
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        if (this.isLoggedIn()) {</span>
+<span class="fc" id="L185">            returnValue = Identity.LOGIN_SUCCESS;</span>
+        } else {
+<span class="fc" id="L187">            this.logger.warn(&quot;Invalid Credentials: &quot; + this.credentials);</span>
+        }
+
+<span class="fc" id="L190">        return returnValue;</span>
+    }
+
+    /**
+     * Logout the current User.
+     * 
+     * @return Logout Result
+     */
+    public String logout() {
+<span class="fc" id="L199">        this.logger.info(&quot;Logging Out User with Credentials: &quot; + this.credentials);</span>
+<span class="fc" id="L200">        String returnValue = Identity.LOGOUT_FAILURE;</span>
+
+<span class="fc" id="L202">        this.setStatus(Identity.LOGGED_OUT);</span>
+
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">        if (!this.isLoggedIn()) {</span>
+<span class="fc" id="L205">            returnValue = Identity.LOGOUT_SUCCESS;</span>
+        }
+
+<span class="fc" id="L208">        return returnValue;</span>
+    }
+
+    /**
+     * Generates a UserAccount Object for the Current Identity.
+     * 
+     * @return UserAccount
+     */
+    public UserAccount createUserAccount() {
+<span class="fc" id="L217">        UserAccount userAccount = new UserAccount();</span>
+<span class="fc" id="L218">        userAccount.setEmail(this.getUsername());</span>
+<span class="fc" id="L219">        userAccount.setApiKey(this.getApiKey());</span>
+<span class="fc" id="L220">        userAccount.setApiKeyExpiration(this.getApiKeyExpiration());</span>
+<span class="fc" id="L221">        userAccount.setRoles(this.getRoles());</span>
+<span class="fc" id="L222">        userAccount.setPermissions(this.getPermissions());</span>
+<span class="fc" id="L223">        return userAccount;</span>
+    }
+
+    /**
+     * Is the Identity Logged in?
+     * 
+     * @return true if logged in
+     */
+    public boolean isLoggedIn() {
+<span class="fc" id="L232">        return this.status.equals(Identity.LOGGED_IN);</span>
+    }
+
+    /**
+     * Get the status.
+     * 
+     * @return the status
+     */
+    public Integer getStatus() {
+<span class="nc" id="L241">        return this.status;</span>
+    }
+
+    /**
+     * Set the status.
+     * 
+     * @param newStatus
+     *            the status to set
+     */
+    public void setStatus(final Integer newStatus) {
+<span class="fc" id="L251">        this.status = newStatus;</span>
+<span class="fc" id="L252">    }</span>
+
+    /**
+     * Get Username.
+     * 
+     * @return username
+     */
+    public String getUsername() {
+<span class="fc" id="L260">        return this.credentials.getUsername();</span>
+    }
+
+    /**
+     * Get Password.
+     * 
+     * @return password
+     */
+    public String getPassword() {
+<span class="fc" id="L269">        return this.credentials.getPassword();</span>
+    }
+
+    /**
+     * Set the credentials.
+     * 
+     * @param newCredentials
+     *            the credentials to set
+     */
+    public void setCredentials(final Credentials newCredentials) {
+<span class="fc" id="L279">        this.credentials = newCredentials;</span>
+<span class="fc" id="L280">    }</span>
+
+    /**
+     * Set the userAccountService.
+     * 
+     * @param newUserAccountService
+     *            the userAccountService to set
+     */
+    public void setUserAccountService(final UserAccountService newUserAccountService) {
+<span class="fc" id="L289">        this.userAccountService = newUserAccountService;</span>
+<span class="fc" id="L290">    }</span>
+
+    /**
+     * Get the roles.
+     * 
+     * @return the roles
+     */
+    public Set&lt;Role&gt; getRoles() {
+<span class="fc" id="L298">        return this.roles;</span>
+    }
+
+    /**
+     * Set the roles.
+     * 
+     * @param newRoles
+     *            the roles to set
+     */
+    public void setRoles(final Set&lt;Role&gt; newRoles) {
+<span class="fc" id="L308">        this.roles = newRoles;</span>
+<span class="fc" id="L309">    }</span>
+
+    /**
+     * Get the permissions.
+     * 
+     * @return the permissions
+     */
+    public Set&lt;Permission&gt; getPermissions() {
+<span class="fc" id="L317">        return this.permissions;</span>
+    }
+
+    /**
+     * Set the permissions.
+     * 
+     * @param newPermissions
+     *            the permissions to set
+     */
+    public void setPermissions(final Set&lt;Permission&gt; newPermissions) {
+<span class="fc" id="L327">        this.permissions = newPermissions;</span>
+<span class="fc" id="L328">    }</span>
+
+    /**
+     * Get the rememberMe.
+     * 
+     * @return the rememberMe
+     */
+    public boolean isRememberMe() {
+<span class="fc" id="L336">        return this.rememberMe;</span>
+    }
+
+    /**
+     * Set the rememberMe.
+     * 
+     * @param newRememberMe
+     *            the rememberMe to set
+     */
+    public void setRememberMe(final boolean newRememberMe) {
+<span class="fc" id="L346">        this.rememberMe = newRememberMe;</span>
+<span class="fc" id="L347">    }</span>
+
+    /**
+     * Has the specified Role.
+     * 
+     * @param role
+     *            Role to check for
+     * @return true if role is found
+     */
+    public boolean hasRole(final Role role) {
+<span class="fc" id="L357">        return this.roles.contains(role);</span>
+    }
+
+    /**
+     * Has the specified Permission.
+     * 
+     * @param permission
+     *            Permission to check for
+     * @return true if permission is found
+     */
+    public boolean hasPermission(final Permission permission) {
+<span class="fc" id="L368">        return this.permissions.contains(permission);</span>
+    }
+
+    /**
+     * Get the apiKey.
+     * 
+     * @return the apiKey
+     */
+    public String getApiKey() {
+<span class="fc" id="L377">        return this.apiKey;</span>
+    }
+
+    /**
+     * Set the apiKey.
+     * 
+     * @param newApiKey
+     *            the apiKey to set
+     */
+    public void setApiKey(final String newApiKey) {
+<span class="fc" id="L387">        this.apiKey = newApiKey;</span>
+<span class="fc" id="L388">    }</span>
+
+    /**
+     * Get the apiKeyExpiration.
+     * 
+     * @return the apiKeyExpiration
+     */
+    public Date getApiKeyExpiration() {
+<span class="fc" id="L396">        Date date = null;</span>
+<span class="fc bfc" id="L397" title="All 2 branches covered.">        if (this.apiKeyExpiration != null) {</span>
+<span class="fc" id="L398">            date = new Date(this.apiKeyExpiration.getTime());</span>
+        }
+<span class="fc" id="L400">        return date;</span>
+    }
+
+    /**
+     * Set the apiKeyExpiration.
+     * 
+     * @param newApiKeyExpiration
+     *            the apiKeyExpiration to set
+     */
+    public void setApiKeyExpiration(final Date newApiKeyExpiration) {
+<span class="pc bpc" id="L410" title="1 of 2 branches missed.">        if (newApiKeyExpiration == null) {</span>
+<span class="nc" id="L411">            this.apiKeyExpiration = null;</span>
+        } else {
+<span class="fc" id="L413">            this.apiKeyExpiration = new Date(newApiKeyExpiration.getTime());</span>
+        }
+<span class="fc" id="L415">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

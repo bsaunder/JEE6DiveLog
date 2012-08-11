@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HashUtils.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.util</a> &gt; <span class="el_source">HashUtils.java</span></div><h1>HashUtils.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package net.bryansaunders.jee6divelog.util;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
+
+/**
+ * Utility Methods for Dealing with Hashing.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+public final class HashUtils {
+
+    /**
+     * Default Private Constructor.
+     */
+<span class="nc" id="L20">    private HashUtils() {</span>
+        // Do Nothing
+<span class="nc" id="L22">    }</span>
+
+    /**
+     * Hashes the string using SHA-256 Algorithim.
+     * 
+     * @param stringToHash
+     *            String to hash
+     * @return Hashed String
+     */
+    public static String toSha256(final String stringToHash) {
+<span class="fc" id="L32">        return DigestUtils.sha256Hex(stringToHash);</span>
+    }
+
+    /**
+     * Encodes a string as Base64.
+     * 
+     * @param stringToEncode
+     *            String to encode
+     * @return Encoded String
+     */
+    public static String base64Encode(final String stringToEncode) {
+<span class="fc" id="L43">        return Base64.encodeBase64String(stringToEncode.getBytes());</span>
+    }
+
+    /**
+     * Decodes a Base64 string.
+     * 
+     * @param stringToDecode
+     *            String to decode
+     * @return Decoded String
+     */
+    public static String base64Decode(final String stringToDecode) {
+<span class="fc" id="L54">        return new String(Base64.decodeBase64(stringToDecode));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Permission.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.security.enumerator</a> &gt; <span class="el_source">Permission.java</span></div><h1>Permission.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package net.bryansaunders.jee6divelog.security.enumerator;
+
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Account Permissions.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+<span class="pc" id="L17">@SuppressWarnings(&quot;serial&quot;)</span>
+public enum Permission {
+
+    /**
+     * Edit Self.
+     */
+    
+<span class="fc" id="L24">    EDIT_SELF(new HashMap&lt;Role, Boolean&gt;() {</span>
+        {
+<span class="fc" id="L26">            this.put(Role.USER, true);</span>
+<span class="fc" id="L27">            this.put(Role.ADMIN, true);</span>
+<span class="fc" id="L28">        }</span>
+    }),
+
+    /**
+     * Delete Self.
+     */
+<span class="fc" id="L34">    DELETE_SELF(new HashMap&lt;Role, Boolean&gt;() {</span>
+        {
+<span class="fc" id="L36">            this.put(Role.USER, true);</span>
+<span class="fc" id="L37">            this.put(Role.ADMIN, false);</span>
+<span class="fc" id="L38">        }</span>
+    });
+
+    /**
+     * Default Permission Flag Map.
+     */
+    private Map&lt;Role, Boolean&gt; defaultPermission;
+
+    /**
+     * Default Constructor.
+     * 
+     * @param defaultPermissions
+     *            Map of Default Permissions
+     */
+<span class="fc" id="L52">    private Permission(final Map&lt;Role, Boolean&gt; defaultPermissions) {</span>
+<span class="fc" id="L53">        this.defaultPermission = defaultPermissions;</span>
+<span class="fc" id="L54">    }</span>
+
+    /**
+     * Get the defaultPermission.
+     * 
+     * @return the defaultPermission
+     */
+    public Map&lt;Role, Boolean&gt; getDefaultPermission() {
+<span class="fc" id="L62">        return this.defaultPermission;</span>
+    }
+
+    /**
+     * Get Default Permissions for the Given Role.
+     * 
+     * @param role
+     *            Role to check Permissions for
+     * @return List of Permission Objects
+     */
+    public static Set&lt;Permission&gt; getDefaults(final Role role) {
+<span class="fc" id="L73">        final Set&lt;Permission&gt; defaultPermissions = new LinkedHashSet&lt;Permission&gt;();</span>
+
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (final Permission permission : Permission.values()) {</span>
+<span class="fc" id="L76">            final Map&lt;Role, Boolean&gt; permissionMap = permission.getDefaultPermission();</span>
+<span class="fc" id="L77">            final Boolean value = permissionMap.get(role);</span>
+<span class="pc bpc" id="L78" title="1 of 4 branches missed.">            if (value != null &amp;&amp; value) {</span>
+<span class="fc" id="L79">                defaultPermissions.add(permission);</span>
+            }
+        }
+
+<span class="fc" id="L83">        return defaultPermissions;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

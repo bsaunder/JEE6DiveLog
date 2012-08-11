@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>FieldMatchValidator.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.validation</a> &gt; <span class="el_source">FieldMatchValidator.java</span></div><h1>FieldMatchValidator.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.validation;
+
+import java.lang.reflect.InvocationTargetException;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+import net.bryansaunders.jee6divelog.validation.annotation.FieldMatch;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Validator to check if two fields match.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+<span class="fc" id="L20">public class FieldMatchValidator implements ConstraintValidator&lt;FieldMatch, Object&gt; {</span>
+    
+    /**
+     * Logger.
+     */
+<span class="fc" id="L25">    private Logger logger = LoggerFactory.getLogger(FieldMatchValidator.class);</span>
+
+    /**
+     * First Field Name.
+     */
+    private String firstFieldName;
+
+    /**
+     * Second Field Name.
+     */
+    private String secondFieldName;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void initialize(final FieldMatch constraintAnnotation) {
+<span class="fc" id="L42">        this.firstFieldName = constraintAnnotation.first();</span>
+<span class="fc" id="L43">        this.secondFieldName = constraintAnnotation.second();</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isValid(final Object value, final ConstraintValidatorContext context) {
+<span class="fc" id="L51">        boolean valid = false;</span>
+
+        try {
+<span class="fc" id="L54">            final Object firstObj = BeanUtils.getProperty(value, this.firstFieldName);</span>
+<span class="fc" id="L55">            final Object secondObj = BeanUtils.getProperty(value, this.secondFieldName);</span>
+
+<span class="pc bpc" id="L57" title="2 of 8 branches missed.">            valid = (firstObj == null &amp;&amp; secondObj == null) || (firstObj != null &amp;&amp; firstObj.equals(secondObj));</span>
+<span class="fc" id="L58">            this.logger.debug(&quot;Checking Fields for Match: &quot; + this.firstFieldName + &quot;(&quot; + firstObj</span>
+                    + &quot;) &lt;&gt; &quot; + this.secondFieldName + &quot;(&quot; + secondObj + &quot;) = &quot; + valid);
+<span class="fc" id="L60">        } catch (final NoSuchMethodException e) {</span>
+<span class="fc" id="L61">            this.logger.error(&quot;Error Validating Fields Match&quot;, e);</span>
+<span class="nc" id="L62">        } catch (final IllegalAccessException e) {</span>
+<span class="nc" id="L63">            this.logger.error(&quot;Error Validating Fields Match&quot;, e);</span>
+<span class="nc" id="L64">        } catch (final InvocationTargetException e) {</span>
+<span class="nc" id="L65">            this.logger.error(&quot;Error Validating Fields Match&quot;, e);</span>
+<span class="pc" id="L66">        }</span>
+
+<span class="fc" id="L68">        return valid;</span>
+    }
+
+    /**
+     * Get First Field Name.
+     * 
+     * @return the firstFieldName
+     */
+    public String getFirstFieldName() {
+<span class="fc" id="L77">        return this.firstFieldName;</span>
+    }
+
+    /**
+     * Set First Field Name.
+     * 
+     * @param newFirstFieldName
+     *            the firstFieldName to set
+     */
+    public void setFirstFieldName(final String newFirstFieldName) {
+<span class="fc" id="L87">        this.firstFieldName = newFirstFieldName;</span>
+<span class="fc" id="L88">    }</span>
+
+    /**
+     * Get Second Field Name.
+     * 
+     * @return the secondFieldName
+     */
+    public String getSecondFieldName() {
+<span class="fc" id="L96">        return this.secondFieldName;</span>
+    }
+
+    /**
+     * Set Second Field Name.
+     * 
+     * @param newSecondFieldName
+     *            the secondFieldName to set
+     */
+    public void setSecondFieldName(final String newSecondFieldName) {
+<span class="fc" id="L106">        this.secondFieldName = newSecondFieldName;</span>
+<span class="fc" id="L107">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>
