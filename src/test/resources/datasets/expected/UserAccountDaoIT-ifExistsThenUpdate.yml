@@ -1,10 +1,10 @@
 user:
   - id: 1
-    version: 0
+    version: 2
     firstName: Bryan
-    lastName: Saunders
-    city: Charleston
-    state: SC
+    lastName: Sanders
+    city: Myrtle Beach
+    state: South Carolina
     country: USA
     email: bryan@test.com
     password: YWNjMTIwZGE1ZjEzOGNiMDc4M2E5MmFjZmY5YTllNjE0YzBlYmYzMzdmMzUyZTM1YjA2MzJkZjA0MjExNGUyNg==

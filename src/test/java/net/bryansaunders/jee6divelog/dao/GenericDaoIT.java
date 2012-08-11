@@ -35,7 +35,6 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 @DataSource("java:jboss/datasources/ExampleDS")
-// TODO Refactor to use Arquillian Persistence on Test Setup
 public class GenericDaoIT {
 
     /**

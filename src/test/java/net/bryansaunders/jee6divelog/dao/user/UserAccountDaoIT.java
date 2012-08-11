@@ -4,14 +4,8 @@
 package net.bryansaunders.jee6divelog.dao.user;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.UserTransaction;
 
 import net.bryansaunders.jee6divelog.DeploymentFactory;
 import net.bryansaunders.jee6divelog.model.UserAccount;
@@ -20,9 +14,10 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.persistence.DataSource;
+import org.jboss.arquillian.persistence.ShouldMatchDataSet;
+import org.jboss.arquillian.persistence.UsingDataSet;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -31,6 +26,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
+@DataSource("java:jboss/datasources/ExampleDS")
 public class UserAccountDaoIT {
 
     /**
@@ -38,18 +34,6 @@ public class UserAccountDaoIT {
      */
     @Inject
     private UserAccountDao userDao;
-
-    /**
-     * Entity Manager for Testing.
-     */
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    /**
-     * User Transaction.
-     */
-    @Inject
-    private UserTransaction userTransation;
 
     /**
      * Creates Arquillian Deployment Container.
@@ -62,54 +46,26 @@ public class UserAccountDaoIT {
     }
 
     /**
-     * Setup test.
-     * 
-     * @throws Exception
-     *             thrown on error
-     */
-    @Before
-    public void setup() throws Exception {
-        this.userTransation.begin();
-        this.entityManager.joinTransaction();
-    }
-
-    /**
-     * Tear down test.
-     * 
-     * @throws Exception
-     *             thrown on error
-     */
-    @After
-    public void teardown() throws Exception {
-        this.userTransation.rollback();
-    }
-
-    /**
      * Test method for save().
      */
     @Test
+    @UsingDataSet("Empty.yml")
+    @ShouldMatchDataSet("expected/GenericDaoIT-ifNotNullThenSave.yml")
     public void ifNotNullThenSave() {
         // given
-        final String email = "test@test.com";
-        final String pass = "pass12314";
+        final String pass = "abcdef1A@";
 
         final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan");
         validUser.setLastName("Saunders");
-        validUser.setEmail(email);
+        validUser.setEmail("bryan@test.com");
+        validUser.setCity("Charleston");
+        validUser.setState("SC");
+        validUser.setCountry("USA");
         validUser.setPassword(pass);
 
         // when
         final UserAccount savedUser = this.userDao.save(validUser);
-
-        // then
-        assertTrue(this.entityManager.contains(validUser));
-        assertTrue(this.entityManager.contains(savedUser));
-        assertEquals(savedUser, validUser);
-
-        assertNotNull(validUser.getId());
-        assertNotNull(savedUser.getId());
-        assertTrue(savedUser.getId() > 0);
 
         // check the password
         final String hashedEncodedPass = Base64.encodeBase64String(DigestUtils.sha256Hex(pass).getBytes());
@@ -120,10 +76,21 @@ public class UserAccountDaoIT {
      * Tests method for save(). Already existing Users should be updated.
      */
     @Test
+    @UsingDataSet("OneUserAccount.yml")
+    @ShouldMatchDataSet(value = "expected/UserAccountDaoIT-ifExistsThenUpdate.yml", excludeColumns = { "creation",
+            "updated", "version" })
     public void ifExistsThenUpdate() {
-        // If the user already exists (Has an ID), Then the password should not be re-encrytped.
+        // given
+        final UserAccount foundUser = this.userDao.get(1);
+        foundUser.setVersion(2);
+        foundUser.setLastName("Sanders");
+        foundUser.setCity("Myrtle Beach");
+        foundUser.setState("South Carolina");
 
-        fail("Not Yet Implemented");
+        // when
+        this.userDao.save(foundUser);
+
+        // then
     }
 
 }
