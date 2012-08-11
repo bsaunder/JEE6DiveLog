@@ -6,7 +6,7 @@
 		</encoder>
 	</appender>
 	
-	<logger name="org.jboss.as.jpa" level="INFO" />
+	<logger name="org.jboss.as.jpa" level="TRACE" />
 
 	<root level="debug">
 		<appender-ref ref="STDOUT" />

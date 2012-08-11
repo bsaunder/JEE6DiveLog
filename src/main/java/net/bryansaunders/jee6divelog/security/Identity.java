@@ -149,7 +149,7 @@ public class Identity implements Serializable {
      * @return Login Result
      */
     public boolean login(final boolean restLogin) {
-        this.logger.info("Logging In User with Credentials: " + this.credentials);
+        this.logger.debug("Logging In User with Credentials: " + this.credentials);
         boolean returnValue = Identity.LOGIN_FAILURE;
 
         final String username = this.getUsername();
@@ -177,7 +177,7 @@ public class Identity implements Serializable {
                     this.userAccountService.saveUser(userAccount);
                 }
 
-                this.logger.info("Logged in User: " + this.credentials);
+                this.logger.debug("Logged in User: " + this.credentials);
             }
         }
 
@@ -393,7 +393,11 @@ public class Identity implements Serializable {
      * @return the apiKeyExpiration
      */
     public Date getApiKeyExpiration() {
-        return this.apiKeyExpiration;
+        Date date = null;
+        if (this.apiKeyExpiration != null) {
+            date = new Date(this.apiKeyExpiration.getTime());
+        }
+        return date;
     }
 
     /**
@@ -403,7 +407,11 @@ public class Identity implements Serializable {
      *            the apiKeyExpiration to set
      */
     public void setApiKeyExpiration(final Date newApiKeyExpiration) {
-        this.apiKeyExpiration = newApiKeyExpiration;
+        if (newApiKeyExpiration == null) {
+            this.apiKeyExpiration = null;
+        } else {
+            this.apiKeyExpiration = new Date(newApiKeyExpiration.getTime());
+        }
     }
 
 }

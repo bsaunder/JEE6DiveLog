@@ -108,7 +108,7 @@
 	<!-- RESTEasy -->
 	<context-param>
 		<param-name>resteasy.providers</param-name>
-		<param-value>net.bryansaunders.jee6divelog.service.rest.RestSecurityInterceptor</param-value>
+		<param-value>net.bryansaunders.jee6divelog.security.interceptor.RestSecurityInterceptor</param-value>
 	</context-param>
 
 </web-app>

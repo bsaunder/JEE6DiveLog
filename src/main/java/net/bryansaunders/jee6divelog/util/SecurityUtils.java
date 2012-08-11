@@ -4,7 +4,10 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Date;
 
+import net.bryansaunders.jee6divelog.model.DiveLogEntity;
+import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.annotation.HasPermission;
 import net.bryansaunders.jee6divelog.security.annotation.HasPermissions;
 import net.bryansaunders.jee6divelog.security.annotation.HasRole;
@@ -74,7 +77,7 @@ public final class SecurityUtils {
 
         return token;
     }
-    
+
     /**
      * Determines if the Method is Secure or Not based on its Declared Annotations.
      * 
@@ -115,5 +118,32 @@ public final class SecurityUtils {
             isSecured = true;
         }
         return isSecured;
+    }
+
+    /**
+     * Clears the Dates on any DiveLogEntity.
+     * 
+     * @param <T>
+     *            Generic Type
+     * @param entity
+     *            Entity to Clear Dates on
+     * @return Clean DiveLogEntity
+     */
+    public static <T extends DiveLogEntity> T getCleanEntity(final T entity) {
+        entity.setCreated(new Date());
+        entity.setUpdated(new Date());
+        return entity;
+    }
+
+    /**
+     * Clears the Dates & Password on any UserAccount.
+     * 
+     * @param userAccount
+     *            UserAccount to Clear
+     * @return Clean UserAccount
+     */
+    public static UserAccount getCleanUserAccount(final UserAccount userAccount) {
+        userAccount.setPassword("***");
+        return SecurityUtils.getCleanEntity(userAccount);
     }
 }

@@ -2,6 +2,8 @@ package net.bryansaunders.jee6divelog.dao;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -237,7 +239,12 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
             Object fieldValue = null;
 
             try {
-                field.setAccessible(true);
+                AccessController.doPrivileged(new PrivilegedAction<Object>() {
+                    public Object run() {
+                        field.setAccessible(true);
+                        return null;
+                    }
+                });
                 fieldValue = field.get(example);
             } catch (final IllegalArgumentException e) {
                 this.logger.warn(

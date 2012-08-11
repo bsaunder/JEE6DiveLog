@@ -7,8 +7,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -21,6 +21,8 @@ import net.bryansaunders.jee6divelog.service.UserAccountService;
 import net.bryansaunders.jee6divelog.util.SecurityUtils;
 
 import org.codehaus.enunciate.jaxrs.TypeHint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User Rest API.
@@ -33,6 +35,11 @@ import org.codehaus.enunciate.jaxrs.TypeHint;
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class UserAccountApi {
+    
+    /**
+     * Logger.
+     */
+    private final Logger logger = LoggerFactory.getLogger(UserAccountApi.class);
 
     /**
      * User Account Service.
@@ -71,11 +78,11 @@ public class UserAccountApi {
         Response response;
 
         try {
-            final UserAccount savedUser = this.userAccountService.createUser(user);
-            savedUser.setPassword("***"); // Clear out the Password
+            UserAccount savedUser = this.userAccountService.createUser(user);
+            savedUser = SecurityUtils.getCleanUserAccount(savedUser);
             response = Response.ok(savedUser).status(Response.Status.CREATED).build();
         } catch (final EJBException e) {
-            response = Response.status(Response.Status.CONFLICT).entity("JSON Invalid: " + e.getMessage()).build();
+            response = Response.status(Response.Status.BAD_REQUEST).entity("JSON Invalid: " + e.getMessage()).build();
         }
 
         return response;
@@ -128,7 +135,9 @@ public class UserAccountApi {
     @TypeHint(UserAccount.class)
     @HasRole(role = Role.USER)
     public Response identify() {
-        final UserAccount userAccount = this.identity.createUserAccount();
+        UserAccount userAccount = this.identity.createUserAccount();
+        userAccount = SecurityUtils.getCleanUserAccount(userAccount);
+        this.logger.debug("User Identity: " + userAccount.toString());
         return Response.ok(userAccount).build();
     }
 
@@ -165,18 +174,18 @@ public class UserAccountApi {
      * @return Found user
      */
     @GET
-    @Path("/get/{userName}")
+    @Path("/find")
     @TypeHint(UserAccount.class)
     @HasRole(role = Role.USER)
-    public Response getUser(@PathParam("userName") final String userName) {
+    public Response getUser(@QueryParam("userName") final String userName) {
         Response response;
 
-        final UserAccount foundUser = this.userAccountService.findByUserEmail(userName);
+        UserAccount foundUser = this.userAccountService.findByUserEmail(userName);
         if (foundUser != null) {
-            foundUser.setPassword("***"); // Clear out the Password
+            foundUser = SecurityUtils.getCleanUserAccount(foundUser);
             response = Response.ok(foundUser).build();
         } else {
-            response = Response.status(Response.Status.NOT_FOUND).entity("User Not Found.").build();
+            response = Response.status(Response.Status.BAD_REQUEST).entity("User Not Found.").build();
         }
 
         return response;

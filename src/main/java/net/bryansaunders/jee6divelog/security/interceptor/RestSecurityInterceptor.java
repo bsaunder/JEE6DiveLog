@@ -89,7 +89,7 @@ public class RestSecurityInterceptor implements PreProcessInterceptor {
                     // Check Expiration Date
                     final Date expirationDate = userAccount.getApiKeyExpiration();
 
-                    if (System.currentTimeMillis() < expirationDate.getTime()) {
+                    if (expirationDate != null && System.currentTimeMillis() < expirationDate.getTime()) {
                         this.logger.debug("API Token Not Expired");
                         // Generate Token
                         final String apiKey = userAccount.getApiKey();
@@ -109,6 +109,9 @@ public class RestSecurityInterceptor implements PreProcessInterceptor {
                             credentials.setUsername(userName);
                             credentials.setPassword(userAccount.getPassword());
                             this.identity.setCredentials(credentials);
+                            
+                            // Return null
+                            response = null;
 
                         } else {
                             response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, "Invalid Token");
@@ -137,7 +140,7 @@ public class RestSecurityInterceptor implements PreProcessInterceptor {
      * @return ServerResponse
      */
     private ServerResponse buildResponse(final int statusCode, final String message) {
-        this.logger.debug("Creating REST Response: " + statusCode + " - " + message);
+        this.logger.info("Creating REST Response: " + statusCode + " - " + message);
         final ServerResponse response = new ServerResponse();
         response.setStatus(statusCode);
         response.setEntity(message);
@@ -158,7 +161,7 @@ public class RestSecurityInterceptor implements PreProcessInterceptor {
         final HttpHeaders headers = httpRequest.getHttpHeaders();
 
         final List<String> headerList = headers.getRequestHeader(headerName);
-        if (headerList != null && headerList.size() > 0) {
+        if (headerList != null && !headerList.isEmpty()) {
             headerValue = headerList.get(0);
         }
 

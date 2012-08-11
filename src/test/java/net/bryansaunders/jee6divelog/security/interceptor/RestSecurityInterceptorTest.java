@@ -233,6 +233,29 @@ public class RestSecurityInterceptorTest {
         assertNotNull(response);
         assertEquals(HttpResponseCodes.SC_UNAUTHORIZED, response.getStatus());
     }
+    
+    /**
+     * Test preProcess method with Null Token Expiration.
+     * 
+     * @throws Exception
+     *             Thrown on error
+     */
+    @Test
+    public void ifTokenExpirationNullThenUnauthorized() throws Exception {
+        // given
+        final ResourceMethod resourceMethod = mock(ResourceMethod.class);
+        when(resourceMethod.getMethod()).thenReturn(this.secureMethod);
+
+        this.userAccount.setApiKeyExpiration(null);
+        when(this.mockAccountService.findByUserEmail(any(String.class))).thenReturn(this.userAccount);
+
+        // when
+        final ServerResponse response = this.interceptor.preProcess(this.httpRequest, resourceMethod);
+
+        // then
+        assertNotNull(response);
+        assertEquals(HttpResponseCodes.SC_UNAUTHORIZED, response.getStatus());
+    }
 
     /**
      * Test preProcess method with Invalid Token.

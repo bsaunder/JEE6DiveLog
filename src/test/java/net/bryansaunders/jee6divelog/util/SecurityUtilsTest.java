@@ -12,7 +12,9 @@ import static org.mockito.Mockito.when;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Date;
 
+import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.annotation.HasPermission;
 import net.bryansaunders.jee6divelog.security.annotation.HasPermissions;
 import net.bryansaunders.jee6divelog.security.annotation.HasRole;
@@ -122,6 +124,24 @@ public class SecurityUtilsTest {
         when(resourceMethod.getMethod()).thenReturn(method);
 
         assertFalse(SecurityUtils.isMethodSecure(resourceMethod));
+    }
+
+    /**
+     * Tests the Clean UserAccount and DiveLogEntity methods.
+     */
+    @Test
+    public void cleanUserAccount() {
+        // given
+        UserAccount userAccount = new UserAccount();
+        final Date date = new Date();
+        
+        // when
+        userAccount = SecurityUtils.getCleanUserAccount(userAccount);
+        
+        // then
+        assertEquals("***", userAccount.getPassword());
+        assertEquals(date, userAccount.getCreated());
+        assertEquals(date, userAccount.getUpdated());
     }
 
 }

@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
+import org.hibernate.annotations.Index;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -62,6 +63,7 @@ public class UserAccount extends DiveLogEntity {
      * User Email.
      */
     @NotNull
+    @Index(name = "emailIndex")
     private String email;
 
     /**
@@ -296,7 +298,11 @@ public class UserAccount extends DiveLogEntity {
      * @return the apiKeyExpiration
      */
     public Date getApiKeyExpiration() {
-        return this.apiKeyExpiration;
+        Date date = null;
+        if (this.apiKeyExpiration != null) {
+            date = new Date(this.apiKeyExpiration.getTime());
+        }
+        return date;
     }
 
     /**
@@ -306,7 +312,24 @@ public class UserAccount extends DiveLogEntity {
      *            the apiKeyExpiration to set
      */
     public void setApiKeyExpiration(final Date newApiKeyExpiration) {
-        this.apiKeyExpiration = newApiKeyExpiration;
+        if (newApiKeyExpiration == null) {
+            this.apiKeyExpiration = null;
+        } else {
+            this.apiKeyExpiration = new Date(newApiKeyExpiration.getTime());
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "UserAccount [firstName=" + this.firstName + ", lastName=" + this.lastName + ", country=" + this.country
+                + ", state=" + this.state + ", city=" + this.city + ", email=" + this.email + ", password="
+                + this.password + ", apiKey=" + this.apiKey + ", apiKeyExpiration=" + this.apiKeyExpiration
+                + ", roles=" + this.roles + ", permissions=" + this.permissions + "]";
     }
 
 }
