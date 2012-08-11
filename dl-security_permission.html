@@ -11,7 +11,7 @@
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>userAccount</title>
+  <title>permission</title>
 
   <!-- Mobile viewport optimized: j.mp/bplateviewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
   <div class="container">
     <header>
       <div id="header" class="column first last span-20">
-        <div id="site-name" class="column span-18 append-1 prepend-1 first last"><a href="enunciate.html">userAccount</a></div>
+        <div id="site-name" class="column span-18 append-1 prepend-1 first last"><a href="enunciate.html">permission</a></div>
         <div id="primary" class="column span-18 append-1 prepend-1 first last">
           <ul class="navigation">
             <li id="nav-rest"><a href="rest.html">REST</a></li>
@@ -52,15 +52,18 @@
               </ul>
             </li>
             <li>
-              <a href="ns0.html">ns0</a> &gt;
+              <a href="dl-security.html">dl-security</a> &gt;
               <ul>
-                <li><a href="ns0.html">ns0</a></li>
+                <li><a href="dl-security.html">dl-security</a></li>
+                <li><a href="divelog.html">divelog</a></li>
               </ul>
             </li>
             <li class="current">
-              <a href="el_ns0_userAccount.html">userAccount element</a>
+              <a href="dl-security_permission.html">permission</a>
               <ul>
-                <li><a href="el_ns0_userAccount.html">userAccount element</a></li>
+                <li><a href="dl-security_role.html">role</a></li>
+                <li><a href="dl-security_credentials.html">credentials</a></li>
+                <li><a href="dl-security_permission.html">permission</a></li>
               </ul>
             </li>
           </ul>
@@ -68,65 +71,44 @@
       </div>
     </header>
     <div id="main" class="column first last span-20">
-      <h1>userAccount element</h1>
+      <h1>permission</h1>
       <table>
         <tr>
-          <td align="right">Type:</td>
-          <td><a href="ns0_userAccount.html">userAccount</a></td>
-        </tr>
-        <tr>
           <td align="right">Namespace:</td>
-          <td>(default namespace)</td>
+          <td>http://www.bryansaunders.net/divelog/security</td>
         </tr>
         <tr>
           <td align="right">XML Schema:</td>
-          <td><a href="ns0.xsd">ns0.xsd</a></td>
+          <td><a href="dl-security.xsd">dl-security.xsd</a></td>
         </tr>
       </table>
       <p>
-            User Model.
+            Account Permissions.
           </p>
-      <h2>Example XML</h2>
-      <code class="prettyprint lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;userAccount&gt;
-  &lt;firstName&gt;...&lt;/firstName&gt;
-  &lt;lastName&gt;...&lt;/lastName&gt;
-  &lt;country&gt;...&lt;/country&gt;
-  &lt;state&gt;...&lt;/state&gt;
-  &lt;city&gt;...&lt;/city&gt;
-  &lt;email&gt;...&lt;/email&gt;
-  &lt;password&gt;...&lt;/password&gt;
-  &lt;roles&gt;...&lt;/roles&gt;
-  &lt;roles&gt;
-    &lt;!--...--&gt;
-  &lt;/roles&gt;
-  &lt;!--...more &quot;roles&quot; elements...--&gt;
-  &lt;permissions&gt;...&lt;/permissions&gt;
-  &lt;permissions&gt;
-    &lt;!--...--&gt;
-  &lt;/permissions&gt;
-  &lt;!--...more &quot;permissions&quot; elements...--&gt;
-  &lt;id&gt;...&lt;/id&gt;
-  &lt;version&gt;...&lt;/version&gt;
-  &lt;created&gt;...&lt;/created&gt;
-  &lt;updated&gt;...&lt;/updated&gt;
-&lt;/userAccount&gt;</code>
-      <h2>Example JSON</h2>
-      <code class="prettyprint lang-js">{
-  &quot;firstName&quot; : &quot;...&quot;,
-  &quot;lastName&quot; : &quot;...&quot;,
-  &quot;country&quot; : &quot;...&quot;,
-  &quot;state&quot; : &quot;...&quot;,
-  &quot;city&quot; : &quot;...&quot;,
-  &quot;email&quot; : &quot;...&quot;,
-  &quot;password&quot; : &quot;...&quot;,
-  &quot;roles&quot; : [ &quot;USER&quot;, ... ],
-  &quot;permissions&quot; : [ &quot;EDIT_SELF&quot;, ... ],
-  &quot;id&quot; : ...,
-  &quot;version&quot; : ...,
-  &quot;created&quot; : &quot;...&quot;,
-  &quot;updated&quot; : &quot;...&quot;
-}</code>
+
+      <h2>Possible Values</h2>
+      <table>
+        <tr>
+          <th>value</th>
+          <th>description</th>
+        </tr>
+        <tr>
+          <td>EDIT_SELF</td>
+          <td>
+            
+                 Edit Self.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>DELETE_SELF</td>
+          <td>
+            
+                 Delete Self.
+              
+          </td>
+        </tr>
+      </table>
 
       <div class="clear" />
     </div>

@@ -64,11 +64,12 @@
     <li><a href="#C Client Library">C Client Library</a></li>
     <li><a href="#.NET Client Library">.NET Client Library</a></li>
     <li><a href="#Java Client Library">Java Client Library</a></li>
+    <li><a href="#Java JSON Client Library">Java JSON Client Library</a></li>
     <li><a href="#Objective C Client Library">Objective C Client Library</a></li>
   </ul>
   <a name="C Client Library"></a>
   <h2>C Client Library</h2>
-  <p class="note">Created Jul 31, 2012 10:02:02 PM</p>
+  <p class="note">Created Aug 11, 2012 6:13:26 PM</p>
   <p><h1>
   Introduction
 </h1>
@@ -94,19 +95,19 @@
 //...
 
 xmlTextWriterPtr writer = ...; //set up the writer to the url.
-novaglobalapi_ns0_userAccount *request_element = ...;
+novaglobalapi_divelog_userAccount *request_element = ...;
 xmlTextReaderPtr reader = ...; //set up the reader to the url.
-novaglobalapi_ns0_userAccount *response_element = ...;
-//set up the novaglobalapi_ns0_userAccount...
-xml_write_novaglobalapi_ns0_userAccount(writer, request_element);
-response_element = xml_read_novaglobalapi_ns0_userAccount(reader);
+novaglobalapi_divelog_userAccount *response_element = ...;
+//set up the novaglobalapi_divelog_userAccount...
+xml_write_novaglobalapi_divelog_userAccount(writer, request_element);
+response_element = xml_read_novaglobalapi_divelog_userAccount(reader);
 
 //handle the response as needed...
 
-//free the novaglobalapi_ns0_userAccount
-free_novaglobalapi_ns0_userAccount(request_element);
-//free the novaglobalapi_ns0_userAccount
-free_novaglobalapi_ns0_userAccount(response_element);
+//free the novaglobalapi_divelog_userAccount
+free_novaglobalapi_divelog_userAccount(request_element);
+//free the novaglobalapi_divelog_userAccount
+free_novaglobalapi_divelog_userAccount(response_element);
 </code>
 </p>
   <h3>Files</h3>
@@ -118,7 +119,7 @@ free_novaglobalapi_ns0_userAccount(response_element);
     </tr>
     <tr>
       <td><a href="novaglobalapi.c">novaglobalapi.c</a></td>
-      <td>57.31K</td>
+      <td>81.17K</td>
       <td></td>
     </tr>
     <tr>
@@ -129,7 +130,7 @@ free_novaglobalapi_ns0_userAccount(response_element);
   </table>
   <a name=".NET Client Library"></a>
   <h2>.NET Client Library</h2>
-  <p class="note">Created Jul 31, 2012 10:02:03 PM</p>
+  <p class="note">Created Aug 11, 2012 6:13:27 PM</p>
   <p><h1>
   Introduction
 </h1>
@@ -173,12 +174,12 @@ UserAccount order = (UserAccount) s.Deserialize( r );
     </tr>
     <tr>
       <td><a href="novaglobalapi-dotnet.zip">novaglobalapi-dotnet.zip</a></td>
-      <td>1.49K</td>
+      <td>1.72K</td>
     </tr>
   </table>
   <a name="Java Client Library"></a>
   <h2>Java Client Library</h2>
-  <p class="note">Created Jul 31, 2012 10:02:03 PM</p>
+  <p class="note">Created Aug 11, 2012 6:13:27 PM</p>
   <p><h1>
   Introduction
 </h1>
@@ -234,18 +235,66 @@ UserAccount result = client.resource(baseUrl + "/user/register")
     </tr>
     <tr>
       <td><a href="novaglobalapi-client.jar">novaglobalapi-client.jar</a></td>
-      <td>5.38K</td>
+      <td>7.04K</td>
       <td>The binaries for the Java client library.</td>
     </tr>
     <tr>
       <td><a href="novaglobalapi-client-sources.jar">novaglobalapi-client-sources.jar</a></td>
-      <td>2.66K</td>
+      <td>3.41K</td>
       <td>The sources for the Java client library.</td>
+    </tr>
+  </table>
+  <a name="Java JSON Client Library"></a>
+  <h2>Java JSON Client Library</h2>
+  <p class="note">Created Aug 11, 2012 6:13:27 PM</p>
+  <p><h1>
+  Introduction
+</h1>
+
+<p>
+  The Java client-side library is used to provide the set of Java objects that can be serialized
+  to/from JSON using <a href="http://jackson.codehaus.org/">Jackson</a>.  This is useful for accessing the
+  JSON REST endpoints that are published by this application.
+</p>
+
+<h1>
+  REST Example (Raw Jackson)
+</h1>
+
+<code class="prettyprint">
+java.net.URL url = new java.net.URL(baseURL + "/user/register");
+ObjectMapper mapper = new ObjectMapper();
+java.net.URLConnection connection = url.openConnection();
+connection.setDoOutput(true);
+connection.connect();
+
+mapper.writeValue(connection.getOutputStream(), userAccount);
+UserAccount result = (UserAccount) mapper.readValue( connection.getInputStream(), UserAccount.class );
+//handle the result as needed...
+</code>
+
+</p>
+  <h3>Files</h3>
+  <table>
+    <tr>
+      <th>name</th>
+      <th>size</th>
+      <th>description</th>
+    </tr>
+    <tr>
+      <td><a href="novaglobalapi-json-client.jar">novaglobalapi-json-client.jar</a></td>
+      <td>4.47K</td>
+      <td>The binaries for the Java JSON client library.</td>
+    </tr>
+    <tr>
+      <td><a href="novaglobalapi-json-client-sources.jar">novaglobalapi-json-client-sources.jar</a></td>
+      <td>3.00K</td>
+      <td>The sources for the Java JSON client library.</td>
     </tr>
   </table>
   <a name="Objective C Client Library"></a>
   <h2>Objective C Client Library</h2>
-  <p class="note">Created Jul 31, 2012 10:02:02 PM</p>
+  <p class="note">Created Aug 11, 2012 6:13:26 PM</p>
   <p><h1>
   Introduction
 </h1>
@@ -269,9 +318,9 @@ UserAccount result = client.resource(baseUrl + "/user/register")
 #import &lt;novaglobalapi.h&gt;
 //...
 
-NOVAGLOBALAPINS0UserAccount *requestElement = [[NOVAGLOBALAPINS0UserAccount alloc] init];
+NOVAGLOBALAPIDIVELOGUserAccount *requestElement = [[NOVAGLOBALAPIDIVELOGUserAccount alloc] init];
 NSData *requestData; //data holding the XML for the request.
-NOVAGLOBALAPINS0UserAccount *responseElement;
+NOVAGLOBALAPIDIVELOGUserAccount *responseElement;
 NSData *responseData; //data holding the XML from the response.
 NSURL *baseURL = ...; //the base url including the host and subpath.
 NSURL *url = [NSURL URLWithString: @"/user/register" relativeToURL: baseURL];
@@ -281,7 +330,7 @@ NSError *error = NULL;
 [request setHTTPMethod: @"POST"];
 [request setValue:@"application/xml" forHTTPHeaderField:@"Content-Type"];  
 
-//set up the NOVAGLOBALAPINS0UserAccount...
+//set up the NOVAGLOBALAPIDIVELOGUserAccount...
 
 requestData = [requestElement writeToXML];
 [request setHTTPBody: requestData];
@@ -289,7 +338,7 @@ requestData = [requestElement writeToXML];
 //this example uses a synchronous request,
 //but you'll probably want to use an asynchronous call
 responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-NOVAGLOBALAPINS0UserAccount *responseElement = [NOVAGLOBALAPINS0UserAccount readFromXML: responseData];
+NOVAGLOBALAPIDIVELOGUserAccount *responseElement = [NOVAGLOBALAPIDIVELOGUserAccount readFromXML: responseData];
 [responseElement retain];
 
 //handle the response as needed...
@@ -304,12 +353,12 @@ NOVAGLOBALAPINS0UserAccount *responseElement = [NOVAGLOBALAPINS0UserAccount read
     </tr>
     <tr>
       <td><a href="novaglobalapi.h">novaglobalapi.h</a></td>
-      <td>5.48K</td>
+      <td>6.78K</td>
       <td></td>
     </tr>
     <tr>
       <td><a href="novaglobalapi.m">novaglobalapi.m</a></td>
-      <td>37.64K</td>
+      <td>55.56K</td>
       <td></td>
     </tr>
     <tr>

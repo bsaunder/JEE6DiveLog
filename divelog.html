@@ -11,7 +11,7 @@
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>UserResource</title>
+  <title>Namespace: divelog</title>
 
   <!-- Mobile viewport optimized: j.mp/bplateviewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
   <div class="container">
     <header>
       <div id="header" class="column first last span-20">
-        <div id="site-name" class="column span-18 append-1 prepend-1 first last"><a href="enunciate.html">UserResource</a></div>
+        <div id="site-name" class="column span-18 append-1 prepend-1 first last"><a href="enunciate.html">Namespace: divelog</a></div>
         <div id="primary" class="column span-18 append-1 prepend-1 first last">
           <ul class="navigation">
             <li id="nav-rest"><a href="rest.html">REST</a></li>
@@ -44,7 +44,7 @@
               <a href="enunciate.html" class="home">Home</a> &gt;
             </li>
             <li>
-              <a href="rest.html">REST</a> &gt;
+              <a href="model.html">Data Model</a> &gt;
               <ul>
                 <li><a href="model.html">Data Model</a></li>
                 <li><a href="downloads.html">Files and Libraries</a></li>
@@ -52,9 +52,10 @@
               </ul>
             </li>
             <li class="current">
-              <a href="resource_UserResource.html">UserResource</a>
+              <a href="divelog.html">divelog</a>
               <ul>
-                <li><a href="resource_UserResource.html">UserResource</a></li>
+                <li><a href="dl-security.html">dl-security</a></li>
+                <li><a href="divelog.html">divelog</a></li>
               </ul>
             </li>
           </ul>
@@ -62,81 +63,30 @@
       </div>
     </header>
     <div id="main" class="column first last span-20">
-      <h1>UserResource</h1>
+      <h1>Namespace divelog</h1>
+      <table>
+        <tr>
+          <td align="right">Namespace:</td>
+          <td>http://www.bryansaunders.net/divelog</td>
+        </tr>
+        <tr>
+          <td align="right">XML Schema:</td>
+          <td><a href="divelog.xsd">divelog.xsd</a></td>
+        </tr>
+      </table>
 
-      <p>The following resources are part of this group:</p>
+      <h2>Elements</h2>
+      
       <ul>
-        <li><a href="#path__user_register.html">/user/register</a></li>
-        <li><a href="#path__user_find_-userName-.html">/user/find/{userName}</a></li>
+        <li><a href="el_divelog_userAccount.html">userAccount</a></li>
       </ul>
-      <a name="path__user_register.html"></a>
-      <h1>/user/register</h1>
-      <p class="note">Mount Point: <a href="./rest/user/register">/rest/user/register</a></p>
-      <a name="POST"></a>
-      <h2>POST</h2>
-      <p>
-            Registers a User.
 
-<ul>
-<li>Status 200: Successful Registration.</li>
-<li>Status 401: Error with the Request. Most likely caused by an invalid UserAccount.</li>
-</ul>
-          </p>
-      <h3>Request Body</h3>
-      <table>
-        <tr>
-          <td align="right">element:</td>
-          <td><a href="el_ns0_userAccount.html">userAccount</a></td>
-        </tr>
-      </table>
-      <p>User to Register</p>
-      <h3>Response Body</h3>
-      <table>
-        <tr>
-          <td align="right">element:</td>
-          <td><a href="el_ns0_userAccount.html">userAccount</a></td>
-        </tr>
-      </table>
-      <p>Registered User</p>
-      <a name="path__user_find_-userName-.html"></a>
-      <h1>/user/find/{userName}</h1>
-      <p class="note">Mount Point: <a href="./rest/user/find/{userName}">/rest/user/find/{userName}</a></p>
-      <a name="GET"></a>
-      <h2>GET</h2>
-      <p>
-            Gets the User Specified by the Given Username.
-
-<ul>
-<li>Status 200: User Found.</li>
-<li>Status 404: User was not found.</li>
-<li>Status 401: Error with the Request.</li>
-</ul>
-          </p>
-      <h3>Parameters</h3>
-      <table>
-        <tr>
-          <th>name</th>
-          <th>description</th>
-          <th>type</th>
-          <th>default</th>
-        </tr>
-        <tr>
-          <td>userName</td>
-          <td>
-            Username to serach for
-          </td>
-          <td>path</td>
-          <td></td>
-        </tr>
-      </table>
-      <h3>Response Body</h3>
-      <table>
-        <tr>
-          <td align="right">element:</td>
-          <td><a href="el_ns0_userAccount.html">userAccount</a></td>
-        </tr>
-      </table>
-      <p>Found user</p>
+      <h2>Types</h2>
+      
+      <ul>
+        <li><a href="divelog_diveLogEntity.html">diveLogEntity</a></li>
+        <li><a href="divelog_userAccount.html">userAccount</a></li>
+      </ul>
 
       <div class="clear" />
     </div>

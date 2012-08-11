@@ -1,0 +1,48 @@
+<xs:schema version="1.0" targetNamespace="http://www.bryansaunders.net/divelog/security" xmlns:dl-security="http://www.bryansaunders.net/divelog/security" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="credentials" type="dl-security:credentials"/>
+  <xs:complexType name="credentials">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[User Entered Credentials.]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="username" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the username.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="password" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the password.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="permission">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[Account Permissions.]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EDIT_SELF"/>
+      <xs:enumeration value="DELETE_SELF"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="role">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[Account Roles.]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="USER"/>
+      <xs:enumeration value="ADMIN"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -1,3 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
+<duplication lines="47" tokens="102">
+<file line="274" path="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\model\UserAccount.java"/>
+<file line="369" path="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\security\Identity.java"/>
+<codefragment>
+<![CDATA[
+    }
+
+    /**
+     * Get the apiKey.
+     * 
+     * @return the apiKey
+     */
+    public String getApiKey() {
+        return this.apiKey;
+    }
+
+    /**
+     * Set the apiKey.
+     * 
+     * @param newApiKey
+     *            the apiKey to set
+     */
+    public void setApiKey(final String newApiKey) {
+        this.apiKey = newApiKey;
+    }
+
+    /**
+     * Get the apiKeyExpiration.
+     * 
+     * @return the apiKeyExpiration
+     */
+    public Date getApiKeyExpiration() {
+        Date date = null;
+        if (this.apiKeyExpiration != null) {
+            date = new Date(this.apiKeyExpiration.getTime());
+        }
+        return date;
+    }
+
+    /**
+     * Set the apiKeyExpiration.
+     * 
+     * @param newApiKeyExpiration
+     *            the apiKeyExpiration to set
+     */
+    public void setApiKeyExpiration(final Date newApiKeyExpiration) {
+        if (newApiKeyExpiration == null) {
+            this.apiKeyExpiration = null;
+        } else {
+            this.apiKeyExpiration = new Date(newApiKeyExpiration.getTime());
+        }
+    }
+]]>
+</codefragment>
+</duplication>
 </pmd-cpd>

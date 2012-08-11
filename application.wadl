@@ -1,9 +1,93 @@
 <wadl:application xmlns:wadl="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <wadl:doc xmlns:enunciate="http://enunciate.codehaus.org/" enunciate:generatedBy="Enunciate-1.25"/>
   <wadl:grammars>
-    <wadl:include href="ns0.xsd"/>
+    <wadl:include href="divelog.xsd"/>
+    <wadl:include href="dl-security.xsd"/>
   </wadl:grammars>
   <wadl:resources base="http://localhost:8080/novaglobalapi">
+    <wadl:resource path="/rest/user/find">
+      <wadl:method name="GET">
+        <wadl:doc>
+          <![CDATA[Gets the User Specified by the Given Username.
+
+<ul>
+<li>Status 200: User Found.</li>
+<li>Status 404: User was not found.</li>
+</ul>]]>
+        </wadl:doc>
+        <wadl:request>
+          <wadl:param name="userName" style="query">
+            <wadl:doc>
+              <![CDATA[Username to serach for]]>
+            </wadl:doc>
+          </wadl:param>
+        </wadl:request>
+        <wadl:response>
+          <wadl:doc>
+            <![CDATA[Found user]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:response>
+      </wadl:method>
+    </wadl:resource>
+    <wadl:resource path="/rest/user/identify">
+      <wadl:method name="GET">
+        <wadl:doc>
+          <![CDATA[Identifies the currently logged in REST user.
+
+<ul>
+<li>Status 200: Request Successful.</li>
+</ul>]]>
+        </wadl:doc>
+        <wadl:response>
+          <wadl:doc>
+            <![CDATA[User Account]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:response>
+      </wadl:method>
+    </wadl:resource>
+    <wadl:resource path="/rest/user/login">
+      <wadl:method name="POST">
+        <wadl:doc>
+          <![CDATA[Identifies the currently logged in REST user.
+
+<ul>
+<li>Status 202: Login Successful.</li>
+<li>Status 401: Login Failed.</li>
+</ul>]]>
+        </wadl:doc>
+        <wadl:request>
+          <wadl:doc>
+            <![CDATA[Users Login Credentials]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:request>
+        <wadl:response>
+          <wadl:doc>
+            <![CDATA[User API Token]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:response>
+      </wadl:method>
+    </wadl:resource>
+    <wadl:resource path="/rest/user/logout">
+      <wadl:method name="POST">
+        <wadl:doc>
+          <![CDATA[Logout the Current REST User.
+
+<ul>
+<li>Status 200: Logout Request Successful.</li>
+</ul>]]>
+        </wadl:doc>
+        <wadl:response>
+          <wadl:doc>
+            <![CDATA[Logout Result]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:response>
+      </wadl:method>
+    </wadl:resource>
     <wadl:resource path="/rest/user/register">
       <wadl:method name="POST">
         <wadl:doc>
@@ -11,7 +95,7 @@
 
 <ul>
 <li>Status 200: Successful Registration.</li>
-<li>Status 401: Error with the Request. Most likely caused by an invalid UserAccount.</li>
+<li>Status 409: Error with the Request. Most likely caused by an invalid UserAccount.</li>
 </ul>]]>
         </wadl:doc>
         <wadl:request>
@@ -23,31 +107,6 @@
         <wadl:response>
           <wadl:doc>
             <![CDATA[Registered User]]>
-          </wadl:doc>
-          <wadl:representation mediaType="application/json"/>
-        </wadl:response>
-      </wadl:method>
-    </wadl:resource>
-    <wadl:resource path="/rest/user/find/{userName}">
-      <wadl:param name="userName" style="template">
-        <wadl:doc>
-          <![CDATA[Username to serach for]]>
-        </wadl:doc>
-      </wadl:param>
-      <wadl:method name="GET">
-        <wadl:doc>
-          <![CDATA[Gets the User Specified by the Given Username.
-
-<ul>
-<li>Status 200: User Found.</li>
-<li>Status 404: User was not found.</li>
-<li>Status 401: Error with the Request.</li>
-</ul>]]>
-        </wadl:doc>
-        <wadl:request/>
-        <wadl:response>
-          <wadl:doc>
-            <![CDATA[Found user]]>
           </wadl:doc>
           <wadl:representation mediaType="application/json"/>
         </wadl:response>

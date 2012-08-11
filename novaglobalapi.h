@@ -1,6 +1,6 @@
 #import "enunciate-common.h"
-#ifndef DEF_NOVAGLOBALAPINS0Role_H
-#define DEF_NOVAGLOBALAPINS0Role_H
+#ifndef DEF_NOVAGLOBALAPIDL_SECURITYRole_H
+#define DEF_NOVAGLOBALAPIDL_SECURITYRole_H
 
 /**
  *  Account Roles.
@@ -9,20 +9,20 @@
  
 
  */
-enum NOVAGLOBALAPINS0Role
+enum NOVAGLOBALAPIDL_SECURITYRole
 {
 
   /**
    *  Basic Site User.
 
    */
-  NOVAGLOBALAPI_NS0_ROLE_USER,
+  NOVAGLOBALAPI_DL_SECURITY_ROLE_USER,
 
   /**
    *  Site Admin.
 
    */
-  NOVAGLOBALAPI_NS0_ROLE_ADMIN
+  NOVAGLOBALAPI_DL_SECURITY_ROLE_ADMIN
 };
 /**
  * Reads a Role from XML. The reader is assumed to be at the start element.
@@ -30,7 +30,7 @@ enum NOVAGLOBALAPINS0Role
  * @param reader The XML reader.
  * @return The Role, or NULL if unable to be read.
  */
-static enum NOVAGLOBALAPINS0Role *xmlTextReaderReadNOVAGLOBALAPINS0RoleType(xmlTextReaderPtr reader);
+static enum NOVAGLOBALAPIDL_SECURITYRole *xmlTextReaderReadNOVAGLOBALAPIDL_SECURITYRoleType(xmlTextReaderPtr reader);
 
 /**
  * Writes a Role to XML.
@@ -39,7 +39,7 @@ static enum NOVAGLOBALAPINS0Role *xmlTextReaderReadNOVAGLOBALAPINS0RoleType(xmlT
  * @param _role The Role to write.
  * @return The bytes written (may be 0 in case of buffering) or -1 in case of error.
  */
-static int xmlTextWriterWriteNOVAGLOBALAPINS0RoleType(xmlTextWriterPtr writer, enum NOVAGLOBALAPINS0Role *_role);
+static int xmlTextWriterWriteNOVAGLOBALAPIDL_SECURITYRoleType(xmlTextWriterPtr writer, enum NOVAGLOBALAPIDL_SECURITYRole *_role);
 
 /**
  * Utility method for getting the enum value for a string.
@@ -47,7 +47,7 @@ static int xmlTextWriterWriteNOVAGLOBALAPINS0RoleType(xmlTextWriterPtr writer, e
  * @param _role The string to format.
  * @return The enum value or NULL on error.
  */
-static enum NOVAGLOBALAPINS0Role *formatStringToNOVAGLOBALAPINS0RoleType(NSString *_role);
+static enum NOVAGLOBALAPIDL_SECURITYRole *formatStringToNOVAGLOBALAPIDL_SECURITYRoleType(NSString *_role);
 
 /**
  * Utility method for getting the string value of Role.
@@ -55,10 +55,10 @@ static enum NOVAGLOBALAPINS0Role *formatStringToNOVAGLOBALAPINS0RoleType(NSStrin
  * @param _role The Role to format.
  * @return The string value or NULL on error.
  */
-static NSString *formatNOVAGLOBALAPINS0RoleTypeToString(enum NOVAGLOBALAPINS0Role *_role);
-#endif /* DEF_NOVAGLOBALAPINS0Role_H */
-#ifndef DEF_NOVAGLOBALAPINS0Permission_H
-#define DEF_NOVAGLOBALAPINS0Permission_H
+static NSString *formatNOVAGLOBALAPIDL_SECURITYRoleTypeToString(enum NOVAGLOBALAPIDL_SECURITYRole *_role);
+#endif /* DEF_NOVAGLOBALAPIDL_SECURITYRole_H */
+#ifndef DEF_NOVAGLOBALAPIDL_SECURITYPermission_H
+#define DEF_NOVAGLOBALAPIDL_SECURITYPermission_H
 
 /**
  *  Account Permissions.
@@ -67,20 +67,20 @@ static NSString *formatNOVAGLOBALAPINS0RoleTypeToString(enum NOVAGLOBALAPINS0Rol
  
 
  */
-enum NOVAGLOBALAPINS0Permission
+enum NOVAGLOBALAPIDL_SECURITYPermission
 {
 
   /**
    *  Edit Self.
 
    */
-  NOVAGLOBALAPI_NS0_PERMISSION_EDIT_SELF,
+  NOVAGLOBALAPI_DL_SECURITY_PERMISSION_EDIT_SELF,
 
   /**
    *  Delete Self.
 
    */
-  NOVAGLOBALAPI_NS0_PERMISSION_DELETE_SELF
+  NOVAGLOBALAPI_DL_SECURITY_PERMISSION_DELETE_SELF
 };
 /**
  * Reads a Permission from XML. The reader is assumed to be at the start element.
@@ -88,7 +88,7 @@ enum NOVAGLOBALAPINS0Permission
  * @param reader The XML reader.
  * @return The Permission, or NULL if unable to be read.
  */
-static enum NOVAGLOBALAPINS0Permission *xmlTextReaderReadNOVAGLOBALAPINS0PermissionType(xmlTextReaderPtr reader);
+static enum NOVAGLOBALAPIDL_SECURITYPermission *xmlTextReaderReadNOVAGLOBALAPIDL_SECURITYPermissionType(xmlTextReaderPtr reader);
 
 /**
  * Writes a Permission to XML.
@@ -97,7 +97,7 @@ static enum NOVAGLOBALAPINS0Permission *xmlTextReaderReadNOVAGLOBALAPINS0Permiss
  * @param _permission The Permission to write.
  * @return The bytes written (may be 0 in case of buffering) or -1 in case of error.
  */
-static int xmlTextWriterWriteNOVAGLOBALAPINS0PermissionType(xmlTextWriterPtr writer, enum NOVAGLOBALAPINS0Permission *_permission);
+static int xmlTextWriterWriteNOVAGLOBALAPIDL_SECURITYPermissionType(xmlTextWriterPtr writer, enum NOVAGLOBALAPIDL_SECURITYPermission *_permission);
 
 /**
  * Utility method for getting the enum value for a string.
@@ -105,7 +105,7 @@ static int xmlTextWriterWriteNOVAGLOBALAPINS0PermissionType(xmlTextWriterPtr wri
  * @param _permission The string to format.
  * @return The enum value or NULL on error.
  */
-static enum NOVAGLOBALAPINS0Permission *formatStringToNOVAGLOBALAPINS0PermissionType(NSString *_permission);
+static enum NOVAGLOBALAPIDL_SECURITYPermission *formatStringToNOVAGLOBALAPIDL_SECURITYPermissionType(NSString *_permission);
 
 /**
  * Utility method for getting the string value of Permission.
@@ -113,14 +113,54 @@ static enum NOVAGLOBALAPINS0Permission *formatStringToNOVAGLOBALAPINS0Permission
  * @param _permission The Permission to format.
  * @return The string value or NULL on error.
  */
-static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPINS0Permission *_permission);
-#endif /* DEF_NOVAGLOBALAPINS0Permission_H */
+static NSString *formatNOVAGLOBALAPIDL_SECURITYPermissionTypeToString(enum NOVAGLOBALAPIDL_SECURITYPermission *_permission);
+#endif /* DEF_NOVAGLOBALAPIDL_SECURITYPermission_H */
 
-@class NOVAGLOBALAPINS0DiveLogEntity;
-@class NOVAGLOBALAPINS0UserAccount;
+@class NOVAGLOBALAPIDL_SECURITYCredentials;
+@class NOVAGLOBALAPIDIVELOGDiveLogEntity;
+@class NOVAGLOBALAPIDIVELOGUserAccount;
 
-#ifndef DEF_NOVAGLOBALAPINS0DiveLogEntity_H
-#define DEF_NOVAGLOBALAPINS0DiveLogEntity_H
+#ifndef DEF_NOVAGLOBALAPIDL_SECURITYCredentials_H
+#define DEF_NOVAGLOBALAPIDL_SECURITYCredentials_H
+
+/**
+ *  User Entered Credentials.
+ 
+ @author Bryan Saunders <btsaunde@gmail.com>
+ 
+
+ */
+@interface NOVAGLOBALAPIDL_SECURITYCredentials : NSObject <EnunciateXML>
+{
+  @private
+    NSString *_username;
+    NSString *_password;
+}
+
+/**
+ * the username
+ */
+- (NSString *) username;
+
+/**
+ * the username
+ */
+- (void) setUsername: (NSString *) newUsername;
+
+/**
+ * the password
+ */
+- (NSString *) password;
+
+/**
+ * the password
+ */
+- (void) setPassword: (NSString *) newPassword;
+@end /* interface NOVAGLOBALAPIDL_SECURITYCredentials */
+
+#endif /* DEF_NOVAGLOBALAPIDL_SECURITYCredentials_H */
+#ifndef DEF_NOVAGLOBALAPIDIVELOGDiveLogEntity_H
+#define DEF_NOVAGLOBALAPIDIVELOGDiveLogEntity_H
 
 /**
  *  Base Entity Element for all DiveLog Entities.
@@ -129,7 +169,7 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
  
 
  */
-@interface NOVAGLOBALAPINS0DiveLogEntity : NSObject
+@interface NOVAGLOBALAPIDIVELOGDiveLogEntity : NSObject
 {
   @private
     int *_identifier;
@@ -177,11 +217,11 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
  * the updated
  */
 - (void) setUpdated: (NSDate *) newUpdated;
-@end /* interface NOVAGLOBALAPINS0DiveLogEntity */
+@end /* interface NOVAGLOBALAPIDIVELOGDiveLogEntity */
 
-#endif /* DEF_NOVAGLOBALAPINS0DiveLogEntity_H */
-#ifndef DEF_NOVAGLOBALAPINS0UserAccount_H
-#define DEF_NOVAGLOBALAPINS0UserAccount_H
+#endif /* DEF_NOVAGLOBALAPIDIVELOGDiveLogEntity_H */
+#ifndef DEF_NOVAGLOBALAPIDIVELOGUserAccount_H
+#define DEF_NOVAGLOBALAPIDIVELOGUserAccount_H
 
 /**
  *  User Model.
@@ -190,7 +230,7 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
  
 
  */
-@interface NOVAGLOBALAPINS0UserAccount : NOVAGLOBALAPINS0DiveLogEntity <EnunciateXML>
+@interface NOVAGLOBALAPIDIVELOGUserAccount : NOVAGLOBALAPIDIVELOGDiveLogEntity <EnunciateXML>
 {
   @private
     NSString *_firstName;
@@ -202,6 +242,8 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
     NSString *_password;
     NSArray *_roles;
     NSArray *_permissions;
+    NSString *_apiKey;
+    NSDate *_apiKeyExpiration;
 }
 
 /**
@@ -293,6 +335,26 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
  * the permissions
  */
 - (void) setPermissions: (NSArray *) newPermissions;
-@end /* interface NOVAGLOBALAPINS0UserAccount */
 
-#endif /* DEF_NOVAGLOBALAPINS0UserAccount_H */
+/**
+ * the apiKey
+ */
+- (NSString *) apiKey;
+
+/**
+ * the apiKey
+ */
+- (void) setApiKey: (NSString *) newApiKey;
+
+/**
+ * the apiKeyExpiration
+ */
+- (NSDate *) apiKeyExpiration;
+
+/**
+ * the apiKeyExpiration
+ */
+- (void) setApiKeyExpiration: (NSDate *) newApiKeyExpiration;
+@end /* interface NOVAGLOBALAPIDIVELOGUserAccount */
+
+#endif /* DEF_NOVAGLOBALAPIDIVELOGUserAccount_H */

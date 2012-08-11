@@ -7,6 +7,7 @@ net.bryansaunders.jee6divelog.security
 net.bryansaunders.jee6divelog.security.enumerator
 net.bryansaunders.jee6divelog.security.filter
 net.bryansaunders.jee6divelog.security.interceptor
+net.bryansaunders.jee6divelog.service.rest
 net.bryansaunders.jee6divelog.service
 net.bryansaunders.jee6divelog.util
 net.bryansaunders.jee6divelog.validation

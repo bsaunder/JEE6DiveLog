@@ -1,6 +1,445 @@
 #import "novaglobalapi.h"
-#ifndef DEF_NOVAGLOBALAPINS0DiveLogEntity_M
-#define DEF_NOVAGLOBALAPINS0DiveLogEntity_M
+#ifndef DEF_NOVAGLOBALAPIDL_SECURITYCredentials_M
+#define DEF_NOVAGLOBALAPIDL_SECURITYCredentials_M
+
+/**
+ *  User Entered Credentials.
+ 
+ @author Bryan Saunders <btsaunde@gmail.com>
+ 
+
+ */
+@implementation NOVAGLOBALAPIDL_SECURITYCredentials
+
+/**
+ * the username
+ */
+- (NSString *) username
+{
+  return _username;
+}
+
+/**
+ * the username
+ */
+- (void) setUsername: (NSString *) newUsername
+{
+  [newUsername retain];
+  [_username release];
+  _username = newUsername;
+}
+
+/**
+ * the password
+ */
+- (NSString *) password
+{
+  return _password;
+}
+
+/**
+ * the password
+ */
+- (void) setPassword: (NSString *) newPassword
+{
+  [newPassword retain];
+  [_password release];
+  _password = newPassword;
+}
+
+- (void) dealloc
+{
+  [self setUsername: nil];
+  [self setPassword: nil];
+  [super dealloc];
+}
+
+//documentation inherited.
++ (id<EnunciateXML>) readFromXML: (NSData *) xml
+{
+  NOVAGLOBALAPIDL_SECURITYCredentials *_nOVAGLOBALAPIDL_SECURITYCredentials;
+  xmlTextReaderPtr reader = xmlReaderForMemory([xml bytes], [xml length], NULL, NULL, 0);
+  if (reader == NULL) {
+    [NSException raise: @"XMLReadError"
+                 format: @"Error instantiating an XML reader."];
+    return nil;
+  }
+
+  _nOVAGLOBALAPIDL_SECURITYCredentials = (NOVAGLOBALAPIDL_SECURITYCredentials *) [NOVAGLOBALAPIDL_SECURITYCredentials readXMLElement: reader];
+  xmlFreeTextReader(reader); //free the reader
+  return _nOVAGLOBALAPIDL_SECURITYCredentials;
+}
+
+//documentation inherited.
+- (NSData *) writeToXML
+{
+  xmlBufferPtr buf;
+  xmlTextWriterPtr writer;
+  int rc;
+  NSData *data;
+
+  buf = xmlBufferCreate();
+  if (buf == NULL) {
+    [NSException raise: @"XMLWriteError"
+                 format: @"Error creating an XML buffer."];
+    return nil;
+  }
+
+  writer = xmlNewTextWriterMemory(buf, 0);
+  if (writer == NULL) {
+    xmlBufferFree(buf);
+    [NSException raise: @"XMLWriteError"
+                 format: @"Error creating an XML writer."];
+    return nil;
+  }
+
+  rc = xmlTextWriterStartDocument(writer, NULL, "utf-8", NULL);
+  if (rc < 0) {
+    xmlFreeTextWriter(writer);
+    xmlBufferFree(buf);
+    [NSException raise: @"XMLWriteError"
+                 format: @"Error writing XML start document."];
+    return nil;
+  }
+
+  NS_DURING
+  {
+    [self writeXMLElement: writer];
+  }
+  NS_HANDLER
+  {
+    xmlFreeTextWriter(writer);
+    xmlBufferFree(buf);
+    [localException raise];
+  }
+  NS_ENDHANDLER
+
+  rc = xmlTextWriterEndDocument(writer);
+  if (rc < 0) {
+    xmlFreeTextWriter(writer);
+    xmlBufferFree(buf);
+    [NSException raise: @"XMLWriteError"
+                 format: @"Error writing XML end document."];
+    return nil;
+  }
+
+  xmlFreeTextWriter(writer);
+  data = [NSData dataWithBytes: buf->content length: buf->use];
+  xmlBufferFree(buf);
+  return data;
+}
+@end /* implementation NOVAGLOBALAPIDL_SECURITYCredentials */
+
+/**
+ * Internal, private interface for JAXB reading and writing.
+ */
+@interface NOVAGLOBALAPIDL_SECURITYCredentials (JAXB) <JAXBReading, JAXBWriting, JAXBType, JAXBElement>
+
+@end /*interface NOVAGLOBALAPIDL_SECURITYCredentials (JAXB)*/
+
+/**
+ * Internal, private implementation for JAXB reading and writing.
+ */
+@implementation NOVAGLOBALAPIDL_SECURITYCredentials (JAXB)
+
+/**
+ * Read an instance of NOVAGLOBALAPIDL_SECURITYCredentials from an XML reader.
+ *
+ * @param reader The reader.
+ * @return An instance of NOVAGLOBALAPIDL_SECURITYCredentials defined by the XML reader.
+ */
++ (id<JAXBType>) readXMLType: (xmlTextReaderPtr) reader
+{
+  NOVAGLOBALAPIDL_SECURITYCredentials *_nOVAGLOBALAPIDL_SECURITYCredentials = [[NOVAGLOBALAPIDL_SECURITYCredentials alloc] init];
+  NS_DURING
+  {
+    [_nOVAGLOBALAPIDL_SECURITYCredentials initWithReader: reader];
+  }
+  NS_HANDLER
+  {
+    _nOVAGLOBALAPIDL_SECURITYCredentials = nil;
+    [localException raise];
+  }
+  NS_ENDHANDLER
+
+  [_nOVAGLOBALAPIDL_SECURITYCredentials autorelease];
+  return _nOVAGLOBALAPIDL_SECURITYCredentials;
+}
+
+/**
+ * Initialize this instance of NOVAGLOBALAPIDL_SECURITYCredentials according to
+ * the XML being read from the reader.
+ *
+ * @param reader The reader.
+ */
+- (id) initWithReader: (xmlTextReaderPtr) reader
+{
+  return [super initWithReader: reader];
+}
+
+/**
+ * Write the XML for this instance of NOVAGLOBALAPIDL_SECURITYCredentials to the writer.
+ * Note that since we're only writing the XML type,
+ * No start/end element will be written.
+ *
+ * @param reader The reader.
+ */
+- (void) writeXMLType: (xmlTextWriterPtr) writer
+{
+  [super writeXMLType:writer];
+}
+
+/**
+ * Reads a NOVAGLOBALAPIDL_SECURITYCredentials from an XML reader. The element to be read is
+ * "{http://www.bryansaunders.net/divelog/security}credentials".
+ *
+ * @param reader The XML reader.
+ * @return The NOVAGLOBALAPIDL_SECURITYCredentials.
+ */
++ (id<JAXBElement>) readXMLElement: (xmlTextReaderPtr) reader {
+  int status;
+  NOVAGLOBALAPIDL_SECURITYCredentials *_credentials = nil;
+
+  if (xmlTextReaderNodeType(reader) != XML_READER_TYPE_ELEMENT) {
+    status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+    if (status < 1) {
+      [NSException raise: @"XMLReadError"
+                   format: @"Error advancing the reader to start element {http://www.bryansaunders.net/divelog/security}credentials."];
+    }
+  }
+
+  if (xmlStrcmp(BAD_CAST "credentials", xmlTextReaderConstLocalName(reader)) == 0
+      && xmlStrcmp(BAD_CAST "http://www.bryansaunders.net/divelog/security", xmlTextReaderConstNamespaceUri(reader)) == 0) {
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"Attempting to read root element {http://www.bryansaunders.net/divelog/security}credentials.");
+#endif
+    _credentials = (NOVAGLOBALAPIDL_SECURITYCredentials *)[NOVAGLOBALAPIDL_SECURITYCredentials readXMLType: reader];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"Successfully read root element {http://www.bryansaunders.net/divelog/security}credentials.");
+#endif
+  }
+  else {
+    if (xmlTextReaderConstNamespaceUri(reader) == NULL) {
+      [NSException raise: @"XMLReadError"
+                   format: @"Unable to read NOVAGLOBALAPIDL_SECURITYCredentials. Expected element {http://www.bryansaunders.net/divelog/security}credentials. Current element: {}%s", xmlTextReaderConstLocalName(reader)];
+    }
+    else {
+      [NSException raise: @"XMLReadError"
+                   format: @"Unable to read NOVAGLOBALAPIDL_SECURITYCredentials. Expected element {http://www.bryansaunders.net/divelog/security}credentials. Current element: {%s}%s\n", xmlTextReaderConstNamespaceUri(reader), xmlTextReaderConstLocalName(reader)];
+    }
+  }
+
+  return _credentials;
+}
+
+/**
+ * Writes this NOVAGLOBALAPIDL_SECURITYCredentials to XML under element name "{http://www.bryansaunders.net/divelog/security}credentials".
+ * The namespace declarations for the element will be written.
+ *
+ * @param writer The XML writer.
+ * @param _credentials The Credentials to write.
+ * @return 1 if successful, 0 otherwise.
+ */
+- (void) writeXMLElement: (xmlTextWriterPtr) writer
+{
+  [self writeXMLElement: writer writeNamespaces: YES];
+}
+
+/**
+ * Writes this NOVAGLOBALAPIDL_SECURITYCredentials to an XML writer.
+ *
+ * @param writer The writer.
+ * @param writeNs Whether to write the namespaces for this element to the xml writer.
+ */
+- (void) writeXMLElement: (xmlTextWriterPtr) writer writeNamespaces: (BOOL) writeNs
+{
+  int rc = xmlTextWriterStartElementNS(writer, BAD_CAST "dl_security", BAD_CAST "credentials", NULL);
+  if (rc < 0) {
+    [NSException raise: @"XMLWriteError"
+                 format: @"Error writing start element {http://www.bryansaunders.net/divelog/security}credentials. XML writer status: %i\n", rc];
+  }
+
+  if (writeNs) {
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"writing namespaces for start element {http://www.bryansaunders.net/divelog/security}credentials...");
+#endif
+
+    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "xmlns:dl_security", BAD_CAST "http://www.bryansaunders.net/divelog/security");
+    if (rc < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing attribute 'xmlns:dl_security' on '{http://www.bryansaunders.net/divelog/security}credentials'. XML writer status: %i\n", rc];
+    }
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully wrote namespaces for start element {http://www.bryansaunders.net/divelog/security}credentials...");
+#endif
+  }
+
+#if DEBUG_ENUNCIATE > 1
+  NSLog(@"writing type {http://www.bryansaunders.net/divelog/security}credentials for root element {http://www.bryansaunders.net/divelog/security}credentials...");
+#endif
+  [self writeXMLType: writer];
+#if DEBUG_ENUNCIATE > 1
+  NSLog(@"successfully wrote type {http://www.bryansaunders.net/divelog/security}credentials for root element {http://www.bryansaunders.net/divelog/security}credentials...");
+#endif
+  rc = xmlTextWriterEndElement(writer);
+  if (rc < 0) {
+    [NSException raise: @"XMLWriteError"
+                 format: @"Error writing end element {http://www.bryansaunders.net/divelog/security}credentials. XML writer status: %i\n", rc];
+  }
+}
+
+//documentation inherited.
+- (BOOL) readJAXBAttribute: (xmlTextReaderPtr) reader
+{
+  void *_child_accessor;
+
+  if ([super readJAXBAttribute: reader]) {
+    return YES;
+  }
+
+  return NO;
+}
+
+//documentation inherited.
+- (BOOL) readJAXBValue: (xmlTextReaderPtr) reader
+{
+  return [super readJAXBValue: reader];
+}
+
+//documentation inherited.
+- (BOOL) readJAXBChildElement: (xmlTextReaderPtr) reader
+{
+  id __child;
+  void *_child_accessor;
+  int status, depth;
+
+  if ([super readJAXBChildElement: reader]) {
+    return YES;
+  }
+  if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+    && xmlStrcmp(BAD_CAST "username", xmlTextReaderConstLocalName(reader)) == 0
+    && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"Attempting to read choice {}username of type {http://www.w3.org/2001/XMLSchema}string.");
+#endif
+    __child = [NSString readXMLType: reader];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully read choice {}username of type {http://www.w3.org/2001/XMLSchema}string.");
+#endif
+
+    [self setUsername: __child];
+    return YES;
+  } //end "if choice"
+
+  if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+    && xmlStrcmp(BAD_CAST "password", xmlTextReaderConstLocalName(reader)) == 0
+    && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"Attempting to read choice {}password of type {http://www.w3.org/2001/XMLSchema}string.");
+#endif
+    __child = [NSString readXMLType: reader];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully read choice {}password of type {http://www.w3.org/2001/XMLSchema}string.");
+#endif
+
+    [self setPassword: __child];
+    return YES;
+  } //end "if choice"
+
+
+  return NO;
+}
+
+//documentation inherited.
+- (int) readUnknownJAXBChildElement: (xmlTextReaderPtr) reader
+{
+  return [super readUnknownJAXBChildElement: reader];
+}
+
+//documentation inherited.
+- (void) readUnknownJAXBAttribute: (xmlTextReaderPtr) reader
+{
+  [super readUnknownJAXBAttribute: reader];
+}
+
+//documentation inherited.
+- (void) writeJAXBAttributes: (xmlTextWriterPtr) writer
+{
+  int status;
+
+  [super writeJAXBAttributes: writer];
+
+}
+
+//documentation inherited.
+- (void) writeJAXBValue: (xmlTextWriterPtr) writer
+{
+  [super writeJAXBValue: writer];
+}
+
+/**
+ * Method for writing the child elements.
+ *
+ * @param writer The writer.
+ */
+- (void) writeJAXBChildElements: (xmlTextWriterPtr) writer
+{
+  int status;
+  id __item;
+  NSEnumerator *__enumerator;
+
+  [super writeJAXBChildElements: writer];
+
+  if ([self username]) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "username", NULL);
+    if (status < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing start child element {}username."];
+    }
+
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"writing element {}username...");
+#endif
+    [[self username] writeXMLType: writer];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully wrote element {}username...");
+#endif
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing end child element {}username."];
+    }
+  }
+  if ([self password]) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "password", NULL);
+    if (status < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing start child element {}password."];
+    }
+
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"writing element {}password...");
+#endif
+    [[self password] writeXMLType: writer];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully wrote element {}password...");
+#endif
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing end child element {}password."];
+    }
+  }
+}
+@end /* implementation NOVAGLOBALAPIDL_SECURITYCredentials (JAXB) */
+
+#endif /* DEF_NOVAGLOBALAPIDL_SECURITYCredentials_M */
+#ifndef DEF_NOVAGLOBALAPIDIVELOGDiveLogEntity_M
+#define DEF_NOVAGLOBALAPIDIVELOGDiveLogEntity_M
 
 /**
  *  Base Entity Element for all DiveLog Entities.
@@ -9,7 +448,7 @@
  
 
  */
-@implementation NOVAGLOBALAPINS0DiveLogEntity
+@implementation NOVAGLOBALAPIDIVELOGDiveLogEntity
 
 /**
  * the id
@@ -93,46 +532,46 @@
   [self setUpdated: nil];
   [super dealloc];
 }
-@end /* implementation NOVAGLOBALAPINS0DiveLogEntity */
+@end /* implementation NOVAGLOBALAPIDIVELOGDiveLogEntity */
 
 /**
  * Internal, private interface for JAXB reading and writing.
  */
-@interface NOVAGLOBALAPINS0DiveLogEntity (JAXB) <JAXBReading, JAXBWriting, JAXBType>
+@interface NOVAGLOBALAPIDIVELOGDiveLogEntity (JAXB) <JAXBReading, JAXBWriting, JAXBType>
 
-@end /*interface NOVAGLOBALAPINS0DiveLogEntity (JAXB)*/
+@end /*interface NOVAGLOBALAPIDIVELOGDiveLogEntity (JAXB)*/
 
 /**
  * Internal, private implementation for JAXB reading and writing.
  */
-@implementation NOVAGLOBALAPINS0DiveLogEntity (JAXB)
+@implementation NOVAGLOBALAPIDIVELOGDiveLogEntity (JAXB)
 
 /**
- * Read an instance of NOVAGLOBALAPINS0DiveLogEntity from an XML reader.
+ * Read an instance of NOVAGLOBALAPIDIVELOGDiveLogEntity from an XML reader.
  *
  * @param reader The reader.
- * @return An instance of NOVAGLOBALAPINS0DiveLogEntity defined by the XML reader.
+ * @return An instance of NOVAGLOBALAPIDIVELOGDiveLogEntity defined by the XML reader.
  */
 + (id<JAXBType>) readXMLType: (xmlTextReaderPtr) reader
 {
-  NOVAGLOBALAPINS0DiveLogEntity *_nOVAGLOBALAPINS0DiveLogEntity = [[NOVAGLOBALAPINS0DiveLogEntity alloc] init];
+  NOVAGLOBALAPIDIVELOGDiveLogEntity *_nOVAGLOBALAPIDIVELOGDiveLogEntity = [[NOVAGLOBALAPIDIVELOGDiveLogEntity alloc] init];
   NS_DURING
   {
-    [_nOVAGLOBALAPINS0DiveLogEntity initWithReader: reader];
+    [_nOVAGLOBALAPIDIVELOGDiveLogEntity initWithReader: reader];
   }
   NS_HANDLER
   {
-    _nOVAGLOBALAPINS0DiveLogEntity = nil;
+    _nOVAGLOBALAPIDIVELOGDiveLogEntity = nil;
     [localException raise];
   }
   NS_ENDHANDLER
 
-  [_nOVAGLOBALAPINS0DiveLogEntity autorelease];
-  return _nOVAGLOBALAPINS0DiveLogEntity;
+  [_nOVAGLOBALAPIDIVELOGDiveLogEntity autorelease];
+  return _nOVAGLOBALAPIDIVELOGDiveLogEntity;
 }
 
 /**
- * Initialize this instance of NOVAGLOBALAPINS0DiveLogEntity according to
+ * Initialize this instance of NOVAGLOBALAPIDIVELOGDiveLogEntity according to
  * the XML being read from the reader.
  *
  * @param reader The reader.
@@ -143,7 +582,7 @@
 }
 
 /**
- * Write the XML for this instance of NOVAGLOBALAPINS0DiveLogEntity to the writer.
+ * Write the XML for this instance of NOVAGLOBALAPIDIVELOGDiveLogEntity to the writer.
  * Note that since we're only writing the XML type,
  * No start/end element will be written.
  *
@@ -379,11 +818,11 @@
     }
   }
 }
-@end /* implementation NOVAGLOBALAPINS0DiveLogEntity (JAXB) */
+@end /* implementation NOVAGLOBALAPIDIVELOGDiveLogEntity (JAXB) */
 
-#endif /* DEF_NOVAGLOBALAPINS0DiveLogEntity_M */
-#ifndef DEF_NOVAGLOBALAPINS0Role_M
-#define DEF_NOVAGLOBALAPINS0Role_M
+#endif /* DEF_NOVAGLOBALAPIDIVELOGDiveLogEntity_M */
+#ifndef DEF_NOVAGLOBALAPIDL_SECURITYRole_M
+#define DEF_NOVAGLOBALAPIDL_SECURITYRole_M
 
 /**
  * Reads a Role from XML. The reader is assumed to be at the start element.
@@ -391,18 +830,18 @@
  * @param reader The XML reader.
  * @return The Role, or NULL if unable to be read.
  */
-static enum NOVAGLOBALAPINS0Role *xmlTextReaderReadNOVAGLOBALAPINS0RoleType(xmlTextReaderPtr reader)
+static enum NOVAGLOBALAPIDL_SECURITYRole *xmlTextReaderReadNOVAGLOBALAPIDL_SECURITYRoleType(xmlTextReaderPtr reader)
 {
   xmlChar *enumValue = xmlTextReaderReadEntireNodeValue(reader);
-  enum NOVAGLOBALAPINS0Role *value = calloc(1, sizeof(enum NOVAGLOBALAPINS0Role));
+  enum NOVAGLOBALAPIDL_SECURITYRole *value = calloc(1, sizeof(enum NOVAGLOBALAPIDL_SECURITYRole));
   if (enumValue != NULL) {
     if (xmlStrcmp(enumValue, BAD_CAST "USER") == 0) {
-      *value = NOVAGLOBALAPI_NS0_ROLE_USER;
+      *value = NOVAGLOBALAPI_DL_SECURITY_ROLE_USER;
       free(enumValue);
       return value;
     }
     if (xmlStrcmp(enumValue, BAD_CAST "ADMIN") == 0) {
-      *value = NOVAGLOBALAPI_NS0_ROLE_ADMIN;
+      *value = NOVAGLOBALAPI_DL_SECURITY_ROLE_ADMIN;
       free(enumValue);
       return value;
     }
@@ -425,15 +864,15 @@ static enum NOVAGLOBALAPINS0Role *xmlTextReaderReadNOVAGLOBALAPINS0RoleType(xmlT
  * @param _role The string to format.
  * @return The enum value or NULL on error.
  */
-static enum NOVAGLOBALAPINS0Role *formatStringToNOVAGLOBALAPINS0RoleType(NSString *_role)
+static enum NOVAGLOBALAPIDL_SECURITYRole *formatStringToNOVAGLOBALAPIDL_SECURITYRoleType(NSString *_role)
 {
-  enum NOVAGLOBALAPINS0Role *value = calloc(1, sizeof(enum NOVAGLOBALAPINS0Role));
+  enum NOVAGLOBALAPIDL_SECURITYRole *value = calloc(1, sizeof(enum NOVAGLOBALAPIDL_SECURITYRole));
   value = NULL;
   if ([@"USER" isEqualToString:_role]) {
-    *value = NOVAGLOBALAPI_NS0_ROLE_USER;
+    *value = NOVAGLOBALAPI_DL_SECURITY_ROLE_USER;
   }
   if ([@"ADMIN" isEqualToString:_role]) {
-    *value = NOVAGLOBALAPI_NS0_ROLE_ADMIN;
+    *value = NOVAGLOBALAPI_DL_SECURITY_ROLE_ADMIN;
   }
 #if DEBUG_ENUNCIATE
   NSLog(@"Attempt to read enum value failed: %s doesn't match an enum value.", _role);
@@ -449,12 +888,12 @@ static enum NOVAGLOBALAPINS0Role *formatStringToNOVAGLOBALAPINS0RoleType(NSStrin
  * @param _role The Role to write.
  * @return The bytes written (may be 0 in case of buffering) or -1 in case of error.
  */
-static int xmlTextWriterWriteNOVAGLOBALAPINS0RoleType(xmlTextWriterPtr writer, enum NOVAGLOBALAPINS0Role *_role)
+static int xmlTextWriterWriteNOVAGLOBALAPIDL_SECURITYRoleType(xmlTextWriterPtr writer, enum NOVAGLOBALAPIDL_SECURITYRole *_role)
 {
   switch (*_role) {
-    case NOVAGLOBALAPI_NS0_ROLE_USER:
+    case NOVAGLOBALAPI_DL_SECURITY_ROLE_USER:
       return xmlTextWriterWriteString(writer, BAD_CAST "USER");
-    case NOVAGLOBALAPI_NS0_ROLE_ADMIN:
+    case NOVAGLOBALAPI_DL_SECURITY_ROLE_ADMIN:
       return xmlTextWriterWriteString(writer, BAD_CAST "ADMIN");
   }
 
@@ -470,12 +909,12 @@ static int xmlTextWriterWriteNOVAGLOBALAPINS0RoleType(xmlTextWriterPtr writer, e
  * @param _role The Role to format.
  * @return The string value or NULL on error.
  */
-static NSString *formatNOVAGLOBALAPINS0RoleTypeToString(enum NOVAGLOBALAPINS0Role *_role)
+static NSString *formatNOVAGLOBALAPIDL_SECURITYRoleTypeToString(enum NOVAGLOBALAPIDL_SECURITYRole *_role)
 {
   switch (*_role) {
-    case NOVAGLOBALAPI_NS0_ROLE_USER:
+    case NOVAGLOBALAPI_DL_SECURITY_ROLE_USER:
       return @"USER";
-    case NOVAGLOBALAPI_NS0_ROLE_ADMIN:
+    case NOVAGLOBALAPI_DL_SECURITY_ROLE_ADMIN:
       return @"ADMIN";
     default:
       return NULL;
@@ -483,9 +922,9 @@ static NSString *formatNOVAGLOBALAPINS0RoleTypeToString(enum NOVAGLOBALAPINS0Rol
 
   return NULL;
 }
-#endif /* DEF_NOVAGLOBALAPINS0Role_M */
-#ifndef DEF_NOVAGLOBALAPINS0Permission_M
-#define DEF_NOVAGLOBALAPINS0Permission_M
+#endif /* DEF_NOVAGLOBALAPIDL_SECURITYRole_M */
+#ifndef DEF_NOVAGLOBALAPIDL_SECURITYPermission_M
+#define DEF_NOVAGLOBALAPIDL_SECURITYPermission_M
 
 /**
  * Reads a Permission from XML. The reader is assumed to be at the start element.
@@ -493,18 +932,18 @@ static NSString *formatNOVAGLOBALAPINS0RoleTypeToString(enum NOVAGLOBALAPINS0Rol
  * @param reader The XML reader.
  * @return The Permission, or NULL if unable to be read.
  */
-static enum NOVAGLOBALAPINS0Permission *xmlTextReaderReadNOVAGLOBALAPINS0PermissionType(xmlTextReaderPtr reader)
+static enum NOVAGLOBALAPIDL_SECURITYPermission *xmlTextReaderReadNOVAGLOBALAPIDL_SECURITYPermissionType(xmlTextReaderPtr reader)
 {
   xmlChar *enumValue = xmlTextReaderReadEntireNodeValue(reader);
-  enum NOVAGLOBALAPINS0Permission *value = calloc(1, sizeof(enum NOVAGLOBALAPINS0Permission));
+  enum NOVAGLOBALAPIDL_SECURITYPermission *value = calloc(1, sizeof(enum NOVAGLOBALAPIDL_SECURITYPermission));
   if (enumValue != NULL) {
     if (xmlStrcmp(enumValue, BAD_CAST "EDIT_SELF") == 0) {
-      *value = NOVAGLOBALAPI_NS0_PERMISSION_EDIT_SELF;
+      *value = NOVAGLOBALAPI_DL_SECURITY_PERMISSION_EDIT_SELF;
       free(enumValue);
       return value;
     }
     if (xmlStrcmp(enumValue, BAD_CAST "DELETE_SELF") == 0) {
-      *value = NOVAGLOBALAPI_NS0_PERMISSION_DELETE_SELF;
+      *value = NOVAGLOBALAPI_DL_SECURITY_PERMISSION_DELETE_SELF;
       free(enumValue);
       return value;
     }
@@ -527,15 +966,15 @@ static enum NOVAGLOBALAPINS0Permission *xmlTextReaderReadNOVAGLOBALAPINS0Permiss
  * @param _permission The string to format.
  * @return The enum value or NULL on error.
  */
-static enum NOVAGLOBALAPINS0Permission *formatStringToNOVAGLOBALAPINS0PermissionType(NSString *_permission)
+static enum NOVAGLOBALAPIDL_SECURITYPermission *formatStringToNOVAGLOBALAPIDL_SECURITYPermissionType(NSString *_permission)
 {
-  enum NOVAGLOBALAPINS0Permission *value = calloc(1, sizeof(enum NOVAGLOBALAPINS0Permission));
+  enum NOVAGLOBALAPIDL_SECURITYPermission *value = calloc(1, sizeof(enum NOVAGLOBALAPIDL_SECURITYPermission));
   value = NULL;
   if ([@"EDIT_SELF" isEqualToString:_permission]) {
-    *value = NOVAGLOBALAPI_NS0_PERMISSION_EDIT_SELF;
+    *value = NOVAGLOBALAPI_DL_SECURITY_PERMISSION_EDIT_SELF;
   }
   if ([@"DELETE_SELF" isEqualToString:_permission]) {
-    *value = NOVAGLOBALAPI_NS0_PERMISSION_DELETE_SELF;
+    *value = NOVAGLOBALAPI_DL_SECURITY_PERMISSION_DELETE_SELF;
   }
 #if DEBUG_ENUNCIATE
   NSLog(@"Attempt to read enum value failed: %s doesn't match an enum value.", _permission);
@@ -551,12 +990,12 @@ static enum NOVAGLOBALAPINS0Permission *formatStringToNOVAGLOBALAPINS0Permission
  * @param _permission The Permission to write.
  * @return The bytes written (may be 0 in case of buffering) or -1 in case of error.
  */
-static int xmlTextWriterWriteNOVAGLOBALAPINS0PermissionType(xmlTextWriterPtr writer, enum NOVAGLOBALAPINS0Permission *_permission)
+static int xmlTextWriterWriteNOVAGLOBALAPIDL_SECURITYPermissionType(xmlTextWriterPtr writer, enum NOVAGLOBALAPIDL_SECURITYPermission *_permission)
 {
   switch (*_permission) {
-    case NOVAGLOBALAPI_NS0_PERMISSION_EDIT_SELF:
+    case NOVAGLOBALAPI_DL_SECURITY_PERMISSION_EDIT_SELF:
       return xmlTextWriterWriteString(writer, BAD_CAST "EDIT_SELF");
-    case NOVAGLOBALAPI_NS0_PERMISSION_DELETE_SELF:
+    case NOVAGLOBALAPI_DL_SECURITY_PERMISSION_DELETE_SELF:
       return xmlTextWriterWriteString(writer, BAD_CAST "DELETE_SELF");
   }
 
@@ -572,12 +1011,12 @@ static int xmlTextWriterWriteNOVAGLOBALAPINS0PermissionType(xmlTextWriterPtr wri
  * @param _permission The Permission to format.
  * @return The string value or NULL on error.
  */
-static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPINS0Permission *_permission)
+static NSString *formatNOVAGLOBALAPIDL_SECURITYPermissionTypeToString(enum NOVAGLOBALAPIDL_SECURITYPermission *_permission)
 {
   switch (*_permission) {
-    case NOVAGLOBALAPI_NS0_PERMISSION_EDIT_SELF:
+    case NOVAGLOBALAPI_DL_SECURITY_PERMISSION_EDIT_SELF:
       return @"EDIT_SELF";
-    case NOVAGLOBALAPI_NS0_PERMISSION_DELETE_SELF:
+    case NOVAGLOBALAPI_DL_SECURITY_PERMISSION_DELETE_SELF:
       return @"DELETE_SELF";
     default:
       return NULL;
@@ -585,9 +1024,9 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
 
   return NULL;
 }
-#endif /* DEF_NOVAGLOBALAPINS0Permission_M */
-#ifndef DEF_NOVAGLOBALAPINS0UserAccount_M
-#define DEF_NOVAGLOBALAPINS0UserAccount_M
+#endif /* DEF_NOVAGLOBALAPIDL_SECURITYPermission_M */
+#ifndef DEF_NOVAGLOBALAPIDIVELOGUserAccount_M
+#define DEF_NOVAGLOBALAPIDIVELOGUserAccount_M
 
 /**
  *  User Model.
@@ -596,7 +1035,7 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
  
 
  */
-@implementation NOVAGLOBALAPINS0UserAccount
+@implementation NOVAGLOBALAPIDIVELOGUserAccount
 
 /**
  * the firstName
@@ -760,6 +1199,42 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
   _permissions = newPermissions;
 }
 
+/**
+ * the apiKey
+ */
+- (NSString *) apiKey
+{
+  return _apiKey;
+}
+
+/**
+ * the apiKey
+ */
+- (void) setApiKey: (NSString *) newApiKey
+{
+  [newApiKey retain];
+  [_apiKey release];
+  _apiKey = newApiKey;
+}
+
+/**
+ * the apiKeyExpiration
+ */
+- (NSDate *) apiKeyExpiration
+{
+  return _apiKeyExpiration;
+}
+
+/**
+ * the apiKeyExpiration
+ */
+- (void) setApiKeyExpiration: (NSDate *) newApiKeyExpiration
+{
+  [newApiKeyExpiration retain];
+  [_apiKeyExpiration release];
+  _apiKeyExpiration = newApiKeyExpiration;
+}
+
 - (void) dealloc
 {
   [self setFirstName: nil];
@@ -771,13 +1246,15 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
   [self setPassword: nil];
   [self setRoles: nil];
   [self setPermissions: nil];
+  [self setApiKey: nil];
+  [self setApiKeyExpiration: nil];
   [super dealloc];
 }
 
 //documentation inherited.
 + (id<EnunciateXML>) readFromXML: (NSData *) xml
 {
-  NOVAGLOBALAPINS0UserAccount *_nOVAGLOBALAPINS0UserAccount;
+  NOVAGLOBALAPIDIVELOGUserAccount *_nOVAGLOBALAPIDIVELOGUserAccount;
   xmlTextReaderPtr reader = xmlReaderForMemory([xml bytes], [xml length], NULL, NULL, 0);
   if (reader == NULL) {
     [NSException raise: @"XMLReadError"
@@ -785,9 +1262,9 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
     return nil;
   }
 
-  _nOVAGLOBALAPINS0UserAccount = (NOVAGLOBALAPINS0UserAccount *) [NOVAGLOBALAPINS0UserAccount readXMLElement: reader];
+  _nOVAGLOBALAPIDIVELOGUserAccount = (NOVAGLOBALAPIDIVELOGUserAccount *) [NOVAGLOBALAPIDIVELOGUserAccount readXMLElement: reader];
   xmlFreeTextReader(reader); //free the reader
-  return _nOVAGLOBALAPINS0UserAccount;
+  return _nOVAGLOBALAPIDIVELOGUserAccount;
 }
 
 //documentation inherited.
@@ -848,46 +1325,46 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
   xmlBufferFree(buf);
   return data;
 }
-@end /* implementation NOVAGLOBALAPINS0UserAccount */
+@end /* implementation NOVAGLOBALAPIDIVELOGUserAccount */
 
 /**
  * Internal, private interface for JAXB reading and writing.
  */
-@interface NOVAGLOBALAPINS0UserAccount (JAXB) <JAXBReading, JAXBWriting, JAXBType, JAXBElement>
+@interface NOVAGLOBALAPIDIVELOGUserAccount (JAXB) <JAXBReading, JAXBWriting, JAXBType, JAXBElement>
 
-@end /*interface NOVAGLOBALAPINS0UserAccount (JAXB)*/
+@end /*interface NOVAGLOBALAPIDIVELOGUserAccount (JAXB)*/
 
 /**
  * Internal, private implementation for JAXB reading and writing.
  */
-@implementation NOVAGLOBALAPINS0UserAccount (JAXB)
+@implementation NOVAGLOBALAPIDIVELOGUserAccount (JAXB)
 
 /**
- * Read an instance of NOVAGLOBALAPINS0UserAccount from an XML reader.
+ * Read an instance of NOVAGLOBALAPIDIVELOGUserAccount from an XML reader.
  *
  * @param reader The reader.
- * @return An instance of NOVAGLOBALAPINS0UserAccount defined by the XML reader.
+ * @return An instance of NOVAGLOBALAPIDIVELOGUserAccount defined by the XML reader.
  */
 + (id<JAXBType>) readXMLType: (xmlTextReaderPtr) reader
 {
-  NOVAGLOBALAPINS0UserAccount *_nOVAGLOBALAPINS0UserAccount = [[NOVAGLOBALAPINS0UserAccount alloc] init];
+  NOVAGLOBALAPIDIVELOGUserAccount *_nOVAGLOBALAPIDIVELOGUserAccount = [[NOVAGLOBALAPIDIVELOGUserAccount alloc] init];
   NS_DURING
   {
-    [_nOVAGLOBALAPINS0UserAccount initWithReader: reader];
+    [_nOVAGLOBALAPIDIVELOGUserAccount initWithReader: reader];
   }
   NS_HANDLER
   {
-    _nOVAGLOBALAPINS0UserAccount = nil;
+    _nOVAGLOBALAPIDIVELOGUserAccount = nil;
     [localException raise];
   }
   NS_ENDHANDLER
 
-  [_nOVAGLOBALAPINS0UserAccount autorelease];
-  return _nOVAGLOBALAPINS0UserAccount;
+  [_nOVAGLOBALAPIDIVELOGUserAccount autorelease];
+  return _nOVAGLOBALAPIDIVELOGUserAccount;
 }
 
 /**
- * Initialize this instance of NOVAGLOBALAPINS0UserAccount according to
+ * Initialize this instance of NOVAGLOBALAPIDIVELOGUserAccount according to
  * the XML being read from the reader.
  *
  * @param reader The reader.
@@ -898,7 +1375,7 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
 }
 
 /**
- * Write the XML for this instance of NOVAGLOBALAPINS0UserAccount to the writer.
+ * Write the XML for this instance of NOVAGLOBALAPIDIVELOGUserAccount to the writer.
  * Note that since we're only writing the XML type,
  * No start/end element will be written.
  *
@@ -910,42 +1387,42 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
 }
 
 /**
- * Reads a NOVAGLOBALAPINS0UserAccount from an XML reader. The element to be read is
- * "userAccount".
+ * Reads a NOVAGLOBALAPIDIVELOGUserAccount from an XML reader. The element to be read is
+ * "{http://www.bryansaunders.net/divelog}userAccount".
  *
  * @param reader The XML reader.
- * @return The NOVAGLOBALAPINS0UserAccount.
+ * @return The NOVAGLOBALAPIDIVELOGUserAccount.
  */
 + (id<JAXBElement>) readXMLElement: (xmlTextReaderPtr) reader {
   int status;
-  NOVAGLOBALAPINS0UserAccount *_userAccount = nil;
+  NOVAGLOBALAPIDIVELOGUserAccount *_userAccount = nil;
 
   if (xmlTextReaderNodeType(reader) != XML_READER_TYPE_ELEMENT) {
     status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
     if (status < 1) {
       [NSException raise: @"XMLReadError"
-                   format: @"Error advancing the reader to start element userAccount."];
+                   format: @"Error advancing the reader to start element {http://www.bryansaunders.net/divelog}userAccount."];
     }
   }
 
   if (xmlStrcmp(BAD_CAST "userAccount", xmlTextReaderConstLocalName(reader)) == 0
-      && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+      && xmlStrcmp(BAD_CAST "http://www.bryansaunders.net/divelog", xmlTextReaderConstNamespaceUri(reader)) == 0) {
 #if DEBUG_ENUNCIATE > 1
-    NSLog(@"Attempting to read root element {}userAccount.");
+    NSLog(@"Attempting to read root element {http://www.bryansaunders.net/divelog}userAccount.");
 #endif
-    _userAccount = (NOVAGLOBALAPINS0UserAccount *)[NOVAGLOBALAPINS0UserAccount readXMLType: reader];
+    _userAccount = (NOVAGLOBALAPIDIVELOGUserAccount *)[NOVAGLOBALAPIDIVELOGUserAccount readXMLType: reader];
 #if DEBUG_ENUNCIATE > 1
-    NSLog(@"Successfully read root element {}userAccount.");
+    NSLog(@"Successfully read root element {http://www.bryansaunders.net/divelog}userAccount.");
 #endif
   }
   else {
     if (xmlTextReaderConstNamespaceUri(reader) == NULL) {
       [NSException raise: @"XMLReadError"
-                   format: @"Unable to read NOVAGLOBALAPINS0UserAccount. Expected element userAccount. Current element: {}%s", xmlTextReaderConstLocalName(reader)];
+                   format: @"Unable to read NOVAGLOBALAPIDIVELOGUserAccount. Expected element {http://www.bryansaunders.net/divelog}userAccount. Current element: {}%s", xmlTextReaderConstLocalName(reader)];
     }
     else {
       [NSException raise: @"XMLReadError"
-                   format: @"Unable to read NOVAGLOBALAPINS0UserAccount. Expected element userAccount. Current element: {%s}%s\n", xmlTextReaderConstNamespaceUri(reader), xmlTextReaderConstLocalName(reader)];
+                   format: @"Unable to read NOVAGLOBALAPIDIVELOGUserAccount. Expected element {http://www.bryansaunders.net/divelog}userAccount. Current element: {%s}%s\n", xmlTextReaderConstNamespaceUri(reader), xmlTextReaderConstLocalName(reader)];
     }
   }
 
@@ -953,7 +1430,7 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
 }
 
 /**
- * Writes this NOVAGLOBALAPINS0UserAccount to XML under element name "userAccount".
+ * Writes this NOVAGLOBALAPIDIVELOGUserAccount to XML under element name "{http://www.bryansaunders.net/divelog}userAccount".
  * The namespace declarations for the element will be written.
  *
  * @param writer The XML writer.
@@ -966,30 +1443,51 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
 }
 
 /**
- * Writes this NOVAGLOBALAPINS0UserAccount to an XML writer.
+ * Writes this NOVAGLOBALAPIDIVELOGUserAccount to an XML writer.
  *
  * @param writer The writer.
  * @param writeNs Whether to write the namespaces for this element to the xml writer.
  */
 - (void) writeXMLElement: (xmlTextWriterPtr) writer writeNamespaces: (BOOL) writeNs
 {
-  int rc = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "userAccount", NULL);
+  int rc = xmlTextWriterStartElementNS(writer, BAD_CAST "divelog", BAD_CAST "userAccount", NULL);
   if (rc < 0) {
     [NSException raise: @"XMLWriteError"
-                 format: @"Error writing start element {}userAccount. XML writer status: %i\n", rc];
+                 format: @"Error writing start element {http://www.bryansaunders.net/divelog}userAccount. XML writer status: %i\n", rc];
+  }
+
+  if (writeNs) {
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"writing namespaces for start element {http://www.bryansaunders.net/divelog}userAccount...");
+#endif
+
+    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "xmlns:divelog", BAD_CAST "http://www.bryansaunders.net/divelog");
+    if (rc < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing attribute 'xmlns:divelog' on '{http://www.bryansaunders.net/divelog}userAccount'. XML writer status: %i\n", rc];
+    }
+
+    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "xmlns:dl_security", BAD_CAST "http://www.bryansaunders.net/divelog/security");
+    if (rc < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing attribute 'xmlns:dl_security' on '{http://www.bryansaunders.net/divelog}userAccount'. XML writer status: %i\n", rc];
+    }
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully wrote namespaces for start element {http://www.bryansaunders.net/divelog}userAccount...");
+#endif
   }
 
 #if DEBUG_ENUNCIATE > 1
-  NSLog(@"writing type {}userAccount for root element {}userAccount...");
+  NSLog(@"writing type {http://www.bryansaunders.net/divelog}userAccount for root element {http://www.bryansaunders.net/divelog}userAccount...");
 #endif
   [self writeXMLType: writer];
 #if DEBUG_ENUNCIATE > 1
-  NSLog(@"successfully wrote type {}userAccount for root element {}userAccount...");
+  NSLog(@"successfully wrote type {http://www.bryansaunders.net/divelog}userAccount for root element {http://www.bryansaunders.net/divelog}userAccount...");
 #endif
   rc = xmlTextWriterEndElement(writer);
   if (rc < 0) {
     [NSException raise: @"XMLWriteError"
-                 format: @"Error writing end element {}userAccount. XML writer status: %i\n", rc];
+                 format: @"Error writing end element {http://www.bryansaunders.net/divelog}userAccount. XML writer status: %i\n", rc];
   }
 }
 
@@ -1138,18 +1636,18 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
     && xmlTextReaderConstNamespaceUri(reader) == NULL) {
 
 #if DEBUG_ENUNCIATE > 1
-    NSLog(@"Attempting to read choice {}roles of type {}role.");
+    NSLog(@"Attempting to read choice {}roles of type {http://www.bryansaunders.net/divelog/security}role.");
 #endif
 
-    _child_accessor = xmlTextReaderReadNOVAGLOBALAPINS0RoleType(reader);
+    _child_accessor = xmlTextReaderReadNOVAGLOBALAPIDL_SECURITYRoleType(reader);
     if (_child_accessor == NULL) {
       //panic: unable to return the value for some reason.
       [NSException raise: @"XMLReadError"
                    format: @"Error reading element value."];
     }
-    __child = [NSValue value: _child_accessor withObjCType: @encode(enum NOVAGLOBALAPINS0Role)];
+    __child = [NSValue value: _child_accessor withObjCType: @encode(enum NOVAGLOBALAPIDL_SECURITYRole)];
 #if DEBUG_ENUNCIATE > 1
-    NSLog(@"successfully read choice {}roles of type {}role.");
+    NSLog(@"successfully read choice {}roles of type {http://www.bryansaunders.net/divelog/security}role.");
 #endif
 
     if ([self roles]) {
@@ -1166,18 +1664,18 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
     && xmlTextReaderConstNamespaceUri(reader) == NULL) {
 
 #if DEBUG_ENUNCIATE > 1
-    NSLog(@"Attempting to read choice {}permissions of type {}permission.");
+    NSLog(@"Attempting to read choice {}permissions of type {http://www.bryansaunders.net/divelog/security}permission.");
 #endif
 
-    _child_accessor = xmlTextReaderReadNOVAGLOBALAPINS0PermissionType(reader);
+    _child_accessor = xmlTextReaderReadNOVAGLOBALAPIDL_SECURITYPermissionType(reader);
     if (_child_accessor == NULL) {
       //panic: unable to return the value for some reason.
       [NSException raise: @"XMLReadError"
                    format: @"Error reading element value."];
     }
-    __child = [NSValue value: _child_accessor withObjCType: @encode(enum NOVAGLOBALAPINS0Permission)];
+    __child = [NSValue value: _child_accessor withObjCType: @encode(enum NOVAGLOBALAPIDL_SECURITYPermission)];
 #if DEBUG_ENUNCIATE > 1
-    NSLog(@"successfully read choice {}permissions of type {}permission.");
+    NSLog(@"successfully read choice {}permissions of type {http://www.bryansaunders.net/divelog/security}permission.");
 #endif
 
     if ([self permissions]) {
@@ -1186,6 +1684,38 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
     else {
       [self setPermissions: [NSArray arrayWithObject: __child]];
     }
+    return YES;
+  } //end "if choice"
+
+  if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+    && xmlStrcmp(BAD_CAST "apiKey", xmlTextReaderConstLocalName(reader)) == 0
+    && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"Attempting to read choice {}apiKey of type {http://www.w3.org/2001/XMLSchema}string.");
+#endif
+    __child = [NSString readXMLType: reader];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully read choice {}apiKey of type {http://www.w3.org/2001/XMLSchema}string.");
+#endif
+
+    [self setApiKey: __child];
+    return YES;
+  } //end "if choice"
+
+  if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+    && xmlStrcmp(BAD_CAST "apiKeyExpiration", xmlTextReaderConstLocalName(reader)) == 0
+    && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"Attempting to read choice {}apiKeyExpiration of type {http://www.w3.org/2001/XMLSchema}dateTime.");
+#endif
+    __child = [NSDate readXMLType: reader];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully read choice {}apiKeyExpiration of type {http://www.w3.org/2001/XMLSchema}dateTime.");
+#endif
+
+    [self setApiKeyExpiration: __child];
     return YES;
   } //end "if choice"
 
@@ -1393,7 +1923,7 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
 #if DEBUG_ENUNCIATE > 1
       NSLog(@"writing element {}roles...");
 #endif
-      status = xmlTextWriterWriteNOVAGLOBALAPINS0RoleType(writer, ((enum NOVAGLOBALAPINS0Role*) [((NSValue *)__item) pointerValue]));
+      status = xmlTextWriterWriteNOVAGLOBALAPIDL_SECURITYRoleType(writer, ((enum NOVAGLOBALAPIDL_SECURITYRole*) [((NSValue *)__item) pointerValue]));
       if (status < 0) {
         [NSException raise: @"XMLWriteError"
                      format: @"Error writing child element {}roles."];
@@ -1422,7 +1952,7 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
 #if DEBUG_ENUNCIATE > 1
       NSLog(@"writing element {}permissions...");
 #endif
-      status = xmlTextWriterWriteNOVAGLOBALAPINS0PermissionType(writer, ((enum NOVAGLOBALAPINS0Permission*) [((NSValue *)__item) pointerValue]));
+      status = xmlTextWriterWriteNOVAGLOBALAPIDL_SECURITYPermissionType(writer, ((enum NOVAGLOBALAPIDL_SECURITYPermission*) [((NSValue *)__item) pointerValue]));
       if (status < 0) {
         [NSException raise: @"XMLWriteError"
                      format: @"Error writing child element {}permissions."];
@@ -1438,7 +1968,49 @@ static NSString *formatNOVAGLOBALAPINS0PermissionTypeToString(enum NOVAGLOBALAPI
       }
     } //end item iterator.
   }
-}
-@end /* implementation NOVAGLOBALAPINS0UserAccount (JAXB) */
+  if ([self apiKey]) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "apiKey", NULL);
+    if (status < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing start child element {}apiKey."];
+    }
 
-#endif /* DEF_NOVAGLOBALAPINS0UserAccount_M */
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"writing element {}apiKey...");
+#endif
+    [[self apiKey] writeXMLType: writer];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully wrote element {}apiKey...");
+#endif
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing end child element {}apiKey."];
+    }
+  }
+  if ([self apiKeyExpiration]) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "apiKeyExpiration", NULL);
+    if (status < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing start child element {}apiKeyExpiration."];
+    }
+
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"writing element {}apiKeyExpiration...");
+#endif
+    [[self apiKeyExpiration] writeXMLType: writer];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully wrote element {}apiKeyExpiration...");
+#endif
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing end child element {}apiKeyExpiration."];
+    }
+  }
+}
+@end /* implementation NOVAGLOBALAPIDIVELOGUserAccount (JAXB) */
+
+#endif /* DEF_NOVAGLOBALAPIDIVELOGUserAccount_M */

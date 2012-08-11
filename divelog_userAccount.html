@@ -11,7 +11,7 @@
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>diveLogEntity</title>
+  <title>userAccount</title>
 
   <!-- Mobile viewport optimized: j.mp/bplateviewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
   <div class="container">
     <header>
       <div id="header" class="column first last span-20">
-        <div id="site-name" class="column span-18 append-1 prepend-1 first last"><a href="enunciate.html">diveLogEntity</a></div>
+        <div id="site-name" class="column span-18 append-1 prepend-1 first last"><a href="enunciate.html">userAccount</a></div>
         <div id="primary" class="column span-18 append-1 prepend-1 first last">
           <ul class="navigation">
             <li id="nav-rest"><a href="rest.html">REST</a></li>
@@ -52,18 +52,17 @@
               </ul>
             </li>
             <li>
-              <a href="ns0.html">ns0</a> &gt;
+              <a href="divelog.html">divelog</a> &gt;
               <ul>
-                <li><a href="ns0.html">ns0</a></li>
+                <li><a href="dl-security.html">dl-security</a></li>
+                <li><a href="divelog.html">divelog</a></li>
               </ul>
             </li>
             <li class="current">
-              <a href="ns0_diveLogEntity.html">diveLogEntity</a>
+              <a href="divelog_userAccount.html">userAccount</a>
               <ul>
-                <li><a href="ns0_role.html">role</a></li>
-                <li><a href="ns0_permission.html">permission</a></li>
-                <li><a href="ns0_userAccount.html">userAccount</a></li>
-                <li><a href="ns0_diveLogEntity.html">diveLogEntity</a></li>
+                <li><a href="divelog_userAccount.html">userAccount</a></li>
+                <li><a href="divelog_diveLogEntity.html">diveLogEntity</a></li>
               </ul>
             </li>
           </ul>
@@ -71,19 +70,23 @@
       </div>
     </header>
     <div id="main" class="column first last span-20">
-      <h1>diveLogEntity</h1>
+      <h1>userAccount</h1>
       <table>
         <tr>
+          <td align="right">Extends:</td>
+          <td><a href="divelog_diveLogEntity.html">diveLogEntity</a></td>
+        </tr>
+        <tr>
           <td align="right">Namespace:</td>
-          <td>(default namespace)</td>
+          <td>http://www.bryansaunders.net/divelog</td>
         </tr>
         <tr>
           <td align="right">XML Schema:</td>
-          <td><a href="ns0.xsd">ns0.xsd</a></td>
+          <td><a href="divelog.xsd">divelog.xsd</a></td>
         </tr>
       </table>
       <p>
-            Base Entity Element for all DiveLog Entities.
+            User Model.
           </p>
 
       <h2>XML</h2>
@@ -96,45 +99,122 @@
         </tr>
         <tr>
           <td>
-            id (int)
+            firstName (string)
           </td>
           <td>0/1</td>
           <td>
             
-                Get the id.
+                Get the firstName.
               
           </td>
         </tr>
         <tr>
           <td>
-            version (int)
+            lastName (string)
           </td>
           <td>0/1</td>
           <td>
             
-                Get the version.
+                Get the lastName.
               
           </td>
         </tr>
         <tr>
           <td>
-            created (dateTime)
+            country (string)
           </td>
           <td>0/1</td>
           <td>
             
-                Get the created.
+                Get the country.
               
           </td>
         </tr>
         <tr>
           <td>
-            updated (dateTime)
+            state (string)
           </td>
           <td>0/1</td>
           <td>
             
-                Get the updated.
+                Get the state.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>
+            city (string)
+          </td>
+          <td>0/1</td>
+          <td>
+            
+                Get the city.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>
+            email (string)
+          </td>
+          <td>0/1</td>
+          <td>
+            
+                Get the email.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>
+            password (string)
+          </td>
+          <td>0/1</td>
+          <td>
+            
+                Get the password.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>
+            roles (<a href="dl-security_role.html">role</a>)
+          </td>
+          <td>0/unbounded</td>
+          <td>
+            
+                Get the roles.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>
+            permissions (<a href="dl-security_permission.html">permission</a>)
+          </td>
+          <td>0/unbounded</td>
+          <td>
+            
+                Get the permissions.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>
+            apiKey (string)
+          </td>
+          <td>0/1</td>
+          <td>
+            
+                Get the apiKey.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>
+            apiKeyExpiration (dateTime)
+          </td>
+          <td>0/1</td>
+          <td>
+            
+                Get the apiKeyExpiration.
               
           </td>
         </tr>
@@ -148,46 +228,123 @@
           <th>description</th>
         </tr>
         <tr>
-          <td>id</td>
+          <td>firstName</td>
           <td>
-            id (int)
+            firstName (string)
           </td>
           <td>
             
-                Get the id.
+                Get the firstName.
               
           </td>
         </tr>
         <tr>
-          <td>version</td>
+          <td>lastName</td>
           <td>
-            version (int)
+            lastName (string)
           </td>
           <td>
             
-                Get the version.
+                Get the lastName.
               
           </td>
         </tr>
         <tr>
-          <td>created</td>
+          <td>country</td>
           <td>
-            created (dateTime)
+            country (string)
           </td>
           <td>
             
-                Get the created.
+                Get the country.
               
           </td>
         </tr>
         <tr>
-          <td>updated</td>
+          <td>state</td>
           <td>
-            updated (dateTime)
+            state (string)
           </td>
           <td>
             
-                Get the updated.
+                Get the state.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>city</td>
+          <td>
+            city (string)
+          </td>
+          <td>
+            
+                Get the city.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>email</td>
+          <td>
+            email (string)
+          </td>
+          <td>
+            
+                Get the email.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td>
+            password (string)
+          </td>
+          <td>
+            
+                Get the password.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>roles</td>
+          <td>
+            array of roles (<a href="dl-security_role.html">role</a>)
+          </td>
+          <td>
+            
+                Get the roles.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>permissions</td>
+          <td>
+            array of permissions (<a href="dl-security_permission.html">permission</a>)
+          </td>
+          <td>
+            
+                Get the permissions.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>apiKey</td>
+          <td>
+            apiKey (string)
+          </td>
+          <td>
+            
+                Get the apiKey.
+              
+          </td>
+        </tr>
+        <tr>
+          <td>apiKeyExpiration</td>
+          <td>
+            apiKeyExpiration (dateTime)
+          </td>
+          <td>
+            
+                Get the apiKeyExpiration.
               
           </td>
         </tr>

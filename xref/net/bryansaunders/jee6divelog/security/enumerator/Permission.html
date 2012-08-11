@@ -14,9 +14,9 @@
 <a name="4" href="#4">4</a>   <strong class="jxr_keyword">package</strong> net.bryansaunders.jee6divelog.security.enumerator;
 <a name="5" href="#5">5</a>   
 <a name="6" href="#6">6</a>   <strong class="jxr_keyword">import</strong> java.util.HashMap;
-<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> java.util.LinkedList;
-<a name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> java.util.List;
-<a name="9" href="#9">9</a>   <strong class="jxr_keyword">import</strong> java.util.Map;
+<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> java.util.LinkedHashSet;
+<a name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> java.util.Map;
+<a name="9" href="#9">9</a>   <strong class="jxr_keyword">import</strong> java.util.Set;
 <a name="10" href="#10">10</a>  
 <a name="11" href="#11">11</a>  <em class="jxr_javadoccomment">/**</em>
 <a name="12" href="#12">12</a>  <em class="jxr_javadoccomment"> * Account Permissions.</em>
@@ -79,8 +79,8 @@
 <a name="69" href="#69">69</a>  <em class="jxr_javadoccomment">     *            Role to check Permissions for</em>
 <a name="70" href="#70">70</a>  <em class="jxr_javadoccomment">     * @return List of Permission Objects</em>
 <a name="71" href="#71">71</a>  <em class="jxr_javadoccomment">     */</em>
-<a name="72" href="#72">72</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> List&lt;Permission&gt; getDefaults(<strong class="jxr_keyword">final</strong> <a href="../../../../../net/bryansaunders/jee6divelog/security/enumerator/Role.html">Role</a> role) {
-<a name="73" href="#73">73</a>          <strong class="jxr_keyword">final</strong> List&lt;Permission&gt; defaultPermissions = <strong class="jxr_keyword">new</strong> LinkedList&lt;Permission&gt;();
+<a name="72" href="#72">72</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Set&lt;Permission&gt; getDefaults(<strong class="jxr_keyword">final</strong> <a href="../../../../../net/bryansaunders/jee6divelog/security/enumerator/Role.html">Role</a> role) {
+<a name="73" href="#73">73</a>          <strong class="jxr_keyword">final</strong> Set&lt;Permission&gt; defaultPermissions = <strong class="jxr_keyword">new</strong> LinkedHashSet&lt;Permission&gt;();
 <a name="74" href="#74">74</a>  
 <a name="75" href="#75">75</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Permission permission : Permission.values()) {
 <a name="76" href="#76">76</a>              <strong class="jxr_keyword">final</strong> Map&lt;Role, Boolean&gt; permissionMap = permission.getDefaultPermission();

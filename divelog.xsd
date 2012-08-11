@@ -1,5 +1,6 @@
-<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="userAccount" type="userAccount"/>
+<xs:schema version="1.0" targetNamespace="http://www.bryansaunders.net/divelog" xmlns:divelog="http://www.bryansaunders.net/divelog" xmlns:dl-security="http://www.bryansaunders.net/divelog/security" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://www.bryansaunders.net/divelog/security" schemaLocation="dl-security.xsd"/>
+  <xs:element name="userAccount" type="divelog:userAccount"/>
   <xs:complexType name="diveLogEntity">
     <xs:annotation>
       <xs:documentation>
@@ -44,7 +45,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="diveLogEntity">
+      <xs:extension base="divelog:diveLogEntity">
         <xs:sequence>
           <xs:element name="firstName" type="xs:string" minOccurs="0">
             <xs:annotation>
@@ -95,17 +96,31 @@
               </xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="roles" type="role" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="roles" type="dl-security:role" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>
                 <![CDATA[Get the roles.]]>
               </xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="permissions" type="permission" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="permissions" type="dl-security:permission" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>
                 <![CDATA[Get the permissions.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="apiKey" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the apiKey.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="apiKeyExpiration" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the apiKeyExpiration.]]>
               </xs:documentation>
             </xs:annotation>
           </xs:element>
@@ -113,26 +128,4 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="permission">
-    <xs:annotation>
-      <xs:documentation>
-        <![CDATA[Account Permissions.]]>
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="EDIT_SELF"/>
-      <xs:enumeration value="DELETE_SELF"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="role">
-    <xs:annotation>
-      <xs:documentation>
-        <![CDATA[Account Roles.]]>
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="USER"/>
-      <xs:enumeration value="ADMIN"/>
-    </xs:restriction>
-  </xs:simpleType>
 </xs:schema>
