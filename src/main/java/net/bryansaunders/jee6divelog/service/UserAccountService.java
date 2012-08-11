@@ -5,19 +5,14 @@ package net.bryansaunders.jee6divelog.service;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 
 import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
@@ -97,22 +92,17 @@ public class UserAccountService {
      * @return User if found, null if not
      */
     public UserAccount findByUserEmail(final String username) {
-        final EntityManager entityManager = this.userDao.getEntityManager();
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        final UserAccount example = new UserAccount();
+        example.setEmail(username);
 
-        final CriteriaQuery<UserAccount> criteriaQuery = criteriaBuilder.createQuery(UserAccount.class);
-        final Root<UserAccount> root = criteriaQuery.from(UserAccount.class);
-        criteriaQuery.select(root);
-
-        final ParameterExpression<String> usernameParam = criteriaBuilder.parameter(String.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("email"), usernameParam));
-
-        final TypedQuery<UserAccount> query = entityManager.createQuery(criteriaQuery);
-        query.setParameter(usernameParam, username);
-
+        List<UserAccount> foundAccounts = null;
         UserAccount foundAccount = null;
         try {
-            foundAccount = query.getSingleResult();
+            foundAccounts = this.userDao.findByExample(example);
+            if (foundAccounts.size() == 1) {
+                // We want the First Result, Should only be one anyways.
+                foundAccount = foundAccounts.get(0);
+            }
         } catch (final NoResultException e) {
             this.logger.info("Could not Find UserAccount for Username: " + username);
         }
