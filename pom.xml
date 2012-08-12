@@ -5,7 +5,15 @@
 	<artifactId>jee6divelog</artifactId>
 	<packaging>war</packaging>
 	<version>0.1-PoC</version>
-	<name>jee6divelog</name>
+	<name>BSNet-DiveLog</name>
+	<inceptionYear>2012</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License, version 3 (GPL-3.0)</name>
+			<url>LICENSE</url>
+		</license>
+	</licenses>
 
 	<repositories>
 		<repository>
@@ -249,6 +257,51 @@
 							<execution>
 								<goals>
 									<goal>integration-test</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- License Plugin -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>license-maven-plugin</artifactId>
+						<version>1.2</version>
+						<configuration>
+							<verbose>false</verbose>
+							<licenseName>gpl_v3</licenseName>
+							<licenseFile>${basedir}/LICENSE</licenseFile>
+						</configuration>
+						<executions>
+							<execution>
+								<id>first</id>
+								<goals>
+									<goal>update-file-header</goal>
+								</goals>
+								<phase>process-sources</phase>
+								<configuration>
+									<roots>
+										<root>src/main</root>
+										<root>src/test</root>
+									</roots>
+								</configuration>
+							</execution>
+							<execution>
+								<id>update-licenses</id>
+								<goals>
+									<goal>update-project-license</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>update-headers</id>
+								<goals>
+									<goal>update-file-header</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>download-licenses</id>
+								<goals>
+									<goal>download-licenses</goal>
 								</goals>
 							</execution>
 						</executions>
@@ -500,8 +553,7 @@
 			</build>
 		</profile>
 	</profiles>
-	<url>https://jee6divelog-bsaunders.rhcloud.com/</url>
-	<description>Online DiveLog built using JEE6.</description>
+	<url>https://github.com/bsaunder/JEE6DiveLog</url>
 	<organization>
 		<name>Bryan Saunders</name>
 		<url>http://www.bryansaunders.net</url>
@@ -556,6 +608,30 @@
 										<ignore></ignore>
 									</action>
 								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											license-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.2,)
+										</versionRange>
+										<goals>
+											<goal>
+												update-file-header
+											</goal>
+											<goal>
+												update-project-license
+											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
@@ -563,4 +639,5 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<description>The BSNet-DiveLog is an online Dive Log application used for tracking all of your diving related information. Anything and everything that you have ever needed to keep track of related to diving, can be tracked here, in one single location. No more having to manage multiple log books, remember old dive buddies, or look up insurance &amp; service records.</description>
 </project>
