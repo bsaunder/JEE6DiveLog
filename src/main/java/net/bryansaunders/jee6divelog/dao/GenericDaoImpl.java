@@ -14,6 +14,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import net.bryansaunders.jee6divelog.model.DiveLogEntity;
@@ -227,6 +228,7 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
         criteriaQuery.select(root);
 
         // Build Where Clause
+        Predicate predicate = criteriaBuilder.conjunction();
         final Field[] fields = this.entityClass.getDeclaredFields();
         for (final Field field : fields) {
             final String fieldName = field.getName();
@@ -259,11 +261,14 @@ public class GenericDaoImpl<T extends DiveLogEntity> implements GenericDao<T> {
             }
 
             if (fieldValue != null) {
-                criteriaQuery.where(criteriaBuilder.equal(root.get(fieldName), fieldValue));
+                this.logger.info("Setting Where: " + fieldName + " = " + fieldValue.toString());
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get(fieldName), fieldValue));
             }
         }
 
+        criteriaQuery.where(predicate);
         final TypedQuery<T> query = this.entityManager.createQuery(criteriaQuery);
+        this.logger.info("QUERY: " + query.toString());
         return query.getResultList();
     }
 }

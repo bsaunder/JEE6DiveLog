@@ -404,8 +404,8 @@ public class GenericDaoIT {
      * Test method for findByExample().
      */
     @Test
-    @UsingDataSet("TwoUserAccounts.yml")
-    public void ifExampleMatchThenFindExampleMatch() {
+    @UsingDataSet("ThreeUserAccounts-Admin.yml")
+    public void ifSingleMatchThenFindExampleMatch() {
         // given
         final UserAccount example = new UserAccount();
         example.setFirstName("Bryan");
@@ -447,12 +447,79 @@ public class GenericDaoIT {
      * Test method for findByExample().
      */
     @Test
-    @UsingDataSet("TwoUserAccounts.yml")
+    @UsingDataSet("ThreeUserAccounts-Admin.yml")
     public void ifNoExampleMatchThenNoExampleMatch() {
         // given
         final UserAccount example = new UserAccount();
         example.setFirstName("John");
         example.setLastName("Doe");
+
+        // when
+        final List<UserAccount> foundAccounts = this.userDao.findByExample(example);
+
+        // then
+        assertNotNull(foundAccounts);
+        assertEquals(0, foundAccounts.size());
+    }
+
+    /**
+     * Test method for findByExample() with a Single Criteria Match.
+     */
+    @Test
+    @UsingDataSet("ThreeUserAccounts-Admin.yml")
+    public void ifSingleCriteriaMatchThenGetMatch() {
+        // given
+        final UserAccount example = new UserAccount();
+        example.setFirstName("Bryan");
+
+        // when
+        final List<UserAccount> foundAccounts = this.userDao.findByExample(example);
+
+        // then
+        assertNotNull(foundAccounts);
+        assertEquals(1, foundAccounts.size());
+
+        final UserAccount foundAccount = foundAccounts.get(0);
+        assertNotNull(foundAccount);
+        assertEquals("Bryan", foundAccount.getFirstName());
+        assertEquals("Saunders", foundAccount.getLastName());
+    }
+
+    /**
+     * Test method for findByExample() with a Multiple Criteria Match.
+     */
+    @Test
+    @UsingDataSet("ThreeUserAccounts-Admin.yml")
+    public void ifMultipleCriteriaMatchThenGetMatch() {
+        // given
+        final UserAccount example = new UserAccount();
+        example.setState("SC");
+        example.setLastName("Saunders");
+
+        // when
+        final List<UserAccount> foundAccounts = this.userDao.findByExample(example);
+
+        // then
+        assertNotNull(foundAccounts);
+        assertEquals(2, foundAccounts.size());
+
+        final UserAccount foundAccount = foundAccounts.get(0);
+        assertNotNull(foundAccount);
+        assertEquals("Bryan", foundAccount.getFirstName());
+        assertEquals("Saunders", foundAccount.getLastName());
+    }
+
+    /**
+     * Test method for findByExample() With a Partial Match.
+     */
+    @Test
+    @UsingDataSet("ThreeUserAccounts-Admin.yml")
+    public void ifPartialCriteriaMatchThenGetNoMatch() {
+        // given
+        final UserAccount example = new UserAccount();
+        example.setFirstName("Kirk");
+        example.setLastName("Saunders");
+        example.setCity("Charleston");
 
         // when
         final List<UserAccount> foundAccounts = this.userDao.findByExample(example);

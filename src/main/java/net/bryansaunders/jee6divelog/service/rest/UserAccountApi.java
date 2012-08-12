@@ -13,7 +13,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -73,30 +72,29 @@ public class UserAccountApi {
     }
 
     /**
-     * Gets the User Specified by the Given Username.
+     * Gets the User Specified by the Given Criteria. If not Criteria Specified, All Results will be returned.
      * 
      * <ul>
-     * <li>Status 200: User Found.</li>
-     * <li>Status 400: User was not found.</li>
+     * <li>Status 200: Results Found.</li>
+     * <li>Status 400: Results not found.</li>
      * </ul>
      * 
-     * @param userName
-     *            Username to serach for
-     * @return Found user
+     * @param example
+     *            Criteria to search for
+     * @return Found users
      */
-    @GET
+    @POST
     @Path("find")
-    @TypeHint(UserAccount.class)
+    @TypeHint(List.class)
     @HasRole(role = Role.USER)
-    public Response findUser(@QueryParam("userName") final String userName) {
-        Response response;
+    public Response findUser(final UserAccount example) {
+        Response response = null;
 
-        UserAccount foundUser = this.userAccountService.findByUserEmail(userName);
-        if (foundUser != null) {
-            foundUser = SecurityUtils.getCleanUserAccount(foundUser);
-            response = Response.ok(foundUser).build();
+        List<UserAccount> results = this.userAccountService.findByExample(example);
+        if (results != null && !results.isEmpty()) {
+            response = Response.ok(results).build();
         } else {
-            response = Response.status(Response.Status.BAD_REQUEST).entity("User Not Found.").build();
+            response = Response.status(Response.Status.BAD_REQUEST).entity("No Results Found.").build();
         }
 
         return response;

@@ -142,4 +142,15 @@ public class UserAccountService {
         return result;
     }
 
+    /**
+     * Finds all the Users that Match the provided Example.
+     * 
+     * @param example
+     *            Example User
+     * @return List of Matches
+     */
+    public List<UserAccount> findByExample(final UserAccount example) {
+        return this.userDao.findByExample(example);
+    }
+
 }

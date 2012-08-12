@@ -110,7 +110,11 @@ public class DiveLogEntity {
      * @return the created
      */
     public Date getCreated() {
-        return new Date(this.created.getTime());
+        Date date = null;
+        if (this.created != null) {
+            date = new Date(this.created.getTime());
+        }
+        return date;
     }
 
     /**
@@ -133,7 +137,11 @@ public class DiveLogEntity {
      * @return the updated
      */
     public Date getUpdated() {
-        return new Date(this.updated.getTime());
+        Date date = null;
+        if (this.updated != null) {
+            date = new Date(this.updated.getTime());
+        }
+        return date;
     }
 
     /**

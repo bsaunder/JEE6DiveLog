@@ -1,0 +1,33 @@
+user:
+  - id: 1
+    version: 1
+    firstName: Bryan
+    lastName: Saunders
+    city: Charleston
+    state: SC
+    country: USA
+    email: bryan@test.com
+    password: YWNjMTIwZGE1ZjEzOGNiMDc4M2E5MmFjZmY5YTllNjE0YzBlYmYzMzdmMzUyZTM1YjA2MzJkZjA0MjExNGUyNg==
+  - id: 2
+    version: 1
+    firstName: Crystal
+    lastName: Smallwood
+    city: Charleston
+    state: SC
+    country: USA
+    email: crystal@test.com
+    password: YWNjMTIwZGE1ZjEzOGNiMDc4M2E5MmFjZmY5YTllNjE0YzBlYmYzMzdmMzUyZTM1YjA2MzJkZjA0MjExNGUyNg==
+  - id: 3
+    version: 1
+    firstName: Kirk
+    lastName: Saunders
+    city: Conway
+    state: SC
+    country: USA
+    email: kirk@test.com
+    password: YWNjMTIwZGE1ZjEzOGNiMDc4M2E5MmFjZmY5YTllNjE0YzBlYmYzMzdmMzUyZTM1YjA2MzJkZjA0MjExNGUyNg==
+user_role:
+  - user_id: 1
+    role: ADMIN
+  - user_id: 1
+    role: USER

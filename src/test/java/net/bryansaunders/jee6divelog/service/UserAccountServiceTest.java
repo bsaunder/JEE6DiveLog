@@ -65,7 +65,7 @@ public class UserAccountServiceTest {
         validUser.setLastName("Saunders");
         validUser.setEmail("btsaunde@gmail.com");
         validUser.setPassword("pass123");
-        
+
         when(this.mockUserAccountDao.save(any(UserAccount.class))).thenReturn(validUser);
 
         // when
@@ -89,16 +89,16 @@ public class UserAccountServiceTest {
     public void ifFoundByUsernameThenRetrieve() {
         // given
         final String email = "test@test.com";
-        
+
         final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan");
         validUser.setLastName("Saunders");
         validUser.setEmail(email);
         validUser.setPassword("pass123");
-        
+
         final List<UserAccount> userAccountList = new LinkedList<UserAccount>();
         userAccountList.add(validUser);
-        
+
         when(this.mockUserAccountDao.findByExample(any(UserAccount.class))).thenReturn(userAccountList);
 
         // when
@@ -132,12 +132,12 @@ public class UserAccountServiceTest {
     public void testSaveUser() {
         // given
         final UserAccount user = new UserAccount();
-        
+
         when(this.mockUserAccountDao.save(any(UserAccount.class))).thenReturn(user);
-        
+
         // when
         this.userService.saveUser(user);
-        
+
         // then
         verify(this.mockUserAccountDao).save(user);
     }
@@ -149,7 +149,7 @@ public class UserAccountServiceTest {
     public void testClearApiKey() {
         // given
         final String email = "test@test.com";
-        
+
         final UserAccount validUser = new UserAccount();
         validUser.setFirstName("Bryan");
         validUser.setLastName("Saunders");
@@ -157,21 +157,57 @@ public class UserAccountServiceTest {
         validUser.setPassword("pass123");
         validUser.setApiKey("API_KEY");
         validUser.setApiKeyExpiration(new Date());
-        
+
         final List<UserAccount> userAccountList = new LinkedList<UserAccount>();
         userAccountList.add(validUser);
-        
+
         when(this.mockUserAccountDao.findByExample(any(UserAccount.class))).thenReturn(userAccountList);
-        
+
         // when
         final boolean result = this.userService.clearApiKey(email);
-        
+
         // then
         assertTrue(result);
         assertNull(validUser.getApiKey());
-        
+
         final Date expirationDate = validUser.getApiKeyExpiration();
         assertTrue(expirationDate.getTime() < System.currentTimeMillis());
+    }
+
+    /**
+     * Test for Find By Example.
+     */
+    @Test
+    public void ifExampleMatchesThenGetMatches() {
+        // given
+        final UserAccount user = new UserAccount();
+        List<UserAccount> userList = new LinkedList<UserAccount>();
+        userList.add(user);
+
+        when(this.mockUserAccountDao.findByExample(any(UserAccount.class))).thenReturn(userList);
+
+        // when
+        this.userService.findByExample(user);
+
+        // then
+        verify(this.mockUserAccountDao).findByExample(user);
+    }
+
+    /**
+     * Test for Find By Example.
+     */
+    @Test
+    public void ifExampleDoesntMatchThenEmptyList() {
+        // given
+        final UserAccount user = new UserAccount();
+
+        when(this.mockUserAccountDao.findByExample(any(UserAccount.class))).thenReturn(new LinkedList<UserAccount>());
+
+        // when
+        this.userService.findByExample(user);
+
+        // then
+        verify(this.mockUserAccountDao).findByExample(user);
     }
 
 }
