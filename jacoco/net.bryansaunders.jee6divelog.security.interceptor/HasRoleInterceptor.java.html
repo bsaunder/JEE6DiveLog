@@ -44,7 +44,7 @@ import net.bryansaunders.jee6divelog.security.enumerator.Role;
  */
 @HasRole(role = Role.USER)
 @Interceptor
-<span class="nc" id="L47">public class HasRoleInterceptor {</span>
+<span class="fc" id="L47">public class HasRoleInterceptor {</span>
 
     /**
      * Active Identity.
@@ -63,34 +63,34 @@ import net.bryansaunders.jee6divelog.security.enumerator.Role;
      */
     @AroundInvoke
     public Object checkAuthenticaion(final InvocationContext ctx) throws Exception {
-<span class="nc" id="L66">        final Method method = ctx.getMethod();</span>
-<span class="nc" id="L67">        Role role = null;</span>
+<span class="fc" id="L66">        final Method method = ctx.getMethod();</span>
+<span class="fc" id="L67">        Role role = null;</span>
 
         // Check For Method Level Annotations
-<span class="nc" id="L70">        HasRole hasRoleAnnotation = method.getAnnotation(HasRole.class);</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (hasRoleAnnotation != null) {</span>
-<span class="nc" id="L72">            role = hasRoleAnnotation.role();</span>
+<span class="fc" id="L70">        HasRole hasRoleAnnotation = method.getAnnotation(HasRole.class);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (hasRoleAnnotation != null) {</span>
+<span class="fc" id="L72">            role = hasRoleAnnotation.role();</span>
         }
 
         // Check For Class Level Annotations
-<span class="nc" id="L76">        final Class&lt;?&gt; callingClass = method.getDeclaringClass();</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (callingClass != null) {</span>
-<span class="nc" id="L78">            hasRoleAnnotation = callingClass.getAnnotation(HasRole.class);</span>
-<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (hasRoleAnnotation != null) {</span>
-<span class="nc" id="L80">                role = hasRoleAnnotation.role();</span>
+<span class="fc" id="L76">        final Class&lt;?&gt; callingClass = method.getDeclaringClass();</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (callingClass != null) {</span>
+<span class="fc" id="L78">            hasRoleAnnotation = callingClass.getAnnotation(HasRole.class);</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">            if (hasRoleAnnotation != null) {</span>
+<span class="fc" id="L80">                role = hasRoleAnnotation.role();</span>
             }
         }
 
         // Check Identity
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (role == null) {</span>
-<span class="nc" id="L86">            throw new AuthorizationFailedException(&quot;Could not Validate Identity, Could not Retrieve Role.&quot;);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (role == null) {</span>
+<span class="fc" id="L86">            throw new AuthorizationFailedException(&quot;Could not Validate Identity, Could not Retrieve Role.&quot;);</span>
         } else {
-<span class="nc bnc" id="L88" title="All 2 branches missed.">            if (!this.identity.hasRole(role)) {</span>
-<span class="nc" id="L89">                throw new AuthorizationFailedException(&quot;Access Denied, Role &quot; + role + &quot; Not Found&quot;);</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            if (!this.identity.hasRole(role)) {</span>
+<span class="fc" id="L89">                throw new AuthorizationFailedException(&quot;Access Denied, Role &quot; + role + &quot; Not Found&quot;);</span>
             }
         }
 
-<span class="nc" id="L93">        return ctx.proceed();</span>
+<span class="fc" id="L93">        return ctx.proceed();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

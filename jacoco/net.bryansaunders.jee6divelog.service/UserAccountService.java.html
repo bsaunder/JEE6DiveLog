@@ -54,12 +54,12 @@ import org.slf4j.LoggerFactory;
  * 
  */
 @Stateless
-<span class="nc" id="L57">public class UserAccountService {</span>
+<span class="fc" id="L57">public class UserAccountService {</span>
 
     /**
      * Logger.
      */
-<span class="nc" id="L62">    private final Logger logger = LoggerFactory.getLogger(UserAccountService.class);</span>
+<span class="fc" id="L62">    private final Logger logger = LoggerFactory.getLogger(UserAccountService.class);</span>
 
     /**
      * User DAO.
@@ -81,31 +81,31 @@ import org.slf4j.LoggerFactory;
      * @return Saved user object, or null if an error occured.
      */
     public UserAccount createUser(final UserAccount user) {
-<span class="nc" id="L84">        UserAccount savedUser = null;</span>
+<span class="fc" id="L84">        UserAccount savedUser = null;</span>
 
         try {
             // Clear out Base Fields to ensure we save a new entity.
-<span class="nc" id="L88">            user.setId(null);</span>
-<span class="nc" id="L89">            user.setVersion(null);</span>
-<span class="nc" id="L90">            user.setCreated(null);</span>
-<span class="nc" id="L91">            user.setUpdated(null);</span>
+<span class="fc" id="L88">            user.setId(null);</span>
+<span class="fc" id="L89">            user.setVersion(null);</span>
+<span class="fc" id="L90">            user.setCreated(null);</span>
+<span class="fc" id="L91">            user.setUpdated(null);</span>
 
             // Set Default Roles
-<span class="nc" id="L94">            final Set&lt;Role&gt; defaultRoles = new LinkedHashSet&lt;Role&gt;();</span>
-<span class="nc" id="L95">            defaultRoles.add(Role.USER);</span>
-<span class="nc" id="L96">            user.setRoles(defaultRoles);</span>
+<span class="fc" id="L94">            final Set&lt;Role&gt; defaultRoles = new LinkedHashSet&lt;Role&gt;();</span>
+<span class="fc" id="L95">            defaultRoles.add(Role.USER);</span>
+<span class="fc" id="L96">            user.setRoles(defaultRoles);</span>
 
             // Set Default Permissions
-<span class="nc" id="L99">            final Set&lt;Permission&gt; defaultPermissions = Permission.getDefaults(Role.USER);</span>
-<span class="nc" id="L100">            user.setPermissions(defaultPermissions);</span>
+<span class="fc" id="L99">            final Set&lt;Permission&gt; defaultPermissions = Permission.getDefaults(Role.USER);</span>
+<span class="fc" id="L100">            user.setPermissions(defaultPermissions);</span>
 
-<span class="nc" id="L102">            savedUser = this.userDao.save(user);</span>
+<span class="fc" id="L102">            savedUser = this.userDao.save(user);</span>
 <span class="nc" id="L103">        } catch (final ConstraintViolationException e) {</span>
 <span class="nc" id="L104">            this.context.setRollbackOnly();</span>
 <span class="nc" id="L105">            throw e;</span>
-<span class="nc" id="L106">        }</span>
+<span class="fc" id="L106">        }</span>
 
-<span class="nc" id="L108">        return savedUser;</span>
+<span class="fc" id="L108">        return savedUser;</span>
     }
 
     /**
@@ -116,22 +116,22 @@ import org.slf4j.LoggerFactory;
      * @return User if found, null if not
      */
     public UserAccount findByUserEmail(final String username) {
-<span class="nc" id="L119">        final UserAccount example = new UserAccount();</span>
-<span class="nc" id="L120">        example.setEmail(username);</span>
+<span class="fc" id="L119">        final UserAccount example = new UserAccount();</span>
+<span class="fc" id="L120">        example.setEmail(username);</span>
 
-<span class="nc" id="L122">        List&lt;UserAccount&gt; foundAccounts = null;</span>
-<span class="nc" id="L123">        UserAccount foundAccount = null;</span>
+<span class="fc" id="L122">        List&lt;UserAccount&gt; foundAccounts = null;</span>
+<span class="fc" id="L123">        UserAccount foundAccount = null;</span>
         try {
-<span class="nc" id="L125">            foundAccounts = this.userDao.findByExample(example);</span>
-<span class="nc bnc" id="L126" title="All 2 branches missed.">            if (foundAccounts.size() == 1) {</span>
+<span class="fc" id="L125">            foundAccounts = this.userDao.findByExample(example);</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">            if (foundAccounts.size() == 1) {</span>
                 // We want the First Result, Should only be one anyways.
-<span class="nc" id="L128">                foundAccount = foundAccounts.get(0);</span>
+<span class="fc" id="L128">                foundAccount = foundAccounts.get(0);</span>
             }
-<span class="nc" id="L130">        } catch (final NoResultException e) {</span>
-<span class="nc" id="L131">            this.logger.info(&quot;Could not Find UserAccount for Username: &quot; + username);</span>
-<span class="nc" id="L132">        }</span>
+<span class="fc" id="L130">        } catch (final NoResultException e) {</span>
+<span class="fc" id="L131">            this.logger.info(&quot;Could not Find UserAccount for Username: &quot; + username);</span>
+<span class="fc" id="L132">        }</span>
 
-<span class="nc" id="L134">        return foundAccount;</span>
+<span class="fc" id="L134">        return foundAccount;</span>
     }
 
     /**
@@ -142,7 +142,7 @@ import org.slf4j.LoggerFactory;
      * @return Saved User
      */
     public UserAccount saveUser(final UserAccount userAccount) {
-<span class="nc" id="L145">        return this.userDao.save(userAccount);</span>
+<span class="fc" id="L145">        return this.userDao.save(userAccount);</span>
     }
 
     /**
@@ -153,17 +153,17 @@ import org.slf4j.LoggerFactory;
      * @return true if the ApiKey was Reset, false otherwise
      */
     public boolean clearApiKey(final String username) {
-<span class="nc" id="L156">        boolean result = false;</span>
-<span class="nc" id="L157">        final UserAccount user = this.findByUserEmail(username);</span>
-<span class="nc bnc" id="L158" title="All 2 branches missed.">        if (user != null) {</span>
-<span class="nc" id="L159">            user.setApiKey(null);</span>
-<span class="nc" id="L160">            user.setApiKeyExpiration(new Date(System.currentTimeMillis() - 5));</span>
-<span class="nc" id="L161">            this.saveUser(user);</span>
+<span class="fc" id="L156">        boolean result = false;</span>
+<span class="fc" id="L157">        final UserAccount user = this.findByUserEmail(username);</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">        if (user != null) {</span>
+<span class="fc" id="L159">            user.setApiKey(null);</span>
+<span class="fc" id="L160">            user.setApiKeyExpiration(new Date(System.currentTimeMillis() - 5));</span>
+<span class="fc" id="L161">            this.saveUser(user);</span>
 
-<span class="nc" id="L163">            result = true;</span>
+<span class="fc" id="L163">            result = true;</span>
         }
 
-<span class="nc" id="L166">        return result;</span>
+<span class="fc" id="L166">        return result;</span>
     }
 
     /**
@@ -174,7 +174,7 @@ import org.slf4j.LoggerFactory;
      * @return List of Matches
      */
     public List&lt;UserAccount&gt; findByExample(final UserAccount example) {
-<span class="nc" id="L177">        return this.userDao.findByExample(example);</span>
+<span class="fc" id="L177">        return this.userDao.findByExample(example);</span>
     }
 
 }

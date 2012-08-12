@@ -58,7 +58,7 @@ import org.codehaus.enunciate.jaxrs.TypeHint;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
-<span class="nc" id="L61">public class UserAccountApi {</span>
+<span class="fc" id="L61">public class UserAccountApi {</span>
 
     /**
      * User Account Service.
@@ -85,14 +85,14 @@ import org.codehaus.enunciate.jaxrs.TypeHint;
         Response response;
 
         try {
-<span class="nc" id="L88">            UserAccount savedUser = this.userAccountService.createUser(user);</span>
-<span class="nc" id="L89">            savedUser = SecurityUtils.getCleanUserAccount(savedUser);</span>
-<span class="nc" id="L90">            response = Response.ok(savedUser).status(Response.Status.CREATED).build();</span>
-<span class="nc" id="L91">        } catch (final EJBException e) {</span>
-<span class="nc" id="L92">            response = Response.status(Response.Status.BAD_REQUEST).entity(&quot;JSON Invalid: &quot; + e.getMessage()).build();</span>
-<span class="nc" id="L93">        }</span>
+<span class="fc" id="L88">            UserAccount savedUser = this.userAccountService.createUser(user);</span>
+<span class="fc" id="L89">            savedUser = SecurityUtils.getCleanUserAccount(savedUser);</span>
+<span class="fc" id="L90">            response = Response.ok(savedUser).status(Response.Status.CREATED).build();</span>
+<span class="fc" id="L91">        } catch (final EJBException e) {</span>
+<span class="fc" id="L92">            response = Response.status(Response.Status.BAD_REQUEST).entity(&quot;JSON Invalid: &quot; + e.getMessage()).build();</span>
+<span class="fc" id="L93">        }</span>
 
-<span class="nc" id="L95">        return response;</span>
+<span class="fc" id="L95">        return response;</span>
     }
 
     /**
@@ -112,16 +112,16 @@ import org.codehaus.enunciate.jaxrs.TypeHint;
     @TypeHint(List.class)
     @HasRole(role = Role.USER)
     public Response findUser(final UserAccount example) {
-<span class="nc" id="L115">        Response response = null;</span>
+<span class="fc" id="L115">        Response response = null;</span>
 
-<span class="nc" id="L117">        List&lt;UserAccount&gt; results = this.userAccountService.findByExample(example);</span>
-<span class="nc bnc" id="L118" title="All 4 branches missed.">        if (results != null &amp;&amp; !results.isEmpty()) {</span>
-<span class="nc" id="L119">            response = Response.ok(results).build();</span>
+<span class="fc" id="L117">        List&lt;UserAccount&gt; results = this.userAccountService.findByExample(example);</span>
+<span class="pc bpc" id="L118" title="1 of 4 branches missed.">        if (results != null &amp;&amp; !results.isEmpty()) {</span>
+<span class="fc" id="L119">            response = Response.ok(results).build();</span>
         } else {
-<span class="nc" id="L121">            response = Response.status(Response.Status.BAD_REQUEST).entity(&quot;No Results Found.&quot;).build();</span>
+<span class="fc" id="L121">            response = Response.status(Response.Status.BAD_REQUEST).entity(&quot;No Results Found.&quot;).build();</span>
         }
 
-<span class="nc" id="L124">        return response;</span>
+<span class="fc" id="L124">        return response;</span>
     }
 
     /**

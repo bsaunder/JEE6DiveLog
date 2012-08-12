@@ -16,8 +16,6 @@
 'UTF-8'
 -doctitle
 'BSNet-DiveLog 0.1-PoC Test API'
--link
-'../apidocs'
 -use
 -version
 -windowtitle

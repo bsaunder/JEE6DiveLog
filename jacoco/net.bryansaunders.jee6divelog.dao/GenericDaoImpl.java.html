@@ -60,7 +60,7 @@ public class GenericDaoImpl&lt;T extends DiveLogEntity&gt; implements GenericDao
     /**
      * Logger.
      */
-<span class="nc" id="L63">    private final Logger logger = LoggerFactory.getLogger(GenericDaoImpl.class);</span>
+<span class="fc" id="L63">    private final Logger logger = LoggerFactory.getLogger(GenericDaoImpl.class);</span>
 
     /**
      * Entity Manager.
@@ -77,10 +77,10 @@ public class GenericDaoImpl&lt;T extends DiveLogEntity&gt; implements GenericDao
      * Default Constructor.
      */
     @SuppressWarnings(&quot;unchecked&quot;)
-<span class="nc" id="L80">    public GenericDaoImpl() {</span>
-<span class="nc" id="L81">        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();</span>
-<span class="nc" id="L82">        this.entityClass = (Class&lt;T&gt;) genericSuperclass.getActualTypeArguments()[0];</span>
-<span class="nc" id="L83">    }</span>
+<span class="fc" id="L80">    public GenericDaoImpl() {</span>
+<span class="fc" id="L81">        final ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();</span>
+<span class="fc" id="L82">        this.entityClass = (Class&lt;T&gt;) genericSuperclass.getActualTypeArguments()[0];</span>
+<span class="fc" id="L83">    }</span>
 
     /**
      * {@inheritDoc}
@@ -95,7 +95,7 @@ public class GenericDaoImpl&lt;T extends DiveLogEntity&gt; implements GenericDao
      */
     @Override
     public EntityManager getEntityManager() {
-<span class="nc" id="L98">        return this.entityManager;</span>
+<span class="fc" id="L98">        return this.entityManager;</span>
     }
 
     /**
@@ -103,13 +103,13 @@ public class GenericDaoImpl&lt;T extends DiveLogEntity&gt; implements GenericDao
      */
     @Override
     public T get(final Integer id) {
-<span class="nc" id="L106">        final T entity = this.entityManager.find(this.entityClass, id);</span>
-<span class="nc bnc" id="L107" title="All 2 branches missed.">        if (entity == null) {</span>
-<span class="nc" id="L108">            throw new NoResultException(&quot;Entity Type: &quot; + this.entityClass.getName() + &quot; with ID: &quot; + id</span>
+<span class="fc" id="L106">        final T entity = this.entityManager.find(this.entityClass, id);</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (entity == null) {</span>
+<span class="fc" id="L108">            throw new NoResultException(&quot;Entity Type: &quot; + this.entityClass.getName() + &quot; with ID: &quot; + id</span>
                     + &quot; Not Found.&quot;);
         }
 
-<span class="nc" id="L112">        return entity;</span>
+<span class="fc" id="L112">        return entity;</span>
     }
 
     /**
@@ -117,16 +117,16 @@ public class GenericDaoImpl&lt;T extends DiveLogEntity&gt; implements GenericDao
      */
     @Override
     public List&lt;T&gt; get(final Integer... ids) {
-<span class="nc bnc" id="L120" title="All 4 branches missed.">        if (ids == null || ids.length == 0) {</span>
-<span class="nc" id="L121">            throw new IllegalArgumentException(&quot;ID List must not be null and have atleast one element&quot;);</span>
+<span class="fc bfc" id="L120" title="All 4 branches covered.">        if (ids == null || ids.length == 0) {</span>
+<span class="fc" id="L121">            throw new IllegalArgumentException(&quot;ID List must not be null and have atleast one element&quot;);</span>
         }
 
-<span class="nc" id="L124">        final List&lt;T&gt; entityList = new ArrayList&lt;T&gt;(ids.length);</span>
-<span class="nc bnc" id="L125" title="All 2 branches missed.">        for (final Integer id : ids) {</span>
-<span class="nc" id="L126">            final T entity = this.get(id);</span>
-<span class="nc" id="L127">            entityList.add(entity);</span>
+<span class="fc" id="L124">        final List&lt;T&gt; entityList = new ArrayList&lt;T&gt;(ids.length);</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        for (final Integer id : ids) {</span>
+<span class="fc" id="L126">            final T entity = this.get(id);</span>
+<span class="fc" id="L127">            entityList.add(entity);</span>
         }
-<span class="nc" id="L129">        return entityList;</span>
+<span class="fc" id="L129">        return entityList;</span>
     }
 
     /**
@@ -134,32 +134,32 @@ public class GenericDaoImpl&lt;T extends DiveLogEntity&gt; implements GenericDao
      */
     @Override
     public List&lt;T&gt; getAll() {
-<span class="nc" id="L137">        final CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();</span>
+<span class="fc" id="L137">        final CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();</span>
 
-<span class="nc" id="L139">        final CriteriaQuery&lt;T&gt; criteriaQuery = criteriaBuilder.createQuery(this.entityClass);</span>
-<span class="nc" id="L140">        final Root&lt;T&gt; root = criteriaQuery.from(this.entityClass);</span>
-<span class="nc" id="L141">        criteriaQuery.select(root);</span>
+<span class="fc" id="L139">        final CriteriaQuery&lt;T&gt; criteriaQuery = criteriaBuilder.createQuery(this.entityClass);</span>
+<span class="fc" id="L140">        final Root&lt;T&gt; root = criteriaQuery.from(this.entityClass);</span>
+<span class="fc" id="L141">        criteriaQuery.select(root);</span>
 
-<span class="nc" id="L143">        final TypedQuery&lt;T&gt; query = this.entityManager.createQuery(criteriaQuery);</span>
+<span class="fc" id="L143">        final TypedQuery&lt;T&gt; query = this.entityManager.createQuery(criteriaQuery);</span>
 
-<span class="nc" id="L145">        return query.getResultList();</span>
+<span class="fc" id="L145">        return query.getResultList();</span>
     }
 
     @Override
     public T save(final T object) {
-<span class="nc" id="L150">        T savedObject = null;</span>
+<span class="fc" id="L150">        T savedObject = null;</span>
 
-<span class="nc bnc" id="L152" title="All 2 branches missed.">        if (object.getId() != null) {</span>
-<span class="nc" id="L153">            this.logger.debug(&quot;Merging Object &quot; + this.entityClass.getName() + &quot; with ID &quot; + object.getId());</span>
-<span class="nc" id="L154">            savedObject = this.entityManager.merge(object);</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (object.getId() != null) {</span>
+<span class="fc" id="L153">            this.logger.debug(&quot;Merging Object &quot; + this.entityClass.getName() + &quot; with ID &quot; + object.getId());</span>
+<span class="fc" id="L154">            savedObject = this.entityManager.merge(object);</span>
         } else {
-<span class="nc" id="L156">            this.logger.debug(&quot;Persisting Object &quot; + this.entityClass.getName());</span>
-<span class="nc" id="L157">            this.entityManager.persist(object);</span>
-<span class="nc" id="L158">            savedObject = object;</span>
-<span class="nc" id="L159">            this.logger.debug(&quot;Persisted with ID &quot; + savedObject.getId());</span>
+<span class="fc" id="L156">            this.logger.debug(&quot;Persisting Object &quot; + this.entityClass.getName());</span>
+<span class="fc" id="L157">            this.entityManager.persist(object);</span>
+<span class="fc" id="L158">            savedObject = object;</span>
+<span class="fc" id="L159">            this.logger.debug(&quot;Persisted with ID &quot; + savedObject.getId());</span>
         }
 
-<span class="nc" id="L162">        return savedObject;</span>
+<span class="fc" id="L162">        return savedObject;</span>
     }
 
     /**
@@ -167,16 +167,16 @@ public class GenericDaoImpl&lt;T extends DiveLogEntity&gt; implements GenericDao
      */
     @Override
     public List&lt;T&gt; save(final T... objects) {
-<span class="nc bnc" id="L170" title="All 4 branches missed.">        if (objects == null || objects.length == 0) {</span>
-<span class="nc" id="L171">            throw new IllegalArgumentException(&quot;Object List must not be null and have atleast one element&quot;);</span>
+<span class="fc bfc" id="L170" title="All 4 branches covered.">        if (objects == null || objects.length == 0) {</span>
+<span class="fc" id="L171">            throw new IllegalArgumentException(&quot;Object List must not be null and have atleast one element&quot;);</span>
         }
 
-<span class="nc" id="L174">        final List&lt;T&gt; entityList = new ArrayList&lt;T&gt;(objects.length);</span>
-<span class="nc bnc" id="L175" title="All 2 branches missed.">        for (final T entity : objects) {</span>
-<span class="nc" id="L176">            final T savedEntity = this.save(entity);</span>
-<span class="nc" id="L177">            entityList.add(savedEntity);</span>
+<span class="fc" id="L174">        final List&lt;T&gt; entityList = new ArrayList&lt;T&gt;(objects.length);</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">        for (final T entity : objects) {</span>
+<span class="fc" id="L176">            final T savedEntity = this.save(entity);</span>
+<span class="fc" id="L177">            entityList.add(savedEntity);</span>
         }
-<span class="nc" id="L179">        return entityList;</span>
+<span class="fc" id="L179">        return entityList;</span>
     }
 
     /**
@@ -184,94 +184,94 @@ public class GenericDaoImpl&lt;T extends DiveLogEntity&gt; implements GenericDao
      */
     @Override
     public void delete(final Integer id) {
-<span class="nc" id="L187">        final T entity = this.get(id);</span>
-<span class="nc" id="L188">        this.delete(entity);</span>
-<span class="nc" id="L189">    }</span>
+<span class="fc" id="L187">        final T entity = this.get(id);</span>
+<span class="fc" id="L188">        this.delete(entity);</span>
+<span class="fc" id="L189">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void delete(final Integer... ids) {
-<span class="nc bnc" id="L196" title="All 4 branches missed.">        if (ids == null || ids.length == 0) {</span>
-<span class="nc" id="L197">            throw new IllegalArgumentException(&quot;Object List must not be null and have atleast one element&quot;);</span>
+<span class="fc bfc" id="L196" title="All 4 branches covered.">        if (ids == null || ids.length == 0) {</span>
+<span class="fc" id="L197">            throw new IllegalArgumentException(&quot;Object List must not be null and have atleast one element&quot;);</span>
         }
 
-<span class="nc bnc" id="L200" title="All 2 branches missed.">        for (final Integer id : ids) {</span>
-<span class="nc" id="L201">            this.delete(id);</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">        for (final Integer id : ids) {</span>
+<span class="fc" id="L201">            this.delete(id);</span>
         }
-<span class="nc" id="L203">    }</span>
+<span class="fc" id="L203">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void delete(final T object) {
-<span class="nc" id="L210">        this.entityManager.remove(object);</span>
-<span class="nc" id="L211">        this.logger.debug(&quot;Deleting Object &quot; + this.entityClass.getName() + &quot; with ID &quot; + object.getId());</span>
-<span class="nc" id="L212">    }</span>
+<span class="fc" id="L210">        this.entityManager.remove(object);</span>
+<span class="fc" id="L211">        this.logger.debug(&quot;Deleting Object &quot; + this.entityClass.getName() + &quot; with ID &quot; + object.getId());</span>
+<span class="fc" id="L212">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void delete(final T... objects) {
-<span class="nc bnc" id="L219" title="All 4 branches missed.">        if (objects == null || objects.length == 0) {</span>
-<span class="nc" id="L220">            throw new IllegalArgumentException(&quot;Object List must not be null and have atleast one element&quot;);</span>
+<span class="fc bfc" id="L219" title="All 4 branches covered.">        if (objects == null || objects.length == 0) {</span>
+<span class="fc" id="L220">            throw new IllegalArgumentException(&quot;Object List must not be null and have atleast one element&quot;);</span>
         }
 
-<span class="nc bnc" id="L223" title="All 2 branches missed.">        for (final T entity : objects) {</span>
-<span class="nc" id="L224">            this.delete(entity);</span>
+<span class="fc bfc" id="L223" title="All 2 branches covered.">        for (final T entity : objects) {</span>
+<span class="fc" id="L224">            this.delete(entity);</span>
         }
 
-<span class="nc" id="L227">    }</span>
+<span class="fc" id="L227">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void deleteAll() {
-<span class="nc" id="L234">        final List&lt;T&gt; entities = this.getAll();</span>
-<span class="nc bnc" id="L235" title="All 2 branches missed.">        for (final T entity : entities) {</span>
-<span class="nc" id="L236">            this.delete(entity);</span>
+<span class="fc" id="L234">        final List&lt;T&gt; entities = this.getAll();</span>
+<span class="fc bfc" id="L235" title="All 2 branches covered.">        for (final T entity : entities) {</span>
+<span class="fc" id="L236">            this.delete(entity);</span>
         }
-<span class="nc" id="L238">    }</span>
+<span class="fc" id="L238">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public List&lt;T&gt; findByExample(final T example) {
-<span class="nc" id="L245">        final CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();</span>
+<span class="fc" id="L245">        final CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();</span>
 
         // Build the Query
-<span class="nc" id="L248">        final CriteriaQuery&lt;T&gt; criteriaQuery = criteriaBuilder.createQuery(this.entityClass);</span>
-<span class="nc" id="L249">        final Root&lt;T&gt; root = criteriaQuery.from(this.entityClass);</span>
+<span class="fc" id="L248">        final CriteriaQuery&lt;T&gt; criteriaQuery = criteriaBuilder.createQuery(this.entityClass);</span>
+<span class="fc" id="L249">        final Root&lt;T&gt; root = criteriaQuery.from(this.entityClass);</span>
 
         // Select all Columns
-<span class="nc" id="L252">        criteriaQuery.select(root);</span>
+<span class="fc" id="L252">        criteriaQuery.select(root);</span>
 
         // Build Where Clause
-<span class="nc" id="L255">        Predicate predicate = criteriaBuilder.conjunction();</span>
-<span class="nc" id="L256">        final Field[] fields = this.entityClass.getDeclaredFields();</span>
-<span class="nc bnc" id="L257" title="All 2 branches missed.">        for (final Field field : fields) {</span>
-<span class="nc" id="L258">            final String fieldName = field.getName();</span>
+<span class="fc" id="L255">        Predicate predicate = criteriaBuilder.conjunction();</span>
+<span class="fc" id="L256">        final Field[] fields = this.entityClass.getDeclaredFields();</span>
+<span class="fc bfc" id="L257" title="All 2 branches covered.">        for (final Field field : fields) {</span>
+<span class="fc" id="L258">            final String fieldName = field.getName();</span>
 
             // So that we ignore fields like jacocoData that get added by jacoco
-<span class="nc bnc" id="L261" title="All 2 branches missed.">            if (fieldName.startsWith(&quot;$&quot;)) {</span>
-<span class="nc" id="L262">                continue;</span>
+<span class="fc bfc" id="L261" title="All 2 branches covered.">            if (fieldName.startsWith(&quot;$&quot;)) {</span>
+<span class="fc" id="L262">                continue;</span>
             }
 
-<span class="nc" id="L265">            Object fieldValue = null;</span>
+<span class="fc" id="L265">            Object fieldValue = null;</span>
 
             try {
-<span class="nc" id="L268">                AccessController.doPrivileged(new PrivilegedAction&lt;Object&gt;() {</span>
+<span class="fc" id="L268">                AccessController.doPrivileged(new PrivilegedAction&lt;Object&gt;() {</span>
                     public Object run() {
-<span class="nc" id="L270">                        field.setAccessible(true);</span>
-<span class="nc" id="L271">                        return null;</span>
+<span class="fc" id="L270">                        field.setAccessible(true);</span>
+<span class="fc" id="L271">                        return null;</span>
                     }
                 });
-<span class="nc" id="L274">                fieldValue = field.get(example);</span>
+<span class="fc" id="L274">                fieldValue = field.get(example);</span>
 <span class="nc" id="L275">            } catch (final IllegalArgumentException e) {</span>
 <span class="nc" id="L276">                this.logger.warn(</span>
                         &quot;findByExample Skipping Field &quot; + fieldName + &quot; on Object Type &quot; + this.entityClass.getName()
@@ -282,18 +282,18 @@ public class GenericDaoImpl&lt;T extends DiveLogEntity&gt; implements GenericDao
                         &quot;findByExample Skipping Field &quot; + fieldName + &quot; on Object Type &quot; + this.entityClass.getName()
                                 + &quot;.&quot;, e);
 <span class="nc" id="L284">                continue;</span>
-<span class="nc" id="L285">            }</span>
+<span class="fc" id="L285">            }</span>
 
-<span class="nc bnc" id="L287" title="All 2 branches missed.">            if (fieldValue != null) {</span>
-<span class="nc" id="L288">                this.logger.info(&quot;Setting Where: &quot; + fieldName + &quot; = &quot; + fieldValue.toString());</span>
-<span class="nc" id="L289">                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get(fieldName), fieldValue));</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">            if (fieldValue != null) {</span>
+<span class="fc" id="L288">                this.logger.info(&quot;Setting Where: &quot; + fieldName + &quot; = &quot; + fieldValue.toString());</span>
+<span class="fc" id="L289">                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get(fieldName), fieldValue));</span>
             }
         }
 
-<span class="nc" id="L293">        criteriaQuery.where(predicate);</span>
-<span class="nc" id="L294">        final TypedQuery&lt;T&gt; query = this.entityManager.createQuery(criteriaQuery);</span>
-<span class="nc" id="L295">        this.logger.info(&quot;QUERY: &quot; + query.toString());</span>
-<span class="nc" id="L296">        return query.getResultList();</span>
+<span class="fc" id="L293">        criteriaQuery.where(predicate);</span>
+<span class="fc" id="L294">        final TypedQuery&lt;T&gt; query = this.entityManager.createQuery(criteriaQuery);</span>
+<span class="fc" id="L295">        this.logger.info(&quot;QUERY: &quot; + query.toString());</span>
+<span class="fc" id="L296">        return query.getResultList();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
  * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
  * 
  */
-<span class="nc" id="L52">public class AuthenticationFilter implements Filter {</span>
+<span class="fc" id="L52">public class AuthenticationFilter implements Filter {</span>
 
     /**
      * Identity.
@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
     /**
      * Logger.
      */
-<span class="nc" id="L63">    private Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);</span>
+<span class="fc" id="L63">    private Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);</span>
 
     /**
      * Redirect non-logged in users to the Login page.
@@ -82,19 +82,19 @@ import org.slf4j.LoggerFactory;
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain)
         throws IOException, ServletException {
 
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (this.identity == null) {</span>
-<span class="nc" id="L86">            throw new ServletException(&quot;Identity is null&quot;);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (this.identity == null) {</span>
+<span class="fc" id="L86">            throw new ServletException(&quot;Identity is null&quot;);</span>
         } else {
-<span class="nc bnc" id="L88" title="All 2 branches missed.">            if (this.identity.isLoggedIn()) {</span>
-<span class="nc" id="L89">                filterChain.doFilter(request, response);</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            if (this.identity.isLoggedIn()) {</span>
+<span class="fc" id="L89">                filterChain.doFilter(request, response);</span>
             } else {
-<span class="nc" id="L91">                this.logger.info(&quot;Unathorized Access Attempt.&quot;);</span>
-<span class="nc" id="L92">                final HttpServletResponse httpResponse = (HttpServletResponse) response;</span>
-<span class="nc" id="L93">                httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="fc" id="L91">                this.logger.info(&quot;Unathorized Access Attempt.&quot;);</span>
+<span class="fc" id="L92">                final HttpServletResponse httpResponse = (HttpServletResponse) response;</span>
+<span class="fc" id="L93">                httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
             }
         }
 
-<span class="nc" id="L97">    }</span>
+<span class="fc" id="L97">    }</span>
 
     /*
      * (non-Javadoc)
@@ -114,7 +114,7 @@ import org.slf4j.LoggerFactory;
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
 
-<span class="nc" id="L117">    }</span>
+<span class="fc" id="L117">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

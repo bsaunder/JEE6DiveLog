@@ -59,12 +59,12 @@ import org.slf4j.LoggerFactory;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
-<span class="nc" id="L62">public class SecurityApi {</span>
+<span class="fc" id="L62">public class SecurityApi {</span>
     
     /**
      * Logger.
      */
-<span class="nc" id="L67">    private final Logger logger = LoggerFactory.getLogger(SecurityApi.class);</span>
+<span class="fc" id="L67">    private final Logger logger = LoggerFactory.getLogger(SecurityApi.class);</span>
 
     /**
      * User Account Service.
@@ -102,19 +102,19 @@ import org.slf4j.LoggerFactory;
     public Response login(final Credentials incomingCredentials) {
         Response response;
 
-<span class="nc" id="L105">        this.credentials.setUsername(incomingCredentials.getUsername());</span>
-<span class="nc" id="L106">        this.credentials.setPassword(incomingCredentials.getPassword());</span>
-<span class="nc" id="L107">        final boolean loginResult = this.identity.restLogin();</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">        if (loginResult) {</span>
-<span class="nc" id="L109">            final String userName = this.identity.getUsername();</span>
-<span class="nc" id="L110">            final String apiKey = this.identity.getApiKey();</span>
-<span class="nc" id="L111">            final String token = SecurityUtils.generateRestApiToken(userName, apiKey);</span>
-<span class="nc" id="L112">            response = Response.ok(token).status(Response.Status.ACCEPTED).build();</span>
-<span class="nc" id="L113">        } else {</span>
-<span class="nc" id="L114">            response = Response.status(Response.Status.UNAUTHORIZED).build();</span>
+<span class="fc" id="L105">        this.credentials.setUsername(incomingCredentials.getUsername());</span>
+<span class="fc" id="L106">        this.credentials.setPassword(incomingCredentials.getPassword());</span>
+<span class="fc" id="L107">        final boolean loginResult = this.identity.restLogin();</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (loginResult) {</span>
+<span class="fc" id="L109">            final String userName = this.identity.getUsername();</span>
+<span class="fc" id="L110">            final String apiKey = this.identity.getApiKey();</span>
+<span class="fc" id="L111">            final String token = SecurityUtils.generateRestApiToken(userName, apiKey);</span>
+<span class="fc" id="L112">            response = Response.ok(token).status(Response.Status.ACCEPTED).build();</span>
+<span class="fc" id="L113">        } else {</span>
+<span class="fc" id="L114">            response = Response.status(Response.Status.UNAUTHORIZED).build();</span>
         }
 
-<span class="nc" id="L117">        return response;</span>
+<span class="fc" id="L117">        return response;</span>
     }
 
     /**
@@ -131,10 +131,10 @@ import org.slf4j.LoggerFactory;
     @TypeHint(UserAccount.class)
     @HasRole(role = Role.USER)
     public Response identify() {
-<span class="nc" id="L134">        UserAccount userAccount = this.identity.createUserAccount();</span>
-<span class="nc" id="L135">        userAccount = SecurityUtils.getCleanUserAccount(userAccount);</span>
-<span class="nc" id="L136">        this.logger.debug(&quot;User Identity: &quot; + userAccount.toString());</span>
-<span class="nc" id="L137">        return Response.ok(userAccount).build();</span>
+<span class="fc" id="L134">        UserAccount userAccount = this.identity.createUserAccount();</span>
+<span class="fc" id="L135">        userAccount = SecurityUtils.getCleanUserAccount(userAccount);</span>
+<span class="fc" id="L136">        this.logger.debug(&quot;User Identity: &quot; + userAccount.toString());</span>
+<span class="fc" id="L137">        return Response.ok(userAccount).build();</span>
     }
 
     /**
@@ -151,10 +151,10 @@ import org.slf4j.LoggerFactory;
     @TypeHint(Boolean.class)
     @HasRole(role = Role.USER)
     public Response logout() {
-<span class="nc" id="L154">        final String username = this.identity.getUsername();</span>
-<span class="nc" id="L155">        this.identity.logout();</span>
-<span class="nc" id="L156">        final boolean result = this.userAccountService.clearApiKey(username);</span>
-<span class="nc" id="L157">        return Response.ok(result).build();</span>
+<span class="fc" id="L154">        final String username = this.identity.getUsername();</span>
+<span class="fc" id="L155">        this.identity.logout();</span>
+<span class="fc" id="L156">        final boolean result = this.userAccountService.clearApiKey(username);</span>
+<span class="fc" id="L157">        return Response.ok(result).build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

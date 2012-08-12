@@ -34,7 +34,7 @@ import net.bryansaunders.jee6divelog.util.SecurityUtils;
  * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
  * 
  */
-<span class="nc" id="L37">public class UserAccountDao extends GenericDaoImpl&lt;UserAccount&gt; {</span>
+<span class="fc" id="L37">public class UserAccountDao extends GenericDaoImpl&lt;UserAccount&gt; {</span>
 
     /**
      * Number of hash iterations.
@@ -47,15 +47,15 @@ import net.bryansaunders.jee6divelog.util.SecurityUtils;
     @Override
     public UserAccount save(final UserAccount user) {
         // Encrypt Password
-<span class="nc" id="L50">        final Integer id = user.getId();</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (id == null) {</span>
-<span class="nc" id="L52">            final String password = user.getPassword();</span>
-<span class="nc" id="L53">            final String hashedEncodedPass = SecurityUtils.generatePasswordHash(password);</span>
-<span class="nc" id="L54">            user.setPassword(hashedEncodedPass);</span>
+<span class="fc" id="L50">        final Integer id = user.getId();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (id == null) {</span>
+<span class="fc" id="L52">            final String password = user.getPassword();</span>
+<span class="fc" id="L53">            final String hashedEncodedPass = SecurityUtils.generatePasswordHash(password);</span>
+<span class="fc" id="L54">            user.setPassword(hashedEncodedPass);</span>
         }
 
         // Save
-<span class="nc" id="L58">        return super.save(user);</span>
+<span class="fc" id="L58">        return super.save(user);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

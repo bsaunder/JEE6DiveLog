@@ -43,7 +43,7 @@ import net.bryansaunders.jee6divelog.security.Identity;
  */
 @Named(&quot;loginBean&quot;)
 @RequestScoped
-<span class="nc" id="L46">public class LoginBean {</span>
+<span class="fc" id="L46">public class LoginBean {</span>
 
     /**
      * Login Success.
@@ -93,23 +93,23 @@ import net.bryansaunders.jee6divelog.security.Identity;
      * @return Login Result
      */
     public String login() {
-<span class="nc" id="L96">        String returnValue = LoginBean.FAILURE;</span>
+<span class="fc" id="L96">        String returnValue = LoginBean.FAILURE;</span>
 
-<span class="nc" id="L98">        this.credentials.setPassword(this.password);</span>
-<span class="nc" id="L99">        this.credentials.setUsername(this.email);</span>
-<span class="nc" id="L100">        this.identity.setRememberMe(this.rememberMe);</span>
+<span class="fc" id="L98">        this.credentials.setPassword(this.password);</span>
+<span class="fc" id="L99">        this.credentials.setUsername(this.email);</span>
+<span class="fc" id="L100">        this.identity.setRememberMe(this.rememberMe);</span>
 
-<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (this.identity.login()) {</span>
-<span class="nc" id="L103">            returnValue = LoginBean.SUCCESS;</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (this.identity.login()) {</span>
+<span class="fc" id="L103">            returnValue = LoginBean.SUCCESS;</span>
         } else {
-<span class="nc" id="L105">            final FacesContext facesContext = FacesContext.getCurrentInstance();</span>
-<span class="nc" id="L106">            final FacesMessage errorMessage = new FacesMessage(&quot;Invalid login information.&quot;);</span>
-<span class="nc" id="L107">            facesContext.addMessage(&quot;loginform:email&quot;, errorMessage);</span>
+<span class="fc" id="L105">            final FacesContext facesContext = FacesContext.getCurrentInstance();</span>
+<span class="fc" id="L106">            final FacesMessage errorMessage = new FacesMessage(&quot;Invalid login information.&quot;);</span>
+<span class="fc" id="L107">            facesContext.addMessage(&quot;loginform:email&quot;, errorMessage);</span>
 
-<span class="nc" id="L109">            this.setLoginError(true);</span>
+<span class="fc" id="L109">            this.setLoginError(true);</span>
         }
 
-<span class="nc" id="L112">        return returnValue;</span>
+<span class="fc" id="L112">        return returnValue;</span>
     }
 
     /**
@@ -118,7 +118,7 @@ import net.bryansaunders.jee6divelog.security.Identity;
      * @return the loginError
      */
     public boolean isLoginError() {
-<span class="nc" id="L121">        return this.loginError;</span>
+<span class="fc" id="L121">        return this.loginError;</span>
     }
 
     /**
@@ -128,8 +128,8 @@ import net.bryansaunders.jee6divelog.security.Identity;
      *            the loginError to set
      */
     public void setLoginError(final boolean newLoginError) {
-<span class="nc" id="L131">        this.loginError = newLoginError;</span>
-<span class="nc" id="L132">    }</span>
+<span class="fc" id="L131">        this.loginError = newLoginError;</span>
+<span class="fc" id="L132">    }</span>
 
     /**
      * Get the rememberMe.
@@ -137,7 +137,7 @@ import net.bryansaunders.jee6divelog.security.Identity;
      * @return the rememberMe
      */
     public boolean isRememberMe() {
-<span class="nc" id="L140">        return this.rememberMe;</span>
+<span class="fc" id="L140">        return this.rememberMe;</span>
     }
 
     /**
@@ -147,8 +147,8 @@ import net.bryansaunders.jee6divelog.security.Identity;
      *            the rememberMe to set
      */
     public void setRememberMe(final boolean newRememberMe) {
-<span class="nc" id="L150">        this.rememberMe = newRememberMe;</span>
-<span class="nc" id="L151">    }</span>
+<span class="fc" id="L150">        this.rememberMe = newRememberMe;</span>
+<span class="fc" id="L151">    }</span>
 
     /**
      * Get the email.
@@ -156,7 +156,7 @@ import net.bryansaunders.jee6divelog.security.Identity;
      * @return the email
      */
     public String getEmail() {
-<span class="nc" id="L159">        return this.email;</span>
+<span class="fc" id="L159">        return this.email;</span>
     }
 
     /**
@@ -166,8 +166,8 @@ import net.bryansaunders.jee6divelog.security.Identity;
      *            the email to set
      */
     public void setEmail(final String newEmail) {
-<span class="nc" id="L169">        this.email = newEmail;</span>
-<span class="nc" id="L170">    }</span>
+<span class="fc" id="L169">        this.email = newEmail;</span>
+<span class="fc" id="L170">    }</span>
 
     /**
      * Get the password.
@@ -175,7 +175,7 @@ import net.bryansaunders.jee6divelog.security.Identity;
      * @return the password
      */
     public String getPassword() {
-<span class="nc" id="L178">        return this.password;</span>
+<span class="fc" id="L178">        return this.password;</span>
     }
 
     /**
@@ -185,8 +185,8 @@ import net.bryansaunders.jee6divelog.security.Identity;
      *            the password to set
      */
     public void setPassword(final String newPassword) {
-<span class="nc" id="L188">        this.password = newPassword;</span>
-<span class="nc" id="L189">    }</span>
+<span class="fc" id="L188">        this.password = newPassword;</span>
+<span class="fc" id="L189">    }</span>
 
     /**
      * Set the identity.
@@ -195,8 +195,8 @@ import net.bryansaunders.jee6divelog.security.Identity;
      *            the identity to set
      */
     public void setIdentity(final Identity newIdentity) {
-<span class="nc" id="L198">        this.identity = newIdentity;</span>
-<span class="nc" id="L199">    }</span>
+<span class="fc" id="L198">        this.identity = newIdentity;</span>
+<span class="fc" id="L199">    }</span>
 
     /**
      * Set the credentials.
@@ -205,8 +205,8 @@ import net.bryansaunders.jee6divelog.security.Identity;
      *            the credentials to set
      */
     public void setCredentials(final Credentials newCredentials) {
-<span class="nc" id="L208">        this.credentials = newCredentials;</span>
-<span class="nc" id="L209">    }</span>
+<span class="fc" id="L208">        this.credentials = newCredentials;</span>
+<span class="fc" id="L209">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

@@ -44,7 +44,7 @@ import net.bryansaunders.jee6divelog.security.enumerator.Permission;
  */
 @HasPermission(permission = Permission.EDIT_SELF)
 @Interceptor
-<span class="nc" id="L47">public class HasPermissionInterceptor {</span>
+<span class="fc" id="L47">public class HasPermissionInterceptor {</span>
 
     /**
      * Active Identity.
@@ -63,34 +63,34 @@ import net.bryansaunders.jee6divelog.security.enumerator.Permission;
      */
     @AroundInvoke
     public Object checkAuthenticaion(final InvocationContext ctx) throws Exception {
-<span class="nc" id="L66">        final Method method = ctx.getMethod();</span>
-<span class="nc" id="L67">        Permission permission = null;</span>
+<span class="fc" id="L66">        final Method method = ctx.getMethod();</span>
+<span class="fc" id="L67">        Permission permission = null;</span>
 
         // Check For Method Level Annotations
-<span class="nc" id="L70">        HasPermission hasPermissionAnnotation = method.getAnnotation(HasPermission.class);</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (hasPermissionAnnotation != null) {</span>
-<span class="nc" id="L72">            permission = hasPermissionAnnotation.permission();</span>
+<span class="fc" id="L70">        HasPermission hasPermissionAnnotation = method.getAnnotation(HasPermission.class);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (hasPermissionAnnotation != null) {</span>
+<span class="fc" id="L72">            permission = hasPermissionAnnotation.permission();</span>
         }
 
         // Check For Class Level Annotations
-<span class="nc" id="L76">        final Class&lt;?&gt; callingClass = method.getDeclaringClass();</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (callingClass != null) {</span>
-<span class="nc" id="L78">            hasPermissionAnnotation = callingClass.getAnnotation(HasPermission.class);</span>
-<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (hasPermissionAnnotation != null) {</span>
-<span class="nc" id="L80">                permission = hasPermissionAnnotation.permission();</span>
+<span class="fc" id="L76">        final Class&lt;?&gt; callingClass = method.getDeclaringClass();</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (callingClass != null) {</span>
+<span class="fc" id="L78">            hasPermissionAnnotation = callingClass.getAnnotation(HasPermission.class);</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">            if (hasPermissionAnnotation != null) {</span>
+<span class="fc" id="L80">                permission = hasPermissionAnnotation.permission();</span>
             }
         }
 
         // Check Identity
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (permission == null) {</span>
-<span class="nc" id="L86">            throw new AuthorizationFailedException(&quot;Could not Validate Identity, Could not Retrieve Permission.&quot;);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (permission == null) {</span>
+<span class="fc" id="L86">            throw new AuthorizationFailedException(&quot;Could not Validate Identity, Could not Retrieve Permission.&quot;);</span>
         } else {
-<span class="nc bnc" id="L88" title="All 2 branches missed.">            if (!this.identity.hasPermission(permission)) {</span>
-<span class="nc" id="L89">                throw new AuthorizationFailedException(&quot;Access Denied, Permission &quot; + permission + &quot; Not Found&quot;);</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            if (!this.identity.hasPermission(permission)) {</span>
+<span class="fc" id="L89">                throw new AuthorizationFailedException(&quot;Access Denied, Permission &quot; + permission + &quot; Not Found&quot;);</span>
             }
         }
 
-<span class="nc" id="L93">        return ctx.proceed();</span>
+<span class="fc" id="L93">        return ctx.proceed();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

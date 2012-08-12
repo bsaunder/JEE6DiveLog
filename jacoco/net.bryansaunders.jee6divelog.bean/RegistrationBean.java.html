@@ -72,7 +72,7 @@ public class RegistrationBean {
     /**
      * Logger.
      */
-<span class="nc" id="L75">    private final Logger logger = LoggerFactory.getLogger(RegistrationBean.class);</span>
+<span class="fc" id="L75">    private final Logger logger = LoggerFactory.getLogger(RegistrationBean.class);</span>
 
     /**
      * User Service.
@@ -130,9 +130,9 @@ public class RegistrationBean {
     /**
      * Default Constructor.
      */
-<span class="nc" id="L133">    public RegistrationBean() {</span>
-<span class="nc" id="L134">        this.logger.debug(&quot;RegistrationBean Created&quot;);</span>
-<span class="nc" id="L135">    }</span>
+<span class="fc" id="L133">    public RegistrationBean() {</span>
+<span class="fc" id="L134">        this.logger.debug(&quot;RegistrationBean Created&quot;);</span>
+<span class="fc" id="L135">    }</span>
 
     /**
      * Submits the Registration.
@@ -140,16 +140,16 @@ public class RegistrationBean {
      * @return Registration Status
      */
     public String submitRegistration() {
-<span class="nc" id="L143">        String registrationResult = RegistrationBean.SUCCESS;</span>
+<span class="fc" id="L143">        String registrationResult = RegistrationBean.SUCCESS;</span>
 
-<span class="nc" id="L145">        final UserAccount user = this.createUser();</span>
-<span class="nc" id="L146">        final UserAccount savedUser = this.userService.createUser(user);</span>
+<span class="fc" id="L145">        final UserAccount user = this.createUser();</span>
+<span class="fc" id="L146">        final UserAccount savedUser = this.userService.createUser(user);</span>
 
-<span class="nc bnc" id="L148" title="All 2 branches missed.">        if (savedUser == null) {</span>
-<span class="nc" id="L149">            registrationResult = RegistrationBean.FAILURE;</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (savedUser == null) {</span>
+<span class="fc" id="L149">            registrationResult = RegistrationBean.FAILURE;</span>
         }
 
-<span class="nc" id="L152">        return registrationResult;</span>
+<span class="fc" id="L152">        return registrationResult;</span>
     }
 
     /**
@@ -158,17 +158,17 @@ public class RegistrationBean {
      * @return new user object
      */
     protected UserAccount createUser() {
-<span class="nc" id="L161">        final UserAccount user = new UserAccount();</span>
+<span class="fc" id="L161">        final UserAccount user = new UserAccount();</span>
 
         try {
-<span class="nc" id="L164">            BeanUtils.copyProperties(user, this);</span>
+<span class="fc" id="L164">            BeanUtils.copyProperties(user, this);</span>
 <span class="nc" id="L165">        } catch (final IllegalAccessException e) {</span>
 <span class="nc" id="L166">            this.logger.error(&quot;Could Not AccessProperty while Converting RegistrationBean to User.&quot;, e);</span>
 <span class="nc" id="L167">        } catch (final InvocationTargetException e) {</span>
 <span class="nc" id="L168">            this.logger.error(&quot;Error Invoking Method while Converting RegistrationBean to User.&quot;, e);</span>
-<span class="nc" id="L169">        }</span>
+<span class="pc" id="L169">        }</span>
 
-<span class="nc" id="L171">        return user;</span>
+<span class="fc" id="L171">        return user;</span>
     }
 
     /**
@@ -177,7 +177,7 @@ public class RegistrationBean {
      * @return the firstName
      */
     public String getFirstName() {
-<span class="nc" id="L180">        return this.firstName;</span>
+<span class="fc" id="L180">        return this.firstName;</span>
     }
 
     /**
@@ -187,8 +187,8 @@ public class RegistrationBean {
      *            the firstName to set
      */
     public void setFirstName(final String newFirstName) {
-<span class="nc" id="L190">        this.firstName = newFirstName;</span>
-<span class="nc" id="L191">    }</span>
+<span class="fc" id="L190">        this.firstName = newFirstName;</span>
+<span class="fc" id="L191">    }</span>
 
     /**
      * Gets the Last Name.
@@ -196,7 +196,7 @@ public class RegistrationBean {
      * @return the lastName
      */
     public String getLastName() {
-<span class="nc" id="L199">        return this.lastName;</span>
+<span class="fc" id="L199">        return this.lastName;</span>
     }
 
     /**
@@ -206,8 +206,8 @@ public class RegistrationBean {
      *            the lastName to set
      */
     public void setLastName(final String newLastName) {
-<span class="nc" id="L209">        this.lastName = newLastName;</span>
-<span class="nc" id="L210">    }</span>
+<span class="fc" id="L209">        this.lastName = newLastName;</span>
+<span class="fc" id="L210">    }</span>
 
     /**
      * Gets the Country.
@@ -215,7 +215,7 @@ public class RegistrationBean {
      * @return the country
      */
     public String getCountry() {
-<span class="nc" id="L218">        return this.country;</span>
+<span class="fc" id="L218">        return this.country;</span>
     }
 
     /**
@@ -225,8 +225,8 @@ public class RegistrationBean {
      *            the country to set
      */
     public void setCountry(final String newCountry) {
-<span class="nc" id="L228">        this.country = newCountry;</span>
-<span class="nc" id="L229">    }</span>
+<span class="fc" id="L228">        this.country = newCountry;</span>
+<span class="fc" id="L229">    }</span>
 
     /**
      * Gets the City.
@@ -234,7 +234,7 @@ public class RegistrationBean {
      * @return the city
      */
     public String getCity() {
-<span class="nc" id="L237">        return this.city;</span>
+<span class="fc" id="L237">        return this.city;</span>
     }
 
     /**
@@ -244,8 +244,8 @@ public class RegistrationBean {
      *            the city to set
      */
     public void setCity(final String newCity) {
-<span class="nc" id="L247">        this.city = newCity;</span>
-<span class="nc" id="L248">    }</span>
+<span class="fc" id="L247">        this.city = newCity;</span>
+<span class="fc" id="L248">    }</span>
 
     /**
      * Gets the State.
@@ -253,7 +253,7 @@ public class RegistrationBean {
      * @return the state
      */
     public String getState() {
-<span class="nc" id="L256">        return this.state;</span>
+<span class="fc" id="L256">        return this.state;</span>
     }
 
     /**
@@ -263,8 +263,8 @@ public class RegistrationBean {
      *            the state to set
      */
     public void setState(final String newState) {
-<span class="nc" id="L266">        this.state = newState;</span>
-<span class="nc" id="L267">    }</span>
+<span class="fc" id="L266">        this.state = newState;</span>
+<span class="fc" id="L267">    }</span>
 
     /**
      * Gets the Email.
@@ -272,7 +272,7 @@ public class RegistrationBean {
      * @return the email
      */
     public String getEmail() {
-<span class="nc" id="L275">        return this.email;</span>
+<span class="fc" id="L275">        return this.email;</span>
     }
 
     /**
@@ -282,8 +282,8 @@ public class RegistrationBean {
      *            the email to set
      */
     public void setEmail(final String newEmail) {
-<span class="nc" id="L285">        this.email = newEmail;</span>
-<span class="nc" id="L286">    }</span>
+<span class="fc" id="L285">        this.email = newEmail;</span>
+<span class="fc" id="L286">    }</span>
 
     /**
      * Gets the Password.
@@ -291,7 +291,7 @@ public class RegistrationBean {
      * @return the password
      */
     public String getPassword() {
-<span class="nc" id="L294">        return this.password;</span>
+<span class="fc" id="L294">        return this.password;</span>
     }
 
     /**
@@ -301,8 +301,8 @@ public class RegistrationBean {
      *            the password to set
      */
     public void setPassword(final String newPassword) {
-<span class="nc" id="L304">        this.password = newPassword;</span>
-<span class="nc" id="L305">    }</span>
+<span class="fc" id="L304">        this.password = newPassword;</span>
+<span class="fc" id="L305">    }</span>
 
     /**
      * Gets the Confirmation Password.
@@ -310,7 +310,7 @@ public class RegistrationBean {
      * @return the confirmationPassword
      */
     public String getConfirmationPassword() {
-<span class="nc" id="L313">        return this.confirmationPassword;</span>
+<span class="fc" id="L313">        return this.confirmationPassword;</span>
     }
 
     /**
@@ -320,8 +320,8 @@ public class RegistrationBean {
      *            the confirmationPassword to set
      */
     public void setConfirmationPassword(final String newConfirmationPassword) {
-<span class="nc" id="L323">        this.confirmationPassword = newConfirmationPassword;</span>
-<span class="nc" id="L324">    }</span>
+<span class="fc" id="L323">        this.confirmationPassword = newConfirmationPassword;</span>
+<span class="fc" id="L324">    }</span>
 
     /**
      * Set the userService.
@@ -330,8 +330,8 @@ public class RegistrationBean {
      *            the userService to set
      */
     public void setUserService(final UserAccountService newUserService) {
-<span class="nc" id="L333">        this.userService = newUserService;</span>
-<span class="nc" id="L334">    }</span>
+<span class="fc" id="L333">        this.userService = newUserService;</span>
+<span class="fc" id="L334">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

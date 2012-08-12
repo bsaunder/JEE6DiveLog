@@ -43,7 +43,7 @@ import javax.persistence.Version;
  * 
  */
 @MappedSuperclass
-<span class="nc" id="L46">public class DiveLogEntity {</span>
+<span class="fc" id="L46">public class DiveLogEntity {</span>
 
     /**
      * Id.
@@ -78,17 +78,17 @@ import javax.persistence.Version;
      */
     @PrePersist
     protected void onCreate() {
-<span class="nc" id="L81">        this.created = new Date();</span>
-<span class="nc" id="L82">        this.updated = this.created;</span>
-<span class="nc" id="L83">    }</span>
+<span class="fc" id="L81">        this.created = new Date();</span>
+<span class="fc" id="L82">        this.updated = this.created;</span>
+<span class="fc" id="L83">    }</span>
 
     /**
      * Pre-Update Logic.
      */
     @PreUpdate
     protected void onUpdate() {
-<span class="nc" id="L90">        this.updated = new Date();</span>
-<span class="nc" id="L91">    }</span>
+<span class="fc" id="L90">        this.updated = new Date();</span>
+<span class="fc" id="L91">    }</span>
 
     /**
      * Get the id.
@@ -96,7 +96,7 @@ import javax.persistence.Version;
      * @return the id
      */
     public Integer getId() {
-<span class="nc" id="L99">        return this.id;</span>
+<span class="fc" id="L99">        return this.id;</span>
     }
 
     /**
@@ -106,8 +106,8 @@ import javax.persistence.Version;
      *            the id to set
      */
     public void setId(final Integer newId) {
-<span class="nc" id="L109">        this.id = newId;</span>
-<span class="nc" id="L110">    }</span>
+<span class="fc" id="L109">        this.id = newId;</span>
+<span class="fc" id="L110">    }</span>
 
     /**
      * Get the version.
@@ -115,7 +115,7 @@ import javax.persistence.Version;
      * @return the version
      */
     public Integer getVersion() {
-<span class="nc" id="L118">        return this.version;</span>
+<span class="fc" id="L118">        return this.version;</span>
     }
 
     /**
@@ -125,8 +125,8 @@ import javax.persistence.Version;
      *            the version to set
      */
     public void setVersion(final Integer newVersion) {
-<span class="nc" id="L128">        this.version = newVersion;</span>
-<span class="nc" id="L129">    }</span>
+<span class="fc" id="L128">        this.version = newVersion;</span>
+<span class="fc" id="L129">    }</span>
 
     /**
      * Get the created.
@@ -134,11 +134,11 @@ import javax.persistence.Version;
      * @return the created
      */
     public Date getCreated() {
-<span class="nc" id="L137">        Date date = null;</span>
-<span class="nc bnc" id="L138" title="All 2 branches missed.">        if (this.created != null) {</span>
-<span class="nc" id="L139">            date = new Date(this.created.getTime());</span>
+<span class="fc" id="L137">        Date date = null;</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (this.created != null) {</span>
+<span class="fc" id="L139">            date = new Date(this.created.getTime());</span>
         }
-<span class="nc" id="L141">        return date;</span>
+<span class="fc" id="L141">        return date;</span>
     }
 
     /**
@@ -148,12 +148,12 @@ import javax.persistence.Version;
      *            the newCreated to set
      */
     public void setCreated(final Date newCreated) {
-<span class="nc bnc" id="L151" title="All 2 branches missed.">        if (newCreated == null) {</span>
-<span class="nc" id="L152">            this.created = null;</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        if (newCreated == null) {</span>
+<span class="fc" id="L152">            this.created = null;</span>
         } else {
-<span class="nc" id="L154">            this.created = new Date(newCreated.getTime());</span>
+<span class="fc" id="L154">            this.created = new Date(newCreated.getTime());</span>
         }
-<span class="nc" id="L156">    }</span>
+<span class="fc" id="L156">    }</span>
 
     /**
      * Get the updated.
@@ -161,11 +161,11 @@ import javax.persistence.Version;
      * @return the updated
      */
     public Date getUpdated() {
-<span class="nc" id="L164">        Date date = null;</span>
-<span class="nc bnc" id="L165" title="All 2 branches missed.">        if (this.updated != null) {</span>
-<span class="nc" id="L166">            date = new Date(this.updated.getTime());</span>
+<span class="fc" id="L164">        Date date = null;</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        if (this.updated != null) {</span>
+<span class="fc" id="L166">            date = new Date(this.updated.getTime());</span>
         }
-<span class="nc" id="L168">        return date;</span>
+<span class="fc" id="L168">        return date;</span>
     }
 
     /**
@@ -175,12 +175,12 @@ import javax.persistence.Version;
      *            the updated to set
      */
     public void setUpdated(final Date newUpdated) {
-<span class="nc bnc" id="L178" title="All 2 branches missed.">        if (newUpdated == null) {</span>
-<span class="nc" id="L179">            this.updated = null;</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        if (newUpdated == null) {</span>
+<span class="fc" id="L179">            this.updated = null;</span>
         } else {
-<span class="nc" id="L181">            this.updated = new Date(newUpdated.getTime());</span>
+<span class="fc" id="L181">            this.updated = new Date(newUpdated.getTime());</span>
         }
-<span class="nc" id="L183">    }</span>
+<span class="fc" id="L183">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>
