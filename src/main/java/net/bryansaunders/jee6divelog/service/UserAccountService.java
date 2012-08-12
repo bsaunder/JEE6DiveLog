@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.service;/*
+package net.bryansaunders.jee6divelog.service;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -24,7 +26,6 @@ package net.bryansaunders.jee6divelog.service;/*
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
 
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -174,6 +175,15 @@ public class UserAccountService {
      */
     public List<UserAccount> findByExample(final UserAccount example) {
         return this.userDao.findByExample(example);
+    }
+
+    /**
+     * Gets all the Users.
+     * 
+     * @return List of Users.
+     */
+    public List<UserAccount> getAll() {
+        return this.userDao.getAll();
     }
 
 }

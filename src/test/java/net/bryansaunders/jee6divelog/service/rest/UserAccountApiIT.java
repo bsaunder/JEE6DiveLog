@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.service.rest;/*
+package net.bryansaunders.jee6divelog.service.rest;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -24,7 +26,6 @@ package net.bryansaunders.jee6divelog.service.rest;/*
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
@@ -135,7 +136,7 @@ public class UserAccountApiIT extends RestApiTest {
         assertNotNull(foundUser);
         assertEquals(UserAccountApiIT.VALID_EMAIL, foundUser.getEmail());
     }
-    
+
     /**
      * Test find by username with Valid Username.
      * 
@@ -203,6 +204,58 @@ public class UserAccountApiIT extends RestApiTest {
         });
         assertNotNull(list);
         assertEquals(3, list.size());
+
+        final UserAccount foundUser = list.get(0);
+        assertNotNull(foundUser);
+        assertEquals(UserAccountApiIT.VALID_EMAIL, foundUser.getEmail());
+    }
+
+    /**
+     * Test Get all with Multiple Users.
+     * 
+     * @throws Exception
+     *             Thrown on error
+     */
+    @Test
+    @UsingDataSet("ThreeUserAccounts-Admin.yml")
+    public void ifUsersExistThenGetAll() throws Exception {
+        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+
+        final String json = given()
+                .headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, token)
+                .expect().statusCode(RestApiTest.OK).when().get(RestApiTest.URL_ROOT + "/user").asString();
+
+        final ObjectMapper objMapper = new ObjectMapper();
+        final List<UserAccount> list = objMapper.readValue(json, new TypeReference<List<UserAccount>>() {
+        });
+        assertNotNull(list);
+        assertEquals(3, list.size());
+
+        final UserAccount foundUser = list.get(0);
+        assertNotNull(foundUser);
+        assertEquals(UserAccountApiIT.VALID_EMAIL, foundUser.getEmail());
+    }
+
+    /**
+     * Test Get all with a Single User.
+     * 
+     * @throws Exception
+     *             Thrown on error
+     */
+    @Test
+    @UsingDataSet("OneUserAccount-Admin.yml")
+    public void ifOneUserThenGetOne() throws Exception {
+        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+
+        final String json = given()
+                .headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, token)
+                .expect().statusCode(RestApiTest.OK).when().get(RestApiTest.URL_ROOT + "/user").asString();
+
+        final ObjectMapper objMapper = new ObjectMapper();
+        final List<UserAccount> list = objMapper.readValue(json, new TypeReference<List<UserAccount>>() {
+        });
+        assertNotNull(list);
+        assertEquals(1, list.size());
 
         final UserAccount foundUser = list.get(0);
         assertNotNull(foundUser);

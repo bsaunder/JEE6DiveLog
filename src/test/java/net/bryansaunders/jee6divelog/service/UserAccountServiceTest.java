@@ -204,7 +204,7 @@ public class UserAccountServiceTest {
     public void ifExampleMatchesThenGetMatches() {
         // given
         final UserAccount user = new UserAccount();
-        List<UserAccount> userList = new LinkedList<UserAccount>();
+        final List<UserAccount> userList = new LinkedList<UserAccount>();
         userList.add(user);
 
         when(this.mockUserAccountDao.findByExample(any(UserAccount.class))).thenReturn(userList);
@@ -231,6 +231,44 @@ public class UserAccountServiceTest {
 
         // then
         verify(this.mockUserAccountDao).findByExample(user);
+    }
+    
+    /**
+     * Test for GetAll.
+     */
+    @Test
+    public void ifUsersThenGetAll() {
+        // given
+        final UserAccount user = new UserAccount();
+        final List<UserAccount> userList = new LinkedList<UserAccount>();
+        userList.add(user);
+
+        when(this.mockUserAccountDao.getAll()).thenReturn(userList);
+
+        // when
+        final List<UserAccount> resultList = this.userService.getAll();
+
+        // then
+        assertNotNull(resultList);
+        assertEquals(userList, resultList);
+        verify(this.mockUserAccountDao).getAll();
+    }
+    
+    /**
+     * Test for GetAll.
+     */
+    @Test
+    public void ifNoUsersThenGetEmptyList() {
+        // given
+        when(this.mockUserAccountDao.getAll()).thenReturn(new LinkedList<UserAccount>());
+
+        // when
+        final List<UserAccount> resultList = this.userService.getAll();
+
+        // then
+        assertNotNull(resultList);
+        assertTrue(resultList.isEmpty());
+        verify(this.mockUserAccountDao).getAll();
     }
 
 }

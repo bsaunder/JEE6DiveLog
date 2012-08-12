@@ -127,7 +127,7 @@ public class UserAccountApi {
      * Gets all Users.
      * 
      * <ul>
-     * <li>Status 200: Users Found.</li>
+     * <li>Status 200: Users Found.</li>     * <li>Status 400: No Users Found.</li>
      * </ul>
      * 
      * @return List of Users
@@ -137,7 +137,7 @@ public class UserAccountApi {
     @TypeHint(List.class)
     @HasRole(role = Role.USER)
     public Response getAllUsers() {
-        return Response.status(501).entity("Get All Not Implemented.").build();
+        Response response = null;        List<UserAccount> results = this.userAccountService.getAll();        if (results != null && !results.isEmpty()) {            response = Response.ok(results).build();        } else {            response = Response.status(Response.Status.BAD_REQUEST).entity("No Results Found.").build();        }        return response;
     }
 
     /**
