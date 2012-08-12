@@ -142,5 +142,16 @@ import org.slf4j.LoggerFactory;
 <span class="fc" id="L142">        return result;</span>
     }
 
+    /**
+     * Finds all the Users that Match the provided Example.
+     * 
+     * @param example
+     *            Example User
+     * @return List of Matches
+     */
+    public List&lt;UserAccount&gt; findByExample(final UserAccount example) {
+<span class="fc" id="L153">        return this.userDao.findByExample(example);</span>
+    }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

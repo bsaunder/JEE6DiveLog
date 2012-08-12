@@ -414,8 +414,8 @@
 <a name="404" href="#404">404</a> <em class="jxr_javadoccomment">     * Test method for findByExample().</em>
 <a name="405" href="#405">405</a> <em class="jxr_javadoccomment">     */</em>
 <a name="406" href="#406">406</a>     @Test
-<a name="407" href="#407">407</a>     @UsingDataSet(<span class="jxr_string">"TwoUserAccounts.yml"</span>)
-<a name="408" href="#408">408</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> ifExampleMatchThenFindExampleMatch() {
+<a name="407" href="#407">407</a>     @UsingDataSet(<span class="jxr_string">"ThreeUserAccounts-Admin.yml"</span>)
+<a name="408" href="#408">408</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> ifSingleMatchThenFindExampleMatch() {
 <a name="409" href="#409">409</a>         <em class="jxr_comment">// given</em>
 <a name="410" href="#410">410</a>         <strong class="jxr_keyword">final</strong> UserAccount example = <strong class="jxr_keyword">new</strong> UserAccount();
 <a name="411" href="#411">411</a>         example.setFirstName(<span class="jxr_string">"Bryan"</span>);
@@ -457,7 +457,7 @@
 <a name="447" href="#447">447</a> <em class="jxr_javadoccomment">     * Test method for findByExample().</em>
 <a name="448" href="#448">448</a> <em class="jxr_javadoccomment">     */</em>
 <a name="449" href="#449">449</a>     @Test
-<a name="450" href="#450">450</a>     @UsingDataSet(<span class="jxr_string">"TwoUserAccounts.yml"</span>)
+<a name="450" href="#450">450</a>     @UsingDataSet(<span class="jxr_string">"ThreeUserAccounts-Admin.yml"</span>)
 <a name="451" href="#451">451</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> ifNoExampleMatchThenNoExampleMatch() {
 <a name="452" href="#452">452</a>         <em class="jxr_comment">// given</em>
 <a name="453" href="#453">453</a>         <strong class="jxr_keyword">final</strong> UserAccount example = <strong class="jxr_keyword">new</strong> UserAccount();
@@ -472,7 +472,74 @@
 <a name="462" href="#462">462</a>         assertEquals(0, foundAccounts.size());
 <a name="463" href="#463">463</a>     }
 <a name="464" href="#464">464</a> 
-<a name="465" href="#465">465</a> }
+<a name="465" href="#465">465</a>     <em class="jxr_javadoccomment">/**</em>
+<a name="466" href="#466">466</a> <em class="jxr_javadoccomment">     * Test method for findByExample() with a Single Criteria Match.</em>
+<a name="467" href="#467">467</a> <em class="jxr_javadoccomment">     */</em>
+<a name="468" href="#468">468</a>     @Test
+<a name="469" href="#469">469</a>     @UsingDataSet(<span class="jxr_string">"ThreeUserAccounts-Admin.yml"</span>)
+<a name="470" href="#470">470</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> ifSingleCriteriaMatchThenGetMatch() {
+<a name="471" href="#471">471</a>         <em class="jxr_comment">// given</em>
+<a name="472" href="#472">472</a>         <strong class="jxr_keyword">final</strong> UserAccount example = <strong class="jxr_keyword">new</strong> UserAccount();
+<a name="473" href="#473">473</a>         example.setFirstName(<span class="jxr_string">"Bryan"</span>);
+<a name="474" href="#474">474</a> 
+<a name="475" href="#475">475</a>         <em class="jxr_comment">// when</em>
+<a name="476" href="#476">476</a>         <strong class="jxr_keyword">final</strong> List&lt;UserAccount&gt; foundAccounts = <strong class="jxr_keyword">this</strong>.userDao.findByExample(example);
+<a name="477" href="#477">477</a> 
+<a name="478" href="#478">478</a>         <em class="jxr_comment">// then</em>
+<a name="479" href="#479">479</a>         assertNotNull(foundAccounts);
+<a name="480" href="#480">480</a>         assertEquals(1, foundAccounts.size());
+<a name="481" href="#481">481</a> 
+<a name="482" href="#482">482</a>         <strong class="jxr_keyword">final</strong> UserAccount foundAccount = foundAccounts.get(0);
+<a name="483" href="#483">483</a>         assertNotNull(foundAccount);
+<a name="484" href="#484">484</a>         assertEquals(<span class="jxr_string">"Bryan"</span>, foundAccount.getFirstName());
+<a name="485" href="#485">485</a>         assertEquals(<span class="jxr_string">"Saunders"</span>, foundAccount.getLastName());
+<a name="486" href="#486">486</a>     }
+<a name="487" href="#487">487</a> 
+<a name="488" href="#488">488</a>     <em class="jxr_javadoccomment">/**</em>
+<a name="489" href="#489">489</a> <em class="jxr_javadoccomment">     * Test method for findByExample() with a Multiple Criteria Match.</em>
+<a name="490" href="#490">490</a> <em class="jxr_javadoccomment">     */</em>
+<a name="491" href="#491">491</a>     @Test
+<a name="492" href="#492">492</a>     @UsingDataSet(<span class="jxr_string">"ThreeUserAccounts-Admin.yml"</span>)
+<a name="493" href="#493">493</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> ifMultipleCriteriaMatchThenGetMatch() {
+<a name="494" href="#494">494</a>         <em class="jxr_comment">// given</em>
+<a name="495" href="#495">495</a>         <strong class="jxr_keyword">final</strong> UserAccount example = <strong class="jxr_keyword">new</strong> UserAccount();
+<a name="496" href="#496">496</a>         example.setState(<span class="jxr_string">"SC"</span>);
+<a name="497" href="#497">497</a>         example.setLastName(<span class="jxr_string">"Saunders"</span>);
+<a name="498" href="#498">498</a> 
+<a name="499" href="#499">499</a>         <em class="jxr_comment">// when</em>
+<a name="500" href="#500">500</a>         <strong class="jxr_keyword">final</strong> List&lt;UserAccount&gt; foundAccounts = <strong class="jxr_keyword">this</strong>.userDao.findByExample(example);
+<a name="501" href="#501">501</a> 
+<a name="502" href="#502">502</a>         <em class="jxr_comment">// then</em>
+<a name="503" href="#503">503</a>         assertNotNull(foundAccounts);
+<a name="504" href="#504">504</a>         assertEquals(2, foundAccounts.size());
+<a name="505" href="#505">505</a> 
+<a name="506" href="#506">506</a>         <strong class="jxr_keyword">final</strong> UserAccount foundAccount = foundAccounts.get(0);
+<a name="507" href="#507">507</a>         assertNotNull(foundAccount);
+<a name="508" href="#508">508</a>         assertEquals(<span class="jxr_string">"Bryan"</span>, foundAccount.getFirstName());
+<a name="509" href="#509">509</a>         assertEquals(<span class="jxr_string">"Saunders"</span>, foundAccount.getLastName());
+<a name="510" href="#510">510</a>     }
+<a name="511" href="#511">511</a> 
+<a name="512" href="#512">512</a>     <em class="jxr_javadoccomment">/**</em>
+<a name="513" href="#513">513</a> <em class="jxr_javadoccomment">     * Test method for findByExample() With a Partial Match.</em>
+<a name="514" href="#514">514</a> <em class="jxr_javadoccomment">     */</em>
+<a name="515" href="#515">515</a>     @Test
+<a name="516" href="#516">516</a>     @UsingDataSet(<span class="jxr_string">"ThreeUserAccounts-Admin.yml"</span>)
+<a name="517" href="#517">517</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> ifPartialCriteriaMatchThenGetNoMatch() {
+<a name="518" href="#518">518</a>         <em class="jxr_comment">// given</em>
+<a name="519" href="#519">519</a>         <strong class="jxr_keyword">final</strong> UserAccount example = <strong class="jxr_keyword">new</strong> UserAccount();
+<a name="520" href="#520">520</a>         example.setFirstName(<span class="jxr_string">"Kirk"</span>);
+<a name="521" href="#521">521</a>         example.setLastName(<span class="jxr_string">"Saunders"</span>);
+<a name="522" href="#522">522</a>         example.setCity(<span class="jxr_string">"Charleston"</span>);
+<a name="523" href="#523">523</a> 
+<a name="524" href="#524">524</a>         <em class="jxr_comment">// when</em>
+<a name="525" href="#525">525</a>         <strong class="jxr_keyword">final</strong> List&lt;UserAccount&gt; foundAccounts = <strong class="jxr_keyword">this</strong>.userDao.findByExample(example);
+<a name="526" href="#526">526</a> 
+<a name="527" href="#527">527</a>         <em class="jxr_comment">// then</em>
+<a name="528" href="#528">528</a>         assertNotNull(foundAccounts);
+<a name="529" href="#529">529</a>         assertEquals(0, foundAccounts.size());
+<a name="530" href="#530">530</a>     }
+<a name="531" href="#531">531</a> 
+<a name="532" href="#532">532</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

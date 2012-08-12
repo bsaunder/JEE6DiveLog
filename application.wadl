@@ -5,32 +5,24 @@
     <wadl:include href="dl-security.xsd"/>
   </wadl:grammars>
   <wadl:resources base="http://localhost:8080/novaglobalapi">
-    <wadl:resource path="/rest/user/find">
+    <wadl:resource path="/rest/user">
       <wadl:method name="GET">
         <wadl:doc>
-          <![CDATA[Gets the User Specified by the Given Username.
+          <![CDATA[Gets all Users.
 
 <ul>
-<li>Status 200: User Found.</li>
-<li>Status 400: User was not found.</li>
+<li>Status 200: Users Found.</li>
 </ul>]]>
         </wadl:doc>
-        <wadl:request>
-          <wadl:param name="userName" style="query">
-            <wadl:doc>
-              <![CDATA[Username to serach for]]>
-            </wadl:doc>
-          </wadl:param>
-        </wadl:request>
         <wadl:response>
           <wadl:doc>
-            <![CDATA[Found user]]>
+            <![CDATA[List of Users]]>
           </wadl:doc>
           <wadl:representation mediaType="application/json"/>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
-    <wadl:resource path="/rest/user/identify">
+    <wadl:resource path="/rest/security/identify">
       <wadl:method name="GET">
         <wadl:doc>
           <![CDATA[Identifies the currently logged in REST user.
@@ -47,7 +39,7 @@
         </wadl:response>
       </wadl:method>
     </wadl:resource>
-    <wadl:resource path="/rest/user/login">
+    <wadl:resource path="/rest/security/login">
       <wadl:method name="POST">
         <wadl:doc>
           <![CDATA[Identifies the currently logged in REST user.
@@ -71,7 +63,7 @@
         </wadl:response>
       </wadl:method>
     </wadl:resource>
-    <wadl:resource path="/rest/user/logout">
+    <wadl:resource path="/rest/security/logout">
       <wadl:method name="POST">
         <wadl:doc>
           <![CDATA[Logout the Current REST User.
@@ -83,6 +75,30 @@
         <wadl:response>
           <wadl:doc>
             <![CDATA[Logout Result]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:response>
+      </wadl:method>
+    </wadl:resource>
+    <wadl:resource path="/rest/user/find">
+      <wadl:method name="POST">
+        <wadl:doc>
+          <![CDATA[Gets the User Specified by the Given Criteria. If not Criteria Specified, All Results will be returned.
+
+<ul>
+<li>Status 200: Results Found.</li>
+<li>Status 400: Results not found.</li>
+</ul>]]>
+        </wadl:doc>
+        <wadl:request>
+          <wadl:doc>
+            <![CDATA[Criteria to search for]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:request>
+        <wadl:response>
+          <wadl:doc>
+            <![CDATA[Found users]]>
           </wadl:doc>
           <wadl:representation mediaType="application/json"/>
         </wadl:response>
@@ -107,6 +123,67 @@
         <wadl:response>
           <wadl:doc>
             <![CDATA[Registered User]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:response>
+      </wadl:method>
+    </wadl:resource>
+    <wadl:resource path="/rest/user/{userName}">
+      <wadl:param name="userName" style="template">
+        <wadl:doc>
+          <![CDATA[Username to serach for]]>
+        </wadl:doc>
+      </wadl:param>
+      <wadl:method name="GET">
+        <wadl:doc>
+          <![CDATA[Gets the User Specified by the Given Username.
+
+<ul>
+<li>Status 200: User Found.</li>
+<li>Status 400: User was not found.</li>
+</ul>]]>
+        </wadl:doc>
+        <wadl:request/>
+        <wadl:response>
+          <wadl:doc>
+            <![CDATA[Found user]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:response>
+      </wadl:method>
+      <wadl:method name="PUT">
+        <wadl:doc>
+          <![CDATA[Updates the User Specified by the Given Username.
+
+<ul>
+<li>Status 200: User Updated.</li>
+</ul>]]>
+        </wadl:doc>
+        <wadl:request>
+          <wadl:doc>
+            <![CDATA[Updated User Account]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:request>
+        <wadl:response>
+          <wadl:doc>
+            <![CDATA[Updated user]]>
+          </wadl:doc>
+          <wadl:representation mediaType="application/json"/>
+        </wadl:response>
+      </wadl:method>
+      <wadl:method name="DELETE">
+        <wadl:doc>
+          <![CDATA[Deletes the User Specified by the Given Username.
+
+<ul>
+<li>Status 200: User Delete.</li>
+</ul>]]>
+        </wadl:doc>
+        <wadl:request/>
+        <wadl:response>
+          <wadl:doc>
+            <![CDATA[Delete status]]>
           </wadl:doc>
           <wadl:representation mediaType="application/json"/>
         </wadl:response>

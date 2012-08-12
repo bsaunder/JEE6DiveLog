@@ -75,7 +75,7 @@
 <a name="65" href="#65">65</a>          validUser.setLastName(<span class="jxr_string">"Saunders"</span>);
 <a name="66" href="#66">66</a>          validUser.setEmail(<span class="jxr_string">"btsaunde@gmail.com"</span>);
 <a name="67" href="#67">67</a>          validUser.setPassword(<span class="jxr_string">"pass123"</span>);
-<a name="68" href="#68">68</a>          
+<a name="68" href="#68">68</a>  
 <a name="69" href="#69">69</a>          when(<strong class="jxr_keyword">this</strong>.mockUserAccountDao.save(any(UserAccount.<strong class="jxr_keyword">class</strong>))).thenReturn(validUser);
 <a name="70" href="#70">70</a>  
 <a name="71" href="#71">71</a>          <em class="jxr_comment">// when</em>
@@ -99,16 +99,16 @@
 <a name="89" href="#89">89</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> ifFoundByUsernameThenRetrieve() {
 <a name="90" href="#90">90</a>          <em class="jxr_comment">// given</em>
 <a name="91" href="#91">91</a>          <strong class="jxr_keyword">final</strong> String email = <span class="jxr_string">"test@test.com"</span>;
-<a name="92" href="#92">92</a>          
+<a name="92" href="#92">92</a>  
 <a name="93" href="#93">93</a>          <strong class="jxr_keyword">final</strong> UserAccount validUser = <strong class="jxr_keyword">new</strong> UserAccount();
 <a name="94" href="#94">94</a>          validUser.setFirstName(<span class="jxr_string">"Bryan"</span>);
 <a name="95" href="#95">95</a>          validUser.setLastName(<span class="jxr_string">"Saunders"</span>);
 <a name="96" href="#96">96</a>          validUser.setEmail(email);
 <a name="97" href="#97">97</a>          validUser.setPassword(<span class="jxr_string">"pass123"</span>);
-<a name="98" href="#98">98</a>          
+<a name="98" href="#98">98</a>  
 <a name="99" href="#99">99</a>          <strong class="jxr_keyword">final</strong> List&lt;UserAccount&gt; userAccountList = <strong class="jxr_keyword">new</strong> LinkedList&lt;UserAccount&gt;();
 <a name="100" href="#100">100</a>         userAccountList.add(validUser);
-<a name="101" href="#101">101</a>         
+<a name="101" href="#101">101</a> 
 <a name="102" href="#102">102</a>         when(<strong class="jxr_keyword">this</strong>.mockUserAccountDao.findByExample(any(UserAccount.<strong class="jxr_keyword">class</strong>))).thenReturn(userAccountList);
 <a name="103" href="#103">103</a> 
 <a name="104" href="#104">104</a>         <em class="jxr_comment">// when</em>
@@ -142,12 +142,12 @@
 <a name="132" href="#132">132</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSaveUser() {
 <a name="133" href="#133">133</a>         <em class="jxr_comment">// given</em>
 <a name="134" href="#134">134</a>         <strong class="jxr_keyword">final</strong> UserAccount user = <strong class="jxr_keyword">new</strong> UserAccount();
-<a name="135" href="#135">135</a>         
+<a name="135" href="#135">135</a> 
 <a name="136" href="#136">136</a>         when(<strong class="jxr_keyword">this</strong>.mockUserAccountDao.save(any(UserAccount.<strong class="jxr_keyword">class</strong>))).thenReturn(user);
-<a name="137" href="#137">137</a>         
+<a name="137" href="#137">137</a> 
 <a name="138" href="#138">138</a>         <em class="jxr_comment">// when</em>
 <a name="139" href="#139">139</a>         <strong class="jxr_keyword">this</strong>.userService.saveUser(user);
-<a name="140" href="#140">140</a>         
+<a name="140" href="#140">140</a> 
 <a name="141" href="#141">141</a>         <em class="jxr_comment">// then</em>
 <a name="142" href="#142">142</a>         verify(<strong class="jxr_keyword">this</strong>.mockUserAccountDao).save(user);
 <a name="143" href="#143">143</a>     }
@@ -159,7 +159,7 @@
 <a name="149" href="#149">149</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testClearApiKey() {
 <a name="150" href="#150">150</a>         <em class="jxr_comment">// given</em>
 <a name="151" href="#151">151</a>         <strong class="jxr_keyword">final</strong> String email = <span class="jxr_string">"test@test.com"</span>;
-<a name="152" href="#152">152</a>         
+<a name="152" href="#152">152</a> 
 <a name="153" href="#153">153</a>         <strong class="jxr_keyword">final</strong> UserAccount validUser = <strong class="jxr_keyword">new</strong> UserAccount();
 <a name="154" href="#154">154</a>         validUser.setFirstName(<span class="jxr_string">"Bryan"</span>);
 <a name="155" href="#155">155</a>         validUser.setLastName(<span class="jxr_string">"Saunders"</span>);
@@ -167,24 +167,60 @@
 <a name="157" href="#157">157</a>         validUser.setPassword(<span class="jxr_string">"pass123"</span>);
 <a name="158" href="#158">158</a>         validUser.setApiKey(<span class="jxr_string">"API_KEY"</span>);
 <a name="159" href="#159">159</a>         validUser.setApiKeyExpiration(<strong class="jxr_keyword">new</strong> Date());
-<a name="160" href="#160">160</a>         
+<a name="160" href="#160">160</a> 
 <a name="161" href="#161">161</a>         <strong class="jxr_keyword">final</strong> List&lt;UserAccount&gt; userAccountList = <strong class="jxr_keyword">new</strong> LinkedList&lt;UserAccount&gt;();
 <a name="162" href="#162">162</a>         userAccountList.add(validUser);
-<a name="163" href="#163">163</a>         
+<a name="163" href="#163">163</a> 
 <a name="164" href="#164">164</a>         when(<strong class="jxr_keyword">this</strong>.mockUserAccountDao.findByExample(any(UserAccount.<strong class="jxr_keyword">class</strong>))).thenReturn(userAccountList);
-<a name="165" href="#165">165</a>         
+<a name="165" href="#165">165</a> 
 <a name="166" href="#166">166</a>         <em class="jxr_comment">// when</em>
 <a name="167" href="#167">167</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> result = <strong class="jxr_keyword">this</strong>.userService.clearApiKey(email);
-<a name="168" href="#168">168</a>         
+<a name="168" href="#168">168</a> 
 <a name="169" href="#169">169</a>         <em class="jxr_comment">// then</em>
 <a name="170" href="#170">170</a>         assertTrue(result);
 <a name="171" href="#171">171</a>         assertNull(validUser.getApiKey());
-<a name="172" href="#172">172</a>         
+<a name="172" href="#172">172</a> 
 <a name="173" href="#173">173</a>         <strong class="jxr_keyword">final</strong> Date expirationDate = validUser.getApiKeyExpiration();
 <a name="174" href="#174">174</a>         assertTrue(expirationDate.getTime() &lt; System.currentTimeMillis());
 <a name="175" href="#175">175</a>     }
 <a name="176" href="#176">176</a> 
-<a name="177" href="#177">177</a> }
+<a name="177" href="#177">177</a>     <em class="jxr_javadoccomment">/**</em>
+<a name="178" href="#178">178</a> <em class="jxr_javadoccomment">     * Test for Find By Example.</em>
+<a name="179" href="#179">179</a> <em class="jxr_javadoccomment">     */</em>
+<a name="180" href="#180">180</a>     @Test
+<a name="181" href="#181">181</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> ifExampleMatchesThenGetMatches() {
+<a name="182" href="#182">182</a>         <em class="jxr_comment">// given</em>
+<a name="183" href="#183">183</a>         <strong class="jxr_keyword">final</strong> UserAccount user = <strong class="jxr_keyword">new</strong> UserAccount();
+<a name="184" href="#184">184</a>         List&lt;UserAccount&gt; userList = <strong class="jxr_keyword">new</strong> LinkedList&lt;UserAccount&gt;();
+<a name="185" href="#185">185</a>         userList.add(user);
+<a name="186" href="#186">186</a> 
+<a name="187" href="#187">187</a>         when(<strong class="jxr_keyword">this</strong>.mockUserAccountDao.findByExample(any(UserAccount.<strong class="jxr_keyword">class</strong>))).thenReturn(userList);
+<a name="188" href="#188">188</a> 
+<a name="189" href="#189">189</a>         <em class="jxr_comment">// when</em>
+<a name="190" href="#190">190</a>         <strong class="jxr_keyword">this</strong>.userService.findByExample(user);
+<a name="191" href="#191">191</a> 
+<a name="192" href="#192">192</a>         <em class="jxr_comment">// then</em>
+<a name="193" href="#193">193</a>         verify(<strong class="jxr_keyword">this</strong>.mockUserAccountDao).findByExample(user);
+<a name="194" href="#194">194</a>     }
+<a name="195" href="#195">195</a> 
+<a name="196" href="#196">196</a>     <em class="jxr_javadoccomment">/**</em>
+<a name="197" href="#197">197</a> <em class="jxr_javadoccomment">     * Test for Find By Example.</em>
+<a name="198" href="#198">198</a> <em class="jxr_javadoccomment">     */</em>
+<a name="199" href="#199">199</a>     @Test
+<a name="200" href="#200">200</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> ifExampleDoesntMatchThenEmptyList() {
+<a name="201" href="#201">201</a>         <em class="jxr_comment">// given</em>
+<a name="202" href="#202">202</a>         <strong class="jxr_keyword">final</strong> UserAccount user = <strong class="jxr_keyword">new</strong> UserAccount();
+<a name="203" href="#203">203</a> 
+<a name="204" href="#204">204</a>         when(<strong class="jxr_keyword">this</strong>.mockUserAccountDao.findByExample(any(UserAccount.<strong class="jxr_keyword">class</strong>))).thenReturn(<strong class="jxr_keyword">new</strong> LinkedList&lt;UserAccount&gt;());
+<a name="205" href="#205">205</a> 
+<a name="206" href="#206">206</a>         <em class="jxr_comment">// when</em>
+<a name="207" href="#207">207</a>         <strong class="jxr_keyword">this</strong>.userService.findByExample(user);
+<a name="208" href="#208">208</a> 
+<a name="209" href="#209">209</a>         <em class="jxr_comment">// then</em>
+<a name="210" href="#210">210</a>         verify(<strong class="jxr_keyword">this</strong>.mockUserAccountDao).findByExample(user);
+<a name="211" href="#211">211</a>     }
+<a name="212" href="#212">212</a> 
+<a name="213" href="#213">213</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

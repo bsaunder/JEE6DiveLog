@@ -55,6 +55,7 @@
               <a href="resource_UserAccountApi.html">UserAccountApi</a>
               <ul>
                 <li><a href="resource_UserAccountApi.html">UserAccountApi</a></li>
+                <li><a href="resource_SecurityApi.html">SecurityApi</a></li>
               </ul>
             </li>
           </ul>
@@ -66,91 +67,52 @@
 
       <p>The following resources are part of this group:</p>
       <ul>
+        <li><a href="#path__user.html">/user</a></li>
         <li><a href="#path__user_find.html">/user/find</a></li>
-        <li><a href="#path__user_identify.html">/user/identify</a></li>
-        <li><a href="#path__user_login.html">/user/login</a></li>
-        <li><a href="#path__user_logout.html">/user/logout</a></li>
         <li><a href="#path__user_register.html">/user/register</a></li>
+        <li><a href="#path__user_-userName-.html">/user/{userName}</a></li>
       </ul>
+      <a name="path__user.html"></a>
+      <h1>/user</h1>
+      <p class="note">Mount Point: <a href="./rest/user">/rest/user</a></p>
+      <a name="GET"></a>
+      <h2>GET</h2>
+      <p>
+            Gets all Users.
+
+<ul>
+<li>Status 200: Users Found.</li>
+</ul>
+          </p>
+      <h3>Response Body</h3>
+      <table>
+        <tr>
+          <td align="right">element:</td>
+          <td>(custom)</td>
+        </tr>
+      </table>
+      <p>List of Users</p>
       <a name="path__user_find.html"></a>
       <h1>/user/find</h1>
       <p class="note">Mount Point: <a href="./rest/user/find">/rest/user/find</a></p>
-      <a name="GET"></a>
-      <h2>GET</h2>
-      <p>
-            Gets the User Specified by the Given Username.
-
-<ul>
-<li>Status 200: User Found.</li>
-<li>Status 400: User was not found.</li>
-</ul>
-          </p>
-      <h3>Parameters</h3>
-      <table>
-        <tr>
-          <th>name</th>
-          <th>description</th>
-          <th>type</th>
-          <th>default</th>
-        </tr>
-        <tr>
-          <td>userName</td>
-          <td>
-            Username to serach for
-          </td>
-          <td>query</td>
-          <td></td>
-        </tr>
-      </table>
-      <h3>Response Body</h3>
-      <table>
-        <tr>
-          <td align="right">element:</td>
-          <td><a href="el_divelog_userAccount.html">userAccount</a></td>
-        </tr>
-      </table>
-      <p>Found user</p>
-      <a name="path__user_identify.html"></a>
-      <h1>/user/identify</h1>
-      <p class="note">Mount Point: <a href="./rest/user/identify">/rest/user/identify</a></p>
-      <a name="GET"></a>
-      <h2>GET</h2>
-      <p>
-            Identifies the currently logged in REST user.
-
-<ul>
-<li>Status 200: Request Successful.</li>
-</ul>
-          </p>
-      <h3>Response Body</h3>
-      <table>
-        <tr>
-          <td align="right">element:</td>
-          <td><a href="el_divelog_userAccount.html">userAccount</a></td>
-        </tr>
-      </table>
-      <p>User Account</p>
-      <a name="path__user_login.html"></a>
-      <h1>/user/login</h1>
-      <p class="note">Mount Point: <a href="./rest/user/login">/rest/user/login</a></p>
       <a name="POST"></a>
       <h2>POST</h2>
       <p>
-            Identifies the currently logged in REST user.
+            Gets the User Specified by the Given Criteria. If not Criteria Specified, All Results will be returned.
 
 <ul>
-<li>Status 202: Login Successful.</li>
-<li>Status 401: Login Failed.</li>
+<li>Status 200: Results Found.</li>
+<li>Status 400: Results not found.</li>
 </ul>
           </p>
       <h3>Request Body</h3>
       <table>
         <tr>
           <td align="right">element:</td>
-          <td><a href="el_dl-security_credentials.html">credentials</a></td>
+          <td><a href="el_divelog_userAccount.html">userAccount</a></td>
         </tr>
       </table>
-      <p>Users Login Credentials</p>
+      <p>Criteria to search for</p>
       <h3>Response Body</h3>
       <table>
         <tr>
@@ -158,27 +120,7 @@
           <td>(custom)</td>
         </tr>
       </table>
-      <p>User API Token</p>
-      <a name="path__user_logout.html"></a>
-      <h1>/user/logout</h1>
-      <p class="note">Mount Point: <a href="./rest/user/logout">/rest/user/logout</a></p>
-      <a name="POST"></a>
-      <h2>POST</h2>
-      <p>
-            Logout the Current REST User.
-
-<ul>
-<li>Status 200: Logout Request Successful.</li>
-</ul>
-          </p>
-      <h3>Response Body</h3>
-      <table>
-        <tr>
-          <td align="right">element:</td>
-          <td>(custom)</td>
-        </tr>
-      </table>
-      <p>Logout Result</p>
+      <p>Found users</p>
       <a name="path__user_register.html"></a>
       <h1>/user/register</h1>
       <p class="note">Mount Point: <a href="./rest/user/register">/rest/user/register</a></p>
@@ -208,6 +150,128 @@
         </tr>
       </table>
       <p>Registered User</p>
+      <a name="path__user_-userName-.html"></a>
+      <h1>/user/{userName}</h1>
+      <p class="note">Mount Point: <a href="./rest/user/{userName}">/rest/user/{userName}</a></p>
+      <p>
+        The following operations are supported on this resource:
+      </p>
+      <ul>
+        <li><a href="#GET">GET</a></li>
+        <li><a href="#PUT">PUT</a></li>
+        <li><a href="#DELETE">DELETE</a></li>
+      </ul>
+      <a name="GET"></a>
+      <h2>GET</h2>
+      <p>
+            Gets the User Specified by the Given Username.
+
+<ul>
+<li>Status 200: User Found.</li>
+<li>Status 400: User was not found.</li>
+</ul>
+          </p>
+      <h3>Parameters</h3>
+      <table>
+        <tr>
+          <th>name</th>
+          <th>description</th>
+          <th>type</th>
+          <th>default</th>
+        </tr>
+        <tr>
+          <td>userName</td>
+          <td>
+            Username to serach for
+          </td>
+          <td>path</td>
+          <td></td>
+        </tr>
+      </table>
+      <h3>Response Body</h3>
+      <table>
+        <tr>
+          <td align="right">element:</td>
+          <td><a href="el_divelog_userAccount.html">userAccount</a></td>
+        </tr>
+      </table>
+      <p>Found user</p>
+      <a name="PUT"></a>
+      <h2>PUT</h2>
+      <p>
+            Updates the User Specified by the Given Username.
+
+<ul>
+<li>Status 200: User Updated.</li>
+</ul>
+          </p>
+      <h3>Parameters</h3>
+      <table>
+        <tr>
+          <th>name</th>
+          <th>description</th>
+          <th>type</th>
+          <th>default</th>
+        </tr>
+        <tr>
+          <td>userName</td>
+          <td>
+            Username to update
+          </td>
+          <td>path</td>
+          <td></td>
+        </tr>
+      </table>
+      <h3>Request Body</h3>
+      <table>
+        <tr>
+          <td align="right">element:</td>
+          <td><a href="el_divelog_userAccount.html">userAccount</a></td>
+        </tr>
+      </table>
+      <p>Updated User Account</p>
+      <h3>Response Body</h3>
+      <table>
+        <tr>
+          <td align="right">element:</td>
+          <td><a href="el_divelog_userAccount.html">userAccount</a></td>
+        </tr>
+      </table>
+      <p>Updated user</p>
+      <a name="DELETE"></a>
+      <h2>DELETE</h2>
+      <p>
+            Deletes the User Specified by the Given Username.
+
+<ul>
+<li>Status 200: User Delete.</li>
+</ul>
+          </p>
+      <h3>Parameters</h3>
+      <table>
+        <tr>
+          <th>name</th>
+          <th>description</th>
+          <th>type</th>
+          <th>default</th>
+        </tr>
+        <tr>
+          <td>userName</td>
+          <td>
+            Username to delete
+          </td>
+          <td>path</td>
+          <td></td>
+        </tr>
+      </table>
+      <h3>Response Body</h3>
+      <table>
+        <tr>
+          <td align="right">element:</td>
+          <td>(custom)</td>
+        </tr>
+      </table>
+      <p>Delete status</p>
 
       <div class="clear" />
     </div>

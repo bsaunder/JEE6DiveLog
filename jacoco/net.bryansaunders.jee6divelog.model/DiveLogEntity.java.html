@@ -110,7 +110,11 @@ import javax.persistence.Version;
      * @return the created
      */
     public Date getCreated() {
-<span class="fc" id="L113">        return new Date(this.created.getTime());</span>
+<span class="fc" id="L113">        Date date = null;</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (this.created != null) {</span>
+<span class="fc" id="L115">            date = new Date(this.created.getTime());</span>
+        }
+<span class="fc" id="L117">        return date;</span>
     }
 
     /**
@@ -120,12 +124,12 @@ import javax.persistence.Version;
      *            the newCreated to set
      */
     public void setCreated(final Date newCreated) {
-<span class="fc bfc" id="L123" title="All 2 branches covered.">        if (newCreated == null) {</span>
-<span class="fc" id="L124">            this.created = null;</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">        if (newCreated == null) {</span>
+<span class="fc" id="L128">            this.created = null;</span>
         } else {
-<span class="fc" id="L126">            this.created = new Date(newCreated.getTime());</span>
+<span class="fc" id="L130">            this.created = new Date(newCreated.getTime());</span>
         }
-<span class="fc" id="L128">    }</span>
+<span class="fc" id="L132">    }</span>
 
     /**
      * Get the updated.
@@ -133,7 +137,11 @@ import javax.persistence.Version;
      * @return the updated
      */
     public Date getUpdated() {
-<span class="fc" id="L136">        return new Date(this.updated.getTime());</span>
+<span class="fc" id="L140">        Date date = null;</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        if (this.updated != null) {</span>
+<span class="fc" id="L142">            date = new Date(this.updated.getTime());</span>
+        }
+<span class="fc" id="L144">        return date;</span>
     }
 
     /**
@@ -143,12 +151,12 @@ import javax.persistence.Version;
      *            the updated to set
      */
     public void setUpdated(final Date newUpdated) {
-<span class="fc bfc" id="L146" title="All 2 branches covered.">        if (newUpdated == null) {</span>
-<span class="fc" id="L147">            this.updated = null;</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">        if (newUpdated == null) {</span>
+<span class="fc" id="L155">            this.updated = null;</span>
         } else {
-<span class="fc" id="L149">            this.updated = new Date(newUpdated.getTime());</span>
+<span class="fc" id="L157">            this.updated = new Date(newUpdated.getTime());</span>
         }
-<span class="fc" id="L151">    }</span>
+<span class="fc" id="L159">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

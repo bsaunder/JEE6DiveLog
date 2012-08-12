@@ -13,6 +13,8 @@ import net.bryansaunders.jee6divelog.security.Identity;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
 import net.bryansaunders.jee6divelog.util.SecurityUtils;
 
+import org.jboss.resteasy.annotations.interception.Precedence;
+import org.jboss.resteasy.annotations.interception.ServerInterceptor;
 import org.jboss.resteasy.core.ResourceMethod;
 import org.jboss.resteasy.core.ServerResponse;
 import org.jboss.resteasy.spi.Failure;
@@ -28,12 +30,14 @@ import org.slf4j.LoggerFactory;
  * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
  * 
  */
-<span class="fc" id="L31">public class RestSecurityInterceptor implements PreProcessInterceptor {</span>
+@ServerInterceptor
+@Precedence(&quot;SECURITY&quot;)
+<span class="fc" id="L35">public class RestSecurityInterceptor implements PreProcessInterceptor {</span>
 
     /**
      * Logger.
      */
-<span class="fc" id="L36">    private final Logger logger = LoggerFactory.getLogger(RestSecurityInterceptor.class);</span>
+<span class="fc" id="L40">    private final Logger logger = LoggerFactory.getLogger(RestSecurityInterceptor.class);</span>
 
     /**
      * Identity for current Session.
@@ -63,71 +67,71 @@ import org.slf4j.LoggerFactory;
     @Override
     public ServerResponse preProcess(final HttpRequest httpRequest, final ResourceMethod resourceMethod)
             throws Failure, WebApplicationException {
-<span class="fc" id="L66">        ServerResponse response = null;</span>
-<span class="fc" id="L67">        String userName = null;</span>
-<span class="fc" id="L68">        String userToken = null;</span>
+<span class="fc" id="L70">        ServerResponse response = null;</span>
+<span class="fc" id="L71">        String userName = null;</span>
+<span class="fc" id="L72">        String userToken = null;</span>
 
-<span class="fc" id="L70">        this.logger.info(&quot;REST API Called: &quot; + httpRequest.getUri().getAbsolutePath());</span>
+<span class="fc" id="L74">        this.logger.info(&quot;REST API Called: &quot; + httpRequest.getUri().getAbsolutePath());</span>
 
-<span class="fc" id="L72">        final boolean isSecured = SecurityUtils.isMethodSecure(resourceMethod);</span>
+<span class="fc" id="L76">        final boolean isSecured = SecurityUtils.isMethodSecure(resourceMethod);</span>
 
-<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (isSecured) {</span>
-<span class="fc" id="L75">            this.logger.debug(&quot;Secure API Call: &quot; + httpRequest.getUri().getAbsolutePath());</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (isSecured) {</span>
+<span class="fc" id="L79">            this.logger.debug(&quot;Secure API Call: &quot; + httpRequest.getUri().getAbsolutePath());</span>
 
-<span class="fc" id="L77">            userName = this.getUserDefinedHeader(httpRequest, &quot;dl-username&quot;);</span>
-<span class="fc" id="L78">            userToken = this.getUserDefinedHeader(httpRequest, &quot;dl-token&quot;);</span>
+<span class="fc" id="L81">            userName = this.getUserDefinedHeader(httpRequest, &quot;dl-username&quot;);</span>
+<span class="fc" id="L82">            userToken = this.getUserDefinedHeader(httpRequest, &quot;dl-token&quot;);</span>
 
-<span class="fc" id="L80">            this.logger.debug(&quot;Using Headers: userName:&quot; + userName + &quot; | token:&quot; + userToken);</span>
+<span class="fc" id="L84">            this.logger.debug(&quot;Using Headers: userName:&quot; + userName + &quot; | token:&quot; + userToken);</span>
 
             // Get UserAccount by Username
-<span class="pc bpc" id="L83" title="1 of 4 branches missed.">            if (userName != null &amp;&amp; userToken != null) {</span>
-<span class="fc" id="L84">                this.logger.debug(&quot;REST API Call Headers Valid&quot;);</span>
-<span class="fc" id="L85">                final UserAccount userAccount = this.userAccountService.findByUserEmail(userName);</span>
+<span class="pc bpc" id="L87" title="1 of 4 branches missed.">            if (userName != null &amp;&amp; userToken != null) {</span>
+<span class="fc" id="L88">                this.logger.debug(&quot;REST API Call Headers Valid&quot;);</span>
+<span class="fc" id="L89">                final UserAccount userAccount = this.userAccountService.findByUserEmail(userName);</span>
 
-<span class="fc bfc" id="L87" title="All 2 branches covered.">                if (userAccount != null) {</span>
-<span class="fc" id="L88">                    this.logger.debug(&quot;REST API User Found&quot;);</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">                if (userAccount != null) {</span>
+<span class="fc" id="L92">                    this.logger.debug(&quot;REST API User Found&quot;);</span>
                     // Check Expiration Date
-<span class="fc" id="L90">                    final Date expirationDate = userAccount.getApiKeyExpiration();</span>
+<span class="fc" id="L94">                    final Date expirationDate = userAccount.getApiKeyExpiration();</span>
 
-<span class="fc bfc" id="L92" title="All 4 branches covered.">                    if (expirationDate != null &amp;&amp; System.currentTimeMillis() &lt; expirationDate.getTime()) {</span>
-<span class="fc" id="L93">                        this.logger.debug(&quot;API Token Not Expired&quot;);</span>
+<span class="fc bfc" id="L96" title="All 4 branches covered.">                    if (expirationDate != null &amp;&amp; System.currentTimeMillis() &lt; expirationDate.getTime()) {</span>
+<span class="fc" id="L97">                        this.logger.debug(&quot;API Token Not Expired&quot;);</span>
                         // Generate Token
-<span class="fc" id="L95">                        final String apiKey = userAccount.getApiKey();</span>
-<span class="fc" id="L96">                        final String expectedToken = SecurityUtils.generateRestApiToken(userName, apiKey);</span>
+<span class="fc" id="L99">                        final String apiKey = userAccount.getApiKey();</span>
+<span class="fc" id="L100">                        final String expectedToken = SecurityUtils.generateRestApiToken(userName, apiKey);</span>
 
                         // Check Tokens
-<span class="fc bfc" id="L99" title="All 2 branches covered.">                        if (expectedToken.equals(userToken)) {</span>
-<span class="fc" id="L100">                            this.logger.debug(&quot;API Token Valid&quot;);</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">                        if (expectedToken.equals(userToken)) {</span>
+<span class="fc" id="L104">                            this.logger.debug(&quot;API Token Valid&quot;);</span>
 
                             // Set Identity
-<span class="fc" id="L103">                            this.identity.setApiKey(apiKey);</span>
-<span class="fc" id="L104">                            this.identity.setApiKeyExpiration(expirationDate);</span>
-<span class="fc" id="L105">                            this.identity.setPermissions(userAccount.getPermissions());</span>
-<span class="fc" id="L106">                            this.identity.setRoles(userAccount.getRoles());</span>
-<span class="fc" id="L107">                            this.identity.setStatus(Identity.LOGGED_IN);</span>
-<span class="fc" id="L108">                            final Credentials credentials = new Credentials();</span>
-<span class="fc" id="L109">                            credentials.setUsername(userName);</span>
-<span class="fc" id="L110">                            credentials.setPassword(userAccount.getPassword());</span>
-<span class="fc" id="L111">                            this.identity.setCredentials(credentials);</span>
+<span class="fc" id="L107">                            this.identity.setApiKey(apiKey);</span>
+<span class="fc" id="L108">                            this.identity.setApiKeyExpiration(expirationDate);</span>
+<span class="fc" id="L109">                            this.identity.setPermissions(userAccount.getPermissions());</span>
+<span class="fc" id="L110">                            this.identity.setRoles(userAccount.getRoles());</span>
+<span class="fc" id="L111">                            this.identity.setStatus(Identity.LOGGED_IN);</span>
+<span class="fc" id="L112">                            final Credentials credentials = new Credentials();</span>
+<span class="fc" id="L113">                            credentials.setUsername(userName);</span>
+<span class="fc" id="L114">                            credentials.setPassword(userAccount.getPassword());</span>
+<span class="fc" id="L115">                            this.identity.setCredentials(credentials);</span>
                             
                             // Return null
-<span class="fc" id="L114">                            response = null;</span>
+<span class="fc" id="L118">                            response = null;</span>
 
-<span class="fc" id="L116">                        } else {</span>
-<span class="fc" id="L117">                            response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Invalid Token&quot;);</span>
+<span class="fc" id="L120">                        } else {</span>
+<span class="fc" id="L121">                            response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Invalid Token&quot;);</span>
                         }
-<span class="fc" id="L119">                    } else {</span>
-<span class="fc" id="L120">                        response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Token Expired&quot;);</span>
+<span class="fc" id="L123">                    } else {</span>
+<span class="fc" id="L124">                        response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Token Expired&quot;);</span>
                     }
-<span class="fc" id="L122">                } else {</span>
-<span class="fc" id="L123">                    response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Invalid User&quot;);</span>
+<span class="fc" id="L126">                } else {</span>
+<span class="fc" id="L127">                    response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Invalid User&quot;);</span>
                 }
-<span class="fc" id="L125">            } else {</span>
-<span class="fc" id="L126">                response = this.buildResponse(HttpResponseCodes.SC_BAD_REQUEST, &quot;Missing Headers&quot;);</span>
+<span class="fc" id="L129">            } else {</span>
+<span class="fc" id="L130">                response = this.buildResponse(HttpResponseCodes.SC_BAD_REQUEST, &quot;Missing Headers&quot;);</span>
             }
         }
 
-<span class="fc" id="L130">        return response;</span>
+<span class="fc" id="L134">        return response;</span>
     }
 
     /**
@@ -140,11 +144,11 @@ import org.slf4j.LoggerFactory;
      * @return ServerResponse
      */
     private ServerResponse buildResponse(final int statusCode, final String message) {
-<span class="fc" id="L143">        this.logger.info(&quot;Creating REST Response: &quot; + statusCode + &quot; - &quot; + message);</span>
-<span class="fc" id="L144">        final ServerResponse response = new ServerResponse();</span>
-<span class="fc" id="L145">        response.setStatus(statusCode);</span>
-<span class="fc" id="L146">        response.setEntity(message);</span>
-<span class="fc" id="L147">        return response;</span>
+<span class="fc" id="L147">        this.logger.info(&quot;Creating REST Response: &quot; + statusCode + &quot; - &quot; + message);</span>
+<span class="fc" id="L148">        final ServerResponse response = new ServerResponse();</span>
+<span class="fc" id="L149">        response.setStatus(statusCode);</span>
+<span class="fc" id="L150">        response.setEntity(message);</span>
+<span class="fc" id="L151">        return response;</span>
     }
 
     /**
@@ -157,15 +161,15 @@ import org.slf4j.LoggerFactory;
      * @return Header Value if Found, null if not found
      */
     private String getUserDefinedHeader(final HttpRequest httpRequest, final String headerName) {
-<span class="fc" id="L160">        String headerValue = null;</span>
-<span class="fc" id="L161">        final HttpHeaders headers = httpRequest.getHttpHeaders();</span>
+<span class="fc" id="L164">        String headerValue = null;</span>
+<span class="fc" id="L165">        final HttpHeaders headers = httpRequest.getHttpHeaders();</span>
 
-<span class="fc" id="L163">        final List&lt;String&gt; headerList = headers.getRequestHeader(headerName);</span>
-<span class="pc bpc" id="L164" title="1 of 4 branches missed.">        if (headerList != null &amp;&amp; !headerList.isEmpty()) {</span>
-<span class="fc" id="L165">            headerValue = headerList.get(0);</span>
+<span class="fc" id="L167">        final List&lt;String&gt; headerList = headers.getRequestHeader(headerName);</span>
+<span class="pc bpc" id="L168" title="1 of 4 branches missed.">        if (headerList != null &amp;&amp; !headerList.isEmpty()) {</span>
+<span class="fc" id="L169">            headerValue = headerList.get(0);</span>
         }
 
-<span class="fc" id="L168">        return headerValue;</span>
+<span class="fc" id="L172">        return headerValue;</span>
     }
 
 }

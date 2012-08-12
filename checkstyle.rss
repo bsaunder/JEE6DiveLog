@@ -8,10 +8,10 @@
     <language>en-us</language>
     <copyright>&#169;2012 Bryan Saunders</copyright>
     <item>
-      <title>File: 35,
+      <title>File: 36,
              Errors: 0,
              Warnings: 0,
-             Infos: 20
+             Infos: 30
       </title>
             <link>https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html</link>
       <description>
@@ -58,6 +58,20 @@
                           <tr>
                 <td>
                   <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.util.HashUtils.java">net/bryansaunders/jee6divelog/util/HashUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.service.rest.SecurityApi.java">net/bryansaunders/jee6divelog/service/rest/SecurityApi.java</a>
                 </td>
                 <td>
                   0
@@ -200,7 +214,7 @@
                   <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.service.rest.UserAccountApi.java">net/bryansaunders/jee6divelog/service/rest/UserAccountApi.java</a>
                 </td>
                 <td>
-                  0
+                  10
                 </td>
                 <td>
                   0

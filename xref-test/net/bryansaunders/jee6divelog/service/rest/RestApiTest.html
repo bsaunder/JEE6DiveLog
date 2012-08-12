@@ -107,7 +107,7 @@
 <a name="97" href="#97">97</a>          credentials.setPassword(password);
 <a name="98" href="#98">98</a>  
 <a name="99" href="#99">99</a>          <strong class="jxr_keyword">final</strong> String token = given().contentType(ContentType.JSON).body(credentials).expect()
-<a name="100" href="#100">100</a>                 .statusCode(RestApiTest.ACCEPTED).when().post(RestApiTest.URL_ROOT + <span class="jxr_string">"/user/login/"</span>).asString();
+<a name="100" href="#100">100</a>                 .statusCode(RestApiTest.ACCEPTED).when().post(RestApiTest.URL_ROOT + <span class="jxr_string">"/security/login/"</span>).asString();
 <a name="101" href="#101">101</a>         
 <a name="102" href="#102">102</a>         <strong class="jxr_keyword">return</strong> token;
 <a name="103" href="#103">103</a>     }
