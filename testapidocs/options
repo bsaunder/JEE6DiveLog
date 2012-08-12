@@ -15,8 +15,10 @@
 -docencoding
 'UTF-8'
 -doctitle
-'jee6divelog 0.1-PoC Test API'
+'BSNet-DiveLog 0.1-PoC Test API'
+-link
+'../apidocs'
 -use
 -version
 -windowtitle
-'jee6divelog 0.1-PoC Test API'
+'BSNet-DiveLog 0.1-PoC Test API'

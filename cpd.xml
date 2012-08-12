@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
 <duplication lines="47" tokens="102">
-<file line="274" path="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\model\UserAccount.java"/>
-<file line="369" path="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\security\Identity.java"/>
+<file line="298" path="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\model\UserAccount.java"/>
+<file line="393" path="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\security\Identity.java"/>
 <codefragment>
 <![CDATA[
     }

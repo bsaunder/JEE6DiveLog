@@ -1,4 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RestSecurityInterceptor.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.security.interceptor</a> &gt; <span class="el_source">RestSecurityInterceptor.java</span></div><h1>RestSecurityInterceptor.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.security.interceptor;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RestSecurityInterceptor.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSNet-DiveLog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.security.interceptor</a> &gt; <span class="el_source">RestSecurityInterceptor.java</span></div><h1>RestSecurityInterceptor.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.security.interceptor;
+/*
+ * #%L
+ * BSNet-DiveLog
+ * $Id:$
+ * $HeadURL:$
+ * %%
+ * Copyright (C) 2012 Bryan Saunders
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/gpl-3.0.html&gt;.
+ * #L%
+ */
+
 
 import java.util.Date;
 import java.util.List;
@@ -32,12 +56,12 @@ import org.slf4j.LoggerFactory;
  */
 @ServerInterceptor
 @Precedence(&quot;SECURITY&quot;)
-<span class="fc" id="L35">public class RestSecurityInterceptor implements PreProcessInterceptor {</span>
+<span class="nc" id="L59">public class RestSecurityInterceptor implements PreProcessInterceptor {</span>
 
     /**
      * Logger.
      */
-<span class="fc" id="L40">    private final Logger logger = LoggerFactory.getLogger(RestSecurityInterceptor.class);</span>
+<span class="nc" id="L64">    private final Logger logger = LoggerFactory.getLogger(RestSecurityInterceptor.class);</span>
 
     /**
      * Identity for current Session.
@@ -67,71 +91,71 @@ import org.slf4j.LoggerFactory;
     @Override
     public ServerResponse preProcess(final HttpRequest httpRequest, final ResourceMethod resourceMethod)
             throws Failure, WebApplicationException {
-<span class="fc" id="L70">        ServerResponse response = null;</span>
-<span class="fc" id="L71">        String userName = null;</span>
-<span class="fc" id="L72">        String userToken = null;</span>
+<span class="nc" id="L94">        ServerResponse response = null;</span>
+<span class="nc" id="L95">        String userName = null;</span>
+<span class="nc" id="L96">        String userToken = null;</span>
 
-<span class="fc" id="L74">        this.logger.info(&quot;REST API Called: &quot; + httpRequest.getUri().getAbsolutePath());</span>
+<span class="nc" id="L98">        this.logger.info(&quot;REST API Called: &quot; + httpRequest.getUri().getAbsolutePath());</span>
 
-<span class="fc" id="L76">        final boolean isSecured = SecurityUtils.isMethodSecure(resourceMethod);</span>
+<span class="nc" id="L100">        final boolean isSecured = SecurityUtils.isMethodSecure(resourceMethod);</span>
 
-<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (isSecured) {</span>
-<span class="fc" id="L79">            this.logger.debug(&quot;Secure API Call: &quot; + httpRequest.getUri().getAbsolutePath());</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (isSecured) {</span>
+<span class="nc" id="L103">            this.logger.debug(&quot;Secure API Call: &quot; + httpRequest.getUri().getAbsolutePath());</span>
 
-<span class="fc" id="L81">            userName = this.getUserDefinedHeader(httpRequest, &quot;dl-username&quot;);</span>
-<span class="fc" id="L82">            userToken = this.getUserDefinedHeader(httpRequest, &quot;dl-token&quot;);</span>
+<span class="nc" id="L105">            userName = this.getUserDefinedHeader(httpRequest, &quot;dl-username&quot;);</span>
+<span class="nc" id="L106">            userToken = this.getUserDefinedHeader(httpRequest, &quot;dl-token&quot;);</span>
 
-<span class="fc" id="L84">            this.logger.debug(&quot;Using Headers: userName:&quot; + userName + &quot; | token:&quot; + userToken);</span>
+<span class="nc" id="L108">            this.logger.debug(&quot;Using Headers: userName:&quot; + userName + &quot; | token:&quot; + userToken);</span>
 
             // Get UserAccount by Username
-<span class="pc bpc" id="L87" title="1 of 4 branches missed.">            if (userName != null &amp;&amp; userToken != null) {</span>
-<span class="fc" id="L88">                this.logger.debug(&quot;REST API Call Headers Valid&quot;);</span>
-<span class="fc" id="L89">                final UserAccount userAccount = this.userAccountService.findByUserEmail(userName);</span>
+<span class="nc bnc" id="L111" title="All 4 branches missed.">            if (userName != null &amp;&amp; userToken != null) {</span>
+<span class="nc" id="L112">                this.logger.debug(&quot;REST API Call Headers Valid&quot;);</span>
+<span class="nc" id="L113">                final UserAccount userAccount = this.userAccountService.findByUserEmail(userName);</span>
 
-<span class="fc bfc" id="L91" title="All 2 branches covered.">                if (userAccount != null) {</span>
-<span class="fc" id="L92">                    this.logger.debug(&quot;REST API User Found&quot;);</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">                if (userAccount != null) {</span>
+<span class="nc" id="L116">                    this.logger.debug(&quot;REST API User Found&quot;);</span>
                     // Check Expiration Date
-<span class="fc" id="L94">                    final Date expirationDate = userAccount.getApiKeyExpiration();</span>
+<span class="nc" id="L118">                    final Date expirationDate = userAccount.getApiKeyExpiration();</span>
 
-<span class="fc bfc" id="L96" title="All 4 branches covered.">                    if (expirationDate != null &amp;&amp; System.currentTimeMillis() &lt; expirationDate.getTime()) {</span>
-<span class="fc" id="L97">                        this.logger.debug(&quot;API Token Not Expired&quot;);</span>
+<span class="nc bnc" id="L120" title="All 4 branches missed.">                    if (expirationDate != null &amp;&amp; System.currentTimeMillis() &lt; expirationDate.getTime()) {</span>
+<span class="nc" id="L121">                        this.logger.debug(&quot;API Token Not Expired&quot;);</span>
                         // Generate Token
-<span class="fc" id="L99">                        final String apiKey = userAccount.getApiKey();</span>
-<span class="fc" id="L100">                        final String expectedToken = SecurityUtils.generateRestApiToken(userName, apiKey);</span>
+<span class="nc" id="L123">                        final String apiKey = userAccount.getApiKey();</span>
+<span class="nc" id="L124">                        final String expectedToken = SecurityUtils.generateRestApiToken(userName, apiKey);</span>
 
                         // Check Tokens
-<span class="fc bfc" id="L103" title="All 2 branches covered.">                        if (expectedToken.equals(userToken)) {</span>
-<span class="fc" id="L104">                            this.logger.debug(&quot;API Token Valid&quot;);</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">                        if (expectedToken.equals(userToken)) {</span>
+<span class="nc" id="L128">                            this.logger.debug(&quot;API Token Valid&quot;);</span>
 
                             // Set Identity
-<span class="fc" id="L107">                            this.identity.setApiKey(apiKey);</span>
-<span class="fc" id="L108">                            this.identity.setApiKeyExpiration(expirationDate);</span>
-<span class="fc" id="L109">                            this.identity.setPermissions(userAccount.getPermissions());</span>
-<span class="fc" id="L110">                            this.identity.setRoles(userAccount.getRoles());</span>
-<span class="fc" id="L111">                            this.identity.setStatus(Identity.LOGGED_IN);</span>
-<span class="fc" id="L112">                            final Credentials credentials = new Credentials();</span>
-<span class="fc" id="L113">                            credentials.setUsername(userName);</span>
-<span class="fc" id="L114">                            credentials.setPassword(userAccount.getPassword());</span>
-<span class="fc" id="L115">                            this.identity.setCredentials(credentials);</span>
+<span class="nc" id="L131">                            this.identity.setApiKey(apiKey);</span>
+<span class="nc" id="L132">                            this.identity.setApiKeyExpiration(expirationDate);</span>
+<span class="nc" id="L133">                            this.identity.setPermissions(userAccount.getPermissions());</span>
+<span class="nc" id="L134">                            this.identity.setRoles(userAccount.getRoles());</span>
+<span class="nc" id="L135">                            this.identity.setStatus(Identity.LOGGED_IN);</span>
+<span class="nc" id="L136">                            final Credentials credentials = new Credentials();</span>
+<span class="nc" id="L137">                            credentials.setUsername(userName);</span>
+<span class="nc" id="L138">                            credentials.setPassword(userAccount.getPassword());</span>
+<span class="nc" id="L139">                            this.identity.setCredentials(credentials);</span>
                             
                             // Return null
-<span class="fc" id="L118">                            response = null;</span>
+<span class="nc" id="L142">                            response = null;</span>
 
-<span class="fc" id="L120">                        } else {</span>
-<span class="fc" id="L121">                            response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Invalid Token&quot;);</span>
+<span class="nc" id="L144">                        } else {</span>
+<span class="nc" id="L145">                            response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Invalid Token&quot;);</span>
                         }
-<span class="fc" id="L123">                    } else {</span>
-<span class="fc" id="L124">                        response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Token Expired&quot;);</span>
+<span class="nc" id="L147">                    } else {</span>
+<span class="nc" id="L148">                        response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Token Expired&quot;);</span>
                     }
-<span class="fc" id="L126">                } else {</span>
-<span class="fc" id="L127">                    response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Invalid User&quot;);</span>
+<span class="nc" id="L150">                } else {</span>
+<span class="nc" id="L151">                    response = this.buildResponse(HttpResponseCodes.SC_UNAUTHORIZED, &quot;Invalid User&quot;);</span>
                 }
-<span class="fc" id="L129">            } else {</span>
-<span class="fc" id="L130">                response = this.buildResponse(HttpResponseCodes.SC_BAD_REQUEST, &quot;Missing Headers&quot;);</span>
+<span class="nc" id="L153">            } else {</span>
+<span class="nc" id="L154">                response = this.buildResponse(HttpResponseCodes.SC_BAD_REQUEST, &quot;Missing Headers&quot;);</span>
             }
         }
 
-<span class="fc" id="L134">        return response;</span>
+<span class="nc" id="L158">        return response;</span>
     }
 
     /**
@@ -144,11 +168,11 @@ import org.slf4j.LoggerFactory;
      * @return ServerResponse
      */
     private ServerResponse buildResponse(final int statusCode, final String message) {
-<span class="fc" id="L147">        this.logger.info(&quot;Creating REST Response: &quot; + statusCode + &quot; - &quot; + message);</span>
-<span class="fc" id="L148">        final ServerResponse response = new ServerResponse();</span>
-<span class="fc" id="L149">        response.setStatus(statusCode);</span>
-<span class="fc" id="L150">        response.setEntity(message);</span>
-<span class="fc" id="L151">        return response;</span>
+<span class="nc" id="L171">        this.logger.info(&quot;Creating REST Response: &quot; + statusCode + &quot; - &quot; + message);</span>
+<span class="nc" id="L172">        final ServerResponse response = new ServerResponse();</span>
+<span class="nc" id="L173">        response.setStatus(statusCode);</span>
+<span class="nc" id="L174">        response.setEntity(message);</span>
+<span class="nc" id="L175">        return response;</span>
     }
 
     /**
@@ -161,15 +185,15 @@ import org.slf4j.LoggerFactory;
      * @return Header Value if Found, null if not found
      */
     private String getUserDefinedHeader(final HttpRequest httpRequest, final String headerName) {
-<span class="fc" id="L164">        String headerValue = null;</span>
-<span class="fc" id="L165">        final HttpHeaders headers = httpRequest.getHttpHeaders();</span>
+<span class="nc" id="L188">        String headerValue = null;</span>
+<span class="nc" id="L189">        final HttpHeaders headers = httpRequest.getHttpHeaders();</span>
 
-<span class="fc" id="L167">        final List&lt;String&gt; headerList = headers.getRequestHeader(headerName);</span>
-<span class="pc bpc" id="L168" title="1 of 4 branches missed.">        if (headerList != null &amp;&amp; !headerList.isEmpty()) {</span>
-<span class="fc" id="L169">            headerValue = headerList.get(0);</span>
+<span class="nc" id="L191">        final List&lt;String&gt; headerList = headers.getRequestHeader(headerName);</span>
+<span class="nc bnc" id="L192" title="All 4 branches missed.">        if (headerList != null &amp;&amp; !headerList.isEmpty()) {</span>
+<span class="nc" id="L193">            headerValue = headerList.get(0);</span>
         }
 
-<span class="fc" id="L172">        return headerValue;</span>
+<span class="nc" id="L196">        return headerValue;</span>
     }
 
 }

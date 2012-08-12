@@ -1,4 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HasPermissionsInterceptor.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.security.interceptor</a> &gt; <span class="el_source">HasPermissionsInterceptor.java</span></div><h1>HasPermissionsInterceptor.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.security.interceptor;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HasPermissionsInterceptor.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSNet-DiveLog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.security.interceptor</a> &gt; <span class="el_source">HasPermissionsInterceptor.java</span></div><h1>HasPermissionsInterceptor.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.security.interceptor;
+/*
+ * #%L
+ * BSNet-DiveLog
+ * $Id:$
+ * $HeadURL:$
+ * %%
+ * Copyright (C) 2012 Bryan Saunders
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/gpl-3.0.html&gt;.
+ * #L%
+ */
+
 
 import java.lang.reflect.Method;
 
@@ -20,7 +44,7 @@ import net.bryansaunders.jee6divelog.security.enumerator.Permission;
  */
 @HasPermissions(permissions = { })
 @Interceptor
-<span class="fc" id="L23">public class HasPermissionsInterceptor {</span>
+<span class="nc" id="L47">public class HasPermissionsInterceptor {</span>
 
     /**
      * Active Identity.
@@ -39,36 +63,36 @@ import net.bryansaunders.jee6divelog.security.enumerator.Permission;
      */
     @AroundInvoke
     public Object checkAuthenticaion(final InvocationContext ctx) throws Exception {
-<span class="fc" id="L42">        final Method method = ctx.getMethod();</span>
-<span class="fc" id="L43">        Permission[] permissions = null;</span>
+<span class="nc" id="L66">        final Method method = ctx.getMethod();</span>
+<span class="nc" id="L67">        Permission[] permissions = null;</span>
 
         // Check For Method Level Annotations
-<span class="fc" id="L46">        HasPermissions hasPermissionsAnnotation = method.getAnnotation(HasPermissions.class);</span>
-<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (hasPermissionsAnnotation != null) {</span>
-<span class="fc" id="L48">            permissions = hasPermissionsAnnotation.permissions();</span>
+<span class="nc" id="L70">        HasPermissions hasPermissionsAnnotation = method.getAnnotation(HasPermissions.class);</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (hasPermissionsAnnotation != null) {</span>
+<span class="nc" id="L72">            permissions = hasPermissionsAnnotation.permissions();</span>
         }
 
         // Check For Class Level Annotations
-<span class="fc" id="L52">        final Class&lt;?&gt; callingClass = method.getDeclaringClass();</span>
-<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (callingClass != null) {</span>
-<span class="fc" id="L54">            hasPermissionsAnnotation = callingClass.getAnnotation(HasPermissions.class);</span>
-<span class="fc bfc" id="L55" title="All 2 branches covered.">            if (hasPermissionsAnnotation != null) {</span>
-<span class="fc" id="L56">                permissions = hasPermissionsAnnotation.permissions();</span>
+<span class="nc" id="L76">        final Class&lt;?&gt; callingClass = method.getDeclaringClass();</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (callingClass != null) {</span>
+<span class="nc" id="L78">            hasPermissionsAnnotation = callingClass.getAnnotation(HasPermissions.class);</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (hasPermissionsAnnotation != null) {</span>
+<span class="nc" id="L80">                permissions = hasPermissionsAnnotation.permissions();</span>
             }
         }
 
         // Check Identity
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (permissions == null) {</span>
-<span class="fc" id="L62">            throw new AuthorizationFailedException(&quot;Could not Validate Identity, Could not Retrieve Permission.&quot;);</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (permissions == null) {</span>
+<span class="nc" id="L86">            throw new AuthorizationFailedException(&quot;Could not Validate Identity, Could not Retrieve Permission.&quot;);</span>
         } else {
-<span class="fc bfc" id="L64" title="All 2 branches covered.">            for (Permission permission : permissions) {</span>
-<span class="fc bfc" id="L65" title="All 2 branches covered.">                if (!this.identity.hasPermission(permission)) {</span>
-<span class="fc" id="L66">                    throw new AuthorizationFailedException(&quot;Access Denied, Permission &quot; + permission + &quot; Not Found&quot;);</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            for (Permission permission : permissions) {</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">                if (!this.identity.hasPermission(permission)) {</span>
+<span class="nc" id="L90">                    throw new AuthorizationFailedException(&quot;Access Denied, Permission &quot; + permission + &quot; Not Found&quot;);</span>
                 }
             }
         }
 
-<span class="fc" id="L71">        return ctx.proceed();</span>
+<span class="nc" id="L95">        return ctx.proceed();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

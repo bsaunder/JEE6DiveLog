@@ -2,9 +2,9 @@
 
 <rss version="0.91">
   <channel>
-    <title>jee6divelog - Checkstyle report</title>
-    <link>https://jee6divelog-bsaunders.rhcloud.com/</link>
-    <description>jee6divelog - Checkstyle report</description>
+    <title>BSNet-DiveLog - Checkstyle report</title>
+    <link>https://github.com/bsaunder/JEE6DiveLog</link>
+    <description>BSNet-DiveLog - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2012 Bryan Saunders</copyright>
     <item>
@@ -13,9 +13,9 @@
              Warnings: 0,
              Infos: 30
       </title>
-            <link>https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html</link>
+            <link>https://github.com/bsaunder/JEE6DiveLog/checkstyle.html</link>
       <description>
-        <p>Click <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -29,7 +29,7 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.RestSecurityInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/RestSecurityInterceptor.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.RestSecurityInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/RestSecurityInterceptor.java</a>
                 </td>
                 <td>
                   6
@@ -43,7 +43,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasRoles.java">net/bryansaunders/jee6divelog/security/annotation/HasRoles.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasRoles.java">net/bryansaunders/jee6divelog/security/annotation/HasRoles.java</a>
                 </td>
                 <td>
                   0
@@ -57,7 +57,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.util.HashUtils.java">net/bryansaunders/jee6divelog/util/HashUtils.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.util.HashUtils.java">net/bryansaunders/jee6divelog/util/HashUtils.java</a>
                 </td>
                 <td>
                   0
@@ -71,7 +71,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.service.rest.SecurityApi.java">net/bryansaunders/jee6divelog/service/rest/SecurityApi.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.service.rest.SecurityApi.java">net/bryansaunders/jee6divelog/service/rest/SecurityApi.java</a>
                 </td>
                 <td>
                   0
@@ -85,7 +85,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.validation.annotation.Password.java">net/bryansaunders/jee6divelog/validation/annotation/Password.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.validation.annotation.Password.java">net/bryansaunders/jee6divelog/validation/annotation/Password.java</a>
                 </td>
                 <td>
                   0
@@ -99,7 +99,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.service.rest.RestApiRoot.java">net/bryansaunders/jee6divelog/service/rest/RestApiRoot.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.service.rest.RestApiRoot.java">net/bryansaunders/jee6divelog/service/rest/RestApiRoot.java</a>
                 </td>
                 <td>
                   0
@@ -113,7 +113,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.filter.AuthenticationFilter.java">net/bryansaunders/jee6divelog/security/filter/AuthenticationFilter.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.filter.AuthenticationFilter.java">net/bryansaunders/jee6divelog/security/filter/AuthenticationFilter.java</a>
                 </td>
                 <td>
                   0
@@ -127,7 +127,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasRoleInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasRoleInterceptor.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasRoleInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasRoleInterceptor.java</a>
                 </td>
                 <td>
                   0
@@ -141,7 +141,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.enumerator.Role.java">net/bryansaunders/jee6divelog/security/enumerator/Role.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.enumerator.Role.java">net/bryansaunders/jee6divelog/security/enumerator/Role.java</a>
                 </td>
                 <td>
                   0
@@ -155,7 +155,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.validation.FieldMatchValidator.java">net/bryansaunders/jee6divelog/validation/FieldMatchValidator.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.validation.FieldMatchValidator.java">net/bryansaunders/jee6divelog/validation/FieldMatchValidator.java</a>
                 </td>
                 <td>
                   0
@@ -169,7 +169,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.enumerator.package-info.java">net/bryansaunders/jee6divelog/security/enumerator/package-info.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.enumerator.package-info.java">net/bryansaunders/jee6divelog/security/enumerator/package-info.java</a>
                 </td>
                 <td>
                   2
@@ -183,7 +183,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.dao.GenericDaoImpl.java">net/bryansaunders/jee6divelog/dao/GenericDaoImpl.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.dao.GenericDaoImpl.java">net/bryansaunders/jee6divelog/dao/GenericDaoImpl.java</a>
                 </td>
                 <td>
                   0
@@ -197,7 +197,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.model.package-info.java">net/bryansaunders/jee6divelog/model/package-info.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.model.package-info.java">net/bryansaunders/jee6divelog/model/package-info.java</a>
                 </td>
                 <td>
                   2
@@ -211,7 +211,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.service.rest.UserAccountApi.java">net/bryansaunders/jee6divelog/service/rest/UserAccountApi.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.service.rest.UserAccountApi.java">net/bryansaunders/jee6divelog/service/rest/UserAccountApi.java</a>
                 </td>
                 <td>
                   10
@@ -225,7 +225,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasPermissionInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasPermissionInterceptor.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasPermissionInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasPermissionInterceptor.java</a>
                 </td>
                 <td>
                   0
@@ -239,7 +239,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasPermissionsInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasPermissionsInterceptor.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasPermissionsInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasPermissionsInterceptor.java</a>
                 </td>
                 <td>
                   0
@@ -253,7 +253,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.bean.LoginBean.java">net/bryansaunders/jee6divelog/bean/LoginBean.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.bean.LoginBean.java">net/bryansaunders/jee6divelog/bean/LoginBean.java</a>
                 </td>
                 <td>
                   0
@@ -267,7 +267,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.validation.annotation.FieldMatch.java">net/bryansaunders/jee6divelog/validation/annotation/FieldMatch.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.validation.annotation.FieldMatch.java">net/bryansaunders/jee6divelog/validation/annotation/FieldMatch.java</a>
                 </td>
                 <td>
                   0
@@ -281,7 +281,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.validation.PasswordValidator.java">net/bryansaunders/jee6divelog/validation/PasswordValidator.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.validation.PasswordValidator.java">net/bryansaunders/jee6divelog/validation/PasswordValidator.java</a>
                 </td>
                 <td>
                   0
@@ -295,7 +295,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.dao.user.UserAccountDao.java">net/bryansaunders/jee6divelog/dao/user/UserAccountDao.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.dao.user.UserAccountDao.java">net/bryansaunders/jee6divelog/dao/user/UserAccountDao.java</a>
                 </td>
                 <td>
                   0
@@ -309,7 +309,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.enumerator.Permission.java">net/bryansaunders/jee6divelog/security/enumerator/Permission.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.enumerator.Permission.java">net/bryansaunders/jee6divelog/security/enumerator/Permission.java</a>
                 </td>
                 <td>
                   0
@@ -323,7 +323,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.util.Resources.java">net/bryansaunders/jee6divelog/util/Resources.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.util.Resources.java">net/bryansaunders/jee6divelog/util/Resources.java</a>
                 </td>
                 <td>
                   0
@@ -337,7 +337,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasRole.java">net/bryansaunders/jee6divelog/security/annotation/HasRole.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasRole.java">net/bryansaunders/jee6divelog/security/annotation/HasRole.java</a>
                 </td>
                 <td>
                   0
@@ -351,7 +351,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.Credentials.java">net/bryansaunders/jee6divelog/security/Credentials.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.Credentials.java">net/bryansaunders/jee6divelog/security/Credentials.java</a>
                 </td>
                 <td>
                   0
@@ -365,7 +365,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.package-info.java">net/bryansaunders/jee6divelog/security/package-info.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.package-info.java">net/bryansaunders/jee6divelog/security/package-info.java</a>
                 </td>
                 <td>
                   2
@@ -379,7 +379,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasRolesInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasRolesInterceptor.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasRolesInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasRolesInterceptor.java</a>
                 </td>
                 <td>
                   0
@@ -393,7 +393,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.model.UserAccount.java">net/bryansaunders/jee6divelog/model/UserAccount.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.model.UserAccount.java">net/bryansaunders/jee6divelog/model/UserAccount.java</a>
                 </td>
                 <td>
                   0
@@ -407,7 +407,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.util.SecurityUtils.java">net/bryansaunders/jee6divelog/util/SecurityUtils.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.util.SecurityUtils.java">net/bryansaunders/jee6divelog/util/SecurityUtils.java</a>
                 </td>
                 <td>
                   2
@@ -421,7 +421,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.AuthorizationFailedException.java">net/bryansaunders/jee6divelog/security/AuthorizationFailedException.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.AuthorizationFailedException.java">net/bryansaunders/jee6divelog/security/AuthorizationFailedException.java</a>
                 </td>
                 <td>
                   0
@@ -435,7 +435,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.model.DiveLogEntity.java">net/bryansaunders/jee6divelog/model/DiveLogEntity.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.model.DiveLogEntity.java">net/bryansaunders/jee6divelog/model/DiveLogEntity.java</a>
                 </td>
                 <td>
                   0
@@ -449,7 +449,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.bean.RegistrationBean.java">net/bryansaunders/jee6divelog/bean/RegistrationBean.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.bean.RegistrationBean.java">net/bryansaunders/jee6divelog/bean/RegistrationBean.java</a>
                 </td>
                 <td>
                   0
@@ -463,7 +463,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasPermission.java">net/bryansaunders/jee6divelog/security/annotation/HasPermission.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasPermission.java">net/bryansaunders/jee6divelog/security/annotation/HasPermission.java</a>
                 </td>
                 <td>
                   0
@@ -477,7 +477,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasPermissions.java">net/bryansaunders/jee6divelog/security/annotation/HasPermissions.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.annotation.HasPermissions.java">net/bryansaunders/jee6divelog/security/annotation/HasPermissions.java</a>
                 </td>
                 <td>
                   0
@@ -491,7 +491,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.security.Identity.java">net/bryansaunders/jee6divelog/security/Identity.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.Identity.java">net/bryansaunders/jee6divelog/security/Identity.java</a>
                 </td>
                 <td>
                   4
@@ -505,7 +505,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.service.UserAccountService.java">net/bryansaunders/jee6divelog/service/UserAccountService.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.service.UserAccountService.java">net/bryansaunders/jee6divelog/service/UserAccountService.java</a>
                 </td>
                 <td>
                   2
@@ -519,7 +519,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://jee6divelog-bsaunders.rhcloud.com//checkstyle.html#net.bryansaunders.jee6divelog.dao.GenericDao.java">net/bryansaunders/jee6divelog/dao/GenericDao.java</a>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.dao.GenericDao.java">net/bryansaunders/jee6divelog/dao/GenericDao.java</a>
                 </td>
                 <td>
                   0

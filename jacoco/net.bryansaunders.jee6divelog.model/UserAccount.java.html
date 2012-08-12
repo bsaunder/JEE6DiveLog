@@ -1,4 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserAccount.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jee6divelog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.model</a> &gt; <span class="el_source">UserAccount.java</span></div><h1>UserAccount.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.model;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserAccount.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSNet-DiveLog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.model</a> &gt; <span class="el_source">UserAccount.java</span></div><h1>UserAccount.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.model;
+/*
+ * #%L
+ * BSNet-DiveLog
+ * $Id:$
+ * $HeadURL:$
+ * %%
+ * Copyright (C) 2012 Bryan Saunders
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/gpl-3.0.html&gt;.
+ * #L%
+ */
+
 
 import java.util.Date;
 import java.util.Set;
@@ -30,7 +54,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = &quot;user&quot;)
 @XmlRootElement
-<span class="fc" id="L33">public class UserAccount extends DiveLogEntity {</span>
+<span class="nc" id="L57">public class UserAccount extends DiveLogEntity {</span>
 
     /**
      * User First Name.
@@ -108,7 +132,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the firstName
      */
     public String getFirstName() {
-<span class="fc" id="L111">        return this.firstName;</span>
+<span class="nc" id="L135">        return this.firstName;</span>
     }
 
     /**
@@ -118,8 +142,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the firstName to set
      */
     public void setFirstName(final String newFirstName) {
-<span class="fc" id="L121">        this.firstName = newFirstName;</span>
-<span class="fc" id="L122">    }</span>
+<span class="nc" id="L145">        this.firstName = newFirstName;</span>
+<span class="nc" id="L146">    }</span>
 
     /**
      * Get the lastName.
@@ -127,7 +151,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the lastName
      */
     public String getLastName() {
-<span class="fc" id="L130">        return this.lastName;</span>
+<span class="nc" id="L154">        return this.lastName;</span>
     }
 
     /**
@@ -137,8 +161,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the lastName to set
      */
     public void setLastName(final String newLastName) {
-<span class="fc" id="L140">        this.lastName = newLastName;</span>
-<span class="fc" id="L141">    }</span>
+<span class="nc" id="L164">        this.lastName = newLastName;</span>
+<span class="nc" id="L165">    }</span>
 
     /**
      * Get the country.
@@ -146,7 +170,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the country
      */
     public String getCountry() {
-<span class="fc" id="L149">        return this.country;</span>
+<span class="nc" id="L173">        return this.country;</span>
     }
 
     /**
@@ -156,8 +180,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the country to set
      */
     public void setCountry(final String newCountry) {
-<span class="fc" id="L159">        this.country = newCountry;</span>
-<span class="fc" id="L160">    }</span>
+<span class="nc" id="L183">        this.country = newCountry;</span>
+<span class="nc" id="L184">    }</span>
 
     /**
      * Get the state.
@@ -165,7 +189,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the state
      */
     public String getState() {
-<span class="fc" id="L168">        return this.state;</span>
+<span class="nc" id="L192">        return this.state;</span>
     }
 
     /**
@@ -175,8 +199,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the state to set
      */
     public void setState(final String newState) {
-<span class="fc" id="L178">        this.state = newState;</span>
-<span class="fc" id="L179">    }</span>
+<span class="nc" id="L202">        this.state = newState;</span>
+<span class="nc" id="L203">    }</span>
 
     /**
      * Get the city.
@@ -184,7 +208,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the city
      */
     public String getCity() {
-<span class="fc" id="L187">        return this.city;</span>
+<span class="nc" id="L211">        return this.city;</span>
     }
 
     /**
@@ -194,8 +218,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the city to set
      */
     public void setCity(final String newCity) {
-<span class="fc" id="L197">        this.city = newCity;</span>
-<span class="fc" id="L198">    }</span>
+<span class="nc" id="L221">        this.city = newCity;</span>
+<span class="nc" id="L222">    }</span>
 
     /**
      * Get the email.
@@ -203,7 +227,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the email
      */
     public String getEmail() {
-<span class="fc" id="L206">        return this.email;</span>
+<span class="nc" id="L230">        return this.email;</span>
     }
 
     /**
@@ -213,8 +237,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the email to set
      */
     public void setEmail(final String newEmail) {
-<span class="fc" id="L216">        this.email = newEmail;</span>
-<span class="fc" id="L217">    }</span>
+<span class="nc" id="L240">        this.email = newEmail;</span>
+<span class="nc" id="L241">    }</span>
 
     /**
      * Get the password.
@@ -222,7 +246,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the password
      */
     public String getPassword() {
-<span class="fc" id="L225">        return this.password;</span>
+<span class="nc" id="L249">        return this.password;</span>
     }
 
     /**
@@ -232,8 +256,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the password to set
      */
     public void setPassword(final String newPassword) {
-<span class="fc" id="L235">        this.password = newPassword;</span>
-<span class="fc" id="L236">    }</span>
+<span class="nc" id="L259">        this.password = newPassword;</span>
+<span class="nc" id="L260">    }</span>
 
     /**
      * Get the roles.
@@ -241,7 +265,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the roles
      */
     public Set&lt;Role&gt; getRoles() {
-<span class="fc" id="L244">        return this.roles;</span>
+<span class="nc" id="L268">        return this.roles;</span>
     }
 
     /**
@@ -251,8 +275,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the roles to set
      */
     public void setRoles(final Set&lt;Role&gt; newRoles) {
-<span class="fc" id="L254">        this.roles = newRoles;</span>
-<span class="fc" id="L255">    }</span>
+<span class="nc" id="L278">        this.roles = newRoles;</span>
+<span class="nc" id="L279">    }</span>
 
     /**
      * Get the permissions.
@@ -260,7 +284,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the permissions
      */
     public Set&lt;Permission&gt; getPermissions() {
-<span class="fc" id="L263">        return this.permissions;</span>
+<span class="nc" id="L287">        return this.permissions;</span>
     }
 
     /**
@@ -270,8 +294,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the permissions to set
      */
     public void setPermissions(final Set&lt;Permission&gt; newPermissions) {
-<span class="fc" id="L273">        this.permissions = newPermissions;</span>
-<span class="fc" id="L274">    }</span>
+<span class="nc" id="L297">        this.permissions = newPermissions;</span>
+<span class="nc" id="L298">    }</span>
 
     /**
      * Get the apiKey.
@@ -279,7 +303,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the apiKey
      */
     public String getApiKey() {
-<span class="fc" id="L282">        return this.apiKey;</span>
+<span class="nc" id="L306">        return this.apiKey;</span>
     }
 
     /**
@@ -289,8 +313,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the apiKey to set
      */
     public void setApiKey(final String newApiKey) {
-<span class="fc" id="L292">        this.apiKey = newApiKey;</span>
-<span class="fc" id="L293">    }</span>
+<span class="nc" id="L316">        this.apiKey = newApiKey;</span>
+<span class="nc" id="L317">    }</span>
 
     /**
      * Get the apiKeyExpiration.
@@ -298,11 +322,11 @@ import org.hibernate.annotations.LazyCollectionOption;
      * @return the apiKeyExpiration
      */
     public Date getApiKeyExpiration() {
-<span class="fc" id="L301">        Date date = null;</span>
-<span class="fc bfc" id="L302" title="All 2 branches covered.">        if (this.apiKeyExpiration != null) {</span>
-<span class="fc" id="L303">            date = new Date(this.apiKeyExpiration.getTime());</span>
+<span class="nc" id="L325">        Date date = null;</span>
+<span class="nc bnc" id="L326" title="All 2 branches missed.">        if (this.apiKeyExpiration != null) {</span>
+<span class="nc" id="L327">            date = new Date(this.apiKeyExpiration.getTime());</span>
         }
-<span class="fc" id="L305">        return date;</span>
+<span class="nc" id="L329">        return date;</span>
     }
 
     /**
@@ -312,12 +336,12 @@ import org.hibernate.annotations.LazyCollectionOption;
      *            the apiKeyExpiration to set
      */
     public void setApiKeyExpiration(final Date newApiKeyExpiration) {
-<span class="fc bfc" id="L315" title="All 2 branches covered.">        if (newApiKeyExpiration == null) {</span>
-<span class="fc" id="L316">            this.apiKeyExpiration = null;</span>
+<span class="nc bnc" id="L339" title="All 2 branches missed.">        if (newApiKeyExpiration == null) {</span>
+<span class="nc" id="L340">            this.apiKeyExpiration = null;</span>
         } else {
-<span class="fc" id="L318">            this.apiKeyExpiration = new Date(newApiKeyExpiration.getTime());</span>
+<span class="nc" id="L342">            this.apiKeyExpiration = new Date(newApiKeyExpiration.getTime());</span>
         }
-<span class="fc" id="L320">    }</span>
+<span class="nc" id="L344">    }</span>
 
     /*
      * (non-Javadoc)
@@ -326,7 +350,7 @@ import org.hibernate.annotations.LazyCollectionOption;
      */
     @Override
     public String toString() {
-<span class="fc" id="L329">        return &quot;UserAccount [firstName=&quot; + this.firstName + &quot;, lastName=&quot; + this.lastName + &quot;, country=&quot; + this.country</span>
+<span class="nc" id="L353">        return &quot;UserAccount [firstName=&quot; + this.firstName + &quot;, lastName=&quot; + this.lastName + &quot;, country=&quot; + this.country</span>
                 + &quot;, state=&quot; + this.state + &quot;, city=&quot; + this.city + &quot;, email=&quot; + this.email + &quot;, password=&quot;
                 + this.password + &quot;, apiKey=&quot; + this.apiKey + &quot;, apiKeyExpiration=&quot; + this.apiKeyExpiration
                 + &quot;, roles=&quot; + this.roles + &quot;, permissions=&quot; + this.permissions + &quot;]&quot;;
