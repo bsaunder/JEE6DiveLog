@@ -13,6 +13,8 @@ import net.bryansaunders.jee6divelog.security.Identity;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
 import net.bryansaunders.jee6divelog.util.SecurityUtils;
 
+import org.jboss.resteasy.annotations.interception.Precedence;
+import org.jboss.resteasy.annotations.interception.ServerInterceptor;
 import org.jboss.resteasy.core.ResourceMethod;
 import org.jboss.resteasy.core.ServerResponse;
 import org.jboss.resteasy.spi.Failure;
@@ -28,6 +30,8 @@ import org.slf4j.LoggerFactory;
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
+@ServerInterceptor
+@Precedence("SECURITY")
 public class RestSecurityInterceptor implements PreProcessInterceptor {
 
     /**

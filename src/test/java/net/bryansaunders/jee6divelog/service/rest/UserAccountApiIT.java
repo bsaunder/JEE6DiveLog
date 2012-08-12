@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 
 import net.bryansaunders.jee6divelog.model.UserAccount;
-import net.bryansaunders.jee6divelog.security.Credentials;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
@@ -115,78 +114,6 @@ public class UserAccountApiIT extends RestApiTest {
     @Test
     public void ifUsernameBlankThenDontGetUser() {
         expect().statusCode(RestApiTest.BAD_REQUEST).when().get(RestApiTest.URL_ROOT + "/user/find?userName=");
-    }
-
-    /**
-     * Test Login.
-     */
-    @Test
-    public void ifCredentialsValidThenLogin() {
-        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
-        assertNotNull(token);
-    }
-
-    /**
-     * Test Login.
-     */
-    @Test
-    public void ifCredentialsInvalidThenFail() {
-        final Credentials credentials = new Credentials();
-        credentials.setUsername("nope@fail.com");
-        credentials.setPassword("wrongpass");
-
-        given().contentType(ContentType.JSON).body(credentials).expect().statusCode(RestApiTest.UNAUTHORIZED).when()
-                .post(RestApiTest.URL_ROOT + "/user/login/");
-    }
-
-    /**
-     * Test Identify.
-     */
-    @Test
-    public void ifLoggedInThenIdentify() {
-        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
-
-        final UserAccount foundUser = given()
-                .headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, token)
-                .expect().statusCode(OK).when().get(RestApiTest.URL_ROOT + "/user/identify").as(UserAccount.class);
-
-        assertNotNull(foundUser);
-        assertEquals(UserAccountApiIT.VALID_EMAIL, foundUser.getEmail());
-    }
-
-    /**
-     * Test Identify.
-     */
-    @Test
-    public void ifNotLoggedInThenIdentifyUnauthorized() {
-        given().headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, "1233")
-                .expect().statusCode(RestApiTest.UNAUTHORIZED).when().get(RestApiTest.URL_ROOT + "/user/identify");
-    }
-
-    /**
-     * Test Logout.
-     */
-    @Test
-    public void ifNotLoggedInThenLogoutUnauthorized() {
-        given().headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, "1233")
-                .expect().statusCode(RestApiTest.UNAUTHORIZED).when().post(RestApiTest.URL_ROOT + "/user/logout");
-        // String json = get(RestApiTest.URL_ROOT + "/user/logout").asString();
-        // System.out.println("JSON: " + json);
-    }
-
-    /**
-     * Test Logout.
-     */
-    @Test
-    public void ifLoggedInThenLogout() {
-        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
-
-        final String json = given()
-                .headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, token)
-                .expect().statusCode(OK).when().post(RestApiTest.URL_ROOT + "/user/logout").asString();
-
-        assertNotNull(json);
-        assertEquals("true", json);
     }
 
 }

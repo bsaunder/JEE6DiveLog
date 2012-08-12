@@ -97,7 +97,7 @@ public abstract class RestApiTest {
         credentials.setPassword(password);
 
         final String token = given().contentType(ContentType.JSON).body(credentials).expect()
-                .statusCode(RestApiTest.ACCEPTED).when().post(RestApiTest.URL_ROOT + "/user/login/").asString();
+                .statusCode(RestApiTest.ACCEPTED).when().post(RestApiTest.URL_ROOT + "/security/login/").asString();
         
         return token;
     }
