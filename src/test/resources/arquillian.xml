@@ -26,15 +26,26 @@
 <arquillian xmlns="http://jboss.com/arquillian" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:glassfish="urn:arq:org.jboss.arquillian.container.glassfish.embedded_3">
 
-
 	<defaultProtocol type="Servlet 3.0" />
-	<container qualifier="jboss" default="true">
+
+	<container qualifier="jbossas-managed" default="true">
 		<protocol type="Servlet 3.0">
 			<property name="executionType">MANAGED</property>
 		</protocol>
 		<configuration>
+			<property name="jbossHome">target/jboss-as-7.1.1.Final</property>
 			<!-- <property name="jbossHome">C:\EAP-6.0.0.GA\jboss-eap-6.0</property> -->
-			<property name="jbossHome">C:\jboss-as-7.1.1.Final</property>
+			<!-- <property name="jbossHome">C:\jboss-as-7.1.1.Final</property> -->
+		</configuration>
+	</container>
+
+	<container qualifier="openshift">
+		<configuration>
+			<property name="namespace">bsaunders</property>
+			<property name="application">jee6divelogtest</property>
+			<property name="libraDomain">rhcloud.com</property>
+			<property name="sshUserName">6c7a865af51f4a04824ebc6e7e8d0bef</property>
+			<property name="login">btsaunde@gmail.com</property>
 		</configuration>
 	</container>
 
