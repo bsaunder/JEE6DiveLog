@@ -1,5 +1,6 @@
 <xs:schema version="1.0" targetNamespace="http://www.bryansaunders.net/divelog/security" xmlns:dl-security="http://www.bryansaunders.net/divelog/security" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="credentials" type="dl-security:credentials"/>
+  <xs:element name="identity" type="dl-security:identity"/>
   <xs:complexType name="credentials">
     <xs:annotation>
       <xs:documentation>
@@ -18,6 +19,64 @@
         <xs:annotation>
           <xs:documentation>
             <![CDATA[Get the password.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="identity">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[User Identity implements Serializable.]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="status" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the status.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="roles" type="dl-security:role" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the roles.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="permissions" type="dl-security:permission" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the permissions.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rememberMe" type="xs:boolean" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the rememberMe.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="publicApiKey" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the Public apiKey.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="privateApiKey" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the Private apiKey.]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="apiKeyExpiration" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[Get the apiKeyExpiration.]]>
           </xs:documentation>
         </xs:annotation>
       </xs:element>

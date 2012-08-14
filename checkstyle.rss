@@ -8,10 +8,10 @@
     <language>en-us</language>
     <copyright>&#169;2012 Bryan Saunders</copyright>
     <item>
-      <title>File: 36,
+      <title>File: 37,
              Errors: 0,
              Warnings: 0,
-             Infos: 30
+             Infos: 38
       </title>
             <link>https://github.com/bsaunder/JEE6DiveLog/checkstyle.html</link>
       <description>
@@ -32,7 +32,7 @@
                   <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.RestSecurityInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/RestSecurityInterceptor.java</a>
                 </td>
                 <td>
-                  6
+                  10
                 </td>
                 <td>
                   0
@@ -99,20 +99,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.service.rest.RestApiRoot.java">net/bryansaunders/jee6divelog/service/rest/RestApiRoot.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.filter.AuthenticationFilter.java">net/bryansaunders/jee6divelog/security/filter/AuthenticationFilter.java</a>
                 </td>
                 <td>
@@ -128,6 +114,20 @@
                           <tr>
                 <td>
                   <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.interceptor.HasRoleInterceptor.java">net/bryansaunders/jee6divelog/security/interceptor/HasRoleInterceptor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.util.AccountUtils.java">net/bryansaunders/jee6divelog/util/AccountUtils.java</a>
                 </td>
                 <td>
                   0
@@ -214,7 +214,7 @@
                   <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.service.rest.UserAccountApi.java">net/bryansaunders/jee6divelog/service/rest/UserAccountApi.java</a>
                 </td>
                 <td>
-                  10
+                  12
                 </td>
                 <td>
                   0
@@ -393,6 +393,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.service.rest.RestApi.java">net/bryansaunders/jee6divelog/service/rest/RestApi.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.model.UserAccount.java">net/bryansaunders/jee6divelog/model/UserAccount.java</a>
                 </td>
                 <td>
@@ -410,7 +424,7 @@
                   <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.util.SecurityUtils.java">net/bryansaunders/jee6divelog/util/SecurityUtils.java</a>
                 </td>
                 <td>
-                  2
+                  4
                 </td>
                 <td>
                   0
@@ -494,7 +508,7 @@
                   <a href="https://github.com/bsaunder/JEE6DiveLog/checkstyle.html#net.bryansaunders.jee6divelog.security.Identity.java">net/bryansaunders/jee6divelog/security/Identity.java</a>
                 </td>
                 <td>
-                  4
+                  2
                 </td>
                 <td>
                   0

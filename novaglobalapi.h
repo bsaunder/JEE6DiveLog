@@ -117,6 +117,7 @@ static NSString *formatNOVAGLOBALAPIDL_SECURITYPermissionTypeToString(enum NOVAG
 #endif /* DEF_NOVAGLOBALAPIDL_SECURITYPermission_H */
 
 @class NOVAGLOBALAPIDL_SECURITYCredentials;
+@class NOVAGLOBALAPIDL_SECURITYIdentity;
 @class NOVAGLOBALAPIDIVELOGDiveLogEntity;
 @class NOVAGLOBALAPIDIVELOGUserAccount;
 
@@ -159,6 +160,100 @@ static NSString *formatNOVAGLOBALAPIDL_SECURITYPermissionTypeToString(enum NOVAG
 @end /* interface NOVAGLOBALAPIDL_SECURITYCredentials */
 
 #endif /* DEF_NOVAGLOBALAPIDL_SECURITYCredentials_H */
+#ifndef DEF_NOVAGLOBALAPIDL_SECURITYIdentity_H
+#define DEF_NOVAGLOBALAPIDL_SECURITYIdentity_H
+
+/**
+ *  User Identity implements Serializable.
+ 
+ @author Bryan Saunders <btsaunde@gmail.com>
+ 
+
+ */
+@interface NOVAGLOBALAPIDL_SECURITYIdentity : NSObject <EnunciateXML>
+{
+  @private
+    int *_status;
+    NSArray *_roles;
+    NSArray *_permissions;
+    BOOL _rememberMe;
+    NSString *_publicApiKey;
+    NSString *_privateApiKey;
+    NSDate *_apiKeyExpiration;
+}
+
+/**
+ * the status
+ */
+- (int *) status;
+
+/**
+ * the status
+ */
+- (void) setStatus: (int *) newStatus;
+
+/**
+ * the roles
+ */
+- (NSArray *) roles;
+
+/**
+ * the roles
+ */
+- (void) setRoles: (NSArray *) newRoles;
+
+/**
+ * the permissions
+ */
+- (NSArray *) permissions;
+
+/**
+ * the permissions
+ */
+- (void) setPermissions: (NSArray *) newPermissions;
+
+/**
+ * the rememberMe
+ */
+- (BOOL) rememberMe;
+
+/**
+ * the rememberMe
+ */
+- (void) setRememberMe: (BOOL) newRememberMe;
+
+/**
+ * the apiKey
+ */
+- (NSString *) publicApiKey;
+
+/**
+ * the apiKey
+ */
+- (void) setPublicApiKey: (NSString *) newPublicApiKey;
+
+/**
+ * the apiKey
+ */
+- (NSString *) privateApiKey;
+
+/**
+ * the apiKey
+ */
+- (void) setPrivateApiKey: (NSString *) newPrivateApiKey;
+
+/**
+ * the apiKeyExpiration
+ */
+- (NSDate *) apiKeyExpiration;
+
+/**
+ * the apiKeyExpiration
+ */
+- (void) setApiKeyExpiration: (NSDate *) newApiKeyExpiration;
+@end /* interface NOVAGLOBALAPIDL_SECURITYIdentity */
+
+#endif /* DEF_NOVAGLOBALAPIDL_SECURITYIdentity_H */
 #ifndef DEF_NOVAGLOBALAPIDIVELOGDiveLogEntity_H
 #define DEF_NOVAGLOBALAPIDIVELOGDiveLogEntity_H
 
@@ -242,7 +337,8 @@ static NSString *formatNOVAGLOBALAPIDL_SECURITYPermissionTypeToString(enum NOVAG
     NSString *_password;
     NSArray *_roles;
     NSArray *_permissions;
-    NSString *_apiKey;
+    NSString *_publicApiKey;
+    NSString *_privateApiKey;
     NSDate *_apiKeyExpiration;
 }
 
@@ -339,12 +435,22 @@ static NSString *formatNOVAGLOBALAPIDL_SECURITYPermissionTypeToString(enum NOVAG
 /**
  * the apiKey
  */
-- (NSString *) apiKey;
+- (NSString *) publicApiKey;
 
 /**
  * the apiKey
  */
-- (void) setApiKey: (NSString *) newApiKey;
+- (void) setPublicApiKey: (NSString *) newPublicApiKey;
+
+/**
+ * the apiKey
+ */
+- (NSString *) privateApiKey;
+
+/**
+ * the apiKey
+ */
+- (void) setPrivateApiKey: (NSString *) newPrivateApiKey;
 
 /**
  * the apiKeyExpiration

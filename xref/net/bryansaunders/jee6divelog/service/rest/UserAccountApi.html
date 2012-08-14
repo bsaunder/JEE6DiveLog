@@ -9,30 +9,30 @@
 <div id="overview"><a href="../../../../../../apidocs/net/bryansaunders/jee6divelog/service/rest/UserAccountApi.html">View Javadoc</a></div><pre>
 
 <a name="1" href="#1">1</a>   <strong class="jxr_keyword">package</strong> net.bryansaunders.jee6divelog.service.<strong class="jxr_keyword">rest</strong>;
-<a name="2" href="#2">2</a>   <em class="jxr_comment">/*</em>
-<a name="3" href="#3">3</a>   <em class="jxr_comment"> * #%L</em>
-<a name="4" href="#4">4</a>   <em class="jxr_comment"> * BSNet-DiveLog</em>
-<a name="5" href="#5">5</a>   <em class="jxr_comment"> * $Id:$</em>
-<a name="6" href="#6">6</a>   <em class="jxr_comment"> * $HeadURL:$</em>
-<a name="7" href="#7">7</a>   <em class="jxr_comment"> * %%</em>
-<a name="8" href="#8">8</a>   <em class="jxr_comment"> * Copyright (C) 2012 Bryan Saunders</em>
-<a name="9" href="#9">9</a>   <em class="jxr_comment"> * %%</em>
-<a name="10" href="#10">10</a>  <em class="jxr_comment"> * This program is free software: you can redistribute it and/or modify</em>
-<a name="11" href="#11">11</a>  <em class="jxr_comment"> * it under the terms of the GNU General Public License as</em>
-<a name="12" href="#12">12</a>  <em class="jxr_comment"> * published by the Free Software Foundation, either version 3 of the </em>
-<a name="13" href="#13">13</a>  <em class="jxr_comment"> * License, or (at your option) any later version.</em>
-<a name="14" href="#14">14</a>  <em class="jxr_comment"> * </em>
-<a name="15" href="#15">15</a>  <em class="jxr_comment"> * This program is distributed in the hope that it will be useful,</em>
-<a name="16" href="#16">16</a>  <em class="jxr_comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</em>
-<a name="17" href="#17">17</a>  <em class="jxr_comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</em>
-<a name="18" href="#18">18</a>  <em class="jxr_comment"> * GNU General Public License for more details.</em>
-<a name="19" href="#19">19</a>  <em class="jxr_comment"> * </em>
-<a name="20" href="#20">20</a>  <em class="jxr_comment"> * You should have received a copy of the GNU General Public </em>
-<a name="21" href="#21">21</a>  <em class="jxr_comment"> * License along with this program.  If not, see</em>
-<a name="22" href="#22">22</a>  <em class="jxr_comment"> * &lt;<a href="http://www.gnu.org/licenses/gpl-3.0.html&gt;." target="alexandria_uri">http://www.gnu.org/licenses/gpl-3.0.html&gt;.</a></em>
-<a name="23" href="#23">23</a>  <em class="jxr_comment"> * #L%</em>
-<a name="24" href="#24">24</a>  <em class="jxr_comment"> */</em>
-<a name="25" href="#25">25</a>  
+<a name="2" href="#2">2</a>   
+<a name="3" href="#3">3</a>   <em class="jxr_comment">/*</em>
+<a name="4" href="#4">4</a>   <em class="jxr_comment"> * #%L</em>
+<a name="5" href="#5">5</a>   <em class="jxr_comment"> * BSNet-DiveLog</em>
+<a name="6" href="#6">6</a>   <em class="jxr_comment"> * $Id:$</em>
+<a name="7" href="#7">7</a>   <em class="jxr_comment"> * $HeadURL:$</em>
+<a name="8" href="#8">8</a>   <em class="jxr_comment"> * %%</em>
+<a name="9" href="#9">9</a>   <em class="jxr_comment"> * Copyright (C) 2012 Bryan Saunders</em>
+<a name="10" href="#10">10</a>  <em class="jxr_comment"> * %%</em>
+<a name="11" href="#11">11</a>  <em class="jxr_comment"> * This program is free software: you can redistribute it and/or modify</em>
+<a name="12" href="#12">12</a>  <em class="jxr_comment"> * it under the terms of the GNU General Public License as</em>
+<a name="13" href="#13">13</a>  <em class="jxr_comment"> * published by the Free Software Foundation, either version 3 of the </em>
+<a name="14" href="#14">14</a>  <em class="jxr_comment"> * License, or (at your option) any later version.</em>
+<a name="15" href="#15">15</a>  <em class="jxr_comment"> * </em>
+<a name="16" href="#16">16</a>  <em class="jxr_comment"> * This program is distributed in the hope that it will be useful,</em>
+<a name="17" href="#17">17</a>  <em class="jxr_comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</em>
+<a name="18" href="#18">18</a>  <em class="jxr_comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</em>
+<a name="19" href="#19">19</a>  <em class="jxr_comment"> * GNU General Public License for more details.</em>
+<a name="20" href="#20">20</a>  <em class="jxr_comment"> * </em>
+<a name="21" href="#21">21</a>  <em class="jxr_comment"> * You should have received a copy of the GNU General Public </em>
+<a name="22" href="#22">22</a>  <em class="jxr_comment"> * License along with this program.  If not, see</em>
+<a name="23" href="#23">23</a>  <em class="jxr_comment"> * &lt;<a href="http://www.gnu.org/licenses/gpl-3.0.html&gt;." target="alexandria_uri">http://www.gnu.org/licenses/gpl-3.0.html&gt;.</a></em>
+<a name="24" href="#24">24</a>  <em class="jxr_comment"> * #L%</em>
+<a name="25" href="#25">25</a>  <em class="jxr_comment"> */</em>
 <a name="26" href="#26">26</a>  
 <a name="27" href="#27">27</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a name="28" href="#28">28</a>  
@@ -54,7 +54,7 @@
 <a name="44" href="#44">44</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.security.annotation.HasRole;
 <a name="45" href="#45">45</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.security.enumerator.Role;
 <a name="46" href="#46">46</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.service.UserAccountService;
-<a name="47" href="#47">47</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.util.SecurityUtils;
+<a name="47" href="#47">47</a>  <strong class="jxr_keyword">import</strong> net.bryansaunders.jee6divelog.util.AccountUtils;
 <a name="48" href="#48">48</a>  
 <a name="49" href="#49">49</a>  <strong class="jxr_keyword">import</strong> org.codehaus.enunciate.jaxrs.TypeHint;
 <a name="50" href="#50">50</a>  
@@ -96,7 +96,7 @@
 <a name="86" href="#86">86</a>  
 <a name="87" href="#87">87</a>          <strong class="jxr_keyword">try</strong> {
 <a name="88" href="#88">88</a>              <a href="../../../../../net/bryansaunders/jee6divelog/model/UserAccount.html">UserAccount</a> savedUser = <strong class="jxr_keyword">this</strong>.userAccountService.createUser(user);
-<a name="89" href="#89">89</a>              savedUser = SecurityUtils.getCleanUserAccount(savedUser);
+<a name="89" href="#89">89</a>              savedUser = AccountUtils.getCleanUserAccount(savedUser);
 <a name="90" href="#90">90</a>              response = Response.ok(savedUser).status(Response.Status.CREATED).build();
 <a name="91" href="#91">91</a>          } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> EJBException e) {
 <a name="92" href="#92">92</a>              response = Response.status(Response.Status.BAD_REQUEST).entity(<span class="jxr_string">"JSON Invalid: "</span> + e.getMessage()).build();
@@ -139,82 +139,92 @@
 <a name="129" href="#129">129</a> <em class="jxr_javadoccomment">     * </em>
 <a name="130" href="#130">130</a> <em class="jxr_javadoccomment">     * &lt;ul&gt;</em>
 <a name="131" href="#131">131</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Status 200: Users Found.&lt;/li&gt;</em>
-<a name="132" href="#132">132</a> <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
-<a name="133" href="#133">133</a> <em class="jxr_javadoccomment">     * </em>
-<a name="134" href="#134">134</a> <em class="jxr_javadoccomment">     * @return List of Users</em>
-<a name="135" href="#135">135</a> <em class="jxr_javadoccomment">     */</em>
-<a name="136" href="#136">136</a>     @GET
-<a name="137" href="#137">137</a>     @Path(<span class="jxr_string">""</span>)
-<a name="138" href="#138">138</a>     @TypeHint(List.<strong class="jxr_keyword">class</strong>)
-<a name="139" href="#139">139</a>     @HasRole(role = Role.USER)
-<a name="140" href="#140">140</a>     <strong class="jxr_keyword">public</strong> Response getAllUsers() {
-<a name="141" href="#141">141</a>         <strong class="jxr_keyword">return</strong> Response.status(501).entity(<span class="jxr_string">"Get All Not Implemented."</span>).build();
-<a name="142" href="#142">142</a>     }
+<a name="132" href="#132">132</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Status 400: No Users Found.&lt;/li&gt;</em>
+<a name="133" href="#133">133</a> <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
+<a name="134" href="#134">134</a> <em class="jxr_javadoccomment">     * </em>
+<a name="135" href="#135">135</a> <em class="jxr_javadoccomment">     * @return List of Users</em>
+<a name="136" href="#136">136</a> <em class="jxr_javadoccomment">     */</em>
+<a name="137" href="#137">137</a>     @GET
+<a name="138" href="#138">138</a>     @Path(<span class="jxr_string">""</span>)
+<a name="139" href="#139">139</a>     @TypeHint(List.<strong class="jxr_keyword">class</strong>)
+<a name="140" href="#140">140</a>     @HasRole(role = Role.USER)
+<a name="141" href="#141">141</a>     <strong class="jxr_keyword">public</strong> Response getAllUsers() {
+<a name="142" href="#142">142</a>         Response response = <strong class="jxr_keyword">null</strong>;
 <a name="143" href="#143">143</a> 
-<a name="144" href="#144">144</a>     <em class="jxr_javadoccomment">/**</em>
-<a name="145" href="#145">145</a> <em class="jxr_javadoccomment">     * Gets the User Specified by the Given Username.</em>
-<a name="146" href="#146">146</a> <em class="jxr_javadoccomment">     * </em>
-<a name="147" href="#147">147</a> <em class="jxr_javadoccomment">     * &lt;ul&gt;</em>
-<a name="148" href="#148">148</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Status 200: User Found.&lt;/li&gt;</em>
-<a name="149" href="#149">149</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Status 400: User was not found.&lt;/li&gt;</em>
-<a name="150" href="#150">150</a> <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
-<a name="151" href="#151">151</a> <em class="jxr_javadoccomment">     * </em>
-<a name="152" href="#152">152</a> <em class="jxr_javadoccomment">     * @param userName</em>
-<a name="153" href="#153">153</a> <em class="jxr_javadoccomment">     *            Username to serach for</em>
-<a name="154" href="#154">154</a> <em class="jxr_javadoccomment">     * @return Found user</em>
-<a name="155" href="#155">155</a> <em class="jxr_javadoccomment">     */</em>
-<a name="156" href="#156">156</a>     @GET
-<a name="157" href="#157">157</a>     @Path(<span class="jxr_string">"{userName}"</span>)
-<a name="158" href="#158">158</a>     @TypeHint(UserAccount.<strong class="jxr_keyword">class</strong>)
-<a name="159" href="#159">159</a>     @HasRole(role = Role.USER)
-<a name="160" href="#160">160</a>     <strong class="jxr_keyword">public</strong> Response getUser(@PathParam(<span class="jxr_string">"userName"</span>) <strong class="jxr_keyword">final</strong> String userName) {
-<a name="161" href="#161">161</a>         <strong class="jxr_keyword">return</strong> Response.status(501).entity(<span class="jxr_string">"Get User Not Implemented."</span>).build();
-<a name="162" href="#162">162</a>     }
-<a name="163" href="#163">163</a> 
-<a name="164" href="#164">164</a>     <em class="jxr_javadoccomment">/**</em>
-<a name="165" href="#165">165</a> <em class="jxr_javadoccomment">     * Updates the User Specified by the Given Username.</em>
-<a name="166" href="#166">166</a> <em class="jxr_javadoccomment">     * </em>
-<a name="167" href="#167">167</a> <em class="jxr_javadoccomment">     * &lt;ul&gt;</em>
-<a name="168" href="#168">168</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Status 200: User Updated.&lt;/li&gt;</em>
-<a name="169" href="#169">169</a> <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
-<a name="170" href="#170">170</a> <em class="jxr_javadoccomment">     * </em>
-<a name="171" href="#171">171</a> <em class="jxr_javadoccomment">     * @param userName</em>
-<a name="172" href="#172">172</a> <em class="jxr_javadoccomment">     *            Username to update</em>
-<a name="173" href="#173">173</a> <em class="jxr_javadoccomment">     * @param updatedUserAccount</em>
-<a name="174" href="#174">174</a> <em class="jxr_javadoccomment">     *            Updated User Account</em>
-<a name="175" href="#175">175</a> <em class="jxr_javadoccomment">     * @return Updated user</em>
-<a name="176" href="#176">176</a> <em class="jxr_javadoccomment">     */</em>
-<a name="177" href="#177">177</a>     @PUT
-<a name="178" href="#178">178</a>     @Path(<span class="jxr_string">"{userName}"</span>)
-<a name="179" href="#179">179</a>     @TypeHint(UserAccount.<strong class="jxr_keyword">class</strong>)
-<a name="180" href="#180">180</a>     @HasRole(role = Role.USER)
-<a name="181" href="#181">181</a>     <strong class="jxr_keyword">public</strong> Response updateUser(@PathParam(<span class="jxr_string">"userName"</span>) <strong class="jxr_keyword">final</strong> String userName, <strong class="jxr_keyword">final</strong> <a href="../../../../../net/bryansaunders/jee6divelog/model/UserAccount.html">UserAccount</a> updatedUserAccount) {
-<a name="182" href="#182">182</a>         <em class="jxr_comment">// If not Self, Then Must Have EDIT_USER</em>
-<a name="183" href="#183">183</a>         <em class="jxr_comment">// If Self, Then Must Have EDIT_SELF</em>
-<a name="184" href="#184">184</a>         <strong class="jxr_keyword">return</strong> Response.status(501).entity(<span class="jxr_string">"Put Not Implemented."</span>).build();
-<a name="185" href="#185">185</a>     }
-<a name="186" href="#186">186</a> 
-<a name="187" href="#187">187</a>     <em class="jxr_javadoccomment">/**</em>
-<a name="188" href="#188">188</a> <em class="jxr_javadoccomment">     * Deletes the User Specified by the Given Username.</em>
-<a name="189" href="#189">189</a> <em class="jxr_javadoccomment">     * </em>
-<a name="190" href="#190">190</a> <em class="jxr_javadoccomment">     * &lt;ul&gt;</em>
-<a name="191" href="#191">191</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Status 200: User Delete.&lt;/li&gt;</em>
-<a name="192" href="#192">192</a> <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
-<a name="193" href="#193">193</a> <em class="jxr_javadoccomment">     * </em>
-<a name="194" href="#194">194</a> <em class="jxr_javadoccomment">     * @param userName</em>
-<a name="195" href="#195">195</a> <em class="jxr_javadoccomment">     *            Username to delete</em>
-<a name="196" href="#196">196</a> <em class="jxr_javadoccomment">     * @return Delete status</em>
-<a name="197" href="#197">197</a> <em class="jxr_javadoccomment">     */</em>
-<a name="198" href="#198">198</a>     @DELETE
-<a name="199" href="#199">199</a>     @Path(<span class="jxr_string">"{userName}"</span>)
-<a name="200" href="#200">200</a>     @TypeHint(Boolean.<strong class="jxr_keyword">class</strong>)
-<a name="201" href="#201">201</a>     @HasRole(role = Role.USER)
-<a name="202" href="#202">202</a>     <strong class="jxr_keyword">public</strong> Response deleteUser(@PathParam(<span class="jxr_string">"userName"</span>) <strong class="jxr_keyword">final</strong> String userName) {
-<a name="203" href="#203">203</a>         <em class="jxr_comment">// If not Self, Then Must Have DELETE_USER</em>
-<a name="204" href="#204">204</a>         <em class="jxr_comment">// If Self, Then Must Have DELETE_SELF</em>
-<a name="205" href="#205">205</a>         <strong class="jxr_keyword">return</strong> Response.status(501).entity(<span class="jxr_string">"Delete Not Implemented."</span>).build();
-<a name="206" href="#206">206</a>     }
-<a name="207" href="#207">207</a> }
+<a name="144" href="#144">144</a>         List&lt;UserAccount&gt; results = <strong class="jxr_keyword">this</strong>.userAccountService.getAll();
+<a name="145" href="#145">145</a>         <strong class="jxr_keyword">if</strong> (results != <strong class="jxr_keyword">null</strong> &amp;&amp; !results.isEmpty()) {
+<a name="146" href="#146">146</a>             response = Response.ok(results).build();
+<a name="147" href="#147">147</a>         } <strong class="jxr_keyword">else</strong> {
+<a name="148" href="#148">148</a>             response = Response.status(Response.Status.BAD_REQUEST).entity(<span class="jxr_string">"No Results Found."</span>).build();
+<a name="149" href="#149">149</a>         }
+<a name="150" href="#150">150</a> 
+<a name="151" href="#151">151</a>         <strong class="jxr_keyword">return</strong> response;
+<a name="152" href="#152">152</a>     }
+<a name="153" href="#153">153</a> 
+<a name="154" href="#154">154</a>     <em class="jxr_javadoccomment">/**</em>
+<a name="155" href="#155">155</a> <em class="jxr_javadoccomment">     * Gets the User Specified by the Given Username.</em>
+<a name="156" href="#156">156</a> <em class="jxr_javadoccomment">     * </em>
+<a name="157" href="#157">157</a> <em class="jxr_javadoccomment">     * &lt;ul&gt;</em>
+<a name="158" href="#158">158</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Status 200: User Found.&lt;/li&gt;</em>
+<a name="159" href="#159">159</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Status 400: User was not found.&lt;/li&gt;</em>
+<a name="160" href="#160">160</a> <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
+<a name="161" href="#161">161</a> <em class="jxr_javadoccomment">     * </em>
+<a name="162" href="#162">162</a> <em class="jxr_javadoccomment">     * @param userName</em>
+<a name="163" href="#163">163</a> <em class="jxr_javadoccomment">     *            Username to serach for</em>
+<a name="164" href="#164">164</a> <em class="jxr_javadoccomment">     * @return Found user</em>
+<a name="165" href="#165">165</a> <em class="jxr_javadoccomment">     */</em>
+<a name="166" href="#166">166</a>     @GET
+<a name="167" href="#167">167</a>     @Path(<span class="jxr_string">"{userName}"</span>)
+<a name="168" href="#168">168</a>     @TypeHint(UserAccount.<strong class="jxr_keyword">class</strong>)
+<a name="169" href="#169">169</a>     @HasRole(role = Role.USER)
+<a name="170" href="#170">170</a>     <strong class="jxr_keyword">public</strong> Response getUser(@PathParam(<span class="jxr_string">"userName"</span>) <strong class="jxr_keyword">final</strong> String userName) {
+<a name="171" href="#171">171</a>         <strong class="jxr_keyword">return</strong> Response.status(501).entity(<span class="jxr_string">"Get User Not Implemented."</span>).build();
+<a name="172" href="#172">172</a>     }
+<a name="173" href="#173">173</a> 
+<a name="174" href="#174">174</a>     <em class="jxr_javadoccomment">/**</em>
+<a name="175" href="#175">175</a> <em class="jxr_javadoccomment">     * Updates the User Specified by the Given Username.</em>
+<a name="176" href="#176">176</a> <em class="jxr_javadoccomment">     * </em>
+<a name="177" href="#177">177</a> <em class="jxr_javadoccomment">     * &lt;ul&gt;</em>
+<a name="178" href="#178">178</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Status 200: User Updated.&lt;/li&gt;</em>
+<a name="179" href="#179">179</a> <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
+<a name="180" href="#180">180</a> <em class="jxr_javadoccomment">     * </em>
+<a name="181" href="#181">181</a> <em class="jxr_javadoccomment">     * @param userName</em>
+<a name="182" href="#182">182</a> <em class="jxr_javadoccomment">     *            Username to update</em>
+<a name="183" href="#183">183</a> <em class="jxr_javadoccomment">     * @param updatedUserAccount</em>
+<a name="184" href="#184">184</a> <em class="jxr_javadoccomment">     *            Updated User Account</em>
+<a name="185" href="#185">185</a> <em class="jxr_javadoccomment">     * @return Updated user</em>
+<a name="186" href="#186">186</a> <em class="jxr_javadoccomment">     */</em>
+<a name="187" href="#187">187</a>     @PUT
+<a name="188" href="#188">188</a>     @Path(<span class="jxr_string">"{userName}"</span>)
+<a name="189" href="#189">189</a>     @TypeHint(UserAccount.<strong class="jxr_keyword">class</strong>)
+<a name="190" href="#190">190</a>     @HasRole(role = Role.USER)
+<a name="191" href="#191">191</a>     <strong class="jxr_keyword">public</strong> Response updateUser(@PathParam(<span class="jxr_string">"userName"</span>) <strong class="jxr_keyword">final</strong> String userName, <strong class="jxr_keyword">final</strong> <a href="../../../../../net/bryansaunders/jee6divelog/model/UserAccount.html">UserAccount</a> updatedUserAccount) {
+<a name="192" href="#192">192</a>         <em class="jxr_comment">// If not Self, Then Must Have EDIT_USER</em>
+<a name="193" href="#193">193</a>         <em class="jxr_comment">// If Self, Then Must Have EDIT_SELF</em>
+<a name="194" href="#194">194</a>         <strong class="jxr_keyword">return</strong> Response.status(501).entity(<span class="jxr_string">"Put Not Implemented."</span>).build();
+<a name="195" href="#195">195</a>     }
+<a name="196" href="#196">196</a> 
+<a name="197" href="#197">197</a>     <em class="jxr_javadoccomment">/**</em>
+<a name="198" href="#198">198</a> <em class="jxr_javadoccomment">     * Deletes the User Specified by the Given Username.</em>
+<a name="199" href="#199">199</a> <em class="jxr_javadoccomment">     * </em>
+<a name="200" href="#200">200</a> <em class="jxr_javadoccomment">     * &lt;ul&gt;</em>
+<a name="201" href="#201">201</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Status 200: User Delete.&lt;/li&gt;</em>
+<a name="202" href="#202">202</a> <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
+<a name="203" href="#203">203</a> <em class="jxr_javadoccomment">     * </em>
+<a name="204" href="#204">204</a> <em class="jxr_javadoccomment">     * @param userName</em>
+<a name="205" href="#205">205</a> <em class="jxr_javadoccomment">     *            Username to delete</em>
+<a name="206" href="#206">206</a> <em class="jxr_javadoccomment">     * @return Delete status</em>
+<a name="207" href="#207">207</a> <em class="jxr_javadoccomment">     */</em>
+<a name="208" href="#208">208</a>     @DELETE
+<a name="209" href="#209">209</a>     @Path(<span class="jxr_string">"{userName}"</span>)
+<a name="210" href="#210">210</a>     @TypeHint(Boolean.<strong class="jxr_keyword">class</strong>)
+<a name="211" href="#211">211</a>     @HasRole(role = Role.USER)
+<a name="212" href="#212">212</a>     <strong class="jxr_keyword">public</strong> Response deleteUser(@PathParam(<span class="jxr_string">"userName"</span>) <strong class="jxr_keyword">final</strong> String userName) {
+<a name="213" href="#213">213</a>         <em class="jxr_comment">// If not Self, Then Must Have DELETE_USER</em>
+<a name="214" href="#214">214</a>         <em class="jxr_comment">// If Self, Then Must Have DELETE_SELF</em>
+<a name="215" href="#215">215</a>         <strong class="jxr_keyword">return</strong> Response.status(501).entity(<span class="jxr_string">"Delete Not Implemented."</span>).build();
+<a name="216" href="#216">216</a>     }
+<a name="217" href="#217">217</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

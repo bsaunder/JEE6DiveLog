@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AccountUtils.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSNet-DiveLog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.util</a> &gt; <span class="el_source">AccountUtils.java</span></div><h1>AccountUtils.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.util;
+/*
+ * #%L
+ * BSNet-DiveLog
+ * %%
+ * Copyright (C) 2012 Bryan Saunders
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/gpl-3.0.html&gt;.
+ * #L%
+ */
+
+
+import java.util.Date;
+
+import net.bryansaunders.jee6divelog.model.DiveLogEntity;
+import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.security.Identity;
+
+/**
+ * User Account Utilities.
+ * 
+ * @author Bryan Saunders &lt;btsaunde@gmail.com&gt;
+ * 
+ */
+public final class AccountUtils {
+
+    /**
+     * Default Private Constructor.
+     */
+<span class="nc" id="L42">    private AccountUtils() {</span>
+        // Do Nothing
+<span class="nc" id="L44">    }</span>
+
+    /**
+     * Generates a UserAccount Object for the Current Identity.
+     * 
+     * @param identity
+     *            Identity to Copy
+     * @return UserAccount
+     */
+    public static UserAccount createUserAccount(final Identity identity) {
+<span class="fc" id="L54">        final UserAccount userAccount = new UserAccount();</span>
+<span class="fc" id="L55">        userAccount.setEmail(identity.getUsername());</span>
+<span class="fc" id="L56">        userAccount.setPublicApiKey(identity.getPublicApiKey());</span>
+<span class="fc" id="L57">        userAccount.setPrivateApiKey(identity.getPrivateApiKey());</span>
+<span class="fc" id="L58">        userAccount.setApiKeyExpiration(identity.getApiKeyExpiration());</span>
+<span class="fc" id="L59">        userAccount.setRoles(identity.getRoles());</span>
+<span class="fc" id="L60">        userAccount.setPermissions(identity.getPermissions());</span>
+<span class="fc" id="L61">        return userAccount;</span>
+    }
+
+    /**
+     * Generates a Cleaned UserAccount Object for the Current Identity.
+     * 
+     * @param identity
+     *            Identity to Copy
+     * @return UserAccount
+     */
+    public static UserAccount createCleanUserAccount(final Identity identity) {
+<span class="fc" id="L72">        UserAccount account = AccountUtils.createUserAccount(identity);</span>
+<span class="fc" id="L73">        account = AccountUtils.getCleanUserAccount(account);</span>
+
+<span class="fc" id="L75">        return account;</span>
+    }
+    
+    /**
+     * Clears the Dates on any DiveLogEntity.
+     * 
+     * @param &lt;T&gt;
+     *            Generic Type
+     * @param entity
+     *            Entity to Clear Dates on
+     * @return Clean DiveLogEntity
+     */
+    public static &lt;T extends DiveLogEntity&gt; T getCleanEntity(final T entity) {
+<span class="fc" id="L88">        entity.setCreated(new Date());</span>
+<span class="fc" id="L89">        entity.setUpdated(new Date());</span>
+<span class="fc" id="L90">        return entity;</span>
+    }
+
+    /**
+     * Clears the Dates &amp; Password on any UserAccount.
+     * 
+     * @param userAccount
+     *            UserAccount to Clear
+     * @return Clean UserAccount
+     */
+    public static UserAccount getCleanUserAccount(final UserAccount userAccount) {
+<span class="fc" id="L101">        userAccount.setPassword(&quot;***&quot;);</span>
+<span class="fc" id="L102">        return AccountUtils.getCleanEntity(userAccount);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

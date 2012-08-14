@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserAccountApi.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSNet-DiveLog</a> &gt; <a href="index.html" class="el_package">net.bryansaunders.jee6divelog.service.rest</a> &gt; <span class="el_source">UserAccountApi.java</span></div><h1>UserAccountApi.java</h1><pre class="source lang-java linenums">package net.bryansaunders.jee6divelog.service.rest;
+
 /*
  * #%L
  * BSNet-DiveLog
@@ -23,7 +24,6 @@
  * #L%
  */
 
-
 import java.util.List;
 
 import javax.ejb.EJBException;
@@ -44,7 +44,7 @@ import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.annotation.HasRole;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
-import net.bryansaunders.jee6divelog.util.SecurityUtils;
+import net.bryansaunders.jee6divelog.util.AccountUtils;
 
 import org.codehaus.enunciate.jaxrs.TypeHint;
 
@@ -86,7 +86,7 @@ import org.codehaus.enunciate.jaxrs.TypeHint;
 
         try {
 <span class="fc" id="L88">            UserAccount savedUser = this.userAccountService.createUser(user);</span>
-<span class="fc" id="L89">            savedUser = SecurityUtils.getCleanUserAccount(savedUser);</span>
+<span class="fc" id="L89">            savedUser = AccountUtils.getCleanUserAccount(savedUser);</span>
 <span class="fc" id="L90">            response = Response.ok(savedUser).status(Response.Status.CREATED).build();</span>
 <span class="fc" id="L91">        } catch (final EJBException e) {</span>
 <span class="fc" id="L92">            response = Response.status(Response.Status.BAD_REQUEST).entity(&quot;JSON Invalid: &quot; + e.getMessage()).build();</span>
@@ -129,6 +129,7 @@ import org.codehaus.enunciate.jaxrs.TypeHint;
      * 
      * &lt;ul&gt;
      * &lt;li&gt;Status 200: Users Found.&lt;/li&gt;
+     * &lt;li&gt;Status 400: No Users Found.&lt;/li&gt;
      * &lt;/ul&gt;
      * 
      * @return List of Users
@@ -138,7 +139,16 @@ import org.codehaus.enunciate.jaxrs.TypeHint;
     @TypeHint(List.class)
     @HasRole(role = Role.USER)
     public Response getAllUsers() {
-<span class="nc" id="L141">        return Response.status(501).entity(&quot;Get All Not Implemented.&quot;).build();</span>
+<span class="fc" id="L142">        Response response = null;</span>
+
+<span class="fc" id="L144">        List&lt;UserAccount&gt; results = this.userAccountService.getAll();</span>
+<span class="pc bpc" id="L145" title="2 of 4 branches missed.">        if (results != null &amp;&amp; !results.isEmpty()) {</span>
+<span class="fc" id="L146">            response = Response.ok(results).build();</span>
+        } else {
+<span class="nc" id="L148">            response = Response.status(Response.Status.BAD_REQUEST).entity(&quot;No Results Found.&quot;).build();</span>
+        }
+
+<span class="fc" id="L151">        return response;</span>
     }
 
     /**
@@ -158,7 +168,7 @@ import org.codehaus.enunciate.jaxrs.TypeHint;
     @TypeHint(UserAccount.class)
     @HasRole(role = Role.USER)
     public Response getUser(@PathParam(&quot;userName&quot;) final String userName) {
-<span class="nc" id="L161">        return Response.status(501).entity(&quot;Get User Not Implemented.&quot;).build();</span>
+<span class="nc" id="L171">        return Response.status(501).entity(&quot;Get User Not Implemented.&quot;).build();</span>
     }
 
     /**
@@ -181,7 +191,7 @@ import org.codehaus.enunciate.jaxrs.TypeHint;
     public Response updateUser(@PathParam(&quot;userName&quot;) final String userName, final UserAccount updatedUserAccount) {
         // If not Self, Then Must Have EDIT_USER
         // If Self, Then Must Have EDIT_SELF
-<span class="nc" id="L184">        return Response.status(501).entity(&quot;Put Not Implemented.&quot;).build();</span>
+<span class="nc" id="L194">        return Response.status(501).entity(&quot;Put Not Implemented.&quot;).build();</span>
     }
 
     /**
@@ -202,7 +212,7 @@ import org.codehaus.enunciate.jaxrs.TypeHint;
     public Response deleteUser(@PathParam(&quot;userName&quot;) final String userName) {
         // If not Self, Then Must Have DELETE_USER
         // If Self, Then Must Have DELETE_SELF
-<span class="nc" id="L205">        return Response.status(501).entity(&quot;Delete Not Implemented.&quot;).build();</span>
+<span class="nc" id="L215">        return Response.status(501).entity(&quot;Delete Not Implemented.&quot;).build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

@@ -110,10 +110,17 @@
               </xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="apiKey" type="xs:string" minOccurs="0">
+          <xs:element name="publicApiKey" type="xs:string" minOccurs="0">
             <xs:annotation>
               <xs:documentation>
-                <![CDATA[Get the apiKey.]]>
+                <![CDATA[Get the Public apiKey.]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="privateApiKey" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                <![CDATA[Get the Private apiKey.]]>
               </xs:documentation>
             </xs:annotation>
           </xs:element>

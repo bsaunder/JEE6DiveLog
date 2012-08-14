@@ -2,6 +2,7 @@
  * 
  */
 package net.bryansaunders.jee6divelog.security;
+
 /*
  * #%L
  * BSNet-DiveLog
@@ -26,7 +27,6 @@ package net.bryansaunders.jee6divelog.security;
  * #L%
  */
 
-
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,6 +36,8 @@ import java.util.Set;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
@@ -54,6 +56,7 @@ import org.slf4j.LoggerFactory;
  */
 @SessionScoped
 @Named(&quot;identity&quot;)
+@XmlRootElement
 public class Identity implements Serializable {
 
     /**
@@ -79,12 +82,12 @@ public class Identity implements Serializable {
     /**
      * Identity Logged Out.
      */
-<span class="fc" id="L82">    public static final Integer LOGGED_OUT = 1;</span>
+<span class="fc" id="L85">    public static final Integer LOGGED_OUT = 1;</span>
 
     /**
      * Identity Logged In.
      */
-<span class="fc" id="L87">    public static final Integer LOGGED_IN = 0;</span>
+<span class="fc" id="L90">    public static final Integer LOGGED_IN = 0;</span>
 
     /**
      * Default Serial ID.
@@ -94,18 +97,20 @@ public class Identity implements Serializable {
     /**
      * Logger.
      */
-<span class="fc" id="L97">    private final Logger logger = LoggerFactory.getLogger(Identity.class);</span>
+<span class="fc" id="L100">    private final Logger logger = LoggerFactory.getLogger(Identity.class);</span>
 
     /**
      * User Entered Credentials.
      */
     @Inject
+    @XmlTransient
     private Credentials credentials;
 
     /**
      * User Account Service.
      */
     @Inject
+    @XmlTransient
     private UserAccountService userAccountService;
 
     /**
@@ -124,12 +129,17 @@ public class Identity implements Serializable {
     private Set&lt;Permission&gt; permissions;
 
     /**
-     * User REST API Key.
+     * User Public API Key.
      */
-    private String apiKey;
+    private String publicApiKey;
+    
+    /**
+     * User Private API Key.
+     */
+    private String privateApiKey;
 
     /**
-     * User REST API Key Expiration Date.
+     * User API Key Expiration Date.
      */
     private Date apiKeyExpiration;
 
@@ -141,11 +151,11 @@ public class Identity implements Serializable {
     /**
      * Default Constructor.
      */
-<span class="fc" id="L144">    public Identity() {</span>
-<span class="fc" id="L145">        this.roles = new LinkedHashSet&lt;Role&gt;();</span>
-<span class="fc" id="L146">        this.permissions = new LinkedHashSet&lt;Permission&gt;();</span>
-<span class="fc" id="L147">        this.status = Identity.LOGGED_OUT;</span>
-<span class="fc" id="L148">    }</span>
+<span class="fc" id="L154">    public Identity() {</span>
+<span class="fc" id="L155">        this.roles = new LinkedHashSet&lt;Role&gt;();</span>
+<span class="fc" id="L156">        this.permissions = new LinkedHashSet&lt;Permission&gt;();</span>
+<span class="fc" id="L157">        this.status = Identity.LOGGED_OUT;</span>
+<span class="fc" id="L158">    }</span>
 
     /**
      * Login Identity.
@@ -153,7 +163,7 @@ public class Identity implements Serializable {
      * @return Login Result
      */
     public boolean login() {
-<span class="fc" id="L156">        return this.login(false);</span>
+<span class="fc" id="L166">        return this.login(false);</span>
     }
 
     /**
@@ -162,7 +172,7 @@ public class Identity implements Serializable {
      * @return Login Result
      */
     public boolean restLogin() {
-<span class="fc" id="L165">        return this.login(true);</span>
+<span class="fc" id="L175">        return this.login(true);</span>
     }
 
     /**
@@ -173,45 +183,47 @@ public class Identity implements Serializable {
      * @return Login Result
      */
     public boolean login(final boolean restLogin) {
-<span class="fc" id="L176">        this.logger.debug(&quot;Logging In User with Credentials: &quot; + this.credentials);</span>
-<span class="fc" id="L177">        boolean returnValue = Identity.LOGIN_FAILURE;</span>
+<span class="fc" id="L186">        this.logger.debug(&quot;Logging In User with Credentials: &quot; + this.credentials);</span>
+<span class="fc" id="L187">        boolean returnValue = Identity.LOGIN_FAILURE;</span>
 
-<span class="fc" id="L179">        final String username = this.getUsername();</span>
-<span class="fc" id="L180">        final String password = this.getPassword();</span>
-<span class="fc" id="L181">        final String expectedPassword = SecurityUtils.generatePasswordHash(password);</span>
+<span class="fc" id="L189">        final String username = this.getUsername();</span>
+<span class="fc" id="L190">        final String password = this.getPassword();</span>
+<span class="fc" id="L191">        final String expectedPassword = SecurityUtils.generatePasswordHash(password);</span>
 
-<span class="fc" id="L183">        final UserAccount userAccount = this.userAccountService.findByUserEmail(username);</span>
-<span class="fc bfc" id="L184" title="All 2 branches covered.">        if (userAccount != null) {</span>
-<span class="fc" id="L185">            final String hashedPassword = userAccount.getPassword();</span>
-<span class="fc bfc" id="L186" title="All 2 branches covered.">            if (hashedPassword.equals(expectedPassword)) {</span>
-<span class="fc" id="L187">                this.setStatus(Identity.LOGGED_IN);</span>
+<span class="fc" id="L193">        final UserAccount userAccount = this.userAccountService.findByUserEmail(username);</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">        if (userAccount != null) {</span>
+<span class="fc" id="L195">            final String hashedPassword = userAccount.getPassword();</span>
+<span class="fc bfc" id="L196" title="All 2 branches covered.">            if (hashedPassword.equals(expectedPassword)) {</span>
+<span class="fc" id="L197">                this.setStatus(Identity.LOGGED_IN);</span>
 
-<span class="fc" id="L189">                this.setRoles(userAccount.getRoles());</span>
-<span class="fc" id="L190">                this.setPermissions(userAccount.getPermissions());</span>
+<span class="fc" id="L199">                this.setRoles(userAccount.getRoles());</span>
+<span class="fc" id="L200">                this.setPermissions(userAccount.getPermissions());</span>
 
-<span class="fc bfc" id="L192" title="All 2 branches covered.">                if (restLogin) {</span>
-<span class="fc" id="L193">                    this.apiKey = SecurityUtils.generateRestApiKey();</span>
+<span class="fc bfc" id="L202" title="All 2 branches covered.">                if (restLogin) {</span>
+<span class="fc" id="L203">                    this.publicApiKey = SecurityUtils.generateRestApiKey();</span>
+<span class="fc" id="L204">                    this.privateApiKey = SecurityUtils.generateRestApiKey();</span>
 
-<span class="fc" id="L195">                    final Calendar expiration = Calendar.getInstance();</span>
-<span class="fc" id="L196">                    expiration.add(Calendar.HOUR, 5);</span>
-<span class="fc" id="L197">                    this.apiKeyExpiration = expiration.getTime();</span>
+<span class="fc" id="L206">                    final Calendar expiration = Calendar.getInstance();</span>
+<span class="fc" id="L207">                    expiration.add(Calendar.HOUR, 5);</span>
+<span class="fc" id="L208">                    this.apiKeyExpiration = expiration.getTime();</span>
 
-<span class="fc" id="L199">                    userAccount.setApiKey(this.apiKey);</span>
-<span class="fc" id="L200">                    userAccount.setApiKeyExpiration(this.apiKeyExpiration);</span>
-<span class="fc" id="L201">                    this.userAccountService.saveUser(userAccount);</span>
+<span class="fc" id="L210">                    userAccount.setPublicApiKey(this.publicApiKey);</span>
+<span class="fc" id="L211">                    userAccount.setPrivateApiKey(this.privateApiKey);</span>
+<span class="fc" id="L212">                    userAccount.setApiKeyExpiration(this.apiKeyExpiration);</span>
+<span class="fc" id="L213">                    this.userAccountService.saveUser(userAccount);</span>
                 }
 
-<span class="fc" id="L204">                this.logger.debug(&quot;Logged in User: &quot; + this.credentials);</span>
+<span class="fc" id="L216">                this.logger.debug(&quot;Logged in User: &quot; + this.credentials);</span>
             }
         }
 
-<span class="fc bfc" id="L208" title="All 2 branches covered.">        if (this.isLoggedIn()) {</span>
-<span class="fc" id="L209">            returnValue = Identity.LOGIN_SUCCESS;</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        if (this.isLoggedIn()) {</span>
+<span class="fc" id="L221">            returnValue = Identity.LOGIN_SUCCESS;</span>
         } else {
-<span class="fc" id="L211">            this.logger.warn(&quot;Invalid Credentials: &quot; + this.credentials);</span>
+<span class="fc" id="L223">            this.logger.warn(&quot;Invalid Credentials: &quot; + this.credentials);</span>
         }
 
-<span class="fc" id="L214">        return returnValue;</span>
+<span class="fc" id="L226">        return returnValue;</span>
     }
 
     /**
@@ -220,31 +232,16 @@ public class Identity implements Serializable {
      * @return Logout Result
      */
     public String logout() {
-<span class="fc" id="L223">        this.logger.info(&quot;Logging Out User with Credentials: &quot; + this.credentials);</span>
-<span class="fc" id="L224">        String returnValue = Identity.LOGOUT_FAILURE;</span>
+<span class="fc" id="L235">        this.logger.info(&quot;Logging Out User with Credentials: &quot; + this.credentials);</span>
+<span class="fc" id="L236">        String returnValue = Identity.LOGOUT_FAILURE;</span>
 
-<span class="fc" id="L226">        this.setStatus(Identity.LOGGED_OUT);</span>
+<span class="fc" id="L238">        this.setStatus(Identity.LOGGED_OUT);</span>
 
-<span class="pc bpc" id="L228" title="1 of 2 branches missed.">        if (!this.isLoggedIn()) {</span>
-<span class="fc" id="L229">            returnValue = Identity.LOGOUT_SUCCESS;</span>
+<span class="pc bpc" id="L240" title="1 of 2 branches missed.">        if (!this.isLoggedIn()) {</span>
+<span class="fc" id="L241">            returnValue = Identity.LOGOUT_SUCCESS;</span>
         }
 
-<span class="fc" id="L232">        return returnValue;</span>
-    }
-
-    /**
-     * Generates a UserAccount Object for the Current Identity.
-     * 
-     * @return UserAccount
-     */
-    public UserAccount createUserAccount() {
-<span class="fc" id="L241">        UserAccount userAccount = new UserAccount();</span>
-<span class="fc" id="L242">        userAccount.setEmail(this.getUsername());</span>
-<span class="fc" id="L243">        userAccount.setApiKey(this.getApiKey());</span>
-<span class="fc" id="L244">        userAccount.setApiKeyExpiration(this.getApiKeyExpiration());</span>
-<span class="fc" id="L245">        userAccount.setRoles(this.getRoles());</span>
-<span class="fc" id="L246">        userAccount.setPermissions(this.getPermissions());</span>
-<span class="fc" id="L247">        return userAccount;</span>
+<span class="fc" id="L244">        return returnValue;</span>
     }
 
     /**
@@ -253,7 +250,7 @@ public class Identity implements Serializable {
      * @return true if logged in
      */
     public boolean isLoggedIn() {
-<span class="fc" id="L256">        return this.status.equals(Identity.LOGGED_IN);</span>
+<span class="fc" id="L253">        return this.status.equals(Identity.LOGGED_IN);</span>
     }
 
     /**
@@ -262,7 +259,7 @@ public class Identity implements Serializable {
      * @return the status
      */
     public Integer getStatus() {
-<span class="nc" id="L265">        return this.status;</span>
+<span class="nc" id="L262">        return this.status;</span>
     }
 
     /**
@@ -272,8 +269,8 @@ public class Identity implements Serializable {
      *            the status to set
      */
     public void setStatus(final Integer newStatus) {
-<span class="fc" id="L275">        this.status = newStatus;</span>
-<span class="fc" id="L276">    }</span>
+<span class="fc" id="L272">        this.status = newStatus;</span>
+<span class="fc" id="L273">    }</span>
 
     /**
      * Get Username.
@@ -281,7 +278,7 @@ public class Identity implements Serializable {
      * @return username
      */
     public String getUsername() {
-<span class="fc" id="L284">        return this.credentials.getUsername();</span>
+<span class="fc" id="L281">        return this.credentials.getUsername();</span>
     }
 
     /**
@@ -290,7 +287,7 @@ public class Identity implements Serializable {
      * @return password
      */
     public String getPassword() {
-<span class="fc" id="L293">        return this.credentials.getPassword();</span>
+<span class="fc" id="L290">        return this.credentials.getPassword();</span>
     }
 
     /**
@@ -300,8 +297,8 @@ public class Identity implements Serializable {
      *            the credentials to set
      */
     public void setCredentials(final Credentials newCredentials) {
-<span class="fc" id="L303">        this.credentials = newCredentials;</span>
-<span class="fc" id="L304">    }</span>
+<span class="fc" id="L300">        this.credentials = newCredentials;</span>
+<span class="fc" id="L301">    }</span>
 
     /**
      * Set the userAccountService.
@@ -310,8 +307,8 @@ public class Identity implements Serializable {
      *            the userAccountService to set
      */
     public void setUserAccountService(final UserAccountService newUserAccountService) {
-<span class="fc" id="L313">        this.userAccountService = newUserAccountService;</span>
-<span class="fc" id="L314">    }</span>
+<span class="fc" id="L310">        this.userAccountService = newUserAccountService;</span>
+<span class="fc" id="L311">    }</span>
 
     /**
      * Get the roles.
@@ -319,7 +316,7 @@ public class Identity implements Serializable {
      * @return the roles
      */
     public Set&lt;Role&gt; getRoles() {
-<span class="fc" id="L322">        return this.roles;</span>
+<span class="fc" id="L319">        return this.roles;</span>
     }
 
     /**
@@ -329,8 +326,8 @@ public class Identity implements Serializable {
      *            the roles to set
      */
     public void setRoles(final Set&lt;Role&gt; newRoles) {
-<span class="fc" id="L332">        this.roles = newRoles;</span>
-<span class="fc" id="L333">    }</span>
+<span class="fc" id="L329">        this.roles = newRoles;</span>
+<span class="fc" id="L330">    }</span>
 
     /**
      * Get the permissions.
@@ -338,7 +335,7 @@ public class Identity implements Serializable {
      * @return the permissions
      */
     public Set&lt;Permission&gt; getPermissions() {
-<span class="fc" id="L341">        return this.permissions;</span>
+<span class="fc" id="L338">        return this.permissions;</span>
     }
 
     /**
@@ -348,8 +345,8 @@ public class Identity implements Serializable {
      *            the permissions to set
      */
     public void setPermissions(final Set&lt;Permission&gt; newPermissions) {
-<span class="fc" id="L351">        this.permissions = newPermissions;</span>
-<span class="fc" id="L352">    }</span>
+<span class="fc" id="L348">        this.permissions = newPermissions;</span>
+<span class="fc" id="L349">    }</span>
 
     /**
      * Get the rememberMe.
@@ -357,7 +354,7 @@ public class Identity implements Serializable {
      * @return the rememberMe
      */
     public boolean isRememberMe() {
-<span class="fc" id="L360">        return this.rememberMe;</span>
+<span class="fc" id="L357">        return this.rememberMe;</span>
     }
 
     /**
@@ -367,8 +364,8 @@ public class Identity implements Serializable {
      *            the rememberMe to set
      */
     public void setRememberMe(final boolean newRememberMe) {
-<span class="fc" id="L370">        this.rememberMe = newRememberMe;</span>
-<span class="fc" id="L371">    }</span>
+<span class="fc" id="L367">        this.rememberMe = newRememberMe;</span>
+<span class="fc" id="L368">    }</span>
 
     /**
      * Has the specified Role.
@@ -378,7 +375,7 @@ public class Identity implements Serializable {
      * @return true if role is found
      */
     public boolean hasRole(final Role role) {
-<span class="fc" id="L381">        return this.roles.contains(role);</span>
+<span class="fc" id="L378">        return this.roles.contains(role);</span>
     }
 
     /**
@@ -389,27 +386,46 @@ public class Identity implements Serializable {
      * @return true if permission is found
      */
     public boolean hasPermission(final Permission permission) {
-<span class="fc" id="L392">        return this.permissions.contains(permission);</span>
+<span class="fc" id="L389">        return this.permissions.contains(permission);</span>
     }
 
     /**
-     * Get the apiKey.
+     * Get the Public apiKey.
      * 
      * @return the apiKey
      */
-    public String getApiKey() {
-<span class="fc" id="L401">        return this.apiKey;</span>
+    public String getPublicApiKey() {
+<span class="fc" id="L398">        return this.publicApiKey;</span>
     }
 
     /**
-     * Set the apiKey.
+     * Set the Public apiKey.
      * 
      * @param newApiKey
      *            the apiKey to set
      */
-    public void setApiKey(final String newApiKey) {
-<span class="fc" id="L411">        this.apiKey = newApiKey;</span>
-<span class="fc" id="L412">    }</span>
+    public void setPublicApiKey(final String newApiKey) {
+<span class="fc" id="L408">        this.publicApiKey = newApiKey;</span>
+<span class="fc" id="L409">    }</span>
+    
+    /**
+     * Get the Private apiKey.
+     * 
+     * @return the apiKey
+     */
+    public String getPrivateApiKey() {
+<span class="fc" id="L417">        return this.privateApiKey;</span>
+    }
+
+    /**
+     * Set the Private apiKey.
+     * 
+     * @param newApiKey
+     *            the apiKey to set
+     */
+    public void setPrivateApiKey(final String newApiKey) {
+<span class="fc" id="L427">        this.privateApiKey = newApiKey;</span>
+<span class="fc" id="L428">    }</span>
 
     /**
      * Get the apiKeyExpiration.
@@ -417,11 +433,11 @@ public class Identity implements Serializable {
      * @return the apiKeyExpiration
      */
     public Date getApiKeyExpiration() {
-<span class="fc" id="L420">        Date date = null;</span>
-<span class="fc bfc" id="L421" title="All 2 branches covered.">        if (this.apiKeyExpiration != null) {</span>
-<span class="fc" id="L422">            date = new Date(this.apiKeyExpiration.getTime());</span>
+<span class="fc" id="L436">        Date date = null;</span>
+<span class="fc bfc" id="L437" title="All 2 branches covered.">        if (this.apiKeyExpiration != null) {</span>
+<span class="fc" id="L438">            date = new Date(this.apiKeyExpiration.getTime());</span>
         }
-<span class="fc" id="L424">        return date;</span>
+<span class="fc" id="L440">        return date;</span>
     }
 
     /**
@@ -431,12 +447,12 @@ public class Identity implements Serializable {
      *            the apiKeyExpiration to set
      */
     public void setApiKeyExpiration(final Date newApiKeyExpiration) {
-<span class="pc bpc" id="L434" title="1 of 2 branches missed.">        if (newApiKeyExpiration == null) {</span>
-<span class="nc" id="L435">            this.apiKeyExpiration = null;</span>
+<span class="pc bpc" id="L450" title="1 of 2 branches missed.">        if (newApiKeyExpiration == null) {</span>
+<span class="nc" id="L451">            this.apiKeyExpiration = null;</span>
         } else {
-<span class="fc" id="L437">            this.apiKeyExpiration = new Date(newApiKeyExpiration.getTime());</span>
+<span class="fc" id="L453">            this.apiKeyExpiration = new Date(newApiKeyExpiration.getTime());</span>
         }
-<span class="fc" id="L439">    }</span>
+<span class="fc" id="L455">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

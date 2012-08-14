@@ -1,29 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
-<duplication lines="47" tokens="102">
-<file line="298" path="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\model\UserAccount.java"/>
-<file line="393" path="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\security\Identity.java"/>
+<duplication lines="66" tokens="128">
+<file line="303" path="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\model\UserAccount.java"/>
+<file line="390" path="D:\Source\workspace\jee6divelog\src\main\java\net\bryansaunders\jee6divelog\security\Identity.java"/>
 <codefragment>
 <![CDATA[
     }
 
     /**
-     * Get the apiKey.
+     * Get the Public apiKey.
      * 
      * @return the apiKey
      */
-    public String getApiKey() {
-        return this.apiKey;
+    public String getPublicApiKey() {
+        return this.publicApiKey;
     }
 
     /**
-     * Set the apiKey.
+     * Set the Public apiKey.
      * 
      * @param newApiKey
      *            the apiKey to set
      */
-    public void setApiKey(final String newApiKey) {
-        this.apiKey = newApiKey;
+    public void setPublicApiKey(final String newApiKey) {
+        this.publicApiKey = newApiKey;
+    }
+    
+    /**
+     * Get the Private apiKey.
+     * 
+     * @return the apiKey
+     */
+    public String getPrivateApiKey() {
+        return this.privateApiKey;
+    }
+
+    /**
+     * Set the Private apiKey.
+     * 
+     * @param newApiKey
+     *            the apiKey to set
+     */
+    public void setPrivateApiKey(final String newApiKey) {
+        this.privateApiKey = newApiKey;
     }
 
     /**

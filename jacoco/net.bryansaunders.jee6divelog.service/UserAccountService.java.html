@@ -2,6 +2,7 @@
  * 
  */
 package net.bryansaunders.jee6divelog.service;
+
 /*
  * #%L
  * BSNet-DiveLog
@@ -25,7 +26,6 @@ package net.bryansaunders.jee6divelog.service;
  * &lt;http://www.gnu.org/licenses/gpl-3.0.html&gt;.
  * #L%
  */
-
 
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -156,14 +156,15 @@ import org.slf4j.LoggerFactory;
 <span class="fc" id="L156">        boolean result = false;</span>
 <span class="fc" id="L157">        final UserAccount user = this.findByUserEmail(username);</span>
 <span class="pc bpc" id="L158" title="1 of 2 branches missed.">        if (user != null) {</span>
-<span class="fc" id="L159">            user.setApiKey(null);</span>
-<span class="fc" id="L160">            user.setApiKeyExpiration(new Date(System.currentTimeMillis() - 5));</span>
-<span class="fc" id="L161">            this.saveUser(user);</span>
+<span class="fc" id="L159">            user.setPublicApiKey(null);</span>
+<span class="fc" id="L160">            user.setPrivateApiKey(null);</span>
+<span class="fc" id="L161">            user.setApiKeyExpiration(new Date(System.currentTimeMillis() - 5));</span>
+<span class="fc" id="L162">            this.saveUser(user);</span>
 
-<span class="fc" id="L163">            result = true;</span>
+<span class="fc" id="L164">            result = true;</span>
         }
 
-<span class="fc" id="L166">        return result;</span>
+<span class="fc" id="L167">        return result;</span>
     }
 
     /**
@@ -174,7 +175,16 @@ import org.slf4j.LoggerFactory;
      * @return List of Matches
      */
     public List&lt;UserAccount&gt; findByExample(final UserAccount example) {
-<span class="fc" id="L177">        return this.userDao.findByExample(example);</span>
+<span class="fc" id="L178">        return this.userDao.findByExample(example);</span>
+    }
+
+    /**
+     * Gets all the Users.
+     * 
+     * @return List of Users.
+     */
+    public List&lt;UserAccount&gt; getAll() {
+<span class="fc" id="L187">        return this.userDao.getAll();</span>
     }
 
 }

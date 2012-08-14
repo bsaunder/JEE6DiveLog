@@ -149,7 +149,12 @@ struct novaglobalapi_divelog_userAccount {
   /**
    * the apiKey
    */
-  xmlChar *apiKey;
+  xmlChar *publicApiKey;
+
+  /**
+   * the apiKey
+   */
+  xmlChar *privateApiKey;
 
   /**
    * the apiKeyExpiration
@@ -353,6 +358,151 @@ static int xmlTextWriterWriteDl_securityCredentialsType(xmlTextWriterPtr writer,
 static void freeDl_securityCredentialsType(struct novaglobalapi_dl_security_credentials *_credentials);
 
 #endif /* DEF_novaglobalapi_dl_security_credentials_H */
+#ifndef DEF_novaglobalapi_dl_security_identity_H
+#define DEF_novaglobalapi_dl_security_identity_H
+
+/**
+ *  User Identity implements Serializable.
+ 
+ @author Bryan Saunders <btsaunde@gmail.com>
+ 
+
+ */
+struct novaglobalapi_dl_security_identity {
+
+
+  /**
+   * the status
+   */
+  int *status;
+
+  /**
+   * the roles
+   */
+  enum novaglobalapi_dl_security_role *roles;
+
+  /**
+   * Size of the roles array.
+   */
+  int _sizeof_roles;
+
+  /**
+   * the permissions
+   */
+  enum novaglobalapi_dl_security_permission *permissions;
+
+  /**
+   * Size of the permissions array.
+   */
+  int _sizeof_permissions;
+
+  /**
+   * the rememberMe
+   */
+  int rememberMe;
+
+  /**
+   * the apiKey
+   */
+  xmlChar *publicApiKey;
+
+  /**
+   * the apiKey
+   */
+  xmlChar *privateApiKey;
+
+  /**
+   * the apiKeyExpiration
+   */
+  struct tm *apiKeyExpiration;
+};
+
+/**
+ * Reads a Identity element from XML. The element to be read is "{http://www.bryansaunders.net/divelog/security}identity", and
+ * it is assumed that the reader is pointing to the XML document (not the element).
+ *
+ * @param reader The XML reader.
+ * @return The Identity, or NULL in case of error.
+ */
+struct novaglobalapi_dl_security_identity *xml_read_novaglobalapi_dl_security_identity(xmlTextReaderPtr reader);
+
+/**
+ * Writes a Identity to XML under element name "{http://www.bryansaunders.net/divelog/security}identity".
+ *
+ * @param writer The XML writer.
+ * @param _identity The Identity to write.
+ * @return The bytes written (may be 0 in case of buffering) or -1 in case of error.
+ */
+int xml_write_novaglobalapi_dl_security_identity(xmlTextWriterPtr writer, struct novaglobalapi_dl_security_identity *_identity);
+
+/**
+ * Frees a Identity.
+ *
+ * @param _identity The Identity to free.
+ */
+void free_novaglobalapi_dl_security_identity(struct novaglobalapi_dl_security_identity *_identity);
+
+/**
+ * Reads a Identity element from XML. The element to be read is "{http://www.bryansaunders.net/divelog/security}identity", and
+ * it is assumed that the reader is already pointing to the element.
+ *
+ * @param reader The XML reader.
+ * @return The Identity, or NULL in case of error.
+ */
+struct novaglobalapi_dl_security_identity *xmlTextReaderReadDl_securityIdentityElement(xmlTextReaderPtr reader);
+
+/**
+ * Writes a Identity to XML under element name "{http://www.bryansaunders.net/divelog/security}identity".
+ * Does NOT write the namespace prefixes.
+ *
+ * @param writer The XML writer.
+ * @param _identity The Identity to write.
+ * @return The bytes written (may be 0 in case of buffering) or -1 in case of error.
+ */
+static int xmlTextWriterWriteDl_securityIdentityElement(xmlTextWriterPtr writer, struct novaglobalapi_dl_security_identity *_identity);
+
+/**
+ * Writes a Identity to XML under element name "{http://www.bryansaunders.net/divelog/security}identity".
+ *
+ * @param writer The XML writer.
+ * @param _identity The Identity to write.
+ * @param writeNamespaces Whether to write the namespace prefixes.
+ * @return The bytes written (may be 0 in case of buffering) or -1 in case of error.
+ */
+static int xmlTextWriterWriteDl_securityIdentityElementNS(xmlTextWriterPtr writer, struct novaglobalapi_dl_security_identity *_identity, int writeNamespaces);
+
+/**
+ * Frees the children of a Identity.
+ *
+ * @param _identity The Identity whose children are to be free.
+ */
+static void freeDl_securityIdentityElement(struct novaglobalapi_dl_security_identity *_identity);
+
+/**
+ * Reads a Identity from XML. The reader is assumed to be at the start element.
+ *
+ * @param reader The XML reader.
+ * @return The Identity, or NULL in case of error.
+ */
+static struct novaglobalapi_dl_security_identity *xmlTextReaderReadDl_securityIdentityType(xmlTextReaderPtr reader);
+
+/**
+ * Writes a Identity to XML.
+ *
+ * @param writer The XML writer.
+ * @param _identity The Identity to write.
+ * @return The bytes written (may be 0 in case of buffering) or -1 in case of error.
+ */
+static int xmlTextWriterWriteDl_securityIdentityType(xmlTextWriterPtr writer, struct novaglobalapi_dl_security_identity *_identity);
+
+/**
+ * Frees the elements of a Identity.
+ *
+ * @param _identity The Identity to free.
+ */
+static void freeDl_securityIdentityType(struct novaglobalapi_dl_security_identity *_identity);
+
+#endif /* DEF_novaglobalapi_dl_security_identity_H */
 #ifndef DEF_novaglobalapi_dl_security_permission_H
 #define DEF_novaglobalapi_dl_security_permission_H
 
@@ -1228,16 +1378,16 @@ static struct novaglobalapi_divelog_userAccount *xmlTextReaderReadDivelogUserAcc
         status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
       }
       else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
-        && xmlStrcmp(BAD_CAST "apiKey", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlStrcmp(BAD_CAST "publicApiKey", xmlTextReaderConstLocalName(reader)) == 0
         && xmlTextReaderConstNamespaceUri(reader) == NULL) {
 
 #if DEBUG_ENUNCIATE > 1
-        printf("Attempting to read choice {}apiKey of type {http://www.w3.org/2001/XMLSchema}string.\n");
+        printf("Attempting to read choice {}publicApiKey of type {http://www.w3.org/2001/XMLSchema}string.\n");
 #endif
         _child_accessor = xmlTextReaderReadXsStringType(reader);
         if (_child_accessor == NULL) {
 #if DEBUG_ENUNCIATE
-          printf("Failed to read choice {}apiKey of type {http://www.w3.org/2001/XMLSchema}string.\n");
+          printf("Failed to read choice {}publicApiKey of type {http://www.w3.org/2001/XMLSchema}string.\n");
 #endif
           //panic: unable to read the child element for some reason.
           freeDivelogUserAccountType(_userAccount);
@@ -1245,7 +1395,28 @@ static struct novaglobalapi_divelog_userAccount *xmlTextReaderReadDivelogUserAcc
           return NULL;
         }
 
-        _userAccount->apiKey = ((xmlChar*)_child_accessor);
+        _userAccount->publicApiKey = ((xmlChar*)_child_accessor);
+        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+      }
+      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+        && xmlStrcmp(BAD_CAST "privateApiKey", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+        printf("Attempting to read choice {}privateApiKey of type {http://www.w3.org/2001/XMLSchema}string.\n");
+#endif
+        _child_accessor = xmlTextReaderReadXsStringType(reader);
+        if (_child_accessor == NULL) {
+#if DEBUG_ENUNCIATE
+          printf("Failed to read choice {}privateApiKey of type {http://www.w3.org/2001/XMLSchema}string.\n");
+#endif
+          //panic: unable to read the child element for some reason.
+          freeDivelogUserAccountType(_userAccount);
+          free(_userAccount);
+          return NULL;
+        }
+
+        _userAccount->privateApiKey = ((xmlChar*)_child_accessor);
         status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
       }
       else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
@@ -1686,22 +1857,22 @@ static int xmlTextWriterWriteDivelogUserAccountType(xmlTextWriterPtr writer, str
     }
     totalBytes += status;
   }
-  if (_userAccount->apiKey != NULL) {
-    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "apiKey", NULL);
+  if (_userAccount->publicApiKey != NULL) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "publicApiKey", NULL);
     if (status < 0) {
 #if DEBUG_ENUNCIATE
-      printf("Failed to write start element {}apiKey. status: %i\n", status);
+      printf("Failed to write start element {}publicApiKey. status: %i\n", status);
 #endif
       return status;
     }
     totalBytes += status;
 #if DEBUG_ENUNCIATE > 1
-    printf("writing type {http://www.w3.org/2001/XMLSchema}string for element {}apiKey...\n");
+    printf("writing type {http://www.w3.org/2001/XMLSchema}string for element {}publicApiKey...\n");
 #endif
-    status = xmlTextWriterWriteXsStringType(writer, (_userAccount->apiKey));
+    status = xmlTextWriterWriteXsStringType(writer, (_userAccount->publicApiKey));
     if (status < 0) {
 #if DEBUG_ENUNCIATE
-      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}string for element {}apiKey. status: %i\n", status);
+      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}string for element {}publicApiKey. status: %i\n", status);
 #endif
       return status;
     }
@@ -1710,7 +1881,37 @@ static int xmlTextWriterWriteDivelogUserAccountType(xmlTextWriterPtr writer, str
     status = xmlTextWriterEndElement(writer);
     if (status < 0) {
 #if DEBUG_ENUNCIATE
-      printf("Failed to write end element {}apiKey. status: %i\n", status);
+      printf("Failed to write end element {}publicApiKey. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+  }
+  if (_userAccount->privateApiKey != NULL) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "privateApiKey", NULL);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write start element {}privateApiKey. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+#if DEBUG_ENUNCIATE > 1
+    printf("writing type {http://www.w3.org/2001/XMLSchema}string for element {}privateApiKey...\n");
+#endif
+    status = xmlTextWriterWriteXsStringType(writer, (_userAccount->privateApiKey));
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}string for element {}privateApiKey. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write end element {}privateApiKey. status: %i\n", status);
 #endif
       return status;
     }
@@ -1891,15 +2092,25 @@ static void freeDivelogUserAccountType(struct novaglobalapi_divelog_userAccount 
 #endif
     free(_userAccount->permissions);
   }
-  if (_userAccount->apiKey != NULL) {
+  if (_userAccount->publicApiKey != NULL) {
 #if DEBUG_ENUNCIATE > 1
-    printf("Freeing type of accessor apiKey of type novaglobalapi_divelog_userAccount...\n");
+    printf("Freeing type of accessor publicApiKey of type novaglobalapi_divelog_userAccount...\n");
 #endif
-    freeXsStringType(_userAccount->apiKey);
+    freeXsStringType(_userAccount->publicApiKey);
 #if DEBUG_ENUNCIATE > 1
-    printf("Freeing accessor apiKey of type novaglobalapi_divelog_userAccount...\n");
+    printf("Freeing accessor publicApiKey of type novaglobalapi_divelog_userAccount...\n");
 #endif
-    free(_userAccount->apiKey);
+    free(_userAccount->publicApiKey);
+  }
+  if (_userAccount->privateApiKey != NULL) {
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing type of accessor privateApiKey of type novaglobalapi_divelog_userAccount...\n");
+#endif
+    freeXsStringType(_userAccount->privateApiKey);
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing accessor privateApiKey of type novaglobalapi_divelog_userAccount...\n");
+#endif
+    free(_userAccount->privateApiKey);
   }
   if (_userAccount->apiKeyExpiration != NULL) {
 #if DEBUG_ENUNCIATE > 1
@@ -2250,6 +2461,647 @@ static void freeDl_securityCredentialsType(struct novaglobalapi_dl_security_cred
   }
 }
 #endif /* DEF_novaglobalapi_dl_security_credentials_M */
+#ifndef DEF_novaglobalapi_dl_security_identity_M
+#define DEF_novaglobalapi_dl_security_identity_M
+
+/**
+ * Reads a Identity element from XML. The element to be read is "{http://www.bryansaunders.net/divelog/security}identity", and
+ * it is assumed that the reader is pointing to the XML document (not the element).
+ *
+ * @param reader The XML reader.
+ * @return The Identity, or NULL in case of error.
+ */
+struct novaglobalapi_dl_security_identity *xml_read_novaglobalapi_dl_security_identity(xmlTextReaderPtr reader) {
+  int status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+  return xmlTextReaderReadDl_securityIdentityElement(reader);
+}
+
+/**
+ * Writes a Identity to XML under element name "{http://www.bryansaunders.net/divelog/security}identity".
+ *
+ * @param writer The XML writer.
+ * @param _identity The Identity to write.
+ * @return 1 if successful, 0 otherwise.
+ */
+int xml_write_novaglobalapi_dl_security_identity(xmlTextWriterPtr writer, struct novaglobalapi_dl_security_identity *_identity) {
+  return xmlTextWriterWriteDl_securityIdentityElementNS(writer, _identity, 1);
+}
+
+/**
+ * Frees a Identity.
+ *
+ * @param _identity The Identity to free.
+ */
+void free_novaglobalapi_dl_security_identity(struct novaglobalapi_dl_security_identity *_identity) {
+  freeDl_securityIdentityType(_identity);
+  free(_identity);
+}
+
+/**
+ * Reads a Identity element from XML. The element to be read is "{http://www.bryansaunders.net/divelog/security}identity", and
+ * it is assumed that the reader is pointing to that element.
+ *
+ * @param reader The XML reader.
+ * @return The Identity, or NULL in case of error.
+ */
+struct novaglobalapi_dl_security_identity *xmlTextReaderReadDl_securityIdentityElement(xmlTextReaderPtr reader) {
+  struct novaglobalapi_dl_security_identity *_identity = NULL;
+
+  if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+    && xmlStrcmp(BAD_CAST "identity", xmlTextReaderConstLocalName(reader)) == 0
+    && xmlStrcmp(BAD_CAST "http://www.bryansaunders.net/divelog/security", xmlTextReaderConstNamespaceUri(reader)) == 0) {
+#if DEBUG_ENUNCIATE > 1
+    printf("Attempting to read root element {http://www.bryansaunders.net/divelog/security}identity.\n");
+#endif
+    _identity = xmlTextReaderReadDl_securityIdentityType(reader);
+  }
+#if DEBUG_ENUNCIATE
+  if (_identity == NULL) {
+    if (xmlTextReaderConstNamespaceUri(reader) == NULL) {
+      printf("attempt to read {http://www.bryansaunders.net/divelog/security}identity failed. current element: {}%s\n",  xmlTextReaderConstLocalName(reader));
+    }
+    else {
+      printf("attempt to read {http://www.bryansaunders.net/divelog/security}identity failed. current element: {%s}%s\n", xmlTextReaderConstNamespaceUri(reader), xmlTextReaderConstLocalName(reader));
+    }
+  }
+#endif
+
+  return _identity;
+}
+
+/**
+ * Writes a Identity to XML under element name "{http://www.bryansaunders.net/divelog/security}identity".
+ * Does NOT write the namespace prefixes.
+ *
+ * @param writer The XML writer.
+ * @param _identity The Identity to write.
+ * @return 1 if successful, 0 otherwise.
+ */
+static int xmlTextWriterWriteDl_securityIdentityElement(xmlTextWriterPtr writer, struct novaglobalapi_dl_security_identity *_identity) {
+  return xmlTextWriterWriteDl_securityIdentityElementNS(writer, _identity, 0);
+}
+
+/**
+ * Writes a Identity to XML under element name "{http://www.bryansaunders.net/divelog/security}identity".
+ *
+ * @param writer The XML writer.
+ * @param _identity The Identity to write.
+ * @param writeNamespaces Whether to write the namespace prefixes.
+ * @return 1 if successful, 0 otherwise.
+ */
+static int xmlTextWriterWriteDl_securityIdentityElementNS(xmlTextWriterPtr writer, struct novaglobalapi_dl_security_identity *_identity, int writeNamespaces) {
+  int totalBytes = 0;
+  int status;
+
+  status = xmlTextWriterStartElementNS(writer, BAD_CAST "dl_security", BAD_CAST "identity", NULL);
+  if (status < 0) {
+#if DEBUG_ENUNCIATE
+    printf("unable to write start element {http://www.bryansaunders.net/divelog/security}identity. status: %i\n", status);
+#endif
+    return status;
+  }
+  totalBytes += status;
+
+  if (writeNamespaces) {
+#if DEBUG_ENUNCIATE > 1
+    printf("writing namespaces for start element {http://www.bryansaunders.net/divelog/security}identity...\n");
+#endif
+
+    status = xmlTextWriterWriteAttribute(writer, BAD_CAST "xmlns:dl_security", BAD_CAST "http://www.bryansaunders.net/divelog/security");
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("unable to write namespace attribute xmlns:dl_security. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+  }
+
+#if DEBUG_ENUNCIATE > 1
+  printf("writing type {http://www.bryansaunders.net/divelog/security}identity for root element {http://www.bryansaunders.net/divelog/security}identity...\n");
+#endif
+  status = xmlTextWriterWriteDl_securityIdentityType(writer, _identity);
+  if (status < 0) {
+#if DEBUG_ENUNCIATE
+    printf("unable to write type for start element {http://www.bryansaunders.net/divelog/security}identity. status: %i\n", status);
+#endif
+    return status;
+  }
+  totalBytes += status;
+
+  status = xmlTextWriterEndElement(writer);
+  if (status < 0) {
+#if DEBUG_ENUNCIATE
+    printf("unable to end element {http://www.bryansaunders.net/divelog/security}identity. status: %i\n", status);
+#endif
+    return status;
+  }
+  totalBytes += status;
+
+  return totalBytes;
+}
+
+/**
+ * Frees the children of a Identity.
+ *
+ * @param _identity The Identity whose children are to be free.
+ */
+static void freeDl_securityIdentityElement(struct novaglobalapi_dl_security_identity *_identity) {
+  freeDl_securityIdentityType(_identity);
+}
+
+/**
+ * Reads a Identity from XML. The reader is assumed to be at the start element.
+ *
+ * @return the Identity, or NULL in case of error.
+ */
+static struct novaglobalapi_dl_security_identity *xmlTextReaderReadDl_securityIdentityType(xmlTextReaderPtr reader) {
+  int status, depth;
+  void *_child_accessor;
+  struct novaglobalapi_dl_security_identity *_identity = calloc(1, sizeof(struct novaglobalapi_dl_security_identity));
+
+
+
+  if (xmlTextReaderIsEmptyElement(reader) == 0) {
+    depth = xmlTextReaderDepth(reader);//track the depth.
+    status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+
+    while (xmlTextReaderDepth(reader) > depth) {
+      if (status < 1) {
+        //panic: XML read error.
+#if DEBUG_ENUNCIATE
+        printf("Failure to advance to next child element.\n");
+#endif
+        freeDl_securityIdentityType(_identity);
+        free(_identity);
+        return NULL;
+      }
+      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+        && xmlStrcmp(BAD_CAST "status", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+        printf("Attempting to read choice {}status of type {http://www.w3.org/2001/XMLSchema}int.\n");
+#endif
+        _child_accessor = xmlTextReaderReadXsIntType(reader);
+        if (_child_accessor == NULL) {
+#if DEBUG_ENUNCIATE
+          printf("Failed to read choice {}status of type {http://www.w3.org/2001/XMLSchema}int.\n");
+#endif
+          //panic: unable to read the child element for some reason.
+          freeDl_securityIdentityType(_identity);
+          free(_identity);
+          return NULL;
+        }
+
+        _identity->status = ((int*)_child_accessor);
+        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+      }
+      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+        && xmlStrcmp(BAD_CAST "roles", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+        printf("Attempting to read choice {}roles of type {http://www.bryansaunders.net/divelog/security}role.\n");
+#endif
+        _child_accessor = xmlTextReaderReadDl_securityRoleType(reader);
+        if (_child_accessor == NULL) {
+#if DEBUG_ENUNCIATE
+          printf("Failed to read choice {}roles of type {http://www.bryansaunders.net/divelog/security}role.\n");
+#endif
+          //panic: unable to read the child element for some reason.
+          freeDl_securityIdentityType(_identity);
+          free(_identity);
+          return NULL;
+        }
+
+        _identity->roles = realloc(_identity->roles, (_identity->_sizeof_roles + 1) * sizeof(enum novaglobalapi_dl_security_role));
+        memcpy(&(_identity->roles[_identity->_sizeof_roles++]), _child_accessor, sizeof(enum novaglobalapi_dl_security_role));
+        free(_child_accessor);
+        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+      }
+      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+        && xmlStrcmp(BAD_CAST "permissions", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+        printf("Attempting to read choice {}permissions of type {http://www.bryansaunders.net/divelog/security}permission.\n");
+#endif
+        _child_accessor = xmlTextReaderReadDl_securityPermissionType(reader);
+        if (_child_accessor == NULL) {
+#if DEBUG_ENUNCIATE
+          printf("Failed to read choice {}permissions of type {http://www.bryansaunders.net/divelog/security}permission.\n");
+#endif
+          //panic: unable to read the child element for some reason.
+          freeDl_securityIdentityType(_identity);
+          free(_identity);
+          return NULL;
+        }
+
+        _identity->permissions = realloc(_identity->permissions, (_identity->_sizeof_permissions + 1) * sizeof(enum novaglobalapi_dl_security_permission));
+        memcpy(&(_identity->permissions[_identity->_sizeof_permissions++]), _child_accessor, sizeof(enum novaglobalapi_dl_security_permission));
+        free(_child_accessor);
+        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+      }
+      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+        && xmlStrcmp(BAD_CAST "rememberMe", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+        printf("Attempting to read choice {}rememberMe of type {http://www.w3.org/2001/XMLSchema}boolean.\n");
+#endif
+        _child_accessor = xmlTextReaderReadXsBooleanType(reader);
+        if (_child_accessor == NULL) {
+#if DEBUG_ENUNCIATE
+          printf("Failed to read choice {}rememberMe of type {http://www.w3.org/2001/XMLSchema}boolean.\n");
+#endif
+          //panic: unable to read the child element for some reason.
+          freeDl_securityIdentityType(_identity);
+          free(_identity);
+          return NULL;
+        }
+
+        _identity->rememberMe = *((int*)_child_accessor);
+        free(_child_accessor);
+        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+      }
+      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+        && xmlStrcmp(BAD_CAST "publicApiKey", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+        printf("Attempting to read choice {}publicApiKey of type {http://www.w3.org/2001/XMLSchema}string.\n");
+#endif
+        _child_accessor = xmlTextReaderReadXsStringType(reader);
+        if (_child_accessor == NULL) {
+#if DEBUG_ENUNCIATE
+          printf("Failed to read choice {}publicApiKey of type {http://www.w3.org/2001/XMLSchema}string.\n");
+#endif
+          //panic: unable to read the child element for some reason.
+          freeDl_securityIdentityType(_identity);
+          free(_identity);
+          return NULL;
+        }
+
+        _identity->publicApiKey = ((xmlChar*)_child_accessor);
+        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+      }
+      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+        && xmlStrcmp(BAD_CAST "privateApiKey", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+        printf("Attempting to read choice {}privateApiKey of type {http://www.w3.org/2001/XMLSchema}string.\n");
+#endif
+        _child_accessor = xmlTextReaderReadXsStringType(reader);
+        if (_child_accessor == NULL) {
+#if DEBUG_ENUNCIATE
+          printf("Failed to read choice {}privateApiKey of type {http://www.w3.org/2001/XMLSchema}string.\n");
+#endif
+          //panic: unable to read the child element for some reason.
+          freeDl_securityIdentityType(_identity);
+          free(_identity);
+          return NULL;
+        }
+
+        _identity->privateApiKey = ((xmlChar*)_child_accessor);
+        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+      }
+      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+        && xmlStrcmp(BAD_CAST "apiKeyExpiration", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+        printf("Attempting to read choice {}apiKeyExpiration of type {http://www.w3.org/2001/XMLSchema}dateTime.\n");
+#endif
+        _child_accessor = xmlTextReaderReadXsDateTimeType(reader);
+        if (_child_accessor == NULL) {
+#if DEBUG_ENUNCIATE
+          printf("Failed to read choice {}apiKeyExpiration of type {http://www.w3.org/2001/XMLSchema}dateTime.\n");
+#endif
+          //panic: unable to read the child element for some reason.
+          freeDl_securityIdentityType(_identity);
+          free(_identity);
+          return NULL;
+        }
+
+        _identity->apiKeyExpiration = ((struct tm*)_child_accessor);
+        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+      }
+      else {
+#if DEBUG_ENUNCIATE > 1
+        if (xmlTextReaderConstNamespaceUri(reader) == NULL) {
+          printf("unknown child element {}%s for type {http://www.bryansaunders.net/divelog/security}identity.  Skipping...\n",  xmlTextReaderConstLocalName(reader));
+        }
+        else {
+          printf("unknown child element {%s}%s for type {http://www.bryansaunders.net/divelog/security}identity. Skipping...\n", xmlTextReaderConstNamespaceUri(reader), xmlTextReaderConstLocalName(reader));
+        }
+#endif
+        status = xmlTextReaderSkipElement(reader);
+      }
+    }
+  }
+
+  return _identity;
+}
+
+/**
+ * Writes a Identity to XML.
+ *
+ * @param writer The XML writer.
+ * @param _identity The Identity to write.
+ * @return The total bytes written, or -1 on error;
+ */
+static int xmlTextWriterWriteDl_securityIdentityType(xmlTextWriterPtr writer, struct novaglobalapi_dl_security_identity *_identity) {
+  int status, totalBytes = 0, i;
+  xmlChar *binaryData;
+  if (_identity->status != NULL) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "status", NULL);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write start element {}status. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+#if DEBUG_ENUNCIATE > 1
+    printf("writing type {http://www.w3.org/2001/XMLSchema}int for element {}status...\n");
+#endif
+    status = xmlTextWriterWriteXsIntType(writer, (_identity->status));
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}int for element {}status. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write end element {}status. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+  }
+  for (i = 0; i < _identity->_sizeof_roles; i++) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "roles", NULL);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write start element {}roles. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+#if DEBUG_ENUNCIATE > 1
+    printf("writing type {http://www.bryansaunders.net/divelog/security}role for element {}roles...\n");
+#endif
+    status = xmlTextWriterWriteDl_securityRoleType(writer, &(_identity->roles[i]));
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write type {http://www.bryansaunders.net/divelog/security}role for element {}roles. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write end element {}roles. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+  }
+  for (i = 0; i < _identity->_sizeof_permissions; i++) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "permissions", NULL);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write start element {}permissions. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+#if DEBUG_ENUNCIATE > 1
+    printf("writing type {http://www.bryansaunders.net/divelog/security}permission for element {}permissions...\n");
+#endif
+    status = xmlTextWriterWriteDl_securityPermissionType(writer, &(_identity->permissions[i]));
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write type {http://www.bryansaunders.net/divelog/security}permission for element {}permissions. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write end element {}permissions. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+  }
+  if (1) { //always write the primitive element.
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "rememberMe", NULL);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write start element {}rememberMe. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+#if DEBUG_ENUNCIATE > 1
+    printf("writing type {http://www.w3.org/2001/XMLSchema}boolean for element {}rememberMe...\n");
+#endif
+    status = xmlTextWriterWriteXsBooleanType(writer, &(_identity->rememberMe));
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}boolean for element {}rememberMe. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write end element {}rememberMe. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+  }
+  if (_identity->publicApiKey != NULL) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "publicApiKey", NULL);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write start element {}publicApiKey. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+#if DEBUG_ENUNCIATE > 1
+    printf("writing type {http://www.w3.org/2001/XMLSchema}string for element {}publicApiKey...\n");
+#endif
+    status = xmlTextWriterWriteXsStringType(writer, (_identity->publicApiKey));
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}string for element {}publicApiKey. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write end element {}publicApiKey. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+  }
+  if (_identity->privateApiKey != NULL) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "privateApiKey", NULL);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write start element {}privateApiKey. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+#if DEBUG_ENUNCIATE > 1
+    printf("writing type {http://www.w3.org/2001/XMLSchema}string for element {}privateApiKey...\n");
+#endif
+    status = xmlTextWriterWriteXsStringType(writer, (_identity->privateApiKey));
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}string for element {}privateApiKey. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write end element {}privateApiKey. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+  }
+  if (_identity->apiKeyExpiration != NULL) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "apiKeyExpiration", NULL);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write start element {}apiKeyExpiration. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+#if DEBUG_ENUNCIATE > 1
+    printf("writing type {http://www.w3.org/2001/XMLSchema}dateTime for element {}apiKeyExpiration...\n");
+#endif
+    status = xmlTextWriterWriteXsDateTimeType(writer, (_identity->apiKeyExpiration));
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}dateTime for element {}apiKeyExpiration. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write end element {}apiKeyExpiration. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+  }
+
+  return totalBytes;
+}
+
+/**
+ * Frees the elements of a Identity.
+ *
+ * @param _identity The Identity to free.
+ */
+static void freeDl_securityIdentityType(struct novaglobalapi_dl_security_identity *_identity) {
+  int i;
+  if (_identity->status != NULL) {
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing type of accessor status of type novaglobalapi_dl_security_identity...\n");
+#endif
+    freeXsIntType(_identity->status);
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing accessor status of type novaglobalapi_dl_security_identity...\n");
+#endif
+    free(_identity->status);
+  }
+  if (_identity->roles != NULL) {
+    for (i = 0; i < _identity->_sizeof_roles; i++) {
+#if DEBUG_ENUNCIATE > 1
+      printf("Freeing accessor roles[%i] of type novaglobalapi_dl_security_identity...\n", i);
+#endif
+      freeDl_securityRoleType(&(_identity->roles[i]));
+    }
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing accessor roles of type novaglobalapi_dl_security_identity...\n");
+#endif
+    free(_identity->roles);
+  }
+  if (_identity->permissions != NULL) {
+    for (i = 0; i < _identity->_sizeof_permissions; i++) {
+#if DEBUG_ENUNCIATE > 1
+      printf("Freeing accessor permissions[%i] of type novaglobalapi_dl_security_identity...\n", i);
+#endif
+      freeDl_securityPermissionType(&(_identity->permissions[i]));
+    }
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing accessor permissions of type novaglobalapi_dl_security_identity...\n");
+#endif
+    free(_identity->permissions);
+  }
+  if (_identity->publicApiKey != NULL) {
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing type of accessor publicApiKey of type novaglobalapi_dl_security_identity...\n");
+#endif
+    freeXsStringType(_identity->publicApiKey);
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing accessor publicApiKey of type novaglobalapi_dl_security_identity...\n");
+#endif
+    free(_identity->publicApiKey);
+  }
+  if (_identity->privateApiKey != NULL) {
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing type of accessor privateApiKey of type novaglobalapi_dl_security_identity...\n");
+#endif
+    freeXsStringType(_identity->privateApiKey);
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing accessor privateApiKey of type novaglobalapi_dl_security_identity...\n");
+#endif
+    free(_identity->privateApiKey);
+  }
+  if (_identity->apiKeyExpiration != NULL) {
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing type of accessor apiKeyExpiration of type novaglobalapi_dl_security_identity...\n");
+#endif
+    freeXsDateTimeType(_identity->apiKeyExpiration);
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing accessor apiKeyExpiration of type novaglobalapi_dl_security_identity...\n");
+#endif
+    free(_identity->apiKeyExpiration);
+  }
+}
+#endif /* DEF_novaglobalapi_dl_security_identity_M */
 #ifndef DEF_novaglobalapi_dl_security_permission_M
 #define DEF_novaglobalapi_dl_security_permission_M
 

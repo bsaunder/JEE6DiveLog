@@ -2,6 +2,7 @@
  * 
  */
 package net.bryansaunders.jee6divelog.service.rest;
+
 /*
  * #%L
  * BSNet-DiveLog
@@ -26,7 +27,6 @@ package net.bryansaunders.jee6divelog.service.rest;
  * #L%
  */
 
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -43,11 +43,9 @@ import net.bryansaunders.jee6divelog.security.Identity;
 import net.bryansaunders.jee6divelog.security.annotation.HasRole;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
-import net.bryansaunders.jee6divelog.util.SecurityUtils;
+import net.bryansaunders.jee6divelog.util.AccountUtils;
 
 import org.codehaus.enunciate.jaxrs.TypeHint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Security REST API.
@@ -59,12 +57,7 @@ import org.slf4j.LoggerFactory;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
-<span class="fc" id="L62">public class SecurityApi {</span>
-    
-    /**
-     * Logger.
-     */
-<span class="fc" id="L67">    private final Logger logger = LoggerFactory.getLogger(SecurityApi.class);</span>
+<span class="fc" id="L60">public class SecurityApi {</span>
 
     /**
      * User Account Service.
@@ -83,7 +76,7 @@ import org.slf4j.LoggerFactory;
      */
     @Inject
     private Credentials credentials;
-    
+
     /**
      * Identifies the currently logged in REST user.
      * 
@@ -94,27 +87,25 @@ import org.slf4j.LoggerFactory;
      * 
      * @param incomingCredentials
      *            Users Login Credentials
-     * @return User API Token
+     * @return User Identity
      */
     @POST
     @Path(&quot;login&quot;)
-    @TypeHint(String.class)
+    @TypeHint(UserAccount.class)
     public Response login(final Credentials incomingCredentials) {
         Response response;
-
-<span class="fc" id="L105">        this.credentials.setUsername(incomingCredentials.getUsername());</span>
-<span class="fc" id="L106">        this.credentials.setPassword(incomingCredentials.getPassword());</span>
-<span class="fc" id="L107">        final boolean loginResult = this.identity.restLogin();</span>
-<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (loginResult) {</span>
-<span class="fc" id="L109">            final String userName = this.identity.getUsername();</span>
-<span class="fc" id="L110">            final String apiKey = this.identity.getApiKey();</span>
-<span class="fc" id="L111">            final String token = SecurityUtils.generateRestApiToken(userName, apiKey);</span>
-<span class="fc" id="L112">            response = Response.ok(token).status(Response.Status.ACCEPTED).build();</span>
-<span class="fc" id="L113">        } else {</span>
-<span class="fc" id="L114">            response = Response.status(Response.Status.UNAUTHORIZED).build();</span>
+<span class="fc" id="L97">        this.credentials.setUsername(incomingCredentials.getUsername());</span>
+<span class="fc" id="L98">        this.credentials.setPassword(incomingCredentials.getPassword());</span>
+        
+<span class="fc" id="L100">        final boolean loginResult = this.identity.restLogin();</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (loginResult) {</span>
+<span class="fc" id="L102">            final UserAccount userAccount = AccountUtils.createCleanUserAccount(this.identity);</span>
+<span class="fc" id="L103">            response = Response.ok(userAccount).status(Response.Status.ACCEPTED).build();</span>
+<span class="fc" id="L104">        } else {</span>
+<span class="fc" id="L105">            response = Response.status(Response.Status.UNAUTHORIZED).build();</span>
         }
 
-<span class="fc" id="L117">        return response;</span>
+<span class="fc" id="L108">        return response;</span>
     }
 
     /**
@@ -124,17 +115,15 @@ import org.slf4j.LoggerFactory;
      * &lt;li&gt;Status 200: Request Successful.&lt;/li&gt;
      * &lt;/ul&gt;
      * 
-     * @return User Account
+     * @return User Identity
      */
     @GET
     @Path(&quot;identify&quot;)
     @TypeHint(UserAccount.class)
     @HasRole(role = Role.USER)
     public Response identify() {
-<span class="fc" id="L134">        UserAccount userAccount = this.identity.createUserAccount();</span>
-<span class="fc" id="L135">        userAccount = SecurityUtils.getCleanUserAccount(userAccount);</span>
-<span class="fc" id="L136">        this.logger.debug(&quot;User Identity: &quot; + userAccount.toString());</span>
-<span class="fc" id="L137">        return Response.ok(userAccount).build();</span>
+<span class="fc" id="L125">        final UserAccount userAccount = AccountUtils.createCleanUserAccount(this.identity);</span>
+<span class="fc" id="L126">        return Response.ok(userAccount).build();</span>
     }
 
     /**
@@ -151,10 +140,10 @@ import org.slf4j.LoggerFactory;
     @TypeHint(Boolean.class)
     @HasRole(role = Role.USER)
     public Response logout() {
-<span class="fc" id="L154">        final String username = this.identity.getUsername();</span>
-<span class="fc" id="L155">        this.identity.logout();</span>
-<span class="fc" id="L156">        final boolean result = this.userAccountService.clearApiKey(username);</span>
-<span class="fc" id="L157">        return Response.ok(result).build();</span>
+<span class="fc" id="L143">        final String username = this.identity.getUsername();</span>
+<span class="fc" id="L144">        this.identity.logout();</span>
+<span class="fc" id="L145">        final boolean result = this.userAccountService.clearApiKey(username);</span>
+<span class="fc" id="L146">        return Response.ok(result).build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>

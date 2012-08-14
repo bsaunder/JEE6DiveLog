@@ -12,6 +12,7 @@
 
 <ul>
 <li>Status 200: Users Found.</li>
+<li>Status 400: No Users Found.</li>
 </ul>]]>
         </wadl:doc>
         <wadl:response>
@@ -33,7 +34,7 @@
         </wadl:doc>
         <wadl:response>
           <wadl:doc>
-            <![CDATA[User Account]]>
+            <![CDATA[User Identity]]>
           </wadl:doc>
           <wadl:representation mediaType="application/json"/>
         </wadl:response>
@@ -57,7 +58,7 @@
         </wadl:request>
         <wadl:response>
           <wadl:doc>
-            <![CDATA[User API Token]]>
+            <![CDATA[User Identity]]>
           </wadl:doc>
           <wadl:representation mediaType="application/json"/>
         </wadl:response>

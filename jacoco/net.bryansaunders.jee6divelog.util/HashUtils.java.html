@@ -2,6 +2,7 @@
  * 
  */
 package net.bryansaunders.jee6divelog.util;
+
 /*
  * #%L
  * BSNet-DiveLog
@@ -26,9 +27,15 @@ package net.bryansaunders.jee6divelog.util;
  * #L%
  */
 
+import java.security.GeneralSecurityException;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility Methods for Dealing with Hashing.
@@ -37,13 +44,18 @@ import org.apache.commons.codec.digest.DigestUtils;
  * 
  */
 public final class HashUtils {
+    
+    /**
+     * Logger.
+     */
+<span class="fc" id="L51">    private static final Logger LOGGER = LoggerFactory.getLogger(HashUtils.class);</span>
 
     /**
      * Default Private Constructor.
      */
-<span class="nc" id="L44">    private HashUtils() {</span>
+<span class="nc" id="L56">    private HashUtils() {</span>
         // Do Nothing
-<span class="nc" id="L46">    }</span>
+<span class="nc" id="L58">    }</span>
 
     /**
      * Hashes the string using SHA-256 Algorithim.
@@ -53,7 +65,7 @@ public final class HashUtils {
      * @return Hashed String
      */
     public static String toSha256(final String stringToHash) {
-<span class="fc" id="L56">        return DigestUtils.sha256Hex(stringToHash);</span>
+<span class="fc" id="L68">        return DigestUtils.sha256Hex(stringToHash);</span>
     }
 
     /**
@@ -64,7 +76,7 @@ public final class HashUtils {
      * @return Encoded String
      */
     public static String base64Encode(final String stringToEncode) {
-<span class="fc" id="L67">        return Base64.encodeBase64String(stringToEncode.getBytes());</span>
+<span class="fc" id="L79">        return Base64.encodeBase64String(stringToEncode.getBytes());</span>
     }
 
     /**
@@ -75,7 +87,42 @@ public final class HashUtils {
      * @return Decoded String
      */
     public static String base64Decode(final String stringToDecode) {
-<span class="fc" id="L78">        return new String(Base64.decodeBase64(stringToDecode));</span>
+<span class="fc" id="L90">        return new String(Base64.decodeBase64(stringToDecode));</span>
+    }
+
+    /**
+     * Generates a HMAC-SHA1 Hash of the given String using the specified key.
+     * 
+     * @param stringToHash
+     *            String to Hash
+     * @param key
+     *            Key to Sign the String with
+     * @return Hashed String
+     */
+    public static String toHmacSha1(final String stringToHash, final String key) {
+<span class="fc" id="L103">        String result = &quot;&quot;;</span>
+        try {
+            // Get an hmac_sha1 key from the raw key bytes
+<span class="fc" id="L106">            final byte[] keyBytes = key.getBytes();</span>
+<span class="fc" id="L107">            final SecretKeySpec signingKey = new SecretKeySpec(keyBytes, &quot;HmacSHA1&quot;);</span>
+
+            // Get an hmac_sha1 Mac instance and initialize with the signing key
+<span class="fc" id="L110">            final Mac mac = Mac.getInstance(&quot;HmacSHA1&quot;);</span>
+<span class="fc" id="L111">            mac.init(signingKey);</span>
+
+            // Compute the hmac on input data bytes
+<span class="fc" id="L114">            final byte[] rawHmac = mac.doFinal(stringToHash.getBytes());</span>
+
+            // Convert raw bytes to Hex
+<span class="fc" id="L117">            final byte[] base64 = Base64.encodeBase64(rawHmac);</span>
+
+            // Covert array of Hex bytes to a String
+<span class="fc" id="L120">            result = new String(base64);</span>
+<span class="nc" id="L121">        } catch (GeneralSecurityException e) {</span>
+<span class="nc" id="L122">            HashUtils.LOGGER.error(&quot;An Error Occured Generating an HMAC-SHA1 Hash!&quot;, e);</span>
+<span class="fc" id="L123">        }</span>
+
+<span class="fc" id="L125">        return result;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.5.8.201207111220</span></div></body></html>
