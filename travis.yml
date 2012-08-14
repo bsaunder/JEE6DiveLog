@@ -1,0 +1,6 @@
+language: java
+jdk: openjdk6
+script: "mvn clean install -P arquillian-jboss-managed"
+notifications:
+  email:
+    - btsaunde@gmail.com

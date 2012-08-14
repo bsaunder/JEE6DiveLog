@@ -163,8 +163,8 @@ public class SecurityUtilsTest {
         
         // then
         assertEquals("***", userAccount.getPassword());
-        assertEquals(date, userAccount.getCreated());
-        assertEquals(date, userAccount.getUpdated());
+        assertEquals(date.getTime(), userAccount.getCreated().getTime(), 5);
+        assertEquals(date.getTime(), userAccount.getUpdated().getTime(), 5);
     }
 
 }
