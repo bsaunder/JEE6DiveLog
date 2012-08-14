@@ -16,18 +16,16 @@
 			<url>LICENSE</url>
 		</license>
 	</licenses>
-	
+
 	<organization>
 		<name>Bryan Saunders</name>
 		<url>http://www.bryansaunders.net</url>
 	</organization>
-
 	<scm>
 		<connection>scm:git:git@github.com:bsaunder/JEE6DiveLog.git</connection>
 		<url>https://github.com/bsaunder/JEE6DiveLog</url>
 		<developerConnection>scm:git:git@github.com:bsaunder/JEE6DiveLog.git</developerConnection>
 	</scm>
-
 	<developers>
 		<developer>
 			<id>bsaunder</id>
@@ -40,7 +38,6 @@
 			</roles>
 		</developer>
 	</developers>
-
 	<issueManagement>
 		<system>GitHub</system>
 		<url>https://github.com/bsaunder/JEE6DiveLog/issues</url>
@@ -242,8 +239,12 @@
 			<version>1.0.0.Alpha4</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -264,11 +265,12 @@
 			<!-- Failsafe (Integration Tests) Plugin -->
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.6</version>
+				<version>2.12.2</version>
 				<executions>
 					<execution>
 						<goals>
 							<goal>integration-test</goal>
+							<goal>verify</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -609,14 +611,12 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-
 	<profiles>
 		<profile>
-			<id>arquillian-local</id>
+			<id>arquillian-jboss-local</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
-		    	</activation>
+			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.as</groupId>
@@ -627,7 +627,7 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<id>arquillian-managed</id>
+			<id>arquillian-jboss-managed</id>
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.as</groupId>
@@ -637,59 +637,45 @@
 				</dependency>
 			</dependencies>
 			<build>
-			    <plugins>
-				<plugin>
-				    <artifactId>maven-dependency-plugin</artifactId>
-				    <executions>
-					<execution>
-					    <id>unpack</id>
-					    <phase>process-test-classes</phase>
-					    <goals>
-						<goal>unpack</goal>
-					    </goals>
-					    <configuration>
-						<artifactItems>
-						    <artifactItem>
-						        <groupId>org.jboss.as</groupId>
-						        <artifactId>jboss-as-dist</artifactId>
-						        <version>7.1.1.Final</version>
-						        <type>zip</type>
-						        <overWrite>false</overWrite>
-						        <outputDirectory>target</outputDirectory>
-						    </artifactItem>
-						</artifactItems>
-					    </configuration>
-					</execution>
-				    </executions>
-				</plugin>
-				<plugin>
+				<plugins>
+					<plugin>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack</id>
+								<phase>process-test-classes</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>org.jboss.as</groupId>
+											<artifactId>jboss-as-dist</artifactId>
+											<version>7.1.1.Final</version>
+											<type>zip</type>
+											<overWrite>false</overWrite>
+											<outputDirectory>target</outputDirectory>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
 						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>2.6</version>
 						<configuration>
 							<systemPropertyVariables>
 								<arquillian.launch>jbossas-managed</arquillian.launch>
 							</systemPropertyVariables>
 						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>integration-test</goal>
-								</goals>
-							</execution>
-						</executions>
 					</plugin>
-			    </plugins>
-			</build> 
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>arquillian-openshift</id>
 			<dependencies>
-				<dependency>
-					<groupId>org.jboss.shrinkwrap.resolver</groupId>
-					<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-					<version>2.0.0-alpha-1</version>
-					<scope>test</scope>
-				</dependency>
 				<dependency>
 					<groupId>org.jboss.arquillian.container</groupId>
 					<artifactId>arquillian-openshift-express</artifactId>
@@ -701,19 +687,11 @@
 				<plugins>
 					<plugin>
 						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>2.6</version>
 						<configuration>
 							<systemPropertyVariables>
 								<arquillian.launch>openshift</arquillian.launch>
 							</systemPropertyVariables>
 						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>integration-test</goal>
-								</goals>
-							</execution>
-						</executions>
 					</plugin>
 				</plugins>
 			</build>

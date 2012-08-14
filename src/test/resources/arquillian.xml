@@ -51,11 +51,12 @@
 
 	<container qualifier="openshift">
 		<configuration>
-			<property name="namespace">bsaunders</property>
-			<property name="application">jee6divelogtest</property>
+			<property name="namespace">jee6divelog</property>
+			<property name="application">test</property>
 			<property name="libraDomain">rhcloud.com</property>
-			<property name="sshUserName">6c7a865af51f4a04824ebc6e7e8d0bef</property>
-			<property name="login">btsaunde@gmail.com</property>
+			<property name="sshUserName">74e028ca9cc143e8aa08ace2f5c79748</property>
+			<property name="passphrase"></property>
+			<property name="login">jee6divelog@mailinator.com</property>
 		</configuration>
 	</container>
 
