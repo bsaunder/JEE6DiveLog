@@ -42,6 +42,10 @@
 		<system>GitHub</system>
 		<url>https://github.com/bsaunder/JEE6DiveLog/issues</url>
 	</issueManagement>
+	<ciManagement>
+		<url>http://travis-ci.org/#!/bsaunder/JEE6DiveLog</url>
+		<system>Travis CI</system>
+	</ciManagement>
 
 	<repositories>
 		<repository>
