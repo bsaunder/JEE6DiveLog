@@ -34,11 +34,15 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+
+import javax.ws.rs.HttpMethod;
 
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.jboss.arquillian.junit.Arquillian;
@@ -86,7 +90,7 @@ public class UserAccountApiIT extends RestApiTest {
         newUser.setCreated(new Date());
         newUser.setUpdated(new Date());
 
-        given().contentType(ContentType.JSON).body(newUser).expect().statusCode(RestApiTest.CREATED).when()
+        given().contentType(ContentType.JSON).body(newUser).expect().statusCode(HttpStatus.SC_CREATED).when()
                 .post(RestApiTest.URL_ROOT + "/user/register/");
     }
 
@@ -102,7 +106,7 @@ public class UserAccountApiIT extends RestApiTest {
         newUser.setCreated(new Date());
         newUser.setUpdated(new Date());
 
-        given().contentType(ContentType.JSON).body(newUser).expect().statusCode(RestApiTest.BAD_REQUEST).when()
+        given().contentType(ContentType.JSON).body(newUser).expect().statusCode(HttpStatus.SC_BAD_REQUEST).when()
                 .post(RestApiTest.URL_ROOT + "/user/register/");
     }
 
@@ -114,16 +118,23 @@ public class UserAccountApiIT extends RestApiTest {
      */
     @Test
     public void ifSingleCriteriaMatchesThenGetResults() throws Exception {
-        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        // given
+        final String requestUrl = RestApiTest.URL_ROOT + "/user/find/";
+        final UserAccount loggedInUser = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        final String privateApiKey = loggedInUser.getPrivateApiKey();
+        final String publicApiKey = loggedInUser.getPublicApiKey();
+
+        final Map<String, String> headers = this.generateLoginHeaders(HttpMethod.POST, requestUrl, null, privateApiKey,
+                publicApiKey);
 
         final UserAccount userAccount = new UserAccount();
         userAccount.setEmail(UserAccountApiIT.VALID_EMAIL);
 
-        final String json = given()
-                .headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, token)
-                .contentType(ContentType.JSON).body(userAccount).expect().statusCode(RestApiTest.OK).when()
-                .post(RestApiTest.URL_ROOT + "/user/find/").asString();
+        // when
+        final String json = given().headers(headers).contentType(ContentType.JSON).body(userAccount).expect()
+                .statusCode(HttpStatus.SC_OK).when().post(requestUrl).asString();
 
+        // then
         assertNotNull(json);
 
         final ObjectMapper objMapper = new ObjectMapper();
@@ -146,17 +157,24 @@ public class UserAccountApiIT extends RestApiTest {
     @Test
     @UsingDataSet("ThreeUserAccounts-Admin.yml")
     public void ifMultipleCriteriaMatchesThenGetResults() throws Exception {
-        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        // given
+        final String requestUrl = RestApiTest.URL_ROOT + "/user/find/";
+        final UserAccount loggedInUser = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        final String privateApiKey = loggedInUser.getPrivateApiKey();
+        final String publicApiKey = loggedInUser.getPublicApiKey();
+
+        final Map<String, String> headers = this.generateLoginHeaders(HttpMethod.POST, requestUrl, null, privateApiKey,
+                publicApiKey);
 
         final UserAccount userAccount = new UserAccount();
         userAccount.setState("SC");
         userAccount.setLastName("Saunders");
 
-        final String json = given()
-                .headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, token)
-                .contentType(ContentType.JSON).body(userAccount).expect().statusCode(RestApiTest.OK).when()
-                .post(RestApiTest.URL_ROOT + "/user/find/").asString();
+        // when
+        final String json = given().headers(headers).contentType(ContentType.JSON).body(userAccount).expect()
+                .statusCode(HttpStatus.SC_OK).when().post(requestUrl).asString();
 
+        // then
         assertNotNull(json);
 
         final ObjectMapper objMapper = new ObjectMapper();
@@ -171,14 +189,21 @@ public class UserAccountApiIT extends RestApiTest {
      */
     @Test
     public void ifCriteriaDoesntMatchThenBadRequest() {
-        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        // given
+        final String requestUrl = RestApiTest.URL_ROOT + "/user/find/";
+        final UserAccount loggedInUser = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        final String privateApiKey = loggedInUser.getPrivateApiKey();
+        final String publicApiKey = loggedInUser.getPublicApiKey();
+
+        final Map<String, String> headers = this.generateLoginHeaders(HttpMethod.POST, requestUrl, null, privateApiKey,
+                publicApiKey);
 
         final UserAccount userAccount = new UserAccount();
         userAccount.setEmail("sdf@sdf.com");
 
-        given().headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, token)
-                .contentType(ContentType.JSON).body(userAccount).expect().statusCode(RestApiTest.BAD_REQUEST).when()
-                .post(RestApiTest.URL_ROOT + "/user/find");
+        // when
+        given().headers(headers).contentType(ContentType.JSON).body(userAccount).expect()
+                .statusCode(HttpStatus.SC_BAD_REQUEST).when().post(requestUrl);
     }
 
     /**
@@ -190,13 +215,20 @@ public class UserAccountApiIT extends RestApiTest {
     @Test
     @UsingDataSet("ThreeUserAccounts-Admin.yml")
     public void ifCriteriaBlankThenGetAll() throws Exception {
-        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        // given
+        final String requestUrl = RestApiTest.URL_ROOT + "/user/find/";
+        final UserAccount loggedInUser = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        final String privateApiKey = loggedInUser.getPrivateApiKey();
+        final String publicApiKey = loggedInUser.getPublicApiKey();
 
-        final String json = given()
-                .headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, token)
-                .contentType(ContentType.JSON).body(new UserAccount()).expect().statusCode(RestApiTest.OK).when()
-                .post(RestApiTest.URL_ROOT + "/user/find").asString();
+        final Map<String, String> headers = this.generateLoginHeaders(HttpMethod.POST, requestUrl, null, privateApiKey,
+                publicApiKey);
 
+        // when
+        final String json = given().headers(headers).contentType(ContentType.JSON).body(new UserAccount()).expect()
+                .statusCode(HttpStatus.SC_OK).when().post(requestUrl).asString();
+
+        // then
         assertNotNull(json);
 
         final ObjectMapper objMapper = new ObjectMapper();
@@ -219,12 +251,20 @@ public class UserAccountApiIT extends RestApiTest {
     @Test
     @UsingDataSet("ThreeUserAccounts-Admin.yml")
     public void ifUsersExistThenGetAll() throws Exception {
-        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        // given
+        final String requestUrl = RestApiTest.URL_ROOT + "/user";
+        final UserAccount loggedInUser = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        final String privateApiKey = loggedInUser.getPrivateApiKey();
+        final String publicApiKey = loggedInUser.getPublicApiKey();
 
-        final String json = given()
-                .headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, token)
-                .expect().statusCode(RestApiTest.OK).when().get(RestApiTest.URL_ROOT + "/user").asString();
+        final Map<String, String> headers = this.generateLoginHeaders(HttpMethod.GET, requestUrl, null, privateApiKey,
+                publicApiKey);
 
+        // when
+        final String json = given().headers(headers).expect().statusCode(HttpStatus.SC_OK).when().get(requestUrl)
+                .asString();
+
+        // then
         final ObjectMapper objMapper = new ObjectMapper();
         final List<UserAccount> list = objMapper.readValue(json, new TypeReference<List<UserAccount>>() {
         });
@@ -245,12 +285,20 @@ public class UserAccountApiIT extends RestApiTest {
     @Test
     @UsingDataSet("OneUserAccount-Admin.yml")
     public void ifOneUserThenGetOne() throws Exception {
-        final String token = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        // given
+        final String requestUrl = RestApiTest.URL_ROOT + "/user";
+        final UserAccount loggedInUser = this.doLogin(UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.VALID_PASSWORD);
+        final String privateApiKey = loggedInUser.getPrivateApiKey();
+        final String publicApiKey = loggedInUser.getPublicApiKey();
 
-        final String json = given()
-                .headers(UserAccountApiIT.DL_USERNAME, UserAccountApiIT.VALID_EMAIL, UserAccountApiIT.DL_TOKEN, token)
-                .expect().statusCode(RestApiTest.OK).when().get(RestApiTest.URL_ROOT + "/user").asString();
+        final Map<String, String> headers = this.generateLoginHeaders(HttpMethod.GET, requestUrl, null, privateApiKey,
+                publicApiKey);
 
+        // when
+        final String json = given().headers(headers).expect().statusCode(HttpStatus.SC_OK).when().get(requestUrl)
+                .asString();
+
+        // then
         final ObjectMapper objMapper = new ObjectMapper();
         final List<UserAccount> list = objMapper.readValue(json, new TypeReference<List<UserAccount>>() {
         });

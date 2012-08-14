@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.util;/*
+package net.bryansaunders.jee6divelog.util;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,10 +27,7 @@ package net.bryansaunders.jee6divelog.util;/*
  * #L%
  */
 
-
 import static org.junit.Assert.assertEquals;
-
-import net.bryansaunders.jee6divelog.util.HashUtils;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -62,6 +61,20 @@ public class HashUtilsTest {
         final String encoded = HashUtils.base64Encode(original);
         assertEquals(expectedBase64, encoded);
         assertEquals(original, HashUtils.base64Decode(encoded));
+    }
+
+    /**
+     * Tests HMAC-SHA1 Generation.
+     */
+    @Test
+    public void testHmacSha1() {
+        final String privateKey = "3435y5#=G-E%#45yq354y35ghW=%YQE%HG3";
+        final String stringToHash = "GET=application/json=n34g3445g34234345ge=2012-01-01=fsdfsdf34sregfsre";
+        final String expected = "EqhLmfdxK9zvETh4jZu5RVMTGLQ=";
+
+        final String result = HashUtils.toHmacSha1(stringToHash, privateKey);
+
+        assertEquals(expected, result);
     }
 
 }

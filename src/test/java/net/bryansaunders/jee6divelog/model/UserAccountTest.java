@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.model;/*
+package net.bryansaunders.jee6divelog.model;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,8 +27,11 @@ package net.bryansaunders.jee6divelog.model;/*
  * #L%
  */
 
-
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -118,6 +123,40 @@ public class UserAccountTest {
         final String value = "abc123";
         this.user.setPassword(value);
         assertEquals(value, this.user.getPassword());
+    }
+
+    /**
+     * Test method for API Keys.
+     */
+    @Test
+    public void testGetApiKeys() {
+        final String publicKey = "12346";
+        final String privateKey = "3456367";
+
+        this.user.setPublicApiKey(publicKey);
+        this.user.setPrivateApiKey(privateKey);
+        
+        assertEquals(publicKey, this.user.getPublicApiKey());
+        assertEquals(privateKey, this.user.getPrivateApiKey());
+    }
+
+    /**
+     * Test method for API Key Expiration.
+     */
+    @Test
+    public void testGetApiExpirationDate() {
+        final Date date = new Date();
+
+        this.user.setApiKeyExpiration(date);
+        Date setDate = this.user.getApiKeyExpiration();
+
+        assertNotNull(setDate);
+        assertEquals(date.getTime(), setDate.getTime());
+
+        this.user.setApiKeyExpiration(null);
+        setDate = this.user.getApiKeyExpiration();
+
+        assertNull(setDate);
     }
 
 }

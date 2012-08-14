@@ -156,7 +156,8 @@ public class UserAccountService {
         boolean result = false;
         final UserAccount user = this.findByUserEmail(username);
         if (user != null) {
-            user.setApiKey(null);
+            user.setPublicApiKey(null);
+            user.setPrivateApiKey(null);
             user.setApiKeyExpiration(new Date(System.currentTimeMillis() - 5));
             this.saveUser(user);
 

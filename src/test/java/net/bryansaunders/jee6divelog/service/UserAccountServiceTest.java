@@ -178,7 +178,8 @@ public class UserAccountServiceTest {
         validUser.setLastName("Saunders");
         validUser.setEmail(email);
         validUser.setPassword("pass123");
-        validUser.setApiKey("API_KEY");
+        validUser.setPublicApiKey("API_KEY");
+        validUser.setPrivateApiKey("API_KEY");
         validUser.setApiKeyExpiration(new Date());
 
         final List<UserAccount> userAccountList = new LinkedList<UserAccount>();
@@ -191,7 +192,8 @@ public class UserAccountServiceTest {
 
         // then
         assertTrue(result);
-        assertNull(validUser.getApiKey());
+        assertNull(validUser.getPublicApiKey());
+        assertNull(validUser.getPrivateApiKey());
 
         final Date expirationDate = validUser.getApiKeyExpiration();
         assertTrue(expirationDate.getTime() < System.currentTimeMillis());

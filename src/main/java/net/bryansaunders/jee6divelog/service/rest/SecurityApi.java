@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.service.rest;/*
+package net.bryansaunders.jee6divelog.service.rest;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,7 +27,6 @@ package net.bryansaunders.jee6divelog.service.rest;/*
  * #L%
  */
 
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -42,11 +43,9 @@ import net.bryansaunders.jee6divelog.security.Identity;
 import net.bryansaunders.jee6divelog.security.annotation.HasRole;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
-import net.bryansaunders.jee6divelog.util.SecurityUtils;
+import net.bryansaunders.jee6divelog.util.AccountUtils;
 
 import org.codehaus.enunciate.jaxrs.TypeHint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Security REST API.
@@ -59,11 +58,6 @@ import org.slf4j.LoggerFactory;
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class SecurityApi {
-    
-    /**
-     * Logger.
-     */
-    private final Logger logger = LoggerFactory.getLogger(SecurityApi.class);
 
     /**
      * User Account Service.
@@ -82,7 +76,7 @@ public class SecurityApi {
      */
     @Inject
     private Credentials credentials;
-    
+
     /**
      * Identifies the currently logged in REST user.
      * 
@@ -93,22 +87,20 @@ public class SecurityApi {
      * 
      * @param incomingCredentials
      *            Users Login Credentials
-     * @return User API Token
+     * @return User Identity
      */
     @POST
     @Path("login")
-    @TypeHint(String.class)
+    @TypeHint(UserAccount.class)
     public Response login(final Credentials incomingCredentials) {
         Response response;
-
         this.credentials.setUsername(incomingCredentials.getUsername());
         this.credentials.setPassword(incomingCredentials.getPassword());
+        
         final boolean loginResult = this.identity.restLogin();
         if (loginResult) {
-            final String userName = this.identity.getUsername();
-            final String apiKey = this.identity.getApiKey();
-            final String token = SecurityUtils.generateRestApiToken(userName, apiKey);
-            response = Response.ok(token).status(Response.Status.ACCEPTED).build();
+            final UserAccount userAccount = AccountUtils.createCleanUserAccount(this.identity);
+            response = Response.ok(userAccount).status(Response.Status.ACCEPTED).build();
         } else {
             response = Response.status(Response.Status.UNAUTHORIZED).build();
         }
@@ -123,16 +115,14 @@ public class SecurityApi {
      * <li>Status 200: Request Successful.</li>
      * </ul>
      * 
-     * @return User Account
+     * @return User Identity
      */
     @GET
     @Path("identify")
     @TypeHint(UserAccount.class)
     @HasRole(role = Role.USER)
     public Response identify() {
-        UserAccount userAccount = this.identity.createUserAccount();
-        userAccount = SecurityUtils.getCleanUserAccount(userAccount);
-        this.logger.debug("User Identity: " + userAccount.toString());
+        final UserAccount userAccount = AccountUtils.createCleanUserAccount(this.identity);
         return Response.ok(userAccount).build();
     }
 

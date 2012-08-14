@@ -96,12 +96,12 @@ public class UserAccount extends DiveLogEntity {
     private String password;
 
     /**
-     * User REST API Key.
+     * User Public API Key.
      */
-    private String apiKey;
+    private String publicApiKey;        /**     * User Private API Key.     */    private String privateApiKey;
 
     /**
-     * User REST API Key Expiration Date.
+     * User API Key Expiration Date.
      */
     private Date apiKeyExpiration;
 
@@ -297,23 +297,23 @@ public class UserAccount extends DiveLogEntity {
     }
 
     /**
-     * Get the apiKey.
+     * Get the Public apiKey.
      * 
      * @return the apiKey
      */
-    public String getApiKey() {
-        return this.apiKey;
+    public String getPublicApiKey() {
+        return this.publicApiKey;
     }
 
     /**
-     * Set the apiKey.
+     * Set the Public apiKey.
      * 
      * @param newApiKey
      *            the apiKey to set
      */
-    public void setApiKey(final String newApiKey) {
-        this.apiKey = newApiKey;
-    }
+    public void setPublicApiKey(final String newApiKey) {
+        this.publicApiKey = newApiKey;
+    }        /**     * Get the Private apiKey.     *      * @return the apiKey     */    public String getPrivateApiKey() {        return this.privateApiKey;    }    /**     * Set the Private apiKey.     *      * @param newApiKey     *            the apiKey to set     */    public void setPrivateApiKey(final String newApiKey) {        this.privateApiKey = newApiKey;    }
 
     /**
      * Get the apiKeyExpiration.
@@ -351,7 +351,7 @@ public class UserAccount extends DiveLogEntity {
     public String toString() {
         return "UserAccount [firstName=" + this.firstName + ", lastName=" + this.lastName + ", country=" + this.country
                 + ", state=" + this.state + ", city=" + this.city + ", email=" + this.email + ", password="
-                + this.password + ", apiKey=" + this.apiKey + ", apiKeyExpiration=" + this.apiKeyExpiration
+                + this.password + ", apiKey=" + this.publicApiKey + ", apiKeyExpiration=" + this.apiKeyExpiration
                 + ", roles=" + this.roles + ", permissions=" + this.permissions + "]";
     }
 

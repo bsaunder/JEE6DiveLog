@@ -103,7 +103,7 @@ public class DiveLogEntityTest {
         final Date updatedDate = this.entity.getUpdated();
 
         assertEquals(createdDate, updatedDate);
-        assertEquals(date.getTime(), createdDate.getTime());
+        assertEquals(date.getTime(), createdDate.getTime(), 5);
     }
 
     /**
@@ -116,7 +116,7 @@ public class DiveLogEntityTest {
         this.entity.onUpdate();
         final Date updatedDate = this.entity.getUpdated();
 
-        assertEquals(date.getTime(), updatedDate.getTime());
+        assertEquals(date.getTime(), updatedDate.getTime(), 5);
     }
 
 }

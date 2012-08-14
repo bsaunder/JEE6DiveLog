@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.util;/*
+package net.bryansaunders.jee6divelog.util;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,6 +27,10 @@ package net.bryansaunders.jee6divelog.util;/*
  * #L%
  */
 
+import java.security.GeneralSecurityException;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -75,5 +81,40 @@ public final class HashUtils {
      */
     public static String base64Decode(final String stringToDecode) {
         return new String(Base64.decodeBase64(stringToDecode));
+    }
+
+    /**
+     * Generates a HMAC-SHA1 Hash of the given String using the specified key.
+     * 
+     * @param stringToHash
+     *            String to Hash
+     * @param key
+     *            Key to Sign the String with
+     * @return Hashed String
+     */
+    public static String toHmacSha1(final String stringToHash, final String key) {
+        String result = "";
+        try {
+            // Get an hmac_sha1 key from the raw key bytes
+            final byte[] keyBytes = key.getBytes();
+            final SecretKeySpec signingKey = new SecretKeySpec(keyBytes, "HmacSHA1");
+
+            // Get an hmac_sha1 Mac instance and initialize with the signing key
+            final Mac mac = Mac.getInstance("HmacSHA1");
+            mac.init(signingKey);
+
+            // Compute the hmac on input data bytes
+            final byte[] rawHmac = mac.doFinal(stringToHash.getBytes());
+
+            // Convert raw bytes to Hex
+            final byte[] base64 = Base64.encodeBase64(rawHmac);
+
+            // Covert array of Hex bytes to a String
+            result = new String(base64);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

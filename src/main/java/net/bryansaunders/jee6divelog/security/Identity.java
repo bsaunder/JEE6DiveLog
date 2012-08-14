@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.security;/*
+package net.bryansaunders.jee6divelog.security;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,7 +27,6 @@ package net.bryansaunders.jee6divelog.security;/*
  * #L%
  */
 
-
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,6 +36,8 @@ import java.util.Set;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
@@ -53,6 +56,7 @@ import org.slf4j.LoggerFactory;
  */
 @SessionScoped
 @Named("identity")
+@XmlRootElement
 public class Identity implements Serializable {
 
     /**
@@ -99,12 +103,14 @@ public class Identity implements Serializable {
      * User Entered Credentials.
      */
     @Inject
+    @XmlTransient
     private Credentials credentials;
 
     /**
      * User Account Service.
      */
     @Inject
+    @XmlTransient
     private UserAccountService userAccountService;
 
     /**
@@ -123,12 +129,17 @@ public class Identity implements Serializable {
     private Set<Permission> permissions;
 
     /**
-     * User REST API Key.
+     * User Public API Key.
      */
-    private String apiKey;
+    private String publicApiKey;
+    
+    /**
+     * User Private API Key.
+     */
+    private String privateApiKey;
 
     /**
-     * User REST API Key Expiration Date.
+     * User API Key Expiration Date.
      */
     private Date apiKeyExpiration;
 
@@ -189,13 +200,15 @@ public class Identity implements Serializable {
                 this.setPermissions(userAccount.getPermissions());
 
                 if (restLogin) {
-                    this.apiKey = SecurityUtils.generateRestApiKey();
+                    this.publicApiKey = SecurityUtils.generateRestApiKey();
+                    this.privateApiKey = SecurityUtils.generateRestApiKey();
 
                     final Calendar expiration = Calendar.getInstance();
                     expiration.add(Calendar.HOUR, 5);
                     this.apiKeyExpiration = expiration.getTime();
 
-                    userAccount.setApiKey(this.apiKey);
+                    userAccount.setPublicApiKey(this.publicApiKey);
+                    userAccount.setPrivateApiKey(this.privateApiKey);
                     userAccount.setApiKeyExpiration(this.apiKeyExpiration);
                     this.userAccountService.saveUser(userAccount);
                 }
@@ -229,21 +242,6 @@ public class Identity implements Serializable {
         }
 
         return returnValue;
-    }
-
-    /**
-     * Generates a UserAccount Object for the Current Identity.
-     * 
-     * @return UserAccount
-     */
-    public UserAccount createUserAccount() {
-        UserAccount userAccount = new UserAccount();
-        userAccount.setEmail(this.getUsername());
-        userAccount.setApiKey(this.getApiKey());
-        userAccount.setApiKeyExpiration(this.getApiKeyExpiration());
-        userAccount.setRoles(this.getRoles());
-        userAccount.setPermissions(this.getPermissions());
-        return userAccount;
     }
 
     /**
@@ -392,22 +390,41 @@ public class Identity implements Serializable {
     }
 
     /**
-     * Get the apiKey.
+     * Get the Public apiKey.
      * 
      * @return the apiKey
      */
-    public String getApiKey() {
-        return this.apiKey;
+    public String getPublicApiKey() {
+        return this.publicApiKey;
     }
 
     /**
-     * Set the apiKey.
+     * Set the Public apiKey.
      * 
      * @param newApiKey
      *            the apiKey to set
      */
-    public void setApiKey(final String newApiKey) {
-        this.apiKey = newApiKey;
+    public void setPublicApiKey(final String newApiKey) {
+        this.publicApiKey = newApiKey;
+    }
+    
+    /**
+     * Get the Private apiKey.
+     * 
+     * @return the apiKey
+     */
+    public String getPrivateApiKey() {
+        return this.privateApiKey;
+    }
+
+    /**
+     * Set the Private apiKey.
+     * 
+     * @param newApiKey
+     *            the apiKey to set
+     */
+    public void setPrivateApiKey(final String newApiKey) {
+        this.privateApiKey = newApiKey;
     }
 
     /**

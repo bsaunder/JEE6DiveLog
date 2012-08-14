@@ -3,4 +3,7 @@ jdk: openjdk6
 script: "mvn install -P arquillian-jboss-managed"
 notifications:
   email:
-    - btsaunde@gmail.com
+    recipients:
+      - btsaunde@gmail.com
+    on_success: always
+    on_failure: always

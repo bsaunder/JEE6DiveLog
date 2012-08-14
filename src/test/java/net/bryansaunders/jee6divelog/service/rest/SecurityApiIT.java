@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.service.rest;/*
+package net.bryansaunders.jee6divelog.service.rest;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,13 +27,18 @@ package net.bryansaunders.jee6divelog.service.rest;/*
  * #L%
  */
 
-
 import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+import java.util.Map;
+
+import javax.ws.rs.HttpMethod;
+
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.Credentials;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.DataSource;
 import org.jboss.arquillian.persistence.UsingDataSet;
@@ -64,8 +71,8 @@ public class SecurityApiIT extends RestApiTest {
      */
     @Test
     public void ifCredentialsValidThenLogin() {
-        final String token = this.doLogin(SecurityApiIT.VALID_EMAIL, SecurityApiIT.VALID_PASSWORD);
-        assertNotNull(token);
+        final UserAccount loggedInUser = this.doLogin(SecurityApiIT.VALID_EMAIL, SecurityApiIT.VALID_PASSWORD);
+        assertNotNull(loggedInUser);
     }
 
     /**
@@ -77,7 +84,7 @@ public class SecurityApiIT extends RestApiTest {
         credentials.setUsername("nope@fail.com");
         credentials.setPassword("wrongpass");
 
-        given().contentType(ContentType.JSON).body(credentials).expect().statusCode(RestApiTest.UNAUTHORIZED).when()
+        given().contentType(ContentType.JSON).body(credentials).expect().statusCode(HttpStatus.SC_UNAUTHORIZED).when()
                 .post(RestApiTest.URL_ROOT + "/security/login/");
     }
 
@@ -86,12 +93,20 @@ public class SecurityApiIT extends RestApiTest {
      */
     @Test
     public void ifLoggedInThenIdentify() {
-        final String token = this.doLogin(SecurityApiIT.VALID_EMAIL, SecurityApiIT.VALID_PASSWORD);
+        // given
+        final String requestUrl = RestApiTest.URL_ROOT + "/security/identify";
+        final UserAccount loggedInUser = this.doLogin(SecurityApiIT.VALID_EMAIL, SecurityApiIT.VALID_PASSWORD);
+        final String privateApiKey = loggedInUser.getPrivateApiKey();
+        final String publicApiKey = loggedInUser.getPublicApiKey();
 
-        final UserAccount foundUser = given()
-                .headers(SecurityApiIT.DL_USERNAME, SecurityApiIT.VALID_EMAIL, SecurityApiIT.DL_TOKEN, token)
-                .expect().statusCode(OK).when().get(RestApiTest.URL_ROOT + "/security/identify").as(UserAccount.class);
+        final Map<String, String> headers = this.generateLoginHeaders(HttpMethod.GET, requestUrl, null, privateApiKey,
+                publicApiKey);
 
+        // when
+        final UserAccount foundUser = given().headers(headers).expect().statusCode(HttpStatus.SC_OK).when()
+                .get(requestUrl).as(UserAccount.class);
+
+        // then
         assertNotNull(foundUser);
         assertEquals(SecurityApiIT.VALID_EMAIL, foundUser.getEmail());
     }
@@ -101,8 +116,8 @@ public class SecurityApiIT extends RestApiTest {
      */
     @Test
     public void ifNotLoggedInThenIdentifyUnauthorized() {
-        given().headers(SecurityApiIT.DL_USERNAME, SecurityApiIT.VALID_EMAIL, SecurityApiIT.DL_TOKEN, "1233")
-                .expect().statusCode(RestApiTest.UNAUTHORIZED).when().get(RestApiTest.URL_ROOT + "/security/identify");
+        given().headers(RestApi.PUBLIC_KEY_HEADER, "sdfsdfs", RestApi.SIGNATURE_HEADER, "seese").expect()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED).when().get(RestApiTest.URL_ROOT + "/security/identify");
     }
 
     /**
@@ -110,10 +125,8 @@ public class SecurityApiIT extends RestApiTest {
      */
     @Test
     public void ifNotLoggedInThenLogoutUnauthorized() {
-        given().headers(SecurityApiIT.DL_USERNAME, SecurityApiIT.VALID_EMAIL, SecurityApiIT.DL_TOKEN, "1233")
-                .expect().statusCode(RestApiTest.UNAUTHORIZED).when().post(RestApiTest.URL_ROOT + "/security/logout");
-        // String json = get(RestApiTest.URL_ROOT + "/security/logout").asString();
-        // System.out.println("JSON: " + json);
+        given().headers(RestApi.PUBLIC_KEY_HEADER, "sdfsdfs", RestApi.SIGNATURE_HEADER, "seese").expect()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED).when().post(RestApiTest.URL_ROOT + "/security/logout");
     }
 
     /**
@@ -121,11 +134,18 @@ public class SecurityApiIT extends RestApiTest {
      */
     @Test
     public void ifLoggedInThenLogout() {
-        final String token = this.doLogin(SecurityApiIT.VALID_EMAIL, SecurityApiIT.VALID_PASSWORD);
+        // given
+        final String requestUrl = RestApiTest.URL_ROOT + "/security/logout";
+        final UserAccount loggedInUser = this.doLogin(SecurityApiIT.VALID_EMAIL, SecurityApiIT.VALID_PASSWORD);
+        final String privateApiKey = loggedInUser.getPrivateApiKey();
+        final String publicApiKey = loggedInUser.getPublicApiKey();
+
+        final Map<String, String> headers = this.generateLoginHeaders(HttpMethod.POST, requestUrl, null, privateApiKey,
+                publicApiKey);
 
         final String json = given()
-                .headers(SecurityApiIT.DL_USERNAME, SecurityApiIT.VALID_EMAIL, SecurityApiIT.DL_TOKEN, token)
-                .expect().statusCode(OK).when().post(RestApiTest.URL_ROOT + "/security/logout").asString();
+                .headers(headers).expect()
+                .statusCode(HttpStatus.SC_OK).when().post(requestUrl).asString();
 
         assertNotNull(json);
         assertEquals("true", json);

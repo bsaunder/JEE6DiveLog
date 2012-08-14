@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.security.interceptor;/*
+package net.bryansaunders.jee6divelog.security.interceptor;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,7 +27,6 @@ package net.bryansaunders.jee6divelog.security.interceptor;/*
  * #L%
  */
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -38,14 +39,19 @@ import static org.mockito.Mockito.when;
 import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.Credentials;
 import net.bryansaunders.jee6divelog.security.Identity;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
+import net.bryansaunders.jee6divelog.service.rest.RestApi;
 import net.bryansaunders.jee6divelog.util.SecurityUtils;
 
 import org.jboss.resteasy.core.ResourceMethod;
@@ -113,30 +119,43 @@ public class RestSecurityInterceptorTest {
      * @throws Exception
      *             Thrown on error
      */
+    @SuppressWarnings("deprecation")
     @Before
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        this.userAccount = new UserAccount();
-        this.userAccount.setApiKey(SecurityUtils.generateRestApiKey());
+        final String requestUrl = "http://localhost:8080/jee6divelog_test/REST/user/find";
+
+        final String date = new Date(2012, 1, 1).toGMTString();
+        final String contentType = MediaType.APPLICATION_JSON;
+        final String contentMd5 = null;
+        final String publicApiKey = SecurityUtils.generateRestApiKey();
+        final String privateApiKey = SecurityUtils.generateRestApiKey();
+        final String signature = SecurityUtils.generateRestSignature("GET", contentType, contentMd5, date, requestUrl,
+                privateApiKey);
         final Calendar expiration = Calendar.getInstance();
         expiration.add(Calendar.HOUR, 5);
+
+        final MultivaluedMap<String, String> requestHeaders = new MultivaluedMapImpl<String, String>();
+        requestHeaders.add(HttpHeaders.DATE, date);
+        requestHeaders.add(HttpHeaders.CONTENT_TYPE, contentType);
+        requestHeaders.add(RestApi.CONTENT_MD5_HEADER, contentMd5);
+        requestHeaders.add(RestApi.PUBLIC_KEY_HEADER, publicApiKey);
+        requestHeaders.add(RestApi.SIGNATURE_HEADER, signature);
+
+        this.secureMethod = RoleInterceptorSandbox.class.getMethod("hasRoleUserMethod");
+        this.httpRequest = MockHttpRequest.get(requestUrl);
+        this.httpHeaders = (HttpHeadersImpl) this.httpRequest.getHttpHeaders();
+        this.httpHeaders.setRequestHeaders(requestHeaders);
+
+        this.userAccount = new UserAccount();
+        this.userAccount.setPublicApiKey(publicApiKey);
+        this.userAccount.setPrivateApiKey(privateApiKey);
         this.userAccount.setApiKeyExpiration(expiration.getTime());
         this.userAccount.setFirstName("Test");
         this.userAccount.setLastName("Testerson");
         this.userAccount.setEmail("test@test.com");
         this.userAccount.setPassword("***");
-
-        this.secureMethod = RoleInterceptorSandbox.class.getMethod("hasRoleUserMethod");
-
-        this.httpRequest = MockHttpRequest.get("http://localhost:8080/jee6divelog_test/REST/user/find");
-
-        this.httpHeaders = (HttpHeadersImpl) this.httpRequest.getHttpHeaders();
-        final MultivaluedMap<String, String> requestHeaders = new MultivaluedMapImpl<String, String>();
-        requestHeaders.add("dl-username", this.userAccount.getEmail());
-        requestHeaders.add("dl-token", "sdfsdf");
-        this.httpHeaders.setRequestHeaders(requestHeaders);
-
     }
 
     /**
@@ -146,26 +165,20 @@ public class RestSecurityInterceptorTest {
     @Test
     public void ifValidThenAuthorized() {
         // given
-        final String username = this.userAccount.getEmail();
-        final String apiKey = this.userAccount.getApiKey();
-        final String apiToken = SecurityUtils.generateRestApiToken(username, apiKey);
-
-        final MultivaluedMap<String, String> requestHeaders = new MultivaluedMapImpl<String, String>();
-        requestHeaders.add("dl-username", username);
-        requestHeaders.add("dl-token", apiToken);
-        this.httpHeaders.setRequestHeaders(requestHeaders);
-
         final ResourceMethod resourceMethod = mock(ResourceMethod.class);
         when(resourceMethod.getMethod()).thenReturn(this.secureMethod);
 
-        when(this.mockAccountService.findByUserEmail(any(String.class))).thenReturn(this.userAccount);
+        final List<UserAccount> userList = new LinkedList<UserAccount>();
+        userList.add(this.userAccount);
+        when(this.mockAccountService.findByExample(any(UserAccount.class))).thenReturn(userList);
 
         // when
         final ServerResponse response = this.interceptor.preProcess(this.httpRequest, resourceMethod);
 
         // then
         assertNull(response);
-        verify(this.mockIdentity).setApiKey(any(String.class));
+        verify(this.mockIdentity).setPublicApiKey(any(String.class));
+        verify(this.mockIdentity).setPrivateApiKey(any(String.class));
         verify(this.mockIdentity).setApiKeyExpiration(any(Date.class));
         verify(this.mockIdentity).setPermissions(any(Set.class));
         verify(this.mockIdentity).setRoles(any(Set.class));
@@ -256,7 +269,7 @@ public class RestSecurityInterceptorTest {
         assertNotNull(response);
         assertEquals(HttpResponseCodes.SC_UNAUTHORIZED, response.getStatus());
     }
-    
+
     /**
      * Test preProcess method with Null Token Expiration.
      * 

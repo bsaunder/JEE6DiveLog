@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.util;/*
+package net.bryansaunders.jee6divelog.util;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,7 +27,6 @@ package net.bryansaunders.jee6divelog.util;/*
  * #L%
  */
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -35,9 +36,10 @@ import static org.mockito.Mockito.when;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Date;
 
-import net.bryansaunders.jee6divelog.model.UserAccount;
+import javax.ws.rs.HttpMethod;
+import javax.ws.rs.core.MediaType;
+
 import net.bryansaunders.jee6divelog.security.annotation.HasPermission;
 import net.bryansaunders.jee6divelog.security.annotation.HasPermissions;
 import net.bryansaunders.jee6divelog.security.annotation.HasRole;
@@ -81,24 +83,6 @@ public class SecurityUtilsTest {
         assertNotNull(apiKey);
         assertTrue(apiKey.length() >= 32);
         assertTrue(Base64.isBase64(apiKey));
-    }
-
-    /**
-     * Test Method for Generate REST API Token.
-     */
-    @Test
-    public void testGenerateToken() {
-        // given
-        final String username = "test@test.com";
-        final String apiKey = SecurityUtils.generateRestApiKey();
-        final String combined = username + apiKey;
-        final String expctedToken = DigestUtils.sha256Hex(combined);
-
-        // when
-        final String token = SecurityUtils.generateRestApiToken(username, apiKey);
-
-        // then
-        assertEquals(expctedToken, token);
     }
 
     /**
@@ -150,21 +134,23 @@ public class SecurityUtilsTest {
     }
 
     /**
-     * Tests the Clean UserAccount and DiveLogEntity methods.
+     * Tests the Generation of REST Signatures.
      */
     @Test
-    public void cleanUserAccount() {
-        // given
-        UserAccount userAccount = new UserAccount();
-        final Date date = new Date();
-        
-        // when
-        userAccount = SecurityUtils.getCleanUserAccount(userAccount);
-        
-        // then
-        assertEquals("***", userAccount.getPassword());
-        assertEquals(date.getTime(), userAccount.getCreated().getTime(), 5);
-        assertEquals(date.getTime(), userAccount.getUpdated().getTime(), 5);
+    public void ifSignaturesValidThenPass() {
+        final String privateKey = "3435y5#=G-E%#45yq354y35ghW=%YQE%HG3";
+        final String httpMethod = HttpMethod.GET;
+        final String contentType = MediaType.APPLICATION_JSON;
+        final String contendMd5 = "n34g3445g34234345ge";
+        final String date = "2012-01-01";
+        final String requestUrl = "fsdfsdf34sregfsre";
+
+        final String expected = "EqhLmfdxK9zvETh4jZu5RVMTGLQ=";
+
+        final String result = SecurityUtils.generateRestSignature(httpMethod, contentType, contendMd5, date,
+                requestUrl, privateKey);
+
+        assertEquals(expected, result);
     }
 
 }

@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.security;/*
+package net.bryansaunders.jee6divelog.security;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,7 +27,6 @@ package net.bryansaunders.jee6divelog.security;/*
  * #L%
  */
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -34,7 +35,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -118,7 +118,8 @@ public class IdentityTest {
         // then
         assertEquals(Identity.LOGIN_SUCCESS, result);
         assertTrue(this.identity.isLoggedIn());
-        assertNull(this.identity.getApiKey());
+        assertNull(this.identity.getPublicApiKey());
+        assertNull(this.identity.getPrivateApiKey());
         assertNull(this.identity.getApiKeyExpiration());
     }
 
@@ -308,39 +309,9 @@ public class IdentityTest {
         // then
         assertEquals(Identity.LOGIN_SUCCESS, result);
         assertTrue(this.identity.isLoggedIn());
-        assertNotNull(this.identity.getApiKey());
+        assertNotNull(this.identity.getPublicApiKey());
+        assertNotNull(this.identity.getPrivateApiKey());
         assertNotNull(this.identity.getApiKeyExpiration());
-    }
-
-    /**
-     * Test for createUserAccount().
-     */
-    @Test
-    public void testCreateUserAccount() {
-        // given
-        final String apiKey = "apiKey123445345";
-        final Date expirationDate = new Date();
-        final String email = "email";
-        final Set<Role> roles = new LinkedHashSet<Role>();
-        final Set<Permission> permission = new LinkedHashSet<Permission>();
-
-        this.identity.setApiKey(apiKey);
-        this.identity.setApiKeyExpiration(expirationDate);
-        final Credentials credentials = new Credentials();
-        credentials.setUsername(email);
-        this.identity.setCredentials(credentials);
-        this.identity.setRoles(roles);
-        this.identity.setPermissions(permission);
-
-        // when
-        final UserAccount userAccount = this.identity.createUserAccount();
-
-        // then
-        assertEquals(apiKey, userAccount.getApiKey());
-        assertEquals(expirationDate, userAccount.getApiKeyExpiration());
-        assertEquals(email, userAccount.getEmail());
-        assertEquals(roles, userAccount.getRoles());
-        assertEquals(permission, userAccount.getPermissions());
     }
 
 }
