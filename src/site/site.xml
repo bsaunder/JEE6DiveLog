@@ -4,4 +4,8 @@
 		<artifactId>maven-fluido-skin</artifactId>
 		<version>1.2.3-SNAPSHOT</version>
 	</skin>
+	
+	<body>
+		<menu ref="reports"/>
+	</body>
 </project>

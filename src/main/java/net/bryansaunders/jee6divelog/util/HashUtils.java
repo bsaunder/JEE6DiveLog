@@ -34,6 +34,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility Methods for Dealing with Hashing.
@@ -42,6 +44,11 @@ import org.apache.commons.codec.digest.DigestUtils;
  * 
  */
 public final class HashUtils {
+    
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(HashUtils.class);
 
     /**
      * Default Private Constructor.
@@ -112,7 +119,7 @@ public final class HashUtils {
             // Covert array of Hex bytes to a String
             result = new String(base64);
         } catch (GeneralSecurityException e) {
-            e.printStackTrace();
+            HashUtils.LOGGER.error("An Error Occured Generating an HMAC-SHA1 Hash!", e);
         }
 
         return result;
