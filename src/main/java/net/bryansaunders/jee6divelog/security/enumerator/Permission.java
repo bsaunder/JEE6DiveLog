@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.security.enumerator;/*
+package net.bryansaunders.jee6divelog.security.enumerator;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,85 +27,47 @@ package net.bryansaunders.jee6divelog.security.enumerator;/*
  * #L%
  */
 
-
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * Account Permissions.
  * 
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
-@SuppressWarnings("serial")
 public enum Permission {
 
     /**
      * Edit Self.
      */
-    
-    EDIT_SELF(new HashMap<Role, Boolean>() {
-        {
-            this.put(Role.USER, true);
-            this.put(Role.ADMIN, true);
-        }
-    }),
+    EDIT_SELF,
 
     /**
      * Delete Self.
      */
-    DELETE_SELF(new HashMap<Role, Boolean>() {
-        {
-            this.put(Role.USER, true);
-            this.put(Role.ADMIN, false);
-        }
-    });
+    DELETE_SELF,
+    
+    /**
+     * Is a User.
+     */
+    IS_USER,
 
     /**
-     * Default Permission Flag Map.
+     * Has REST API Access.
      */
-    private Map<Role, Boolean> defaultPermission;
+    REST_ACCESS,
 
     /**
-     * Default Constructor.
-     * 
-     * @param defaultPermissions
-     *            Map of Default Permissions
+     * Can View Users.
      */
-    private Permission(final Map<Role, Boolean> defaultPermissions) {
-        this.defaultPermission = defaultPermissions;
-    }
+    VIEW_USERS,
 
     /**
-     * Get the defaultPermission.
-     * 
-     * @return the defaultPermission
+     * Has SOAP API Access.
      */
-    public Map<Role, Boolean> getDefaultPermission() {
-        return this.defaultPermission;
-    }
+    SOAP_ACCESS,
 
     /**
-     * Get Default Permissions for the Given Role.
-     * 
-     * @param role
-     *            Role to check Permissions for
-     * @return List of Permission Objects
+     * Is an Admin
      */
-    public static Set<Permission> getDefaults(final Role role) {
-        final Set<Permission> defaultPermissions = new LinkedHashSet<Permission>();
-
-        for (final Permission permission : Permission.values()) {
-            final Map<Role, Boolean> permissionMap = permission.getDefaultPermission();
-            final Boolean value = permissionMap.get(role);
-            if (value != null && value) {
-                defaultPermissions.add(permission);
-            }
-        }
-
-        return defaultPermissions;
-    }
+    IS_ADMIN;
 
 }

@@ -96,7 +96,7 @@ public class UserAccountService {
             user.setRoles(defaultRoles);
 
             // Set Default Permissions
-            final Set<Permission> defaultPermissions = Permission.getDefaults(Role.USER);
+            final Set<Permission> defaultPermissions = Role.USER.getPermissions();
             user.setPermissions(defaultPermissions);
 
             savedUser = this.userDao.save(user);

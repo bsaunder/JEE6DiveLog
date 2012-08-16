@@ -143,7 +143,7 @@ public class RestSecurityInterceptorTest {
         requestHeaders.add(RestApi.PUBLIC_KEY_HEADER, publicApiKey);
         requestHeaders.add(RestApi.SIGNATURE_HEADER, signature);
 
-        this.secureMethod = RoleInterceptorSandbox.class.getMethod("hasRoleUserMethod");
+        this.secureMethod = PermissionInterceptorSandbox.class.getMethod("hasPermissionUserMethod");
         this.httpRequest = MockHttpRequest.get(requestUrl);
         this.httpHeaders = (HttpHeadersImpl) this.httpRequest.getHttpHeaders();
         this.httpHeaders.setRequestHeaders(requestHeaders);
@@ -195,7 +195,7 @@ public class RestSecurityInterceptorTest {
     @Test
     public void ifNotSecureThenAuthorized() throws Exception {
         // given
-        final Method unsecureMethod = RoleInterceptorSandbox.class.getMethod("blankMethod");
+        final Method unsecureMethod = PermissionInterceptorSandbox.class.getMethod("blankMethod");
         final ResourceMethod resourceMethod = mock(ResourceMethod.class);
         when(resourceMethod.getMethod()).thenReturn(unsecureMethod);
 

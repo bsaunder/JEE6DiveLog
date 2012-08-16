@@ -42,9 +42,7 @@ import javax.ws.rs.core.MediaType;
 
 import net.bryansaunders.jee6divelog.security.annotation.HasPermission;
 import net.bryansaunders.jee6divelog.security.annotation.HasPermissions;
-import net.bryansaunders.jee6divelog.security.annotation.HasRole;
-import net.bryansaunders.jee6divelog.security.annotation.HasRoles;
-import net.bryansaunders.jee6divelog.security.interceptor.RoleInterceptorSandbox;
+import net.bryansaunders.jee6divelog.security.interceptor.PermissionInterceptorSandbox;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -95,12 +93,6 @@ public class SecurityUtilsTest {
 
         annotation = mock(HasPermissions.class);
         assertTrue(SecurityUtils.isAnnotationSecure(annotation));
-
-        annotation = mock(HasRole.class);
-        assertTrue(SecurityUtils.isAnnotationSecure(annotation));
-
-        annotation = mock(HasRoles.class);
-        assertTrue(SecurityUtils.isAnnotationSecure(annotation));
     }
 
     /**
@@ -111,7 +103,7 @@ public class SecurityUtilsTest {
      */
     @Test
     public void ifMethodSecureThenTrue() throws Exception {
-        final Method method = RoleInterceptorSandbox.class.getMethod("hasRoleUserMethod");
+        final Method method = PermissionInterceptorSandbox.class.getMethod("hasPermissionUserMethod");
         final ResourceMethod resourceMethod = mock(ResourceMethod.class);
         when(resourceMethod.getMethod()).thenReturn(method);
 
@@ -126,7 +118,7 @@ public class SecurityUtilsTest {
      */
     @Test
     public void ifMethodNotsecureThenFalse() throws Exception {
-        final Method method = RoleInterceptorSandbox.class.getMethod("blankMethod");
+        final Method method = PermissionInterceptorSandbox.class.getMethod("blankMethod");
         final ResourceMethod resourceMethod = mock(ResourceMethod.class);
         when(resourceMethod.getMethod()).thenReturn(method);
 

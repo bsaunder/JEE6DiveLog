@@ -1,42 +1,1 @@
-package net.bryansaunders.jee6divelog.security.enumerator;/*
- * #%L
- * BSNet-DiveLog
- * $Id:$
- * $HeadURL:$
- * %%
- * Copyright (C) 2012 Bryan Saunders
- * %%
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/gpl-3.0.html>.
- * #L%
- */
-
-
-/**
- * Account Roles.
- * 
- * @author Bryan Saunders <btsaunde@gmail.com>
- * 
- */
-public enum Role {
-    /**
-     * Basic Site User.
-     */
-    USER,
-
-    /**
-     * Site Admin.
-     */
-    ADMIN;
-}
+package net.bryansaunders.jee6divelog.security.enumerator;import java.util.HashSet;import java.util.Set;/* * #%L * BSNet-DiveLog * $Id:$ * $HeadURL:$ * %% * Copyright (C) 2012 Bryan Saunders * %% * This program is free software: you can redistribute it and/or modify * it under the terms of the GNU General Public License as * published by the Free Software Foundation, either version 3 of the  * License, or (at your option) any later version. *  * This program is distributed in the hope that it will be useful, * but WITHOUT ANY WARRANTY; without even the implied warranty of * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the * GNU General Public License for more details. *  * You should have received a copy of the GNU General Public  * License along with this program.  If not, see * <http://www.gnu.org/licenses/gpl-3.0.html>. * #L% *//** * Account Roles. *  * @author Bryan Saunders <btsaunde@gmail.com> *  */@SuppressWarnings("serial")public enum Role {    /**     * Basic Site User.     */    USER(new HashSet<Permission>() {        {            this.add(Permission.IS_USER);            this.add(Permission.VIEW_USERS);        }    }),    /**     * Site Admin.     */    ADMIN(new HashSet<Permission>() {        {            this.add(Permission.IS_ADMIN);        }    }),    /**     * Web API User.     */    WEB_USER(new HashSet<Permission>() {        {            this.add(Permission.REST_ACCESS);            this.add(Permission.SOAP_ACCESS);        }    });    /**     * Default Permissions.     */    private Set<Permission> defaultPermissions;    /**     * Default Constructor.     *      * @param permissions     *            Default Permissions     */    private Role(final Set<Permission> permissions) {        this.defaultPermissions = permissions;    }    /**     * Get the Default Permissions for the Role.     *      * @return Set of Permission     */    public Set<Permission> getPermissions() {        return this.defaultPermissions;    }}

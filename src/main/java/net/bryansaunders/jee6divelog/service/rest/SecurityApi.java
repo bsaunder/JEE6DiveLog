@@ -40,8 +40,8 @@ import javax.ws.rs.core.Response;
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.Credentials;
 import net.bryansaunders.jee6divelog.security.Identity;
-import net.bryansaunders.jee6divelog.security.annotation.HasRole;
-import net.bryansaunders.jee6divelog.security.enumerator.Role;
+import net.bryansaunders.jee6divelog.security.annotation.HasPermission;
+import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
 import net.bryansaunders.jee6divelog.util.AccountUtils;
 
@@ -96,7 +96,7 @@ public class SecurityApi {
         Response response;
         this.credentials.setUsername(incomingCredentials.getUsername());
         this.credentials.setPassword(incomingCredentials.getPassword());
-        
+
         final boolean loginResult = this.identity.restLogin();
         if (loginResult) {
             final UserAccount userAccount = AccountUtils.createCleanUserAccount(this.identity);
@@ -120,7 +120,7 @@ public class SecurityApi {
     @GET
     @Path("identify")
     @TypeHint(UserAccount.class)
-    @HasRole(role = Role.USER)
+    @HasPermission(permission = Permission.REST_ACCESS)
     public Response identify() {
         final UserAccount userAccount = AccountUtils.createCleanUserAccount(this.identity);
         return Response.ok(userAccount).build();
@@ -138,7 +138,7 @@ public class SecurityApi {
     @POST
     @Path("logout")
     @TypeHint(Boolean.class)
-    @HasRole(role = Role.USER)
+    @HasPermission(permission = Permission.REST_ACCESS)
     public Response logout() {
         final String username = this.identity.getUsername();
         this.identity.logout();
