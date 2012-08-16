@@ -6,3 +6,5 @@ target
 /.checkstyle
 /.externalToolBuilders
 /.settings
+
+.git
