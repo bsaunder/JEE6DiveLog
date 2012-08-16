@@ -103,7 +103,7 @@ public class SecurityUtilsTest {
      */
     @Test
     public void ifMethodSecureThenTrue() throws Exception {
-        final Method method = PermissionInterceptorSandbox.class.getMethod("hasPermissionUserMethod");
+        final Method method = PermissionInterceptorSandbox.class.getMethod("hasPermissionEditSelfMethod");
         final ResourceMethod resourceMethod = mock(ResourceMethod.class);
         when(resourceMethod.getMethod()).thenReturn(method);
 

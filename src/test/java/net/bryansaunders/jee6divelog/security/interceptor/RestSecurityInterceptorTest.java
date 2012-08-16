@@ -143,7 +143,7 @@ public class RestSecurityInterceptorTest {
         requestHeaders.add(RestApi.PUBLIC_KEY_HEADER, publicApiKey);
         requestHeaders.add(RestApi.SIGNATURE_HEADER, signature);
 
-        this.secureMethod = PermissionInterceptorSandbox.class.getMethod("hasPermissionUserMethod");
+        this.secureMethod = PermissionInterceptorSandbox.class.getMethod("hasPermissionEditSelfMethod");
         this.httpRequest = MockHttpRequest.get(requestUrl);
         this.httpHeaders = (HttpHeadersImpl) this.httpRequest.getHttpHeaders();
         this.httpHeaders.setRequestHeaders(requestHeaders);
