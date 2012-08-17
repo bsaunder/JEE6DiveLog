@@ -7,3 +7,6 @@ notifications:
       - btsaunde@gmail.com
     on_success: always
     on_failure: always
+branches:
+  only:
+    - master
