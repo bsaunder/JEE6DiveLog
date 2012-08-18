@@ -65,9 +65,9 @@ public final class DeploymentFactory {
     }
     
     /**
-     * Gets a Default WebArchive Deployment.
+     * Gets a Default WebArchive Deployment for the REST API.
      * 
-     * @return Default Arquillian Deployment
+     * @return REST API Arquillian Deployment
      */
     public static WebArchive getRestApiDeployment() {
         final MavenDependencyResolver resolver = DependencyResolvers
@@ -84,4 +84,17 @@ public final class DeploymentFactory {
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
     }
+
+    /**
+     * Gets a Default WebArchive for a Template Test.
+     * @return Template Arquillian Deployment
+     */
+	public static WebArchive getTemplateDeployment() {
+		return ShrinkWrap.create(WebArchive.class, "jee6divelog_test_template.war")
+                .addPackages(true, "net.bryansaunders.jee6divelog")
+                .addPackages(true, "org.apache.commons.codec")
+                .addPackages(true, "org.jboss.arquilian")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml");
+	}
 }

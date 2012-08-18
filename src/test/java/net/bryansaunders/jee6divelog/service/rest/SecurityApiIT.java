@@ -48,6 +48,8 @@ import org.junit.runner.RunWith;
 import com.jayway.restassured.http.ContentType;
 
 /**
+ * Integration Tests for Rest Securit API.
+ * 
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
