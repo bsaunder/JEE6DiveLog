@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog;/*
+package net.bryansaunders.jee6divelog;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -24,7 +26,6 @@ package net.bryansaunders.jee6divelog;/*
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
 
 import java.io.File;
 
@@ -56,27 +57,24 @@ public final class DeploymentFactory {
      * 
      * @return Default Arquillian Deployment
      */
-    public static WebArchive getDefaultDeployment() {        
+    public static WebArchive getDefaultDeployment() {
         return ShrinkWrap.create(WebArchive.class, "jee6divelog_test_default.war")
-                .addPackages(true, "net.bryansaunders.jee6divelog")
-                .addPackages(true, "org.apache.commons.codec")
+                .addPackages(true, "net.bryansaunders.jee6divelog").addPackages(true, "org.apache.commons.codec")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml");
     }
-    
+
     /**
      * Gets a Default WebArchive Deployment for the REST API.
      * 
      * @return REST API Arquillian Deployment
      */
     public static WebArchive getRestApiDeployment() {
-        final MavenDependencyResolver resolver = DependencyResolvers
-                .use(MavenDependencyResolver.class)
+        final MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class)
                 .loadMetadataFromPom("pom.xml");
-        
+
         return ShrinkWrap.create(WebArchive.class, "jee6divelog_test_restapi.war")
-                .addPackages(true, "net.bryansaunders.jee6divelog")
-                .addPackages(true, "org.apache.commons.codec")
+                .addPackages(true, "net.bryansaunders.jee6divelog").addPackages(true, "org.apache.commons.codec")
                 .addAsLibraries(resolver.artifact("com.jayway.restassured:rest-assured:1.6.2").resolveAsFiles())
                 .addAsLibraries(resolver.artifact("org.codehaus.jackson:jackson-jaxrs:1.9.8").resolveAsFiles())
                 .addAsLibraries(resolver.artifact("ch.qos.logback:logback-classic:1.0.6").resolveAsFiles())
@@ -87,14 +85,14 @@ public final class DeploymentFactory {
 
     /**
      * Gets a Default WebArchive for a Template Test.
+     * 
      * @return Template Arquillian Deployment
      */
-	public static WebArchive getTemplateDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "jee6divelog_test_template.war")
-                .addPackages(true, "net.bryansaunders.jee6divelog")
-                .addPackages(true, "org.apache.commons.codec")
-                .addPackages(true, "org.jboss.arquilian")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml");
-	}
+    public static WebArchive getTemplateDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "jee6divelog_test_template.war")
+                .addPackages(true, "net.bryansaunders.jee6divelog").addPackages(true, "org.apache.commons.codec")
+                .addPackages(true, "org.jboss.arquilian").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+                .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
+    }
 }

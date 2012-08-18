@@ -19,22 +19,22 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class MasterTemplateIT extends BaseTemplateTest {
 
-	/**
-	 * Test Setup.
-	 */
-	@Before
-	public void setUp() {
-		openContext("index.html");
-	}
+    /**
+     * Test Setup.
+     */
+    @Before
+    public void setUp() {
+        this.openContext("index.html");
+    }
 
-	/**
-	 * Test to check the title.
-	 */
-	@Test
-	public void ifTitlePresentThenPass() {
-		String title = this.browser.getTitle();
-		System.out.println("Title: " + title);
-		assertTrue(title.startsWith("BSNet-DiveLog - "));
-	}
+    /**
+     * Test to check the title.
+     */
+    @Test
+    public void ifTitlePresentThenPass() {
+        final String title = this.browser.getTitle();
+        System.out.println("Title: " + title);
+        assertTrue(title.startsWith("BSNet-DiveLog - "));
+    }
 
 }

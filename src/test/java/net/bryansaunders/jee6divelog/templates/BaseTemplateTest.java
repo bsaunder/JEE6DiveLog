@@ -24,30 +24,36 @@ import org.junit.Ignore;
 @Ignore
 public class BaseTemplateTest {
 
-	@Drone
-	protected GrapheneSelenium browser;
+    /**
+     * Browser Driver.
+     */
+    @Drone
+    protected GrapheneSelenium browser;
 
-	@ArquillianResource
-	protected URL applicationPath;
+    /**
+     * Application Path.
+     */
+    @ArquillianResource
+    protected URL applicationPath;
 
-	/**
-	 * Creates Arquillian Deployment Container.
-	 * 
-	 * @return deployment container
-	 */
-	@Deployment(testable = false)
-	public static WebArchive createDeployment() {
-		return DeploymentFactory.getTemplateDeployment();
-	}
+    /**
+     * Creates Arquillian Deployment Container.
+     * 
+     * @return deployment container
+     */
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return DeploymentFactory.getTemplateDeployment();
+    }
 
-	/**
-	 * Opens the page at the specified path.
-	 * 
-	 * @param pageName
-	 *            Page to open
-	 */
-	public void openContext(final String pageName) {
-		final URL pageUrl = URLUtils.buildUrl(this.applicationPath, pageName);
-		this.browser.open(pageUrl);
-	}
+    /**
+     * Opens the page at the specified path.
+     * 
+     * @param pageName
+     *            Page to open
+     */
+    public void openContext(final String pageName) {
+        final URL pageUrl = URLUtils.buildUrl(this.applicationPath, pageName);
+        this.browser.open(pageUrl);
+    }
 }
