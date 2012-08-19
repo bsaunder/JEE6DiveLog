@@ -40,10 +40,10 @@
 					<p>Please complete the following form to register for
 						BSNet-DiveLog.</p>
 
-					<h:form class="well form-horizontal">
+					<h:form id="registration" class="well form-horizontal">
 						<fieldset>
 							<legend>Personal Info</legend>
-							<div class="control-group #{!firstName.valid ? 'error' : ''}">
+							<div id="firstNameControl" class="control-group #{!firstName.valid ? 'error' : ''}">
 								<label class="control-label" for="firstName">* First Name</label>
 								<div class="controls">
 									<h:inputText class="input-xlarge" id="firstName" value="#{regBean.firstName}" binding="#{firstName}"></h:inputText>
@@ -51,7 +51,7 @@
 								</div>
 							</div>
 
-							<div class="control-group #{!lastName.valid ? 'error' : ''}">
+							<div id="lastNameControl" class="control-group #{!lastName.valid ? 'error' : ''}">
 								<label class="control-label" for="lastName">* Last Name</label>
 								<div class="controls">
 									<h:inputText class="input-xlarge" id="lastName" value="#{regBean.lastName}" binding="#{lastName}"></h:inputText>
@@ -59,7 +59,7 @@
 								</div>
 							</div>
 
-							<div class="control-group #{!country.valid ? 'error' : ''}">
+							<div id="countryControl" class="control-group #{!country.valid ? 'error' : ''}">
 								<label class="control-label" for="country">Country</label>
 								<div class="controls">
 									<h:inputText class="input-xlarge" id="country" value="#{regBean.country}" binding="#{country}"></h:inputText>
@@ -67,7 +67,7 @@
 								</div>
 							</div>
 
-							<div class="control-group #{!state.valid ? 'error' : ''}">
+							<div id="stateControl" class="control-group #{!state.valid ? 'error' : ''}">
 								<label class="control-label" for="state">State</label>
 								<div class="controls">
 									<h:inputText class="input-xlarge" id="state" value="#{regBean.state}" binding="#{state}"></h:inputText>
@@ -75,7 +75,7 @@
 								</div>
 							</div>
 
-							<div class="control-group #{!city.valid ? 'error' : ''}">
+							<div id="cityControl" class="control-group #{!city.valid ? 'error' : ''}">
 								<label class="control-label" for="city">City</label>
 								<div class="controls">
 									<h:inputText class="input-xlarge" id="city" value="#{regBean.city}" binding="#{city}"></h:inputText>
@@ -86,7 +86,7 @@
 
 						<fieldset>
 							<legend>Account Info</legend>
-							<div class="control-group #{!email.valid ? 'error' : ''}">
+							<div id="emailControl" class="control-group #{!email.valid ? 'error' : ''}">
 								<label class="control-label" for="email">* User Email</label>
 								<div class="controls">
 									<h:inputText class="input-xlarge" id="email" value="#{regBean.email}" binding="#{email}"></h:inputText>
@@ -94,7 +94,7 @@
 								</div>
 							</div>
 
-							<div class="control-group #{!password.valid ? 'error' : ''}">
+							<div id="passwordControl" class="control-group #{!password.valid || !confirmationPassword.valid ? 'error' : ''}">
 								<label class="control-label" for="password">* Password</label>
 								<div class="controls">
 									<h:inputSecret class="input-xlarge" id="password" value="#{regBean.password}" binding="#{password}"></h:inputSecret>
@@ -111,8 +111,8 @@
 						</fieldset>
 
 						<div class="form-actions">
-							<h:commandButton type="submit" class="btn btn-primary" value="Register" action="#{regBean.submitRegistration}"></h:commandButton>&#160;&#160;&#160;
-							<h:commandButton type="reset" class="btn btn-info" value="Reset"></h:commandButton>
+							<h:commandButton id="register" type="submit" class="btn btn-primary" value="Register" action="#{regBean.submitRegistration}"></h:commandButton>&#160;&#160;&#160;
+							<h:commandButton id="reset" type="reset" class="btn btn-info" value="Reset"></h:commandButton>
 						</div>
 					</h:form>
 				</div>

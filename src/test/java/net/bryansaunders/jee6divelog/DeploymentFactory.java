@@ -104,13 +104,14 @@ public final class DeploymentFactory {
         
         final WebArchive war = ShrinkWrap.create(WebArchive.class, "jee6divelog_test_template.war")
                 .addPackages(true, "net.bryansaunders.jee6divelog")
-                .addPackages(true, "org.apache.commons.codec")
+                .addPackages(true, "org.apache.commons")
                 .addAsLibraries(resolver.artifact("org.jboss.shrinkwrap:shrinkwrap-api:1.0.1").resolveAsFiles())
                 .addAsLibraries(resolver.artifact("org.jboss.arquillian.graphene:graphene-selenium-api:1.0.0.Final")
                         .resolveAsFiles())
                 .addAsLibraries(resolver.artifact("ch.qos.logback:logback-classic:1.0.6").resolveAsFiles())
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+                .addAsResource("ValidationMessages.properties", "ValidationMessages.properties")
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
         
         war.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)

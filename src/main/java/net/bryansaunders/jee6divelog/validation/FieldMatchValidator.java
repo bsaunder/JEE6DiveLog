@@ -61,7 +61,7 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
      * {@inheritDoc}
      */
     @Override
-    public void initialize(final FieldMatch constraintAnnotation) {
+    public void initialize(final FieldMatch constraintAnnotation) {        this.logger.debug("Initializing Password Matcher...");
         this.firstFieldName = constraintAnnotation.first();
         this.secondFieldName = constraintAnnotation.second();
     }
@@ -71,7 +71,7 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
      */
     @Override
     public boolean isValid(final Object value, final ConstraintValidatorContext context) {
-        boolean valid = false;
+        boolean valid = false;        this.logger.debug("Checking Passwords...");
 
         try {
             final Object firstObj = BeanUtils.getProperty(value, this.firstFieldName);
@@ -81,11 +81,11 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
             this.logger.debug("Checking Fields for Match: " + this.firstFieldName + "(" + firstObj
                     + ") <> " + this.secondFieldName + "(" + secondObj + ") = " + valid);
         } catch (final NoSuchMethodException e) {
-            this.logger.error("Error Validating Fields Match", e);
+            this.logger.error("NoSuchMethodException, Error Validating Fields Match", e);
         } catch (final IllegalAccessException e) {
-            this.logger.error("Error Validating Fields Match", e);
+            this.logger.error("IllegalAccessException, Error Validating Fields Match", e);
         } catch (final InvocationTargetException e) {
-            this.logger.error("Error Validating Fields Match", e);
+            this.logger.error("InvocationTargetException, Error Validating Fields Match", e);
         }
 
         return valid;

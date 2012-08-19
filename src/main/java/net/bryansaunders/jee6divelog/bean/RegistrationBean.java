@@ -1,7 +1,9 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.bean;/*
+package net.bryansaunders.jee6divelog.bean;
+
+/*
  * #%L
  * BSNet-DiveLog
  * $Id:$
@@ -25,12 +27,18 @@ package net.bryansaunders.jee6divelog.bean;/*
  * #L%
  */
 
-
 import java.lang.reflect.InvocationTargetException;
+import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
@@ -53,9 +61,7 @@ import org.slf4j.LoggerFactory;
  */
 @Named("regBean")
 @RequestScoped
-@FieldMatch.List({
-    @FieldMatch(first = "password", second = "confirmationPassword", message = "{regBean.fieldMatch.password}")
-})
+@FieldMatch(first = "password", second = "confirmationPassword", message = "{regBean.password.match}")
 public class RegistrationBean {
 
     /**
@@ -141,10 +147,25 @@ public class RegistrationBean {
     public String submitRegistration() {
         String registrationResult = RegistrationBean.SUCCESS;
 
-        final UserAccount user = this.createUser();
-        final UserAccount savedUser = this.userService.createUser(user);
+        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        final Validator validator = factory.getValidator();
 
-        if (savedUser == null) {
+        final Set<ConstraintViolation<RegistrationBean>> constraintViolations = validator.validate(this);
+        if (constraintViolations.isEmpty()) {
+            final UserAccount user = this.createUser();
+            final UserAccount savedUser = this.userService.createUser(user);
+
+            if (savedUser == null) {
+                registrationResult = RegistrationBean.FAILURE;
+            }
+        } else {
+            for (final ConstraintViolation<RegistrationBean> violation : constraintViolations) {
+                final String msgTemplate = violation.getMessageTemplate();
+                if (msgTemplate.equals("{regBean.password.match}")) {
+                    final FacesMessage message = new FacesMessage("Passwords must match.");
+                    FacesContext.getCurrentInstance().addMessage("registration:password", message);
+                }
+            }
             registrationResult = RegistrationBean.FAILURE;
         }
 

@@ -39,12 +39,6 @@
 			<property name="hibernate.archive.autodetection" value="class, hbm" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-			
-			<!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driverr" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.10.101.1:3306/jee6divelog" />
-			<property name="javax.persistence.jdbc.user" value="jee6divelog" />
-			<property name="javax.persistence.jdbc.password" value="jee6divelog1" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" /> -->
 		</properties>
 	</persistence-unit>
 </persistence>

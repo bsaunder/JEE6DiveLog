@@ -23,27 +23,7 @@ package net.bryansaunders.jee6divelog.model;/*
  */
 
 
-import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import net.bryansaunders.jee6divelog.security.enumerator.Permission;
-import net.bryansaunders.jee6divelog.security.enumerator.Role;
-
-import org.hibernate.annotations.Index;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
+import java.util.Date;import java.util.Set;import javax.persistence.CollectionTable;import javax.persistence.Column;import javax.persistence.ElementCollection;import javax.persistence.Entity;import javax.persistence.EnumType;import javax.persistence.Enumerated;import javax.persistence.JoinColumn;import javax.persistence.Table;import javax.validation.constraints.NotNull;import javax.xml.bind.annotation.XmlRootElement;import net.bryansaunders.jee6divelog.security.enumerator.Permission;import org.hibernate.annotations.Index;import org.hibernate.annotations.LazyCollection;import org.hibernate.annotations.LazyCollectionOption;
 /**
  * User Model.
  * 

@@ -28,7 +28,6 @@ package net.bryansaunders.jee6divelog.service;
  */
 
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
