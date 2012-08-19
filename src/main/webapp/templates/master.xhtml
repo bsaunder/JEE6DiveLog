@@ -60,32 +60,30 @@
 				</a> <a class="brand" href="#{root}">BSNet-DiveLog</a>
 
 
-				<c:if test="#{!identity.loggedIn}">
-					<div class="btn-group pull-right">
-						<a class="btn btn-primary" href="#{root}register.xhtml"><i
-							class="icon-pencil icon-white"></i> Register</a>
-						<button class="btn btn-primary dropdown-toggle"
-							data-toggle="dropdown">
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li><a href="#{root}login.xhtml"><i class="icon-lock"></i> Sign In</a></li>
-						</ul>
-					</div>
-				</c:if>
-				<c:if test="#{identity.loggedIn}">
-					<div class="btn-group pull-right">
-						<a class="btn btn-info" href="#{root}user/account.xhtml"><i
-							class="icon-cog icon-white"></i> Account</a>
-						<button class="btn btn-info dropdown-toggle"
-							data-toggle="dropdown">
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<h:form><li><h:commandLink action="#{identity.logout}"><i class="icon-lock"></i> Sign Out</h:commandLink></li></h:form>
-						</ul>
-					</div>
-				</c:if>
+				<div id="accountOptions" class="btn-group pull-right">
+					<c:if test="#{!identity.loggedIn}">
+							<a id="accountOption_register" class="btn btn-primary" href="#{root}register.xhtml"><i
+								class="icon-pencil icon-white"></i> Register</a>
+							<button class="btn btn-primary dropdown-toggle"
+								data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a id="accountOption_login" href="#{root}login.xhtml"><i class="icon-lock"></i> Sign In</a></li>
+							</ul>
+					</c:if>
+					<c:if test="#{identity.loggedIn}">
+							<a id="accountOption_account" class="btn btn-info" href="#{root}user/account.xhtml"><i
+								class="icon-cog icon-white"></i> Account</a>
+							<button class="btn btn-info dropdown-toggle"
+								data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<h:form><li><h:commandLink id="accountOption_logout" action="#{identity.logout}"><i class="icon-lock"></i> Sign Out</h:commandLink></li></h:form>
+							</ul>
+					</c:if>
+				</div>
 				
 
 				<div class="nav-collapse">
@@ -107,7 +105,7 @@
 						<li class="#{identity.loggedIn ? '' : 'active'}"><a href="#publicTab" data-toggle="tab">Public</a></li>
 						<c:if test="#{identity.loggedIn}"><li class="active"><a href="#privateTab" data-toggle="tab">Private</a></li></c:if>
 					</ul>
-					<div class="tab-content">
+					<div id="content-tabs" class="tab-content">
 						<div class="tab-pane #{identity.loggedIn ? '' : 'active'}" id="publicTab">
 							<ul class="nav nav-list">
 								<li class="nav-header">Log Book</li>
