@@ -17,6 +17,7 @@ import org.jboss.arquillian.ajocado.locator.IdLocator;
 import org.jboss.arquillian.ajocado.utils.URLUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.persistence.DataSource;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Ignore;
@@ -47,7 +48,7 @@ public class BaseTemplateTest {
      * 
      * @return deployment container
      */
-    @Deployment(testable = false)
+    @Deployment()
     public static WebArchive createDeployment() {
         return DeploymentFactory.getTemplateDeployment();
     }
@@ -84,9 +85,12 @@ public class BaseTemplateTest {
         final IdLocator userNameField = id("loginform:email");
         final IdLocator passwordField = id("loginform:password");
         final IdLocator loginButton = id("loginform:loginButton");
+        final IdLocator loginForm = id("loginform");
         
         this.browser.type(userNameField, userName);
         this.browser.type(passwordField, password);
+        //Graphene.waitModel.until(Graphene.textEquals.locator(Graphene.jq("title")).text("BSNet DiveLog - My Account"));
+        //waitForHttp(this.browser).submit(loginForm);
         waitForHttp(this.browser).click(loginButton);
         
         url = this.browser.getLocation().toString();
