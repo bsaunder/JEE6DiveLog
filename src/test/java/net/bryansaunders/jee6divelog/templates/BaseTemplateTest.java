@@ -48,7 +48,7 @@ public class BaseTemplateTest {
      * 
      * @return deployment container
      */
-    @Deployment()
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return DeploymentFactory.getTemplateDeployment();
     }

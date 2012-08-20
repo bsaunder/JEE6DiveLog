@@ -5,7 +5,9 @@ package net.bryansaunders.jee6divelog.templates;
 
 import static org.junit.Assert.fail;
 
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * UI Tests for Login Page.
@@ -13,6 +15,7 @@ import org.junit.Test;
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
+@RunWith(Arquillian.class)
 public class LoginTemplateIT extends BaseTemplateTest {
 
     @Test
