@@ -43,6 +43,7 @@ import javax.persistence.NoResultException;
 
 import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
 import net.bryansaunders.jee6divelog.model.UserAccount;
+import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 import org.junit.Before;
@@ -97,11 +98,10 @@ public class UserAccountServiceTest {
         // then
         assertNotNull(savedUser);
 
-        final Set<Role> roles = savedUser.getRoles();
-        assertNotNull(roles);
-        assertTrue(roles.contains(Role.USER));
+        final Set<Permission> permissions = savedUser.getPermissions();
+        assertNotNull(permissions);
+        assertTrue(permissions.contains(Permission.IS_USER));
 
-        assertNotNull(savedUser.getPermissions());
         assertEquals(savedUser, validUser);
     }
 

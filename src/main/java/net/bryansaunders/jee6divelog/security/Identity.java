@@ -119,11 +119,6 @@ public class Identity implements Serializable {
     private boolean rememberMe;
 
     /**
-     * Identity Roles.
-     */
-    private Set<Role> roles;
-
-    /**
      * Identity Permissions.
      */
     private Set<Permission> permissions;
@@ -152,7 +147,6 @@ public class Identity implements Serializable {
      * Default Constructor.
      */
     public Identity() {
-        this.roles = new LinkedHashSet<Role>();
         this.permissions = new LinkedHashSet<Permission>();
         this.status = Identity.LOGGED_OUT;
     }
@@ -196,7 +190,6 @@ public class Identity implements Serializable {
             if (hashedPassword.equals(expectedPassword)) {
                 this.setStatus(Identity.LOGGED_IN);
 
-                this.setRoles(userAccount.getRoles());
                 this.setPermissions(userAccount.getPermissions());
 
                 if (restLogin) {
@@ -311,25 +304,6 @@ public class Identity implements Serializable {
     }
 
     /**
-     * Get the roles.
-     * 
-     * @return the roles
-     */
-    public Set<Role> getRoles() {
-        return this.roles;
-    }
-
-    /**
-     * Set the roles.
-     * 
-     * @param newRoles
-     *            the roles to set
-     */
-    public void setRoles(final Set<Role> newRoles) {
-        this.roles = newRoles;
-    }
-
-    /**
      * Get the permissions.
      * 
      * @return the permissions
@@ -365,17 +339,6 @@ public class Identity implements Serializable {
      */
     public void setRememberMe(final boolean newRememberMe) {
         this.rememberMe = newRememberMe;
-    }
-
-    /**
-     * Has the specified Role.
-     * 
-     * @param role
-     *            Role to check for
-     * @return true if role is found
-     */
-    public boolean hasRole(final Role role) {
-        return this.roles.contains(role);
     }
 
     /**

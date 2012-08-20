@@ -85,7 +85,6 @@ public class UserAccountApiIT extends RestApiTest {
         newUser.setLastName("Testerson");
         newUser.setEmail("ifUserValidThenRegister@test.com");
         newUser.setPassword(VALID_PASSWORD);
-        newUser.setRoles(new LinkedHashSet<Role>());
         newUser.setPermissions(new LinkedHashSet<Permission>());
         newUser.setCreated(new Date());
         newUser.setUpdated(new Date());
@@ -101,7 +100,6 @@ public class UserAccountApiIT extends RestApiTest {
     public void ifUserInvalidThenFailRegistration() {
         final UserAccount newUser = new UserAccount();
         newUser.setFirstName("Test");
-        newUser.setRoles(new LinkedHashSet<Role>());
         newUser.setPermissions(new LinkedHashSet<Permission>());
         newUser.setCreated(new Date());
         newUser.setUpdated(new Date());

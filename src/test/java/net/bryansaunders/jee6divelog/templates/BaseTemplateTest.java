@@ -4,6 +4,8 @@
 package net.bryansaunders.jee6divelog.templates;
 
 import static org.jboss.arquillian.ajocado.Graphene.id;
+import static org.jboss.arquillian.ajocado.Graphene.waitForHttp;
+
 
 import java.net.URL;
 
@@ -81,12 +83,11 @@ public class BaseTemplateTest {
         
         final IdLocator userNameField = id("loginform:email");
         final IdLocator passwordField = id("loginform:password");
-        final IdLocator loginForm = id("loginform");
+        final IdLocator loginButton = id("loginform:loginButton");
         
         this.browser.type(userNameField, userName);
         this.browser.type(passwordField, password);
-        this.browser.submit(loginForm);
-        this.browser.waitForPageToLoad();
+        waitForHttp(this.browser).click(loginButton);
         
         url = this.browser.getLocation().toString();
         source = this.browser.getHtmlSource();

@@ -90,11 +90,6 @@ public class UserAccountService {
             user.setCreated(null);
             user.setUpdated(null);
 
-            // Set Default Roles
-            final Set<Role> defaultRoles = new LinkedHashSet<Role>();
-            defaultRoles.add(Role.USER);
-            user.setRoles(defaultRoles);
-
             // Set Default Permissions
             final Set<Permission> defaultPermissions = Role.USER.getPermissions();
             user.setPermissions(defaultPermissions);

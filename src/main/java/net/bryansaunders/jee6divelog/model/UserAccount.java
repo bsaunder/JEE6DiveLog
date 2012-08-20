@@ -106,16 +106,6 @@ public class UserAccount extends DiveLogEntity {
     private Date apiKeyExpiration;
 
     /**
-     * User Roles.
-     */
-    @ElementCollection
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    @Column(name = "role")
-    private Set<Role> roles;
-
-    /**
      * User Permissions.
      */
     @ElementCollection
@@ -259,25 +249,6 @@ public class UserAccount extends DiveLogEntity {
     }
 
     /**
-     * Get the roles.
-     * 
-     * @return the roles
-     */
-    public Set<Role> getRoles() {
-        return this.roles;
-    }
-
-    /**
-     * Set the roles.
-     * 
-     * @param newRoles
-     *            the roles to set
-     */
-    public void setRoles(final Set<Role> newRoles) {
-        this.roles = newRoles;
-    }
-
-    /**
      * Get the permissions.
      * 
      * @return the permissions
@@ -352,7 +323,7 @@ public class UserAccount extends DiveLogEntity {
         return "UserAccount [firstName=" + this.firstName + ", lastName=" + this.lastName + ", country=" + this.country
                 + ", state=" + this.state + ", city=" + this.city + ", email=" + this.email + ", password="
                 + this.password + ", apiKey=" + this.publicApiKey + ", apiKeyExpiration=" + this.apiKeyExpiration
-                + ", roles=" + this.roles + ", permissions=" + this.permissions + "]";
+                + ", permissions=" + this.permissions + "]";
     }
 
 }

@@ -85,7 +85,6 @@ public class AccountUtilsTest {
         final Credentials credentials = new Credentials();
         credentials.setUsername(email);
         identity.setCredentials(credentials);
-        identity.setRoles(roles);
         identity.setPermissions(permission);
 
         // when
@@ -96,7 +95,6 @@ public class AccountUtilsTest {
         assertEquals(privateApiKey, userAccount.getPrivateApiKey());
         assertEquals(expirationDate, userAccount.getApiKeyExpiration());
         assertEquals(email, userAccount.getEmail());
-        assertEquals(roles, userAccount.getRoles());
         assertEquals(permission, userAccount.getPermissions());
     }
 
@@ -120,7 +118,6 @@ public class AccountUtilsTest {
         final Credentials credentials = new Credentials();
         credentials.setUsername(email);
         identity.setCredentials(credentials);
-        identity.setRoles(roles);
         identity.setPermissions(permission);
 
         // when
@@ -131,7 +128,6 @@ public class AccountUtilsTest {
         assertEquals(privateApiKey, userAccount.getPrivateApiKey());
         assertEquals(expirationDate, userAccount.getApiKeyExpiration());
         assertEquals(email, userAccount.getEmail());
-        assertEquals(roles, userAccount.getRoles());
         assertEquals(permission, userAccount.getPermissions());
         assertEquals("***", userAccount.getPassword());
         assertNotNull(userAccount.getCreated());

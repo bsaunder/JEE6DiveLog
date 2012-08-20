@@ -55,7 +55,6 @@ public final class AccountUtils {
         userAccount.setPublicApiKey(identity.getPublicApiKey());
         userAccount.setPrivateApiKey(identity.getPrivateApiKey());
         userAccount.setApiKeyExpiration(identity.getApiKeyExpiration());
-        userAccount.setRoles(identity.getRoles());
         userAccount.setPermissions(identity.getPermissions());
         return userAccount;
     }

@@ -181,7 +181,6 @@ public class RestSecurityInterceptorTest {
         verify(this.mockIdentity).setPrivateApiKey(any(String.class));
         verify(this.mockIdentity).setApiKeyExpiration(any(Date.class));
         verify(this.mockIdentity).setPermissions(any(Set.class));
-        verify(this.mockIdentity).setRoles(any(Set.class));
         verify(this.mockIdentity).setStatus(anyInt());
         verify(this.mockIdentity).setCredentials(any(Credentials.class));
     }

@@ -11,6 +11,7 @@ import static org.junit.Assert.assertTrue;
 import org.jboss.arquillian.ajocado.locator.IdLocator;
 import org.jboss.arquillian.ajocado.locator.JQueryLocator;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,6 +74,7 @@ public class MasterTemplateIT extends BaseTemplateTest {
      * Test navigation tabs are correct when logged in.
      */
     @Test
+    @UsingDataSet("OneUserAccount-Admin.yml")
     public void ifNavigationTabsCorrectWhenLoggedInThenPass() {
         this.doLogin("bryan@test.com", "abcdef1A@");
 
@@ -87,6 +89,7 @@ public class MasterTemplateIT extends BaseTemplateTest {
      * Test account options are correct when logged in.
      */
     @Test
+    @UsingDataSet("OneUserAccount-Admin.yml")
     public void ifAccountOptionsCorrectWhenLoggedInThenPass() {
         this.doLogin("bryan@test.com", "abcdef1A@");
 

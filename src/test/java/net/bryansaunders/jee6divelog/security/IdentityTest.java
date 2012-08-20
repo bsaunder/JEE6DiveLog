@@ -198,21 +198,6 @@ public class IdentityTest {
     }
 
     /**
-     * Test method for Roles.
-     */
-    @Test
-    public void testRoles() {
-        final Set<Role> roleSet = new LinkedHashSet<Role>();
-        roleSet.add(Role.ADMIN);
-
-        this.identity.setRoles(roleSet);
-        final Set<Role> roles = this.identity.getRoles();
-
-        assertNotNull(roles);
-        assertEquals(roleSet, roles);
-    }
-
-    /**
      * Test method for Permissions().
      */
     @Test
@@ -237,28 +222,6 @@ public class IdentityTest {
 
         this.identity.setRememberMe(true);
         assertTrue(this.identity.isRememberMe());
-    }
-
-    /**
-     * Test for HasRole Method.
-     */
-    @Test
-    public void ifHasRoleThenTrue() {
-        final Set<Role> roleSet = new LinkedHashSet<Role>();
-        roleSet.add(Role.ADMIN);
-        this.identity.setRoles(roleSet);
-
-        assertTrue(this.identity.hasRole(Role.ADMIN));
-    }
-
-    /**
-     * Test for HasRole Method.
-     */
-    @Test
-    public void ifRoleMissingThenFalse() {
-        this.identity.setRoles(new LinkedHashSet<Role>());
-
-        assertFalse(this.identity.hasRole(Role.ADMIN));
     }
 
     /**

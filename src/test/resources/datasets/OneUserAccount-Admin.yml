@@ -8,8 +8,8 @@ user:
     country: USA
     email: bryan@test.com
     password: YWNjMTIwZGE1ZjEzOGNiMDc4M2E5MmFjZmY5YTllNjE0YzBlYmYzMzdmMzUyZTM1YjA2MzJkZjA0MjExNGUyNg==
-user_role:
+user_permission:
   - user_id: 1
-    role: ADMIN
+    permission: IS_ADMIN
   - user_id: 1
-    role: USER
+    permission: IS_USER
