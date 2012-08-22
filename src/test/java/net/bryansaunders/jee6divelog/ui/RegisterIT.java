@@ -1,16 +1,26 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.templates;
+package net.bryansaunders.jee6divelog.ui;
 
 import static org.jboss.arquillian.ajocado.Graphene.id;
 import static org.jboss.arquillian.ajocado.Graphene.waitForHttp;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.net.URL;
+
+import net.bryansaunders.jee6divelog.DeploymentFactory;
+
 import org.jboss.arquillian.ajocado.dom.Attribute;
+import org.jboss.arquillian.ajocado.framework.GrapheneSelenium;
 import org.jboss.arquillian.ajocado.locator.IdLocator;
+import org.jboss.arquillian.ajocado.utils.URLUtils;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -23,7 +33,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class RegisterTemplateIT extends BaseTemplateTest {
+public class RegisterIT {
 
     /**
      * First Name Form Field.
@@ -76,11 +86,33 @@ public class RegisterTemplateIT extends BaseTemplateTest {
     private IdLocator resetButton = id("registration:reset");
 
     /**
+     * Browser Driver.
+     */
+    @Drone
+    private GrapheneSelenium browser;
+
+    /**
+     * Application Path.
+     */
+    @ArquillianResource
+    private URL applicationPath;
+
+    /**
+     * Creates Arquillian Deployment Container.
+     * 
+     * @return deployment container
+     */
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return DeploymentFactory.getTemplateDeployment();
+    }
+
+    /**
      * Test Setup.
      */
     @Before
     public void setUp() {
-        this.openPage("register.xhtml");
+        this.browser.open(URLUtils.buildUrl(this.applicationPath, "register.xhtml"));
     }
 
     /**

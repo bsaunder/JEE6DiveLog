@@ -207,6 +207,8 @@ public class Identity implements Serializable {
 
                 this.logger.debug("Logged in User: " + this.credentials);
             }
+        }else{
+            this.logger.debug("Invalid User: User Not Found");
         }
 
         if (this.isLoggedIn()) {

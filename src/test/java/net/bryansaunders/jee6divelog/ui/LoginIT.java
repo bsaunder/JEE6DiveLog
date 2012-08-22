@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.bryansaunders.jee6divelog.templates;
+package net.bryansaunders.jee6divelog.ui;
 
 import static org.junit.Assert.fail;
 
@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class LoginTemplateIT extends BaseTemplateTest {
+public class LoginIT {
 
     @Test
     public void ifUsernameInvalidThenFail() {
