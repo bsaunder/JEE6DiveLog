@@ -52,7 +52,7 @@
 								</div>
 							</c:if>
 																					
-							<div class="control-group #{loginBean.loginError ? 'error' : ''}">
+							<div id="emailControl" class="control-group #{loginBean.loginError ? 'error' : ''}">
 								<label class="control-label" for="email">* Email</label>
 								<div class="controls">
 									<h:inputText class="input-xlarge" id="email" binding="#{email}" value="#{loginBean.email}"></h:inputText>
@@ -60,7 +60,7 @@
 								</div>
 							</div>
 
-							<div class="control-group #{loginBean.loginError  ? 'error' : ''}">
+							<div id="passwordControl" class="control-group #{loginBean.loginError  ? 'error' : ''}">
 								<label class="control-label" for="password">* Password</label>
 								<div class="controls">
 									<h:inputSecret class="input-xlarge" id="password" binding="#{password}" value="#{loginBean.password}"></h:inputSecret>
