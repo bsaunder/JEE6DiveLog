@@ -43,8 +43,7 @@ import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  * User Service for Working with User.
@@ -58,7 +57,7 @@ public class UserAccountService {
     /**
      * Logger.
      */
-    private final Logger logger = LoggerFactory.getLogger(UserAccountService.class);
+    private final Logger logger = Logger.getLogger(UserAccountService.class);
 
     /**
      * User DAO.

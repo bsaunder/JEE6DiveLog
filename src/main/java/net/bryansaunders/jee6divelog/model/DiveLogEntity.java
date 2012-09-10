@@ -45,7 +45,7 @@ import javax.persistence.Version;
 public class DiveLogEntity {
 
     /**
-     * Id.
+     * Id. Auto-Generated.
      */
     @Id
     @GeneratedValue

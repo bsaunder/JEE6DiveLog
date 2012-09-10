@@ -520,7 +520,7 @@ public class RegistrationBeanTest {
     @Test
     public void ifRegistrationValidThenSuccess() {
         // given
-        final UserAccount userAccount = this.regBean.createUser();
+        final UserAccount userAccount = this.regBean.buildUser();
         userAccount.setId(1);
         userAccount.setVersion(0);
         
@@ -552,7 +552,7 @@ public class RegistrationBeanTest {
      */
     @Test
     public void createUser(){
-        final UserAccount user = this.regBean.createUser();
+        final UserAccount user = this.regBean.buildUser();
         
         assertEquals(user.getCity(), this.city);
         assertEquals(user.getCountry(), this.country);

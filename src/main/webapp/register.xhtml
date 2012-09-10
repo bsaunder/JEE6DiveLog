@@ -94,17 +94,19 @@
 								</div>
 							</div>
 
-							<div id="passwordControl" class="control-group #{!password.valid || !confirmationPassword.valid ? 'error' : ''}">
+							<div id="passwordControl" class="control-group #{!password.valid ? 'error' : ''}">
 								<label class="control-label" for="password">* Password</label>
 								<div class="controls">
 									<h:inputSecret class="input-xlarge" id="password" value="#{regBean.password}" binding="#{password}"></h:inputSecret>
-									<span class="help-inline"><h:messages for="password"></h:messages></span>
+									<span class="help-inline"><h:message for="password"></h:message></span>
 								</div>
-
+							</div>
+							
+							<div id="passwordConfimrationControl" class="control-group #{!password.valid ? 'error' : ''}">
 								<label class="control-label" for="confirmationPassword">* Confirm
 									Password</label>
 								<div class="controls">
-									<h:inputSecret class="input-xlarge" id="confirmationPassword" value="#{regBean.confirmationPassword}"></h:inputSecret>
+									<h:inputSecret class="input-xlarge" id="confirmationPassword" value="#{regBean.confirmationPassword}" binding="#{confirmationPassword}"></h:inputSecret>
 									<span class="help-inline"><h:message for="confirmationPassword"></h:message></span>
 								</div>
 							</div>

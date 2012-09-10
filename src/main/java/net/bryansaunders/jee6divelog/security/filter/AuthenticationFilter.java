@@ -39,8 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.bryansaunders.jee6divelog.security.Identity;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  * Authentication filter that redirects non-logged in users.
@@ -59,7 +58,7 @@ public class AuthenticationFilter implements Filter {
     /**
      * Logger.
      */
-    private Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
+    private Logger logger = Logger.getLogger(AuthenticationFilter.class);
 
     /**
      * Redirect non-logged in users to the Login page.

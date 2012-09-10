@@ -32,8 +32,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  * User Entered Credentials.
@@ -54,7 +53,7 @@ public class Credentials implements Serializable {
     /**
      * Logger.
      */
-    private Logger logger = LoggerFactory.getLogger(Credentials.class);
+    private Logger logger = Logger.getLogger(Credentials.class);
 
     /**
      * Username.

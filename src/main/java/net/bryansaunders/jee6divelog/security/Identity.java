@@ -44,8 +44,7 @@ import net.bryansaunders.jee6divelog.security.enumerator.Permission;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
 import net.bryansaunders.jee6divelog.util.SecurityUtils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  * User Identity implements Serializable.
@@ -96,7 +95,7 @@ public class Identity implements Serializable {
     /**
      * Logger.
      */
-    private final Logger logger = LoggerFactory.getLogger(Identity.class);
+    private final Logger logger = Logger.getLogger(Identity.class);
 
     /**
      * User Entered Credentials.

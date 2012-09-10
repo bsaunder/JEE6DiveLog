@@ -98,6 +98,14 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
+		<!-- Logging -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>3.1.0.GA</version>
+            <scope>provided</scope>
+        </dependency>
 
 		<!-- JAX-RS -->
 		<dependency>
@@ -123,13 +131,6 @@
 			<artifactId>resteasy-cdi</artifactId>
 			<version>2.3.4.Final</version>
 			<scope>provided</scope>
-		</dependency>
-
-		<!-- Logging -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.0.6</version>
 		</dependency>
 
 		<!-- Apache Commons -->

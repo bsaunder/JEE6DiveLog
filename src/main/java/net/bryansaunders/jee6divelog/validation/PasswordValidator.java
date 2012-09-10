@@ -34,8 +34,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import net.bryansaunders.jee6divelog.validation.annotation.Password;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  * Password Validation method.
@@ -53,7 +52,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
     /**
      * Logger.
      */
-    private Logger logger = LoggerFactory.getLogger(PasswordValidator.class);
+    private Logger logger = Logger.getLogger(PasswordValidator.class);
 
     /**
      * {@inheritDoc}

@@ -31,8 +31,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.ConstraintViolation;
@@ -48,8 +46,7 @@ import net.bryansaunders.jee6divelog.validation.annotation.Password;
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  * Backing Bean for Registration Page.
@@ -61,7 +58,7 @@ import org.slf4j.LoggerFactory;
  */
 @Named("regBean")
 @RequestScoped
-@FieldMatch(first = "password", second = "confirmationPassword", message = "{regBean.password.match}")
+@FieldMatch(first = "password", second = "confirmationPassword", message = "{regBean.field.match}")
 public class RegistrationBean {
 
     /**
@@ -77,7 +74,7 @@ public class RegistrationBean {
     /**
      * Logger.
      */
-    private final Logger logger = LoggerFactory.getLogger(RegistrationBean.class);
+    private final Logger logger = Logger.getLogger(RegistrationBean.class);
 
     /**
      * User Service.
@@ -145,28 +142,26 @@ public class RegistrationBean {
      * @return Registration Status
      */
     public String submitRegistration() {
-        String registrationResult = RegistrationBean.SUCCESS;
+        String registrationResult = RegistrationBean.FAILURE;
 
         final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         final Validator validator = factory.getValidator();
 
         final Set<ConstraintViolation<RegistrationBean>> constraintViolations = validator.validate(this);
         if (constraintViolations.isEmpty()) {
-            final UserAccount user = this.createUser();
+            this.logger.info("Creating User Account: " + this.email);
+            final UserAccount user = this.buildUser();
             final UserAccount savedUser = this.userService.createUser(user);
 
-            if (savedUser == null) {
-                registrationResult = RegistrationBean.FAILURE;
+            if (savedUser != null) {
+                registrationResult = RegistrationBean.SUCCESS;
+            } else {
+                this.logger.warn("FAILED Creating User Account: " + this.email);
             }
         } else {
-            for (final ConstraintViolation<RegistrationBean> violation : constraintViolations) {
-                final String msgTemplate = violation.getMessageTemplate();
-                if (msgTemplate.equals("{regBean.password.match}")) {
-                    final FacesMessage message = new FacesMessage("Passwords must match.");
-                    FacesContext.getCurrentInstance().addMessage("registration:password", message);
-                }
+            for (ConstraintViolation<RegistrationBean> cv : constraintViolations) {
+                this.logger.debug("Reg Bean Constraint Violation: " + cv.toString());
             }
-            registrationResult = RegistrationBean.FAILURE;
         }
 
         return registrationResult;
@@ -177,7 +172,7 @@ public class RegistrationBean {
      * 
      * @return new user object
      */
-    protected UserAccount createUser() {
+    protected UserAccount buildUser() {
         final UserAccount user = new UserAccount();
 
         try {

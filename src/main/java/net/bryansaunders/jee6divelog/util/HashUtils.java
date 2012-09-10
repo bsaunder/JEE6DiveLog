@@ -34,8 +34,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  * Utility Methods for Dealing with Hashing.
@@ -48,7 +47,7 @@ public final class HashUtils {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(HashUtils.class);
+    private static final Logger LOGGER = Logger.getLogger(HashUtils.class);
 
     /**
      * Default Private Constructor.
