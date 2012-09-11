@@ -37,7 +37,7 @@ import net.bryansaunders.jee6divelog.validation.PasswordValidator;
 /**
  * Password Constraint Annotation.
  * 
- * Passwords must:
+ * Passwords must be:
  * <ul>
  * <li>Contain one digit from 0-9</li>
  * <li>Contain one lowercase letter</li>

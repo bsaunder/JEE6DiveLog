@@ -152,20 +152,26 @@ public class RegistrationBean {
         final Set<ConstraintViolation<RegistrationBean>> constraintViolations = validator.validate(this);
         if (constraintViolations.isEmpty()) {
             this.logger.info("Creating User Account: " + this.email);
-            final UserAccount user = this.buildUser();
-            final UserAccount savedUser = this.userService.createUser(user);
+            if (this.userService.isUserEmailUnique(this.email)) {
+                final UserAccount user = this.buildUser();
+                final UserAccount savedUser = this.userService.createUser(user);
 
-            if (savedUser != null) {
-                registrationResult = RegistrationBean.SUCCESS;
+                if (savedUser != null) {
+                    registrationResult = RegistrationBean.SUCCESS;
+                } else {
+                    this.logger.warn("FAILED Creating User Account: " + this.email);
+                }
             } else {
-                this.logger.warn("FAILED Creating User Account: " + this.email);
+                this.logger.debug("Reg Bean: Invalid Email");
+                final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email is not Unique", null);
+                FacesContext.getCurrentInstance().addMessage("registration:email", message);
             }
+
         } else {
             // Need to create Faces Messages for the Custom Constraint Violations
             for (ConstraintViolation<RegistrationBean> violation : constraintViolations) {
                 this.logger.debug("Reg Bean Constraint Violation: " + violation.toString());
-                final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        violation.getMessage(), null);
+                final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null);
                 FacesContext.getCurrentInstance().addMessage("registration:" + violation.getPropertyPath(), message);
             }
         }

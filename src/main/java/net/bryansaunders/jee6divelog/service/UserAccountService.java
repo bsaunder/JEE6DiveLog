@@ -128,6 +128,24 @@ public class UserAccountService {
     }
 
     /**
+     * Determines if a Username/Email is Unique.
+     * 
+     * @param email
+     *            Email to Check.
+     * @return true if the Email is Unique
+     */
+    public boolean isUserEmailUnique(final String email) {
+        boolean unique = false;
+
+        UserAccount account = this.findByUserEmail(email);
+        if (account == null) {
+            unique = true;
+        }
+
+        return unique;
+    }
+
+    /**
      * Saves the Given User.
      * 
      * @param userAccount
