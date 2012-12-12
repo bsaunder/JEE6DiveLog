@@ -30,6 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -44,7 +45,6 @@ import javax.persistence.NoResultException;
 import net.bryansaunders.jee6divelog.dao.user.UserAccountDao;
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.security.enumerator.Permission;
-import net.bryansaunders.jee6divelog.security.enumerator.Role;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -272,5 +272,20 @@ public class UserAccountServiceTest {
         assertTrue(resultList.isEmpty());
         verify(this.mockUserAccountDao).getAll();
     }
+    
+    /**
+     * Tests Email Unique.
+     */
+    @Test
+    public void ifEmailUniqueThenPass(){
+        fail("Test not implemted");
+    }
 
+    /**
+     * Tests Email Unique.
+     */
+    @Test
+    public void ifEmailNotUniqueThenFail(){
+        fail("Test not implemted");
+    }
 }

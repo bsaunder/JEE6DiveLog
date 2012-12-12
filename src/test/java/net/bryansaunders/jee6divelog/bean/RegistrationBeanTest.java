@@ -30,6 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -41,7 +42,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import net.bryansaunders.jee6divelog.bean.RegistrationBean;
 import net.bryansaunders.jee6divelog.model.UserAccount;
 import net.bryansaunders.jee6divelog.service.UserAccountService;
 
@@ -525,6 +525,7 @@ public class RegistrationBeanTest {
         userAccount.setVersion(0);
         
         // when
+        when(this.accountService.isUserEmailUnique(anyString())).thenReturn(true);
         when(this.accountService.createUser(any(UserAccount.class))).thenReturn(userAccount);
         final String result = this.regBean.submitRegistration();
         
@@ -540,6 +541,7 @@ public class RegistrationBeanTest {
         // given
         
         // when
+        when(this.accountService.isUserEmailUnique(anyString())).thenReturn(true);
         when(this.accountService.createUser(any(UserAccount.class))).thenReturn(null);
         final String result = this.regBean.submitRegistration();
         

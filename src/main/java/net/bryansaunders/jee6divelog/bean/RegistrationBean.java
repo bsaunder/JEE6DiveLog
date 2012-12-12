@@ -171,7 +171,8 @@ public class RegistrationBean {
             // Need to create Faces Messages for the Custom Constraint Violations
             for (ConstraintViolation<RegistrationBean> violation : constraintViolations) {
                 this.logger.debug("Reg Bean Constraint Violation: " + violation.toString());
-                final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null);
+                final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        violation.getMessage(), null);
                 FacesContext.getCurrentInstance().addMessage("registration:" + violation.getPropertyPath(), message);
             }
         }
